@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 6010</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24510.html">5FBE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24592">Map</a></td>
+<td class="next">
+Next: <a href="24619.html">602B</a>
+</td>
+</tr>
+</table>
+<div class="description">6010: Unpack background attribute data.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="24354.html">5F22</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24592"></span>
+<div class="comments">
+<div class="paragraph">
+Moves the attribute data into the buffer. On entry <span class="register">HL</span> will contain one of the following background reference memory locations; <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Background reference</th>
+<th colspan="1" rowspan="1">Background data</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24673.html">6061</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1"><a href="27523.html">6B83</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1"><a href="30566.html">7766</a></td>
+</tr>
+</table>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24592"></span>6010</td>
+<td class="instruction">LD DE,$5800</td>
+<td class="comment-1" rowspan="1">Begin at the start of the <a href="16384.html#22528">5800</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24595"></span>6013</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Pick up the attribute data from <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24596"></span>6014</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24597"></span>6015</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="2">If the following data is different jump to <a href="24592.html#24602">601A</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24598"></span>6016</td>
+<td class="instruction">JR NZ,$601A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24600"></span>6018</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="2">The data terminates with double zeroes, so if this occurs then return.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24601"></span>6019</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24602"></span>
+<div class="comments">
+<div class="paragraph">
+Copy and loop back round to <a href="24592.html#24595">6013</a> until bit 7 in the current attribute data is zero.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24602"></span>601A</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="2">Test if d07 is set in current attribute data. Reset bit to zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24604"></span>601C</td>
+<td class="instruction">RES 7,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24606"></span>601E</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1">Write the attribute data to <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24607"></span>601F</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">DE</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24608"></span>6020</td>
+<td class="instruction">JR Z,$6013</td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">6013</a> unless the bit operation was zero.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24610"></span>
+<div class="comments">
+<div class="paragraph">
+Using the following attribute data byte as a counter, copy the current byte this number of times.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24610"></span>6022</td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-1" rowspan="1">Pick up the attribute data from HL into <span class="register">B</span> to use as a counter.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24611"></span>6023</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24612"></span>6024</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">Decrease the counter by one.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24613"></span>6025</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1">Write the same attribute data to <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24614"></span>6026</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">DE</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24615"></span>6027</td>
+<td class="instruction">DJNZ $6025</td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24592.html#24613">6025</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24617"></span>6029</td>
+<td class="instruction">JR $6013</td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">6013</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24510.html">5FBE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24592">Map</a></td>
+<td class="next">
+Next: <a href="24619.html">602B</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+</footer>
+</body>
+</html>

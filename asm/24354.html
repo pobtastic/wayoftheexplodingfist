@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 5F22</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24320.html">5F00</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24354">Map</a></td>
+<td class="next">
+Next: <a href="24510.html">5FBE</a>
+</td>
+</tr>
+</table>
+<div class="description">5F22: Change Background.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="37376.html">9200</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24354"></span>
+<div class="comments">
+<div class="paragraph">
+Blanks the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24354"></span>5F22</td>
+<td class="instruction">LD HL,$5800</td>
+<td class="comment-1" rowspan="7">Writes $3F to all $300 locations of the attributes buffer.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24357"></span>5F25</td>
+<td class="instruction">LD E,L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24358"></span>5F26</td>
+<td class="instruction">LD D,H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24359"></span>5F27</td>
+<td class="instruction">INC DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24360"></span>5F28</td>
+<td class="instruction">LD (HL),$3F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24362"></span>5F2A</td>
+<td class="instruction">LD BC,$02FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24365"></span>5F2D</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24367"></span>5F2F</td>
+<td class="instruction">LD HL,$4000</td>
+<td class="comment-1" rowspan="7">Writes $00 to all $1800 locations of the screen buffer.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24370"></span>5F32</td>
+<td class="instruction">LD E,L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24371"></span>5F33</td>
+<td class="instruction">LD D,H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24372"></span>5F34</td>
+<td class="instruction">INC DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24373"></span>5F35</td>
+<td class="instruction">LD BC,$17FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24376"></span>5F38</td>
+<td class="instruction">LD (HL),$00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24378"></span>5F3A</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24380"></span>
+<div class="comments">
+<div class="paragraph">
+Fetch the background reference from <a href="24320.html">5F00</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24380"></span>5F3C</td>
+<td class="instruction">LD HL,$5F00</td>
+<td class="comment-1" rowspan="2">Loads <span class="register">A</span> with the contents of <a href="24320.html">5F00</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24383"></span>5F3F</td>
+<td class="instruction">LD A,(HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24384"></span>5F40</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="2">Decrease it by one, then double it.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24385"></span>5F41</td>
+<td class="instruction">ADD A,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24386"></span>5F42</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="2">Store it as the low-order byte of <span class="register">BC</span> (high-order is $00).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24387"></span>5F43</td>
+<td class="instruction">LD B,$00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24389"></span>5F45</td>
+<td class="instruction">LD (HL),B</td>
+<td class="comment-1" rowspan="1">Write $00 to <a href="24320.html">5F00</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24390"></span>5F46</td>
+<td class="instruction">LD HL,$5F0A</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="24320.html#24330">5F0A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24393"></span>5F49</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add <span class="register">BC</span> to <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24394"></span>5F4A</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="3">Loads <span class="register">DE</span> with the contents of <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24395"></span>5F4B</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24396"></span>5F4C</td>
+<td class="instruction">LD D,(HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24397"></span>5F4D</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap <span class="register">DE</span> and <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24398"></span>5F4E</td>
+<td class="instruction">CALL $5F52</td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html#24402">5F52</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24401"></span>5F51</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24402"></span>5F52</td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-1" rowspan="1">Indirect jump to address held by <span class="register">HL</span>. <table class="default">
+<tr>
+<th colspan="1" rowspan="1"><a href="24320.html">5F00</a></th>
+<th colspan="1" rowspan="1">Jump</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24354.html#24403">5F53</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24354.html#24418">5F62</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24354.html#24433">5F71</a></td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24403"></span>
+<div class="comments">
+<div class="paragraph">
+Set up background 1.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24403"></span>5F53</td>
+<td class="instruction">LD HL,$602B</td>
+<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24619.html">602B</a> to <a href="24320.html#24336">5F10</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24406"></span>5F56</td>
+<td class="instruction">LD DE,$5F10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24409"></span>5F59</td>
+<td class="instruction">LD BC,$0012</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24412"></span>5F5C</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24414"></span>5F5E</td>
+<td class="instruction">CALL $5F80</td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html#24448">5F80</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24417"></span>5F61</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24418"></span>
+<div class="comments">
+<div class="paragraph">
+Set up background 2.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24418"></span>5F62</td>
+<td class="instruction">LD HL,$603D</td>
+<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24637.html">603D</a> to <a href="24320.html#24336">5F10</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24421"></span>5F65</td>
+<td class="instruction">LD DE,$5F10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24424"></span>5F68</td>
+<td class="instruction">LD BC,$0012</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24427"></span>5F6B</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24429"></span>5F6D</td>
+<td class="instruction">CALL $5F80</td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html#24448">5F80</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24432"></span>5F70</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24433"></span>
+<div class="comments">
+<div class="paragraph">
+Set up background 3.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24433"></span>5F71</td>
+<td class="instruction">LD HL,$604F</td>
+<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24655.html">604F</a> to <a href="24320.html#24336">5F10</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24436"></span>5F74</td>
+<td class="instruction">LD DE,$5F10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24439"></span>5F77</td>
+<td class="instruction">LD BC,$0012</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24442"></span>5F7A</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24444"></span>5F7C</td>
+<td class="instruction">CALL $5F80</td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html#24448">5F80</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24447"></span>5F7F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24448"></span>
+<div class="comments">
+<div class="paragraph">
+Copy.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24448"></span>5F80</td>
+<td class="instruction">LD HL,$4080</td>
+<td class="comment-1" rowspan="2">Stash $4080 at <a href="24320.html#24322">5F02</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24451"></span>5F83</td>
+<td class="instruction">LD ($5F02),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24454"></span>5F86</td>
+<td class="instruction">LD HL,$5F10</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="24320.html#24336">5F10</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24457"></span>5F89</td>
+<td class="instruction">LD B,$04</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=$04.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24459"></span>5F8B</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24460"></span>5F8C</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="4">Loads <span class="register">DE</span> with the contents of <span class="register">HL</span>. <span class="register">HL</span> is now +2.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24461"></span>5F8D</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24462"></span>5F8E</td>
+<td class="instruction">LD D,(HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24463"></span>5F8F</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24464"></span>5F90</td>
+<td class="instruction">LD ($5F08),DE</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">DE</span> at <a href="24320.html#24328">5F08</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24468"></span>5F94</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="4">Loads <span class="register">DE</span> with the contents of <span class="register">HL</span>. <span class="register">HL</span> is now +2.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24469"></span>5F95</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24470"></span>5F96</td>
+<td class="instruction">LD D,(HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24471"></span>5F97</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24472"></span>5F98</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24473"></span>5F99</td>
+<td class="instruction">LD HL,($5F02)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24476"></span>5F9C</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24477"></span>5F9D</td>
+<td class="instruction">CALL <a href="24510.html">$5FBE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24510.html">5FBE</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24480"></span>5FA0</td>
+<td class="instruction">LD HL,($5F02)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24483"></span>5FA3</td>
+<td class="instruction">LD BC,$0080</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24486"></span>5FA6</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24487"></span>5FA7</td>
+<td class="instruction">BIT 0,H</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24489"></span>5FA9</td>
+<td class="instruction">JR Z,$5FAF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24491"></span>5FAB</td>
+<td class="instruction">LD A,$07</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24493"></span>5FAD</td>
+<td class="instruction">ADD A,H</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24494"></span>5FAE</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="24495"></span>5FAF</td>
+<td class="instruction">LD ($5F02),HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24498"></span>5FB2</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24499"></span>5FB3</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24500"></span>5FB4</td>
+<td class="instruction">DJNZ $5F8B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24502"></span>5FB6</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24503"></span>5FB7</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24504"></span>5FB8</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24505"></span>5FB9</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24506"></span>5FBA</td>
+<td class="instruction">CALL <a href="24592.html">$6010</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24592.html">6010</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24509"></span>5FBD</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24320.html">5F00</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24354">Map</a></td>
+<td class="next">
+Next: <a href="24510.html">5FBE</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+</footer>
+</body>
+</html>

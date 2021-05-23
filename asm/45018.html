@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at AFDA</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44826.html">AF1A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45018">Map</a></td>
+<td class="next">
+Next: <a href="45067.html">B00B</a>
+</td>
+</tr>
+</table>
+<div class="description">AFDA: Routine at AFDA</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="38725.html">9745</a>, <a href="42629.html">A685</a>, <a href="44037.html">AC05</a> and <a href="44826.html">AF1A</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45018"></span>AFDA</td>
+<td class="instruction">LD DE,$B024</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html">B024</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45021"></span>AFDD</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Stores the contents of <span class="register">HL</span> in the accumulator.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45022"></span>AFDE</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="4">Move bits 4 and 5 into bits 0 and 1.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45023"></span>AFDF</td>
+<td class="instruction">RRCA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45024"></span>AFE0</td>
+<td class="instruction">RRCA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45025"></span>AFE1</td>
+<td class="instruction">RRCA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45026"></span>AFE2</td>
+<td class="instruction">CALL $B004</td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45060">B004</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45029"></span>AFE5</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Stores the contents of <span class="register">HL</span> in the accumulator.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45030"></span>AFE6</td>
+<td class="instruction">CALL $B004</td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45060">B004</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45033"></span>AFE9</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45034"></span>AFEA</td>
+<td class="instruction">DJNZ $AFDD</td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="45018.html#45021">AFDD</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45036"></span>AFEC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="45037"></span>
+<div class="comments">
+<div class="paragraph">
+Writes "00" to the end of the score.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45037"></span>AFED</td>
+<td class="instruction">LD A,$30</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>="0" (ASCII zero for display).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45039"></span>AFEF</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="4">Write "0" to <span class="register">DE</span>, increment <span class="register">DE</span> by 1, write "0" to <span class="register">DE</span>, increment <span class="register">DE</span> by 1.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45040"></span>AFF0</td>
+<td class="instruction">INC DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45041"></span>AFF1</td>
+<td class="instruction">LD (DE),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45042"></span>AFF2</td>
+<td class="instruction">INC DE</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="45043"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="38725.html">9745</a> and <a href="44037.html">AC05</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45043"></span>AFF3</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="2">Writes $00 to <span class="register">DE</span> (used as a terminator).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45044"></span>AFF4</td>
+<td class="instruction">LD (DE),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45045"></span>AFF5</td>
+<td class="instruction">LD HL,$B024</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html">B024</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45048"></span>AFF8</td>
+<td class="instruction">LD B,$07</td>
+<td class="comment-1" rowspan="1">Set a counter of $07.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45050"></span>AFFA</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Fetch the score character.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45051"></span>AFFB</td>
+<td class="instruction">CP $30</td>
+<td class="comment-1" rowspan="2">If it is not ASCII "0" then return.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45053"></span>AFFD</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45054"></span>AFFE</td>
+<td class="instruction">LD (HL),$20</td>
+<td class="comment-1" rowspan="1">Overwrite the character with $20 (ASCII space for display).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45056"></span>B000</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Move onto next character.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45057"></span>B001</td>
+<td class="instruction">DJNZ $AFFA</td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="45018.html#45050">AFFA</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45059"></span>B003</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="45060"></span>
+<div class="comments">
+<div class="paragraph">
+Convert a single number into ASCII ready for printing to the screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45060"></span>B004</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="3">Store the ASCII representation of the number at <span class="register">DE</span> (it adds ASCII "0") so for example 1 ends up being 1 + $30 = $31 (e.g. "1" in ASCII).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45062"></span>B006</td>
+<td class="instruction">ADD A,$30</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45064"></span>B008</td>
+<td class="instruction">LD (DE),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45065"></span>B009</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Then increase <span class="register">DE</span> by one for the next digit.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45066"></span>B00A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44826.html">AF1A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45018">Map</a></td>
+<td class="next">
+Next: <a href="45067.html">B00B</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+</footer>
+</body>
+</html>

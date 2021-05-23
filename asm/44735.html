@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at AEBF</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44037.html">AC05</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44735">Map</a></td>
+<td class="next">
+Next: <a href="44792.html">AEF8</a>
+</td>
+</tr>
+</table>
+<div class="description">AEBF: Print the current Dan (or "NOVICE") message.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="44037.html">AC05</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44735"></span>
+<div class="comments">
+<div class="paragraph">
+Should this be a Dan, or just "novice"?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44735"></span>AEBF</td>
+<td class="instruction">LD HL,$0122</td>
+<td class="comment-1" rowspan="2">Grab <a href="45092.html#45151">B05F</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44738"></span>AEC2</td>
+<td class="instruction">LD A,($B05F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44741"></span>AEC5</td>
+<td class="instruction">AND $1F</td>
+<td class="comment-1" rowspan="1">Mask bits d0-d4.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44743"></span>AEC7</td>
+<td class="instruction">JR NZ,$AED0</td>
+<td class="comment-1" rowspan="1">If the rank is higher than zero jump to <a href="44735.html#44752">AED0</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44745"></span>AEC9</td>
+<td class="instruction">LD DE,$B045</td>
+<td class="comment-1" rowspan="2">Point to <a href="45092.html#45125">B045</a> and call <a href="37604.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44748"></span>AECC</td>
+<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44751"></span>AECF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44752"></span>
+<div class="comments">
+<div class="paragraph">
+Handle "ST" suffix.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44752"></span>AED0</td>
+<td class="instruction">LD DE,$B04D</td>
+<td class="comment-1" rowspan="3">Use <a href="45092.html#45133">B04D</a> if this is the "1st" Dan.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44755"></span>AED3</td>
+<td class="instruction">CP $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44757"></span>AED5</td>
+<td class="instruction">JR Z,$AEE8</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44759"></span>
+<div class="comments">
+<div class="paragraph">
+Handle "ND" suffix.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44759"></span>AED7</td>
+<td class="instruction">LD DE,$B050</td>
+<td class="comment-1" rowspan="3">Use <a href="45092.html#45136">B050</a> if this is the "2nd" Dan.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44762"></span>AEDA</td>
+<td class="instruction">CP $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44764"></span>AEDC</td>
+<td class="instruction">JR Z,$AEE8</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44766"></span>
+<div class="comments">
+<div class="paragraph">
+Handle "RD" suffix.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44766"></span>AEDE</td>
+<td class="instruction">LD DE,$B053</td>
+<td class="comment-1" rowspan="3">Use <a href="45092.html#45139">B053</a> if this is the "3rd" Dan.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44769"></span>AEE1</td>
+<td class="instruction">CP $03</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44771"></span>AEE3</td>
+<td class="instruction">JR Z,$AEE8</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44773"></span>
+<div class="comments">
+<div class="paragraph">
+Handle "TH" suffix.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44773"></span>AEE5</td>
+<td class="instruction">LD DE,$B056</td>
+<td class="comment-1" rowspan="1">Else use <a href="45092.html#45142">B056</a> for every"th"ing else.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44776"></span>
+<div class="comments">
+<div class="paragraph">
+Print the result to screen.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44776"></span>AEE8</td>
+<td class="instruction">LD HL,$0222</td>
+<td class="comment-1" rowspan="2">Call <a href="37604.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44779"></span>AEEB</td>
+<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44782"></span>AEEE</td>
+<td class="instruction">LD HL,$0422</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html#45145">B059</a> and call <a href="37604.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44785"></span>AEF1</td>
+<td class="instruction">LD DE,$B059</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44788"></span>AEF4</td>
+<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44791"></span>AEF7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44037.html">AC05</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44735">Map</a></td>
+<td class="next">
+Next: <a href="44792.html">AEF8</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+</footer>
+</body>
+</html>

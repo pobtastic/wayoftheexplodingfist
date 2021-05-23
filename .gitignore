@@ -1,7 +1,0 @@
-*.pyc
-build
-diffs
-dist
-
-*.z80
-*.tzx

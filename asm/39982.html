@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 9C2E</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39980.html">9C2C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39982">Map</a></td>
+<td class="next">
+Next: <a href="40019.html">9C53</a>
+</td>
+</tr>
+</table>
+<div class="description">9C2E: Game Entry Point.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39982"></span>9C2E</td>
+<td class="instruction">DI</td>
+<td class="comment-1" rowspan="1">Disable interrupts.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39983"></span>9C2F</td>
+<td class="instruction">LD A,$05</td>
+<td class="comment-1" rowspan="2">Set border colour to $05 (cyan).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39985"></span>9C31</td>
+<td class="instruction">OUT ($FE),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39987"></span>9C33</td>
+<td class="instruction">LD HL,$5BFF</td>
+<td class="comment-1" rowspan="2">Set the stack pointer to $5BFF.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39990"></span>9C36</td>
+<td class="instruction">LD SP,HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39991"></span>9C37</td>
+<td class="instruction">CALL <a href="45368.html">$B138</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45368.html">B138</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39994"></span>9C3A</td>
+<td class="instruction">LD DE,$5F00</td>
+<td class="comment-1" rowspan="3">Blah...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39997"></span>9C3D</td>
+<td class="instruction">LD HL,$6000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40000"></span>9C40</td>
+<td class="instruction">LD BC,$2100</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40003"></span>9C43</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40005"></span>9C45</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=$00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40007"></span>9C47</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="4">Writes $00 to <a href="50211.html">C423</a> and <a href="50213.html">C425</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40008"></span>9C48</td>
+<td class="instruction">LD H,$00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40010"></span>9C4A</td>
+<td class="instruction">LD ($C423),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40013"></span>9C4D</td>
+<td class="instruction">LD ($C425),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40016"></span>9C50</td>
+<td class="instruction">JP <a href="44037.html">$AC05</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="44037.html">AC05</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39980.html">9C2C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39982">Map</a></td>
+<td class="next">
+Next: <a href="40019.html">9C53</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+</footer>
+</body>
+</html>
