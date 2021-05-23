@@ -1,0 +1,15 @@
+; tap2sna.py file for The Way Of The Exploding Fist. Run
+;
+;   $ tap2sna.py @wayoftheexplodingfist.t2s
+;
+; to create a Z80 snapshot.
+
+https://www.worldofspectrum.org//pub/sinclair/games/w/WayOfTheExplodingFistThe.tzx.zip
+WayOfTheExplodingFistThe.z80
+
+; from tape block #5 to address 16384.
+--ram load=5,$4000 ;  6914 bytes ; Loading SCREEN$
+; from tape block #7 to address 24576.
+--ram load=7,$6000 ;  38914 bytes ; Game
+--ram move=$6000,$2100,$5F00
+--start 39982              ; Start at 39982

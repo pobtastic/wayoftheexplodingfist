@@ -1,0 +1,16 @@
+;
+; SkoolKit ref file for The Way Of The Exploding Fist
+;
+; To build the HTML disassembly, run these commands:
+;   tap2sna.py @wayoftheexplodingfist.t2s
+;   sna2skool.py -H -c wayoftheexplodingfist.ctl wayoftheexplodingfist.z80 > wayoftheexplodingfist.skool
+;   skool2html.py -H wayoftheexplodingfist.skool -T dark
+
+[Game]
+Game=The Way Of The Exploding Fist
+Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
+Copyright=&copy; 1985 Melbourne House
+StyleSheet=skoolkit.css;skoolkit-dark.css
+
+[PageHeaders]
+GameIndex=The complete<>RAM disassembly (work in progress)
