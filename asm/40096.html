@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,21 +31,24 @@ Next: <a href="40101.html">9CA5</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="40047.html">9C6F</a> and <a href="44037.html">AC05</a>.
+Used by the routines at <a href="40047.html">9C6F</a> and <a href="44037.html">QUIT_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">TIME_TICK</td>
 <td class="address-2"><span id="40096"></span>9CA0</td>
 <td class="instruction">LD HL,$9CA5</td>
-<td class="comment-1" rowspan="3">Decrease <a href="40101.html">9CA5</a> by 1 and return.</td>
+<td class="comment-1" rowspan="3">Decrease <a href="40101.html">TIME</a> by 1 and return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40099"></span>9CA3</td>
 <td class="instruction">DEC (HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40100"></span>9CA4</td>
 <td class="instruction">RET</td>
 </tr>

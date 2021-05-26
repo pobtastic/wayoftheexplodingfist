@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,7 +31,7 @@ Next: <a href="36059.html">8CDB</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="38725.html">9745</a>.
+Used by the routine at <a href="38725.html">DEMO_MODE</a>.
 </div>
 </div>
 </td>
@@ -46,87 +47,106 @@ The main settings page, used for directing to the controls for P1/ P2 and turnin
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_MAIN</td>
 <td class="address-2"><span id="35924"></span>8C54</td>
-<td class="instruction">CALL <a href="36428.html">$8E4C</a></td>
-<td class="comment-1" rowspan="1">Call <a href="36428.html">8E4C</a>.</td>
+<td class="instruction">CALL <a href="36428.html">CLEAR_SCREEN</a></td>
+<td class="comment-1" rowspan="1">Call <a href="36428.html">CLEAR_SCREEN</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35927"></span>8C57</td>
 <td class="instruction">LD DE,$8E6B</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html">8E6B</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html">TEXT_P1_CONTROLS</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35930"></span>8C5A</td>
 <td class="instruction">LD HL,$002D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35933"></span>8C5D</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35936"></span>8C60</td>
 <td class="instruction">LD DE,$8E8C</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36492">8E8C</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36492">TEXT_P2_CONTROLS</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35939"></span>8C63</td>
 <td class="instruction">LD HL,$1436</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35942"></span>8C66</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35945"></span>8C69</td>
 <td class="instruction">LD DE,$8E99</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36505">8E99</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36505">TEXT_SOUND_ON</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35948"></span>8C6C</td>
 <td class="instruction">LD HL,$143F</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35951"></span>8C6F</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35954"></span>8C72</td>
 <td class="instruction">LD DE,$8EA6</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36518">8EA6</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36518">TEXT_SOUND_OFF</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35957"></span>8C75</td>
 <td class="instruction">LD HL,$1448</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35960"></span>8C78</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35963"></span>8C7B</td>
 <td class="instruction">LD DE,$8EB3</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36531">8EB3</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36531">TEXT_TYPE_1</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35966"></span>8C7E</td>
 <td class="instruction">LD HL,$055C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35969"></span>8C81</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35972"></span>8C84</td>
 <td class="instruction">LD DE,$8EC6</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36550">8EC6</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36550">TEXT_EXIT</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35975"></span>8C87</td>
 <td class="instruction">LD HL,$0765</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35978"></span>8C8A</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -139,32 +159,38 @@ Does the user want to change Player 1 input method?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_P1</td>
 <td class="address-2"><span id="35981"></span>8C8D</td>
 <td class="instruction">LD A,$24</td>
 <td class="comment-1" rowspan="2">Check if "1" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35983"></span>8C8F</td>
-<td class="instruction">CALL <a href="40019.html">$9C53</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35986"></span>8C92</td>
-<td class="instruction">JP C,$8C9E</td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#35998">8C9E</a>.</td>
+<td class="instruction">JP C,<a href="35924.html#35998">GAME_CONFIGS_P2</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#35998">GAME_CONFIGS_P2</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35989"></span>8C95</td>
 <td class="instruction">LD HL,$8BD2</td>
-<td class="comment-1" rowspan="2">Write <a href="35794.html">8BD2</a> to <a href="36457.html">8E69</a>.</td>
+<td class="comment-1" rowspan="2">Write <a href="35794.html">PLAYER_1</a> to <a href="36457.html">TEMP_PLAYER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35992"></span>8C98</td>
 <td class="instruction">LD ($8E69),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="35995"></span>8C9B</td>
-<td class="instruction">JP <a href="36059.html">$8CDB</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html">8CDB</a>.</td>
+<td class="instruction">JP <a href="36059.html">GAME_CONFIGS_CONTROLS</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html">GAME_CONFIGS_CONTROLS</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -177,32 +203,38 @@ Does the user want to change Player 2 input method?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_P2</td>
 <td class="address-2"><span id="35998"></span>8C9E</td>
 <td class="instruction">LD A,$1C</td>
 <td class="comment-1" rowspan="2">Check if "2" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36000"></span>8CA0</td>
-<td class="instruction">CALL <a href="40019.html">$9C53</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36003"></span>8CA3</td>
-<td class="instruction">JP C,$8CAF</td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#36015">8CAF</a>.</td>
+<td class="instruction">JP C,<a href="35924.html#36015">GAME_CONFIGS_EXIT</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#36015">GAME_CONFIGS_EXIT</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36006"></span>8CA6</td>
 <td class="instruction">LD HL,$8BE6</td>
-<td class="comment-1" rowspan="2">Write <a href="35814.html">8BE6</a> to <a href="36457.html">8E69</a>.</td>
+<td class="comment-1" rowspan="2">Write <a href="35814.html">PLAYER_2</a> to <a href="36457.html">TEMP_PLAYER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36009"></span>8CA9</td>
 <td class="instruction">LD ($8E69),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36012"></span>8CAC</td>
-<td class="instruction">JP <a href="36059.html">$8CDB</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html">8CDB</a>.</td>
+<td class="instruction">JP <a href="36059.html">GAME_CONFIGS_CONTROLS</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html">GAME_CONFIGS_CONTROLS</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -215,18 +247,21 @@ Does the user want to exit this config screen and go back to the demo mode?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_EXIT</td>
 <td class="address-2"><span id="36015"></span>8CAF</td>
 <td class="instruction">LD A,$15</td>
 <td class="comment-1" rowspan="2">Check if "E" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36017"></span>8CB1</td>
-<td class="instruction">CALL <a href="40019.html">$9C53</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36020"></span>8CB4</td>
-<td class="instruction">JP NC,$8CDA</td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">8CDA</a> (just returns).</td>
+<td class="instruction">JP NC,<a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -239,32 +274,38 @@ Does the user want to toggle the sound flag to be "ON".
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_SOUND_ON</td>
 <td class="address-1"><span id="36023"></span>8CB7</td>
 <td class="instruction">LD A,$14</td>
 <td class="comment-1" rowspan="2">Check if "3" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36025"></span>8CB9</td>
-<td class="instruction">CALL <a href="40019.html">$9C53</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36028"></span>8CBC</td>
-<td class="instruction">JP C,$8CC7</td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#36039">8CC7</a>.</td>
+<td class="instruction">JP C,<a href="35924.html#36039">GAME_CONFIGS_SOUND_OFF</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#36039">GAME_CONFIGS_SOUND_OFF</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36031"></span>8CBF</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="2">Write $01 to <a href="45818.html">B2FA</a>.</td>
+<td class="comment-1" rowspan="2">Write $01 to <a href="45818.html">FLAG_SOUND</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36033"></span>8CC1</td>
 <td class="instruction">LD ($B2FA),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36036"></span>8CC4</td>
-<td class="instruction">JP $8CDA</td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">8CDA</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -277,49 +318,57 @@ Does the user want to toggle the sound flag to be "OFF".
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_SOUND_OFF</td>
 <td class="address-2"><span id="36039"></span>8CC7</td>
 <td class="instruction">LD A,$0C</td>
 <td class="comment-1" rowspan="2">Check if "4" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36041"></span>8CC9</td>
-<td class="instruction">CALL <a href="40019.html">$9C53</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36044"></span>8CCC</td>
-<td class="instruction">JP C,$8CD7</td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#36055">8CD7</a>.</td>
+<td class="instruction">JP C,<a href="35924.html#36055">GAME_CONFIGS_END</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="35924.html#36055">GAME_CONFIGS_END</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36047"></span>8CCF</td>
 <td class="instruction">LD A,$00</td>
-<td class="comment-1" rowspan="2">Write $00 to <a href="45818.html">B2FA</a>.</td>
+<td class="comment-1" rowspan="2">Write $00 to <a href="45818.html">FLAG_SOUND</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36049"></span>8CD1</td>
 <td class="instruction">LD ($B2FA),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36052"></span>8CD4</td>
-<td class="instruction">JP $8CDA</td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">8CDA</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_END</td>
 <td class="address-2"><span id="36055"></span>8CD7</td>
-<td class="instruction">JP $8C8D</td>
-<td class="comment-1" rowspan="1">Loop back round to <a href="35924.html#35981">8C8D</a>.</td>
+<td class="instruction">JP <a href="35924.html#35981">GAME_CONFIGS_P1</a></td>
+<td class="comment-1" rowspan="1">Loop back round to <a href="35924.html#35981">GAME_CONFIGS_P1</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
 <span id="36058"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="36059.html">8CDB</a> and <a href="36249.html">8D99</a>.
+This entry point is used by the routines at <a href="36059.html">GAME_CONFIGS_CONTROLS</a> and <a href="36249.html">GAME_CONFIGS_KEYS</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_RETURN</td>
 <td class="address-2"><span id="36058"></span>8CDA</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

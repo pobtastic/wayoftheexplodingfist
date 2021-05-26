@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,7 +31,7 @@ Next: <a href="44037.html">AC05</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="44037.html">AC05</a>.
+Used by the routine at <a href="44037.html">QUIT_GAME</a>.
 </div>
 </div>
 </td>
@@ -43,7 +44,7 @@ Used by the routine at <a href="44037.html">AC05</a>.
 <tr>
 <td class="address-1"><span id="43889"></span>AB71</td>
 <td class="instruction">LD ($B05F),A</td>
-<td class="comment-1" rowspan="2">Writes $00 to <a href="45092.html#45151">B05F</a> and <a href="39980.html">9C2C</a>.</td>
+<td class="comment-1" rowspan="2">Writes $00 to <a href="45092.html#45151">CURRENT_RANK</a> and <a href="39980.html">NUM_PLAYERS</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43892"></span>AB74</td>
@@ -127,7 +128,7 @@ Used by the routine at <a href="44037.html">AC05</a>.
 <tr>
 <td class="address-1"><span id="43933"></span>AB9D</td>
 <td class="instruction">LD HL,$0222</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html#45113">B039</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html#45113">TEXT_DEMO</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43936"></span>ABA0</td>
@@ -135,16 +136,16 @@ Used by the routine at <a href="44037.html">AC05</a>.
 </tr>
 <tr>
 <td class="address-1"><span id="43939"></span>ABA3</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43942"></span>ABA6</td>
 <td class="instruction">LD HL,$B035</td>
-<td class="comment-1" rowspan="2">Point to <a href="45092.html#45109">B035</a> and call <a href="42629.html">A685</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="45092.html#45109">HISCORE</a> and call <a href="42629.html">PRINT_HISCORE</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43945"></span>ABA9</td>
-<td class="instruction">CALL <a href="42629.html">$A685</a></td>
+<td class="instruction">CALL <a href="42629.html">PRINT_HISCORE</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="43948"></span>ABAC</td>
@@ -189,7 +190,7 @@ Used by the routine at <a href="44037.html">AC05</a>.
 <tr>
 <td class="address-1"><span id="43966"></span>ABBE</td>
 <td class="instruction">LD HL,$B05F</td>
-<td class="comment-1" rowspan="2">Point to <a href="45092.html#45151">B05F</a> and increment it by 1.</td>
+<td class="comment-1" rowspan="2">Point to <a href="45092.html#45151">CURRENT_RANK</a> and increment it by 1.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="43969"></span>ABC1</td>
@@ -215,7 +216,7 @@ Used by the routine at <a href="44037.html">AC05</a>.
 </tr>
 <tr>
 <td class="address-2"><span id="43976"></span>ABC8</td>
-<td class="instruction">CALL <a href="44037.html#44582">$AE26</a></td>
+<td class="instruction">CALL <a href="44037.html#44582">QUIT_GAME_28</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -280,7 +281,7 @@ Used by the routine at <a href="44037.html">AC05</a>.
 </tr>
 <tr>
 <td class="address-1"><span id="44005"></span>ABE5</td>
-<td class="instruction">CALL <a href="44037.html#44701">$AE9D</a></td>
+<td class="instruction">CALL <a href="44037.html#44701">QUIT_GAME_37</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -350,7 +351,7 @@ Used by the routine at <a href="44037.html">AC05</a>.
 </tr>
 <tr>
 <td class="address-2"><span id="44032"></span>AC00</td>
-<td class="instruction">CALL <a href="44037.html#44666">$AE7A</a></td>
+<td class="instruction">CALL <a href="44037.html#44666">QUIT_GAME_34</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>

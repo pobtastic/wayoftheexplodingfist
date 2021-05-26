@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,37 +31,44 @@ Next: <a href="44826.html">AF1A</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="44037.html">AC05</a>.
+Used by the routine at <a href="44037.html">QUIT_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">RESET_SCORE</td>
 <td class="address-2"><span id="44811"></span>AF0B</td>
 <td class="instruction">LD HL,$B02D</td>
 <td class="comment-1" rowspan="6">Writes $00 to the memory locations between $B02D-$B032 (blanks current $B02D).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44814"></span>AF0E</td>
 <td class="instruction">LD (HL),$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44816"></span>AF10</td>
 <td class="instruction">LD DE,$B02D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44819"></span>AF13</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44820"></span>AF14</td>
 <td class="instruction">LD BC,$0005</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44823"></span>AF17</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44825"></span>AF19</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

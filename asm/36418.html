@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,34 +31,40 @@ Next: <a href="36428.html">8E4C</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="36059.html">8CDB</a> and <a href="36249.html">8D99</a>.
+Used by the routines at <a href="36059.html">GAME_CONFIGS_CONTROLS</a> and <a href="36249.html">GAME_CONFIGS_KEYS</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">CONFIGS_DELAY</td>
 <td class="address-2"><span id="36418"></span>8E42</td>
 <td class="instruction">LD BC,$EA60</td>
 <td class="comment-1" rowspan="1">Set <span class="register">BC</span>=$EA60</td>
 </tr>
 <tr>
+<td class="asm-label">CONFIGS_DELAY_LOOP</td>
 <td class="address-2"><span id="36421"></span>8E45</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="4">Countdown <span class="register">BC</span> until #0000.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36422"></span>8E46</td>
 <td class="instruction">LD A,B</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36423"></span>8E47</td>
 <td class="instruction">OR C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36424"></span>8E48</td>
-<td class="instruction">JP NZ,$8E45</td>
+<td class="instruction">JP NZ,<a href="36418.html#36421">CONFIGS_DELAY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36427"></span>8E4B</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

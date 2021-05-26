@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>The Way Of The Exploding Fist: Routine at 5FBE</title>
+<title>The Way Of The Exploding Fist: Routine at 5F80</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
@@ -19,19 +19,201 @@
 <td class="prev">
 Prev: <a href="24354.html">5F22</a>
 </td>
-<td class="up">Up: <a href="../maps/all.html#24510">Map</a></td>
+<td class="up">Up: <a href="../maps/all.html#24448">Map</a></td>
 <td class="next">
 Next: <a href="24592.html">6010</a>
 </td>
 </tr>
 </table>
-<div class="description">5FBE: Routine at 5FBE</div>
+<div class="description">5F80: Copy.</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
 Used by the routine at <a href="24354.html">5F22</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24448"></span>5F80</td>
+<td class="instruction">LD HL,$4080</td>
+<td class="comment-1" rowspan="2">Stash $4080 at <a href="24320.html#24322">BACKGROUND_SCREEN_ADDRESS</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24451"></span>5F83</td>
+<td class="instruction">LD ($5F02),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24454"></span>5F86</td>
+<td class="instruction">LD HL,$5F10</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24457"></span>5F89</td>
+<td class="instruction">LD B,$04</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=$04.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24459"></span>5F8B</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Push <span class="register">BC</span> onto the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24460"></span>5F8C</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="5">Fetch the address of the next pixel data block and store it at <a href="24320.html#24328">BACKGROUND_PIXEL_DATA</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24461"></span>5F8D</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24462"></span>5F8E</td>
+<td class="instruction">LD D,(HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24463"></span>5F8F</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24464"></span>5F90</td>
+<td class="instruction">LD ($5F08),DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24468"></span>5F94</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="4">Fetch the address of the next pixel data block and store it in <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24469"></span>5F95</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24470"></span>5F96</td>
+<td class="instruction">LD D,(HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24471"></span>5F97</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24472"></span>5F98</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Push <span class="register">HL</span> (pointing to the next data block) onto the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24473"></span>5F99</td>
+<td class="instruction">LD HL,($5F02)</td>
+<td class="comment-1" rowspan="1">Fetch <a href="24320.html#24322">BACKGROUND_SCREEN_ADDRESS</a> and store it in <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24476"></span>5F9C</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Switch <span class="register">DE</span> and <span class="register">HL</span> so <span class="register">DE</span> now holds the screen address and <span class="register">HL</span> holds the start of the pixel data block.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24477"></span>5F9D</td>
+<td class="instruction">CALL $5FBE</td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24510">5FBE</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24480"></span>5FA0</td>
+<td class="instruction">LD HL,($5F02)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24483"></span>5FA3</td>
+<td class="instruction">LD BC,$0080</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24486"></span>5FA6</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24487"></span>5FA7</td>
+<td class="instruction">BIT 0,H</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24489"></span>5FA9</td>
+<td class="instruction">JR Z,$5FAF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24491"></span>5FAB</td>
+<td class="instruction">LD A,$07</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24493"></span>5FAD</td>
+<td class="instruction">ADD A,H</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24494"></span>5FAE</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="24495"></span>5FAF</td>
+<td class="instruction">LD ($5F02),HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24498"></span>5FB2</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24499"></span>5FB3</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24500"></span>5FB4</td>
+<td class="instruction">DJNZ $5F8B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24502"></span>5FB6</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24503"></span>5FB7</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24504"></span>5FB8</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24505"></span>5FB9</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24506"></span>5FBA</td>
+<td class="instruction">CALL <a href="24592.html">BACKGROUND_ATTRIBUTES</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24592.html">BACKGROUND_ATTRIBUTES</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24509"></span>5FBD</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24510"></span>
+<div class="comments">
+<div class="paragraph">
+ffff
 </div>
 </div>
 </td>
@@ -54,12 +236,12 @@ Used by the routine at <a href="24354.html">5F22</a>.
 <tr>
 <td class="address-1"><span id="24513"></span>5FC1</td>
 <td class="instruction">JR NZ,$5FC6</td>
-<td class="comment-1" rowspan="1">Jump to <a href="24510.html#24518">5FC6</a> if the values are different.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="24448.html#24518">5FC6</a> if the values are different.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24515"></span>5FC3</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="2">Jump to <a href="24510.html#24563">5FF3</a> if they are the same.</td>
+<td class="comment-1" rowspan="2">Jump to <a href="24448.html#24563">5FF3</a> if they are the same.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24516"></span>5FC4</td>
@@ -143,12 +325,12 @@ Used by the routine at <a href="24354.html">5F22</a>.
 <tr>
 <td class="address-1"><span id="24541"></span>5FDD</td>
 <td class="instruction">CALL $5FF4</td>
-<td class="comment-1" rowspan="1">Call <a href="24510.html#24564">5FF4</a>.</td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24564">5FF4</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24544"></span>5FE0</td>
 <td class="instruction">CALL $6007</td>
-<td class="comment-1" rowspan="1">Call <a href="24510.html#24583">6007</a>.</td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24583">6007</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24547"></span>5FE3</td>
@@ -178,22 +360,22 @@ Used by the routine at <a href="24354.html">5F22</a>.
 <tr>
 <td class="address-2"><span id="24553"></span>5FE9</td>
 <td class="instruction">CALL $5FF4</td>
-<td class="comment-1" rowspan="1">Call <a href="24510.html#24564">5FF4</a>.</td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24564">5FF4</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24556"></span>5FEC</td>
 <td class="instruction">CALL $6007</td>
-<td class="comment-1" rowspan="1">Call <a href="24510.html#24583">6007</a>.</td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24583">6007</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24559"></span>5FEF</td>
 <td class="instruction">DJNZ $5FE9</td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24510.html#24553">5FE9</a> until counter is zero.</td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24448.html#24553">5FE9</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24561"></span>5FF1</td>
 <td class="instruction">JR $5FBE</td>
-<td class="comment-1" rowspan="1">Jump back round to <a href="24510.html">5FBE</a>.</td>
+<td class="comment-1" rowspan="1">Jump back round to <a href="24448.html#24510">5FBE</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -276,7 +458,7 @@ Lalala
 <tr>
 <td class="address-1"><span id="24578"></span>6002</td>
 <td class="instruction">JR NZ,$5FFB</td>
-<td class="comment-1" rowspan="1">Jump to <a href="24510.html#24571">5FFB</a> if <span class="register">A</span> is not zero.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="24448.html#24571">5FFB</a> if <span class="register">A</span> is not zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24580"></span>6004</td>
@@ -343,7 +525,7 @@ Hmmm
 <td class="prev">
 Prev: <a href="24354.html">5F22</a>
 </td>
-<td class="up">Up: <a href="../maps/all.html#24510">Map</a></td>
+<td class="up">Up: <a href="../maps/all.html#24448">Map</a></td>
 <td class="next">
 Next: <a href="24592.html">6010</a>
 </td>

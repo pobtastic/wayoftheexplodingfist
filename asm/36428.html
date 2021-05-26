@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,62 +31,75 @@ Next: <a href="36457.html">8E69</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="35924.html">8C54</a>, <a href="36059.html">8CDB</a> and <a href="36249.html">8D99</a>.
+Used by the routines at <a href="35924.html">GAME_CONFIGS_MAIN</a>, <a href="36059.html">GAME_CONFIGS_CONTROLS</a> and <a href="36249.html">GAME_CONFIGS_KEYS</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">CLEAR_SCREEN</td>
 <td class="address-2"><span id="36428"></span>8E4C</td>
 <td class="instruction">LD DE,$4001</td>
 <td class="comment-1" rowspan="6">Clears the screen buffer by writing $00 to 6143 memory locations.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36431"></span>8E4F</td>
 <td class="instruction">LD HL,$4000</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36434"></span>8E52</td>
 <td class="instruction">LD A,$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36436"></span>8E54</td>
 <td class="instruction">LD (HL),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36437"></span>8E55</td>
 <td class="instruction">LD BC,$17FF</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36440"></span>8E58</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36442"></span>8E5A</td>
 <td class="instruction">LD HL,$5800</td>
 <td class="comment-1" rowspan="6">Clears the attribute buffer by writing $0D to 767 memory locations.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36445"></span>8E5D</td>
 <td class="instruction">LD DE,$5801</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36448"></span>8E60</td>
 <td class="instruction">LD A,$0D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36450"></span>8E62</td>
 <td class="instruction">LD (HL),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36451"></span>8E63</td>
 <td class="instruction">LD BC,$02FF</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36454"></span>8E66</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36456"></span>8E68</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-b">
 <table class="header">
@@ -33,55 +34,66 @@ Next: <a href="24354.html">5F22</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_REFERENCE</td>
 <td class="address-1"><span id="24320"></span>5F00</td>
 <td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Current Background Reference.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24321"></span>5F01</td>
 <td class="instruction">DEFB $00</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_SCREEN_ADDRESS</td>
 <td class="address-1"><span id="24322"></span>5F02</td>
 <td class="instruction">DEFB $00,$00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Holds current screen location</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24324"></span>5F04</td>
 <td class="instruction">DEFB $00,$00,$00,$00</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_PIXEL_DATA</td>
 <td class="address-1"><span id="24328"></span>5F08</td>
 <td class="instruction">DEFW $0000</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Holds currently processed pixel data block.</td>
 </tr>
 <tr>
+<td class="asm-label">COPY_BACKGROUND_1</td>
 <td class="address-1"><span id="24330"></span>5F0A</td>
 <td class="instruction">DEFW <a href="24354.html#24403">$5F53</a></td>
 <td class="comment-1" rowspan="1">Location of code to copy background 1 reference data.</td>
 </tr>
 <tr>
+<td class="asm-label">COPY_BACKGROUND_2</td>
 <td class="address-1"><span id="24332"></span>5F0C</td>
 <td class="instruction">DEFW <a href="24354.html#24418">$5F62</a></td>
 <td class="comment-1" rowspan="1">Location of code to copy background 2 reference data.</td>
 </tr>
 <tr>
+<td class="asm-label">COPY_BACKGROUND_3</td>
 <td class="address-1"><span id="24334"></span>5F0E</td>
 <td class="instruction">DEFW <a href="24354.html#24433">$5F71</a></td>
 <td class="comment-1" rowspan="1">Location of code to copy background 3 reference data.</td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_DATA_BUFFER</td>
 <td class="address-1"><span id="24336"></span>5F10</td>
 <td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
 <td class="comment-1" rowspan="3">Buffer which holds the currently processed background data.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24344"></span>5F18</td>
 <td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24352"></span>5F20</td>
 <td class="instruction">DEFB $00,$00</td>
 </tr>

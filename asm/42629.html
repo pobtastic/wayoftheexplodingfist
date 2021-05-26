@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
 <body class="Asm-c">
 <table class="header">
@@ -30,40 +31,47 @@ Next: <a href="42647.html">A697</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="43888.html">AB70</a> and <a href="44037.html">AC05</a>.
+Used by the routines at <a href="43888.html">AB70</a> and <a href="44037.html">QUIT_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_HISCORE</td>
 <td class="address-2"><span id="42629"></span>A685</td>
 <td class="instruction">LD B,$03</td>
 <td class="comment-1" rowspan="1">Set a counter = $03 digits.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42631"></span>A687</td>
-<td class="instruction">CALL <a href="45018.html">$AFDA</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html">AFDA</a>.</td>
+<td class="instruction">CALL <a href="45018.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42634"></span>A68A</td>
-<td class="instruction">CALL <a href="45018.html#45037">$AFED</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">AFED</a>.</td>
+<td class="instruction">CALL <a href="45018.html#45037">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">WRITE_00</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42637"></span>A68D</td>
 <td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html">B024</a> and call <a href="37604.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html">SCORE_BUFFER</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42640"></span>A690</td>
 <td class="instruction">LD HL,$0A19</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42643"></span>A693</td>
-<td class="instruction">CALL <a href="37604.html">$92E4</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42646"></span>A696</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
