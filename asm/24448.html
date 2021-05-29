@@ -25,7 +25,7 @@ Next: <a href="24592.html">6010</a>
 </td>
 </tr>
 </table>
-<div class="description">5F80: Copy.</div>
+<div class="description">5F80: Creates the background image.</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -37,173 +37,203 @@ Used by the routine at <a href="24354.html">5F22</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">CREATE_BACKGROUND</td>
 <td class="address-2"><span id="24448"></span>5F80</td>
 <td class="instruction">LD HL,$4080</td>
 <td class="comment-1" rowspan="2">Stash $4080 at <a href="24320.html#24322">BACKGROUND_SCREEN_ADDRESS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24451"></span>5F83</td>
 <td class="instruction">LD ($5F02),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24454"></span>5F86</td>
 <td class="instruction">LD HL,$5F10</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24457"></span>5F89</td>
 <td class="instruction">LD B,$04</td>
-<td class="comment-1" rowspan="1"><span class="register">B</span>=$04.</td>
+<td class="comment-1" rowspan="2">Each background has 4 "sets" of data, so set a counter of $04. Push it onto the stack for now.</td>
 </tr>
 <tr>
+<td class="asm-label">CREATE_BACKGROUND_LOOP</td>
 <td class="address-2"><span id="24459"></span>5F8B</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-1" rowspan="1">Push <span class="register">BC</span> onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24460"></span>5F8C</td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-1" rowspan="5">Fetch the address of the next pixel data block and store it at <a href="24320.html#24328">BACKGROUND_PIXEL_DATA</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24461"></span>5F8D</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24462"></span>5F8E</td>
 <td class="instruction">LD D,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24463"></span>5F8F</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24464"></span>5F90</td>
 <td class="instruction">LD ($5F08),DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24468"></span>5F94</td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-1" rowspan="4">Fetch the address of the next pixel data block and store it in <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24469"></span>5F95</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24470"></span>5F96</td>
 <td class="instruction">LD D,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24471"></span>5F97</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24472"></span>5F98</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="1">Push <span class="register">HL</span> (pointing to the next data block) onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24473"></span>5F99</td>
 <td class="instruction">LD HL,($5F02)</td>
 <td class="comment-1" rowspan="1">Fetch <a href="24320.html#24322">BACKGROUND_SCREEN_ADDRESS</a> and store it in <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24476"></span>5F9C</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Switch <span class="register">DE</span> and <span class="register">HL</span> so <span class="register">DE</span> now holds the screen address and <span class="register">HL</span> holds the start of the pixel data block.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24477"></span>5F9D</td>
-<td class="instruction">CALL $5FBE</td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html#24510">5FBE</a>.</td>
+<td class="instruction">CALL <a href="24448.html#24510">BACKGROUND_CHECK_END</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24510">BACKGROUND_CHECK_END</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24480"></span>5FA0</td>
 <td class="instruction">LD HL,($5F02)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24483"></span>5FA3</td>
 <td class="instruction">LD BC,$0080</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24486"></span>5FA6</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24487"></span>5FA7</td>
 <td class="instruction">BIT 0,H</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24489"></span>5FA9</td>
-<td class="instruction">JR Z,$5FAF</td>
+<td class="instruction">JR Z,<a href="24448.html#24495">BACKGROUND_XXXX</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24491"></span>5FAB</td>
 <td class="instruction">LD A,$07</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24493"></span>5FAD</td>
 <td class="instruction">ADD A,H</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24494"></span>5FAE</td>
 <td class="instruction">LD H,A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_XXXX</td>
 <td class="address-2"><span id="24495"></span>5FAF</td>
 <td class="instruction">LD ($5F02),HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24498"></span>5FB2</td>
 <td class="instruction">POP HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Restores <span class="register">HL</span> and the counter from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24499"></span>5FB3</td>
 <td class="instruction">POP BC</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24500"></span>5FB4</td>
-<td class="instruction">DJNZ $5F8B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DJNZ <a href="24448.html#24459">CREATE_BACKGROUND_LOOP</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24448.html#24459">CREATE_BACKGROUND_LOOP</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24502"></span>5FB6</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="5">Fetch the address for the attributes data and call <a href="24592.html">BACKGROUND_ATTRIBUTES</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24503"></span>5FB7</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24504"></span>5FB8</td>
 <td class="instruction">LD D,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24505"></span>5FB9</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24506"></span>5FBA</td>
 <td class="instruction">CALL <a href="24592.html">BACKGROUND_ATTRIBUTES</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24592.html">BACKGROUND_ATTRIBUTES</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24509"></span>5FBD</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -213,169 +243,207 @@ Used by the routine at <a href="24354.html">5F22</a>.
 <span id="24510"></span>
 <div class="comments">
 <div class="paragraph">
-ffff
+Fetch the data and check for the terminator.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_CHECK_END</td>
 <td class="address-2"><span id="24510"></span>5FBE</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1">Grab the pixel data.</td>
+<td class="comment-1" rowspan="1">Fetch the next pixel data byte.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24511"></span>5FBF</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one to point to the next item of pixel data.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24512"></span>5FC0</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-1" rowspan="1">Compares the contents of <span class="register">HL</span> with <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Check if this data is the same as the previous pixel data value.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24513"></span>5FC1</td>
-<td class="instruction">JR NZ,$5FC6</td>
-<td class="comment-1" rowspan="1">Jump to <a href="24448.html#24518">5FC6</a> if the values are different.</td>
+<td class="instruction">JR NZ,<a href="24448.html#24518">BACKGROUND_PROCESS</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="24448.html#24518">BACKGROUND_PROCESS</a> if the values are different.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24515"></span>5FC3</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="2">Jump to <a href="24448.html#24563">5FF3</a> if they are the same.</td>
+<td class="comment-1" rowspan="2">Double zero is the terminator, so jump to <a href="24448.html#24563">BACKGROUND_RETURN</a> to return if this is detected.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24516"></span>5FC4</td>
-<td class="instruction">JR Z,$5FF3</td>
+<td class="instruction">JR Z,<a href="24448.html#24563">BACKGROUND_RETURN</a></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="24518"></span>
+<div class="comments">
+<div class="paragraph">
+Process the pixel data.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">BACKGROUND_PROCESS</td>
 <td class="address-2"><span id="24518"></span>5FC6</td>
 <td class="instruction">BIT 7,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Check if d7 is set, reset it regardless.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24520"></span>5FC8</td>
 <td class="instruction">RES 7,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24522"></span>5FCA</td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-1" rowspan="1">Push <span class="register">AF</span> onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24523"></span>5FCB</td>
 <td class="instruction">EXX</td>
 <td class="comment-1" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24524"></span>5FCC</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Set the LSB of <span class="register">BC</span> to <span class="register">A</span>, and the MSB to $00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24525"></span>5FCD</td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24527"></span>5FCF</td>
 <td class="instruction">LD L,C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Copy the same value into <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24528"></span>5FD0</td>
 <td class="instruction">LD H,B</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24529"></span>5FD1</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Unclear yet...</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24530"></span>5FD2</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Unclear yet...</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24531"></span>5FD3</td>
 <td class="instruction">ADD HL,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24532"></span>5FD4</td>
 <td class="instruction">LD BC,($5F08)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Fetch the contents of <a href="24320.html#24328">BACKGROUND_PIXEL_DATA</a> and store in <span class="register">BC</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24536"></span>5FD8</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24537"></span>5FD9</td>
 <td class="instruction">LD ($5F04),HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24540"></span>5FDC</td>
 <td class="instruction">EXX</td>
 <td class="comment-1" rowspan="1">Exchange the registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24541"></span>5FDD</td>
-<td class="instruction">CALL $5FF4</td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html#24564">5FF4</a>.</td>
+<td class="instruction">CALL <a href="24448.html#24564">COPY_UDG</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24564">COPY_UDG</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24544"></span>5FE0</td>
-<td class="instruction">CALL $6007</td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html#24583">6007</a>.</td>
+<td class="instruction">CALL <a href="24448.html#24583">BACKGROUND_BLOCK_DOWN</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24583">BACKGROUND_BLOCK_DOWN</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24547"></span>5FE3</td>
 <td class="instruction">POP AF</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24548"></span>5FE4</td>
-<td class="instruction">JR Z,$5FBE</td>
+<td class="instruction">JR Z,<a href="24448.html#24510">BACKGROUND_CHECK_END</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24550"></span>5FE6</td>
 <td class="instruction">LD B,(HL)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24551"></span>5FE7</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24552"></span>5FE8</td>
 <td class="instruction">DEC B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_XXXXX</td>
 <td class="address-2"><span id="24553"></span>5FE9</td>
-<td class="instruction">CALL $5FF4</td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html#24564">5FF4</a>.</td>
+<td class="instruction">CALL <a href="24448.html#24564">COPY_UDG</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24564">COPY_UDG</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24556"></span>5FEC</td>
-<td class="instruction">CALL $6007</td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html#24583">6007</a>.</td>
+<td class="instruction">CALL <a href="24448.html#24583">BACKGROUND_BLOCK_DOWN</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html#24583">BACKGROUND_BLOCK_DOWN</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24559"></span>5FEF</td>
-<td class="instruction">DJNZ $5FE9</td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24448.html#24553">5FE9</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="24448.html#24553">BACKGROUND_XXXXX</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24448.html#24553">BACKGROUND_XXXXX</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24561"></span>5FF1</td>
-<td class="instruction">JR $5FBE</td>
-<td class="comment-1" rowspan="1">Jump back round to <a href="24448.html#24510">5FBE</a>.</td>
+<td class="instruction">JR <a href="24448.html#24510">BACKGROUND_CHECK_END</a></td>
+<td class="comment-1" rowspan="1">Jump back round to <a href="24448.html#24510">BACKGROUND_CHECK_END</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -388,6 +456,7 @@ Used to "just return" after flag checking operations.
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_RETURN</td>
 <td class="address-2"><span id="24563"></span>5FF3</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -397,79 +466,94 @@ Used to "just return" after flag checking operations.
 <span id="24564"></span>
 <div class="comments">
 <div class="paragraph">
-Lalala
+Copy a single UDG 8x8 pixel block to the screen.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">COPY_UDG</td>
 <td class="address-2"><span id="24564"></span>5FF4</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="2">Push <span class="register">DE</span> and <span class="register">HL</span> onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24565"></span>5FF5</td>
 <td class="instruction">PUSH HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24566"></span>5FF6</td>
 <td class="instruction">LD A,$08</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$08.</td>
+<td class="comment-1" rowspan="1">Set a counter of $08 for the number of lines in a character block.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24568"></span>5FF8</td>
 <td class="instruction">LD HL,($5F04)</td>
-<td class="comment-1" rowspan="1">Store the contents of <a href="24320.html#24324">5F04</a> in <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="1">Store the contents of <a href="24320.html#24324">TEMP_BACKGROUND_SCREEN_ADDR</a> in <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label">COPY_UDG_LOOP</td>
 <td class="address-2"><span id="24571"></span>5FFB</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash the counter for later.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24572"></span>5FFC</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="2">Copy the contents of <span class="register">HL</span> into the contents of <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="2">Copy the pixel data held by <span class="register">HL</span> into the screen buffer currently pointed to by <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24573"></span>5FFD</td>
 <td class="instruction">LD (DE),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24574"></span>5FFE</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one.</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one to point to the next item of pixel data.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24575"></span>5FFF</td>
 <td class="instruction">INC D</td>
-<td class="comment-1" rowspan="1">Increase <span class="register">D</span> by one.</td>
+<td class="comment-1" rowspan="1">Increment the MSB of <span class="register">DE</span> by one to point to the next line down in the screen.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24576"></span>6000</td>
 <td class="instruction">EX AF,AF'</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore the counter.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24577"></span>6001</td>
 <td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
+<td class="comment-1" rowspan="1">Decrease the counter by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24578"></span>6002</td>
-<td class="instruction">JR NZ,$5FFB</td>
-<td class="comment-1" rowspan="1">Jump to <a href="24448.html#24571">5FFB</a> if <span class="register">A</span> is not zero.</td>
+<td class="instruction">JR NZ,<a href="24448.html#24571">COPY_UDG_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back to <a href="24448.html#24571">COPY_UDG_LOOP</a> until the counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24580"></span>6004</td>
 <td class="instruction">POP HL</td>
-<td class="comment-1" rowspan="2">Fetch <span class="register">HL</span> and <span class="register">DE</span> off the stack.</td>
+<td class="comment-1" rowspan="2">Restore the original <span class="register">HL</span> and <span class="register">DE</span> values from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24581"></span>6005</td>
 <td class="instruction">POP DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24582"></span>6006</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -479,42 +563,46 @@ Lalala
 <span id="24583"></span>
 <div class="comments">
 <div class="paragraph">
-Hmmm
+Handles moving from one screen section to the next.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_BLOCK_DOWN</td>
 <td class="address-2"><span id="24583"></span>6007</td>
 <td class="instruction">INC DE</td>
 <td class="comment-1" rowspan="1">Increase <span class="register">DE</span> by 1.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24584"></span>6008</td>
 <td class="instruction">BIT 0,D</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Return if d0 is not set on the MSB of <span class="register">DE</span>. Check if we're at a screen boundary.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24586"></span>600A</td>
 <td class="instruction">RET Z</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24587"></span>600B</td>
 <td class="instruction">LD A,$07</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Add $07 to <span class="register">D</span>, so that <span class="register">DE</span> points to the next block down.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24589"></span>600D</td>
 <td class="instruction">ADD A,D</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24590"></span>600E</td>
 <td class="instruction">LD D,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24591"></span>600F</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

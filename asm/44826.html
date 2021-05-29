@@ -31,7 +31,7 @@ Next: <a href="45018.html">AFDA</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="44037.html">QUIT_GAME</a>.
+Used by the routine at <a href="44037.html">DEMO_MODE</a>.
 </div>
 </div>
 </td>
@@ -46,7 +46,7 @@ Used by the routine at <a href="44037.html">QUIT_GAME</a>.
 <span id="44829"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44037.html">QUIT_GAME</a>.
+This entry point is used by the routine at <a href="44037.html">DEMO_MODE</a>.
 </div>
 </div>
 </td>
@@ -86,7 +86,7 @@ This entry point is used by the routine at <a href="44037.html">QUIT_GAME</a>.
 <span id="44839"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="43888.html">AB70</a> and <a href="44037.html">QUIT_GAME</a>.
+This entry point is used by the routines at <a href="43888.html">AB70</a> and <a href="44037.html">DEMO_MODE</a>.
 </div>
 </div>
 </td>
@@ -133,22 +133,32 @@ This entry point is used by the routines at <a href="43888.html">AB70</a> and <a
 </tr>
 <tr>
 <td class="address-1"><span id="44851"></span>AF33</td>
-<td class="instruction">NOP</td>
+<td class="instruction">DEFB $00</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44852"></span>AF34</td>
-<td class="instruction">LD BC,$3A00</td>
+<td class="instruction">DEFB $01</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="address-1"><span id="44855"></span>AF37</td>
-<td class="instruction">EX AF,AF'</td>
+<td class="address-1"><span id="44853"></span>AF35</td>
+<td class="instruction">DEFB $00</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="address-1"><span id="44856"></span>AF38</td>
-<td class="instruction">XOR D</td>
+<td class="routine-comment" colspan="5">
+<span id="44854"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="43888.html">AB70</a> and <a href="44037.html">DEMO_MODE</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44854"></span>AF36</td>
+<td class="instruction">LD A,($AA08)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -216,7 +226,7 @@ This entry point is used by the routines at <a href="43888.html">AB70</a> and <a
 <span id="44882"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44037.html">QUIT_GAME</a>.
+This entry point is used by the routine at <a href="44037.html">DEMO_MODE</a>.
 </div>
 </div>
 </td>
@@ -394,7 +404,7 @@ Player 1 display score.
 <span id="44951"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44037.html">QUIT_GAME</a>.
+This entry point is used by the routine at <a href="44037.html">DEMO_MODE</a>.
 </div>
 </div>
 </td>

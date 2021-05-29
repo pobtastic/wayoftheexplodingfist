@@ -43,7 +43,20 @@ Next: <a href="40019.html">9C53</a>
 <td class="asm-label"></td>
 <td class="address-1"><span id="39983"></span>9C2F</td>
 <td class="instruction">LD A,$05</td>
-<td class="comment-1" rowspan="2">Set border colour to $05 (cyan).</td>
+<td class="comment-1" rowspan="2">Set border colour to cyan. <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Value</th>
+<th colspan="1" rowspan="1">Ink</th>
+<th colspan="1" rowspan="1">Paper</th>
+<th colspan="1" rowspan="1">Bright</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$05</td>
+<td class="centre" colspan="1" rowspan="1">$05</td>
+<td class="centre" colspan="1" rowspan="1">$00</td>
+<td class="centre" colspan="1" rowspan="1">$00</td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -64,14 +77,14 @@ Next: <a href="40019.html">9C53</a>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="39991"></span>9C37</td>
-<td class="instruction">CALL <a href="45368.html">$B138</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45368.html">B138</a>.</td>
+<td class="instruction">CALL <a href="45368.html">GAME_INIT</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45368.html">GAME_INIT</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="39994"></span>9C3A</td>
 <td class="instruction">LD DE,$5F00</td>
-<td class="comment-1" rowspan="3">Blah...</td>
+<td class="comment-1" rowspan="4">Copies a large chunk of code from $6000 to $5F00. See the .t2s file.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -87,19 +100,17 @@ Next: <a href="40019.html">9C53</a>
 <td class="asm-label"></td>
 <td class="address-1"><span id="40003"></span>9C43</td>
 <td class="instruction">LDIR</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="40005"></span>9C45</td>
 <td class="instruction">LD A,$00</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$00</td>
+<td class="comment-1" rowspan="5">Writes $0000 to <a href="50211.html">C423</a> and <a href="50213.html">C425</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="40007"></span>9C47</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="4">Writes $00 to <a href="50211.html">C423</a> and <a href="50213.html">C425</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -119,8 +130,8 @@ Next: <a href="40019.html">9C53</a>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="40016"></span>9C50</td>
-<td class="instruction">JP <a href="44037.html">QUIT_GAME</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="44037.html">QUIT_GAME</a>.</td>
+<td class="instruction">JP <a href="44037.html">DEMO_MODE</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="44037.html">DEMO_MODE</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

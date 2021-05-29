@@ -31,7 +31,7 @@ Next: <a href="24448.html">5F80</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="37376.html">9200</a>.
+Takes the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a> and executes the appropriate routine to copy the background data addresses to the buffer at <a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>. <div>Used by the routine at <a href="37376.html">9200</a>.</div>
 </div>
 </div>
 </td>
@@ -49,7 +49,20 @@ Blanks the screen.
 <tr>
 <td class="address-2"><span id="24354"></span>5F22</td>
 <td class="instruction">LD HL,$5800</td>
-<td class="comment-1" rowspan="7">Writes $3F to all $300 locations of the attributes buffer.</td>
+<td class="comment-1" rowspan="7">Writes $3F to all $300 locations of the attributes buffer. <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Value</th>
+<th colspan="1" rowspan="1">Ink</th>
+<th colspan="1" rowspan="1">Paper</th>
+<th colspan="1" rowspan="1">Bright</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$3F</td>
+<td class="centre" colspan="1" rowspan="1">$07</td>
+<td class="centre" colspan="1" rowspan="1">$07</td>
+<td class="centre" colspan="1" rowspan="1">$00</td>
+</tr>
+</table> This is white ink on white paper.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24357"></span>5F25</td>
@@ -109,7 +122,7 @@ Blanks the screen.
 <span id="24380"></span>
 <div class="comments">
 <div class="paragraph">
-Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a>.
+Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a> and use it to calculate the address for the copy-to-buffer routine.
 </div>
 </div>
 </td>
@@ -189,7 +202,7 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <span id="24402"></span>
 <div class="comments">
 <div class="paragraph">
-Indirect jump.
+Indirect jump to copy-to-buffer routine.
 </div>
 </div>
 </td>
@@ -245,8 +258,8 @@ Set up background 1.
 </tr>
 <tr>
 <td class="address-1"><span id="24414"></span>5F5E</td>
-<td class="instruction">CALL <a href="24448.html">$5F80</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html">5F80</a>.</td>
+<td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24417"></span>5F61</td>
@@ -282,8 +295,8 @@ Set up background 2.
 </tr>
 <tr>
 <td class="address-1"><span id="24429"></span>5F6D</td>
-<td class="instruction">CALL <a href="24448.html">$5F80</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html">5F80</a>.</td>
+<td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24432"></span>5F70</td>
@@ -319,8 +332,8 @@ Set up background 3.
 </tr>
 <tr>
 <td class="address-1"><span id="24444"></span>5F7C</td>
-<td class="instruction">CALL <a href="24448.html">$5F80</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html">5F80</a>.</td>
+<td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24447"></span>5F7F</td>

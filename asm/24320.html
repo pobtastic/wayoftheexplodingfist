@@ -52,10 +52,15 @@ Next: <a href="24354.html">5F22</a>
 <td class="comment-1" rowspan="1">Holds current screen location</td>
 </tr>
 <tr>
-<td class="asm-label"></td>
+<td class="asm-label">TEMP_BACKGROUND_SCREEN_ADDR</td>
 <td class="address-1"><span id="24324"></span>5F04</td>
-<td class="instruction">DEFB $00,$00,$00,$00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="2">Used during processing.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24326"></span>5F06</td>
+<td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
 <td class="asm-label">BACKGROUND_PIXEL_DATA</td>
@@ -84,18 +89,48 @@ Next: <a href="24354.html">5F22</a>
 <tr>
 <td class="asm-label">BACKGROUND_DATA_BUFFER</td>
 <td class="address-1"><span id="24336"></span>5F10</td>
-<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
-<td class="comment-1" rowspan="3">Buffer which holds the currently processed background data.</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="9">Buffer which holds the currently processed background data.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24338"></span>5F12</td>
+<td class="instruction">DEFW $0000</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24340"></span>5F14</td>
+<td class="instruction">DEFW $0000</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24342"></span>5F16</td>
+<td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24344"></span>5F18</td>
-<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="instruction">DEFW $0000</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24346"></span>5F1A</td>
+<td class="instruction">DEFW $0000</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24348"></span>5F1C</td>
+<td class="instruction">DEFW $0000</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24350"></span>5F1E</td>
+<td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24352"></span>5F20</td>
-<td class="instruction">DEFB $00,$00</td>
+<td class="instruction">DEFW $0000</td>
 </tr>
 </table>
 <table class="asm-navigation">

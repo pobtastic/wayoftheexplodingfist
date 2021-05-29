@@ -25,28 +25,27 @@ Next: <a href="40096.html">9CA0</a>
 </td>
 </tr>
 </table>
-<div class="description">9C93: Routine at 9C93</div>
+<div class="description">9C93: Print remaining time to the screen.</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="40047.html">9C6F</a>, <a href="44037.html">QUIT_GAME</a> and <a href="44792.html">AEF8</a>.
+Used by the routines at <a href="40047.html">9C6F</a>, <a href="44037.html">DEMO_MODE</a> and <a href="44792.html">AEF8</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">KKKK</td>
+<td class="asm-label">PRINT_TIME</td>
 <td class="address-2"><span id="40083"></span>9C93</td>
 <td class="instruction">LD A,($9CA5)</td>
-<td class="comment-1" rowspan="1">Stores <a href="40101.html">TIME</a> in the accumulator.</td>
+<td class="comment-1" rowspan="3">Stores <a href="40101.html">TIME</a> as the LSB in <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="40086"></span>9C96</td>
 <td class="instruction">LD H,$00</td>
-<td class="comment-1" rowspan="2"><span class="register">H</span> = $00, <span class="register">L</span> = <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -57,13 +56,13 @@ Used by the routines at <a href="40047.html">9C6F</a>, <a href="44037.html">QUIT
 <td class="asm-label"></td>
 <td class="address-1"><span id="40089"></span>9C99</td>
 <td class="instruction">LD DE,$0B00</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=$0B00.</td>
+<td class="comment-1" rowspan="1">Store $0B00 in <span class="register">DE</span> for the screen position.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="40092"></span>9C9C</td>
-<td class="instruction">CALL <a href="37676.html#37686">$9336</a></td>
-<td class="comment-1" rowspan="1">Call <a href="37676.html#37686">9336</a>.</td>
+<td class="instruction">CALL <a href="37676.html#37686">PROCESS_PRINT_TIME</a></td>
+<td class="comment-1" rowspan="1">Call <a href="37676.html#37686">PROCESS_PRINT_TIME</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
