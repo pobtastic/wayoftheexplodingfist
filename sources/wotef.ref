@@ -12,5 +12,8 @@ Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
 Copyright=&copy; 1985 Melbourne House
 StyleSheet=skoolkit.css;skoolkit-dark.css
 
+[Config]
+RefFiles=changelog.ref;pokes.ref
+
 [PageHeaders]
 GameIndex=The complete<>RAM disassembly (work in progress)

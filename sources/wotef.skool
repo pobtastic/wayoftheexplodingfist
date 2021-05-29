@@ -230,40 +230,47 @@ s$5B00 DEFS $0400
 
 ; Data block at 5F00
 @label=BACKGROUND_REFERENCE
-b$5F00 DEFB $00
+b$5F00 DEFB $00      ; Current Background Reference.
  $5F01 DEFB $00
-@label=BBB
- $5F02 DEFB $00,$00
- $5F04 DEFB $00,$00,$00,$00
-@label=BBBB
- $5F08 DEFW $0000
+@label=BACKGROUND_SCREEN_ADDRESS
+ $5F02 DEFB $00,$00  ; Holds current screen location
+@label=TEMP_BACKGROUND_SCREEN_ADDR
+ $5F04 DEFW $0000    ; {Used during processing.
+ $5F06 DEFW $0000    ; }
+@label=BACKGROUND_PIXEL_DATA
+ $5F08 DEFW $0000    ; Holds currently processed pixel data block.
 @label=COPY_BACKGROUND_1
- $5F0A DEFW $5F53                           ; Location of code to copy
-                                            ; background 1 reference data.
+ $5F0A DEFW $5F53    ; Location of code to copy background 1 reference data.
 @label=COPY_BACKGROUND_2
- $5F0C DEFW $5F62                           ; Location of code to copy
-                                            ; background 2 reference data.
+ $5F0C DEFW $5F62    ; Location of code to copy background 2 reference data.
 @label=COPY_BACKGROUND_3
- $5F0E DEFW $5F71                           ; Location of code to copy
-                                            ; background 3 reference data.
+ $5F0E DEFW $5F71    ; Location of code to copy background 3 reference data.
 @label=BACKGROUND_DATA_BUFFER
- $5F10 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; {Buffer which holds the currently
- $5F18 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; processed background data.
- $5F20 DEFB $00,$00                         ; }
+ $5F10 DEFW $0000    ; {Buffer which holds the currently processed background
+ $5F12 DEFW $0000    ; data.
+ $5F14 DEFW $0000    ;
+ $5F16 DEFW $0000    ;
+ $5F18 DEFW $0000    ;
+ $5F1A DEFW $0000    ;
+ $5F1C DEFW $0000    ;
+ $5F1E DEFW $0000    ;
+ $5F20 DEFW $0000    ; }
 
 ; Change Background.
 ;
-; Used by the routine at #R$9200.
+; #HTML(Takes the background reference from #R$5F00 and executes the appropriate routine to copy the background data
+;       addresses to the buffer at #R$5F10.
+;       <div>Used by the routine at #R$9200.</div>)
 ;
 ; .
 ;
 ; Blanks the screen.
-c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes
- $5F25 LD E,L        ; buffer.
- $5F26 LD D,H        ;
- $5F27 INC DE        ;
- $5F28 LD (HL),$3F   ;
- $5F2A LD BC,$02FF   ;
+c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes buffer.
+ $5F25 LD E,L        ; #TABLE(default,centre,centre,centre,centre)
+ $5F26 LD D,H        ; { =h Value | =h Ink | =h Paper | =h Bright }
+ $5F27 INC DE        ; { $3F | $07 | $07 | $00 }
+ $5F28 LD (HL),$3F   ; TABLE#
+ $5F2A LD BC,$02FF   ; This is white ink on white paper.
  $5F2D LDIR          ; }
  $5F2F LD HL,$4000   ; {Writes $00 to all $1800 locations of the screen buffer.
  $5F32 LD E,L        ;
@@ -272,7 +279,8 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes
  $5F35 LD BC,$17FF   ;
  $5F38 LD (HL),$00   ;
  $5F3A LDIR          ; }
-; Fetch the background reference from #R$5F00.
+; Fetch the background reference from #R$5F00 and use it to calculate the
+; address for the copy-to-buffer routine.
  $5F3C LD HL,$5F00   ; {Loads #REGa with the contents of #R$5F00.
  $5F3F LD A,(HL)     ; }
  $5F40 DEC A         ; {Decrease it by one, then double it.
@@ -288,9 +296,10 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes
  $5F4D EX DE,HL      ; Swap #REGde and #REGhl.
  $5F4E CALL $5F52    ; Call #R$5F52.
  $5F51 RET           ; Return.
+; Indirect jump to copy-to-buffer routine.
 *$5F52 JP (HL)       ; Indirect jump to address held by #REGhl.
                      ; #TABLE(default,centre,centre,centre,centre)
-                     ; { =h #R$5F00 | =h Jump }
+                     ; { =h #R$5F00 | =h Jumps To... }
                      ; { $01 | #R$5F53 }
                      ; { $02 | #R$5F62 }
                      ; { $03 | #R$5F71 }
@@ -316,24 +325,31 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes
  $5F7A LDIR          ; }
  $5F7C CALL $5F80    ; Call #R$5F80.
  $5F7F RET           ; Return.
-; Copy.
-*$5F80 LD HL,$4080   ; {Stash $4080 at #R$5F02.
+
+; Creates the background image.
+;
+; Used by the routine at #R$5F22.
+@label=CREATE_BACKGROUND
+c$5F80 LD HL,$4080   ; {Stash $4080 at #R$5F02.
  $5F83 LD ($5F02),HL ; }
  $5F86 LD HL,$5F10   ; #REGhl=#R$5F10.
- $5F89 LD B,$04      ; #REGb=$04.
-*$5F8B PUSH BC       ;
- $5F8C LD E,(HL)     ; {Loads #REGde with the contents of #REGhl. #REGhl is now
- $5F8D INC HL        ; +2.
+ $5F89 LD B,$04      ; {Each background has 4 "sets" of data, so set a counter of $04.
+@label=CREATE_BACKGROUND_LOOP
+*$5F8B PUSH BC       ; Push it onto the stack for now.}
+ $5F8C LD E,(HL)     ; {Fetch the address of the next pixel data block and
+ $5F8D INC HL        ; store it at #R$5F08.
  $5F8E LD D,(HL)     ;
- $5F8F INC HL        ; }
- $5F90 LD ($5F08),DE ; Stash #REGde at #R$5F08.
- $5F94 LD E,(HL)     ; {Loads #REGde with the contents of #REGhl. #REGhl is now
- $5F95 INC HL        ; +2.
+ $5F8F INC HL        ;
+ $5F90 LD ($5F08),DE ; }
+ $5F94 LD E,(HL)     ; {Fetch the address of the next pixel data block and
+ $5F95 INC HL        ; store it in #REGde.
  $5F96 LD D,(HL)     ;
  $5F97 INC HL        ; }
- $5F98 PUSH HL       ;
- $5F99 LD HL,($5F02) ;
- $5F9C EX DE,HL      ;
+ $5F98 PUSH HL       ; Push #REGhl (pointing to the next data block) onto the
+                     ; stack.
+ $5F99 LD HL,($5F02) ; Fetch #R$5F02 and store it in #REGhl.
+ $5F9C EX DE,HL      ; Switch #REGde and #REGhl so #REGde now holds the screen address and #REGhl holds the start of the pixel
+                     ;           data block.
  $5F9D CALL $5FBE    ; Call #R$5FBE.
  $5FA0 LD HL,($5F02) ;
  $5FA3 LD BC,$0080   ;
@@ -343,79 +359,95 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes
  $5FAB LD A,$07      ;
  $5FAD ADD A,H       ;
  $5FAE LD H,A        ;
+@label=BACKGROUND_XXXX
 *$5FAF LD ($5F02),HL ;
- $5FB2 POP HL        ;
- $5FB3 POP BC        ;
- $5FB4 DJNZ $5F8B    ;
- $5FB6 LD E,(HL)     ;
- $5FB7 INC HL        ;
+ $5FB2 POP HL        ; {Restores #REGhl and the counter from the stack.
+ $5FB3 POP BC        ; }
+ $5FB4 DJNZ $5F8B    ; Decrease counter by one and loop back to #R$5F8B until
+                     ; counter is zero.
+ $5FB6 LD E,(HL)     ; {Fetch the address for the attributes data and call
+ $5FB7 INC HL        ; #R$6010.
  $5FB8 LD D,(HL)     ;
  $5FB9 EX DE,HL      ;
- $5FBA CALL $6010    ; Call #R$6010.
+ $5FBA CALL $6010    ; }
  $5FBD RET           ; Return.
-
-; Routine at 5FBE
-;
-; Used by the routine at #R$5F22.
-c$5FBE LD A,(HL)     ; Grab the contents of #REGhl and store it in #REGa.
- $5FBF INC HL        ; Increase #REGhl by 1.
- $5FC0 CP (HL)       ; Compares the contents of #REGhl with #REGa.
- $5FC1 JR NZ,$5FC6   ;
- $5FC3 AND A         ;
- $5FC4 JR Z,$5FF3    ;
-*$5FC6 BIT 7,A       ;
- $5FC8 RES 7,A       ;
- $5FCA PUSH AF       ;
- $5FCB EXX           ;
- $5FCC LD C,A        ;
- $5FCD LD B,$00      ;
- $5FCF LD L,C        ;
- $5FD0 LD H,B        ;
- $5FD1 ADD HL,BC     ;
- $5FD2 ADD HL,HL     ;
- $5FD3 ADD HL,HL     ;
- $5FD4 LD BC,($5F08) ;
+; Fetch the data and check for the terminator.
+@label=BACKGROUND_CHECK_END
+*$5FBE LD A,(HL)     ; Fetch the next pixel data byte.
+ $5FBF INC HL        ; Increase #REGhl by one to point to the next item of
+                     ; pixel data.
+ $5FC0 CP (HL)       ; Check if this data is the same as the previous pixel
+                     ; data value.
+ $5FC1 JR NZ,$5FC6   ; Jump to #R$5FC6 if the values are different.
+ $5FC3 AND A         ; {Double zero is the terminator, so jump to #R$5FF3 to
+ $5FC4 JR Z,$5FF3    ; return if this is detected.}
+; Process the pixel data.
+@label=BACKGROUND_PROCESS
+*$5FC6 BIT 7,A       ; {Check if d7 is set, reset it regardless.
+ $5FC8 RES 7,A       ; }
+ $5FCA PUSH AF       ; Push #REGaf onto the stack.
+ $5FCB EXX           ; Exchange the registers.
+ $5FCC LD C,A        ; {Set the LSB of #REGbc to #REGa, and the MSB to $00.
+ $5FCD LD B,$00      ; }
+ $5FCF LD L,C        ; {Copy the same value into #REGhl.
+ $5FD0 LD H,B        ; }
+ $5FD1 ADD HL,BC     ; Unclear yet...
+ $5FD2 ADD HL,HL     ; {Unclear yet...
+ $5FD3 ADD HL,HL     ; }
+ $5FD4 LD BC,($5F08) ; Fetch the contents of #R$5F08 and store in #REGbc.
  $5FD8 ADD HL,BC     ;
  $5FD9 LD ($5F04),HL ;
- $5FDC EXX           ;
- $5FDD CALL $5FF4    ;
- $5FE0 CALL $6007    ;
+ $5FDC EXX           ; Exchange the registers.
+ $5FDD CALL $5FF4    ; Call #R$5FF4.
+ $5FE0 CALL $6007    ; Call #R$6007.
  $5FE3 POP AF        ;
  $5FE4 JR Z,$5FBE    ;
  $5FE6 LD B,(HL)     ;
  $5FE7 INC HL        ;
  $5FE8 DEC B         ;
-*$5FE9 CALL $5FF4    ;
- $5FEC CALL $6007    ;
- $5FEF DJNZ $5FE9    ;
- $5FF1 JR $5FBE      ;
-*$5FF3 RET           ;
-*$5FF4 PUSH DE       ; Push #REGde onto the stack.
- $5FF5 PUSH HL       ; Push #REGhl onto the stack.
- $5FF6 LD A,$08      ; #REGa=$08.
+@label=BACKGROUND_XXXXX
+*$5FE9 CALL $5FF4    ; Call #R$5FF4.
+ $5FEC CALL $6007    ; Call #R$6007.
+ $5FEF DJNZ $5FE9    ; Decrease counter by one and loop back to #R$5FE9 until
+                     ; counter is zero.
+ $5FF1 JR $5FBE      ; Jump back round to #R$5FBE.
+; Used to "just return" after flag checking operations.
+@label=BACKGROUND_RETURN
+*$5FF3 RET           ; Return.
+; Copy a single UDG 8x8 pixel block to the screen.
+@label=COPY_UDG
+*$5FF4 PUSH DE       ; {Push #REGde and #REGhl onto the stack.
+ $5FF5 PUSH HL       ; }
+ $5FF6 LD A,$08      ; Set a counter of $08 for the number of lines in a
+                     ; character block.
  $5FF8 LD HL,($5F04) ; Store the contents of #R$5F04 in #REGhl.
-*$5FFB EX AF,AF'     ;
- $5FFC LD A,(HL)     ; {Copy the contents of #REGhl into the contents of
- $5FFD LD (DE),A     ; #REGde.}
- $5FFE INC HL        ; Increase #REGhl by one.
- $5FFF INC D         ; Increase #REGd by one.
- $6000 EX AF,AF'     ;
- $6001 DEC A         ; Decrease #REGa by one.
- $6002 JR NZ,$5FFB   ; Jump to #R$5FFB if #REGa is not zero.
- $6004 POP HL        ;
- $6005 POP DE        ;
- $6006 RET           ;
-*$6007 INC DE        ;
- $6008 BIT 0,D       ;
- $600A RET Z         ;
- $600B LD A,$07      ;
- $600D ADD A,D       ;
- $600E LD D,A        ;
- $600F RET           ;
+@label=COPY_UDG_LOOP
+*$5FFB EX AF,AF'     ; Stash the counter for later.
+ $5FFC LD A,(HL)     ; {Copy the pixel data held by #REGhl into the screen
+ $5FFD LD (DE),A     ; buffer currently pointed to by #REGde.}
+ $5FFE INC HL        ; Increment #REGhl by one to point to the next item of
+                     ; pixel data.
+ $5FFF INC D         ; Increment the MSB of #REGde by one to point to the next
+                     ; line down in the screen.
+ $6000 EX AF,AF'     ; Restore the counter.
+ $6001 DEC A         ; Decrease the counter by one.
+ $6002 JR NZ,$5FFB   ; Loop back to #R$5FFB until the counter is zero.
+ $6004 POP HL        ; {Restore the original #REGhl and #REGde values from the
+ $6005 POP DE        ; stack.}
+ $6006 RET           ; Return.
+; Handles moving from one screen section to the next.
+@label=BACKGROUND_BLOCK_DOWN
+*$6007 INC DE        ; Increase #REGde by 1.
+ $6008 BIT 0,D       ; {Return if d0 is not set on the MSB of #REGde. Check if
+ $600A RET Z         ; we're at a screen boundary.}
+ $600B LD A,$07      ; {Add $07 to #REGd, so that #REGde points to the next
+ $600D ADD A,D       ; block down.
+ $600E LD D,A        ; }
+ $600F RET           ; Return.
 
 ; Unpack background attribute data.
 ;
-; Used by the routine at #R$5F22.
+; Used by the routine at #R$5F80.
 ;
 ; .
 ;
@@ -439,7 +471,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 ; Copy and loop back round to #R$6013 until bit 7 in the current attribute data
 ; is zero.
 @label=BACKGROUND_REPEAT_COPY
-*$601A BIT 7,A       ; {Test if d07 is set in current attribute data. Reset bit
+*$601A BIT 7,A       ; {Test if d7 is set in current attribute data. Reset bit
  $601C RES 7,A       ; to zero.}
  $601E LD (DE),A     ; Write the attribute data to #REGde.
  $601F INC DE        ; Increment #REGde by one.
@@ -457,42 +489,60 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
                      ; counter is zero.
  $6029 JR $6013      ; Jump back to #R$6013.
 
-; Background 1 Data.
-@label=BACKGROUND_1_DATA
-b$602B DEFW $626A
- $602D DEFW $6102
- $602F DEFW $648A
- $6031 DEFW $6157
- $6033 DEFW $685A
- $6035 DEFW $61D9
- $6037 DEFW $6AE2
- $6039 DEFW $624D
+; Background 1 Address references.
+;
+; .
+;
+; .
+;
+; The data blocks containing pixel data.
+@label=BACKGROUND_1_ADDRESSES
+b$602B DEFW $626A    ; {Block 1.
+ $602D DEFW $6102    ; }
+ $602F DEFW $648A    ; {Block 2.
+ $6031 DEFW $6157    ; }
+ $6033 DEFW $685A    ; {Block 3.
+ $6035 DEFW $61D9    ; }
+ $6037 DEFW $6AE2    ; {Block 4.
+ $6039 DEFW $624D    ; }
 @label=BACKGROUND_1_ATTRIBUTE_DATA
  $603B DEFW $6061    ; Attribute data.
 
-; Background 2 Data.
-@label=BACKGROUND_2_DATA
-b$603D DEFW $6DAE
- $603F DEFW $6C4B
- $6041 DEFW $6E96
- $6043 DEFW $6C79
- $6045 DEFW $720E
- $6047 DEFW $6CF7
- $6049 DEFW $7606
- $604B DEFW $6D79
+; Background 2 Address references.
+;
+; .
+;
+; .
+;
+; The data blocks containing pixel data.
+@label=BACKGROUND_2_ADDRESSES
+b$603D DEFW $6DAE    ; {Block 1.
+ $603F DEFW $6C4B    ; }
+ $6041 DEFW $6E96    ; {Block 2.
+ $6043 DEFW $6C79    ; }
+ $6045 DEFW $720E    ; {Block 3.
+ $6047 DEFW $6CF7    ; }
+ $6049 DEFW $7606    ; {Block 4.
+ $604B DEFW $6D79    ; }
 @label=BACKGROUND_2_ATTRIBUTE_DATA
  $604D DEFW $6B83    ; Attribute data.
 
-; Background 3 Data.
-@label=BACKGROUND_3_DATA
-b$604F DEFW $79B1
- $6051 DEFW $784F
- $6053 DEFW $7BB1
- $6055 DEFW $7893
- $6057 DEFW $7D09
- $6059 DEFW $7910
- $605B DEFW $7F39
- $605D DEFW $7991
+; Background 3 Address references.
+;
+; .
+;
+; .
+;
+; The data blocks containing pixel data.
+@label=BACKGROUND_3_ADDRESSES
+b$604F DEFW $79B1    ; {Block 1.
+ $6051 DEFW $784F    ; }
+ $6053 DEFW $7BB1    ; {Block 2.
+ $6055 DEFW $7893    ; }
+ $6057 DEFW $7D09    ; {Block 3.
+ $6059 DEFW $7910    ; }
+ $605B DEFW $7F39    ; {Block 4.
+ $605D DEFW $7991    ; }
 @label=BACKGROUND_3_ATTRIBUTE_DATA
  $605F DEFW $7766    ; Attribute data.
 
@@ -530,7 +580,8 @@ b$6102 DEFB $80,$1E,$01,$02,$83,$06,$04,$05
  $613A DEFB $2C,$2D,$2E,$00,$2F,$30,$31,$32
  $6142 DEFB $33,$34,$35,$36,$37,$38,$39,$3A
  $614A DEFB $3B,$3C,$80,$02,$3D,$3E,$3F,$40
- $6152 DEFB $41,$42,$43,$00,$00
+ $6152 DEFB $41,$42,$43
+ $6155 DEFB $00,$00                         ; Terminator.
 
 ; Background 1 data.
 b$6157 DEFB $00,$01,$02,$03,$04,$05,$06,$07
@@ -549,7 +600,7 @@ b$6157 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $61BF DEFB $63,$64,$65,$66,$67,$68,$69,$6A
  $61C7 DEFB $6B,$6C,$6D,$6E,$6F,$70,$71,$72
  $61CF DEFB $73,$62,$74,$75,$76,$77,$78,$79
- $61D7 DEFB $00,$00
+ $61D7 DEFB $00,$00                         ; Terminator.
 
 ; Background 1 data.
 b$61D9 DEFB $80,$02,$01,$02,$03,$00,$04,$05
@@ -566,13 +617,15 @@ b$61D9 DEFB $80,$02,$01,$02,$03,$00,$04,$05
  $6231 DEFB $09,$3B,$3C,$3D,$3E,$25,$3F,$40
  $6239 DEFB $41,$42,$43,$44,$45,$46,$47,$48
  $6241 DEFB $49,$4A,$4B,$4C,$4D,$4E,$4F,$50
- $6249 DEFB $80,$06,$00,$00
+ $6249 DEFB $80,$06
+ $624B DEFB $00,$00                         ; Terminator.
 
 ; Background 1 data.
 b$624D DEFB $80,$03,$01,$02,$03,$04,$05,$06
  $6255 DEFB $07,$08,$09,$0A,$0B,$0C,$0D,$06
  $625D DEFB $0E,$0B,$0C,$0F,$10,$11,$0D,$12
- $6265 DEFB $13,$80,$66,$00,$00
+ $6265 DEFB $13,$80,$66
+ $6268 DEFB $00,$00                         ; Terminator.
 
 ; Background 1 data.
 b$626A DEFB $00,$00,$00,$00,$00,$00,$00,$00
@@ -908,7 +961,8 @@ b$6C4B DEFB $80,$24,$01,$80,$19,$02,$80,$05
  $6C5B DEFB $0B,$08,$09,$0A,$0B,$80,$02,$0C
  $6C63 DEFB $0D,$0E,$0F,$10,$80,$05,$11,$12
  $6C6B DEFB $13,$14,$15,$16,$80,$08,$17,$18
- $6C73 DEFB $19,$1A,$1B,$1C,$00,$00
+ $6C73 DEFB $19,$1A,$1B,$1C
+ $6C77 DEFB $00,$00                         ; Terminator.
 
 ; Background 2 data.
 b$6C79 DEFB $80,$03,$01,$02,$03,$80,$04,$04
@@ -926,7 +980,8 @@ b$6C79 DEFB $80,$03,$01,$02,$03,$80,$04,$04
  $6CD9 DEFB $53,$54,$55,$56,$57,$58,$59,$5A
  $6CE1 DEFB $5B,$5C,$5D,$5E,$5F,$60,$61,$62
  $6CE9 DEFB $63,$64,$65,$66,$67,$68,$69,$6A
- $6CF1 DEFB $6B,$6C,$6D,$6E,$00,$00
+ $6CF1 DEFB $6B,$6C,$6D,$6E
+ $6CF5 DEFB $00,$00                         ; Terminator.
 
 ; Background 2 data.
 b$6CF7 DEFB $00,$01,$02,$03,$04,$05,$06,$07
@@ -945,7 +1000,7 @@ b$6CF7 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $6D5F DEFB $68,$69,$6A,$6B,$6C,$6D,$6E,$55
  $6D67 DEFB $6F,$70,$71,$72,$73,$74,$75,$76
  $6D6F DEFB $77,$78,$79,$7A,$7B,$7C,$7D,$7E
- $6D77 DEFB $00,$00
+ $6D77 DEFB $00,$00                         ; Terminator.
 
 ; Background 2 data.
 b$6D79 DEFB $00,$01,$02,$03,$04,$05,$06,$07
@@ -954,326 +1009,327 @@ b$6D79 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $6D91 DEFB $17,$18,$19,$1A,$1B,$14,$1C,$16
  $6D99 DEFB $1D,$1E,$1F,$20,$21,$22,$23,$24
  $6DA1 DEFB $25,$26,$96,$02,$27,$28,$29,$2A
- $6DA9 DEFB $2B,$96,$4F,$00,$00
+ $6DA9 DEFB $2B,$96,$4F
+ $6DAC DEFB $00,$00                         ; Terminator.
 
 ; Background 2 data.
-b$6DAE DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $6DB6 DEFB $00,$00,$00,$18,$18,$3C,$18,$3C
- $6DBE DEFB $00,$00,$00,$00,$00,$00,$00,$30
- $6DC6 DEFB $18,$7E,$18,$7E,$18,$3C,$7E,$FF
- $6DCE DEFB $00,$00,$00,$00,$00,$00,$03,$1F
- $6DD6 DEFB $00,$00,$00,$00,$00,$1F,$FF,$FF
- $6DDE DEFB $00,$00,$00,$00,$00,$E0,$FE,$FF
- $6DE6 DEFB $00,$00,$00,$00,$00,$00,$00,$80
- $6DEE DEFB $00,$00,$00,$0E,$3D,$12,$BD,$6F
- $6DF6 DEFB $03,$0B,$3F,$74,$CC,$A0,$F1,$D7
- $6DFE DEFB $61,$F0,$B0,$47,$3A,$7F,$A5,$CF
- $6E06 DEFB $8E,$3F,$77,$8C,$47,$AC,$77,$3C
- $6E0E DEFB $00,$00,$00,$00,$01,$07,$07,$00
- $6E16 DEFB $03,$07,$1F,$7F,$FF,$FF,$FF,$FF
- $6E1E DEFB $04,$04,$02,$02,$01,$01,$00,$00
- $6E26 DEFB $C0,$E0,$F8,$FE,$FF,$FF,$FF,$FF
- $6E2E DEFB $00,$00,$00,$00,$80,$E0,$E0,$80
- $6E36 DEFB $FF,$FE,$FC,$F8,$F0,$E0,$C1,$01
- $6E3E DEFB $00,$00,$00,$18,$70,$60,$E0,$81
- $6E46 DEFB $00,$00,$00,$00,$00,$00,$C0,$C0
- $6E4E DEFB $00,$00,$00,$08,$0C,$0C,$06,$06
- $6E56 DEFB $7F,$1F,$07,$03,$00,$00,$00,$00
- $6E5E DEFB $FF,$FF,$FF,$FF,$FF,$3F,$0F,$03
- $6E66 DEFB $00,$00,$00,$00,$00,$00,$0C,$1E
- $6E6E DEFB $03,$02,$03,$01,$02,$0D,$3C,$33
- $6E76 DEFB $FC,$72,$8D,$B3,$6E,$BD,$5F,$FF
- $6E7E DEFB $30,$18,$0E,$03,$03,$0E,$18,$20
- $6E86 DEFB $06,$01,$7C,$FF,$81,$00,$00,$00
- $6E8E DEFB $00,$80,$C0,$C7,$EE,$7C,$1E,$07
+b$6DAE DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6DB6 DEFB $00,$00,$00,$18,$18,$3C,$18,$3C ; #UDG(#PC,attr=56)
+ $6DBE DEFB $00,$00,$00,$00,$00,$00,$00,$30 ; #UDG(#PC,attr=56)
+ $6DC6 DEFB $18,$7E,$18,$7E,$18,$3C,$7E,$FF ; #UDG(#PC,attr=56)
+ $6DCE DEFB $00,$00,$00,$00,$00,$00,$03,$1F ; #UDG(#PC,attr=56)
+ $6DD6 DEFB $00,$00,$00,$00,$00,$1F,$FF,$FF ; #UDG(#PC,attr=56)
+ $6DDE DEFB $00,$00,$00,$00,$00,$E0,$FE,$FF ; #UDG(#PC,attr=56)
+ $6DE6 DEFB $00,$00,$00,$00,$00,$00,$00,$80 ; #UDG(#PC,attr=56)
+ $6DEE DEFB $00,$00,$00,$0E,$3D,$12,$BD,$6F ; #UDG(#PC,attr=56)
+ $6DF6 DEFB $03,$0B,$3F,$74,$CC,$A0,$F1,$D7 ; #UDG(#PC,attr=56)
+ $6DFE DEFB $61,$F0,$B0,$47,$3A,$7F,$A5,$CF ; #UDG(#PC,attr=56)
+ $6E06 DEFB $8E,$3F,$77,$8C,$47,$AC,$77,$3C ; #UDG(#PC,attr=56)
+ $6E0E DEFB $00,$00,$00,$00,$01,$07,$07,$00 ; #UDG(#PC,attr=56)
+ $6E16 DEFB $03,$07,$1F,$7F,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
+ $6E1E DEFB $04,$04,$02,$02,$01,$01,$00,$00 ; #UDG(#PC,attr=56)
+ $6E26 DEFB $C0,$E0,$F8,$FE,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
+ $6E2E DEFB $00,$00,$00,$00,$80,$E0,$E0,$80 ; #UDG(#PC,attr=56)
+ $6E36 DEFB $FF,$FE,$FC,$F8,$F0,$E0,$C1,$01 ; #UDG(#PC,attr=56)
+ $6E3E DEFB $00,$00,$00,$18,$70,$60,$E0,$81 ; #UDG(#PC,attr=56)
+ $6E46 DEFB $00,$00,$00,$00,$00,$00,$C0,$C0 ; #UDG(#PC,attr=56)
+ $6E4E DEFB $00,$00,$00,$08,$0C,$0C,$06,$06 ; #UDG(#PC,attr=56)
+ $6E56 DEFB $7F,$1F,$07,$03,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6E5E DEFB $FF,$FF,$FF,$FF,$FF,$3F,$0F,$03 ; #UDG(#PC,attr=56)
+ $6E66 DEFB $00,$00,$00,$00,$00,$00,$0C,$1E ; #UDG(#PC,attr=56)
+ $6E6E DEFB $03,$02,$03,$01,$02,$0D,$3C,$33 ; #UDG(#PC,attr=56)
+ $6E76 DEFB $FC,$72,$8D,$B3,$6E,$BD,$5F,$FF ; #UDG(#PC,attr=56)
+ $6E7E DEFB $30,$18,$0E,$03,$03,$0E,$18,$20 ; #UDG(#PC,attr=56)
+ $6E86 DEFB $06,$01,$7C,$FF,$81,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6E8E DEFB $00,$80,$C0,$C7,$EE,$7C,$1E,$07 ; #UDG(#PC,attr=56)
 
 ; Background 2 data.
-b$6E96 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $6E9E DEFB $5F,$5F,$58,$DF,$9F,$B7,$B6,$B6
- $6EA6 DEFB $FF,$FF,$00,$DE,$DE,$58,$58,$50
- $6EAE DEFB $FE,$FE,$D6,$D7,$D5,$D5,$D5,$FF
- $6EB6 DEFB $FF,$FF,$FF,$FF,$FF,$FF,$FC,$F8
- $6EBE DEFB $FC,$F8,$E0,$C0,$80,$00,$00,$00
- $6EC6 DEFB $4E,$DC,$B8,$B0,$E2,$E6,$8C,$FC
- $6ECE DEFB $01,$03,$87,$0F,$0E,$1E,$1E,$FF
- $6ED6 DEFB $80,$10,$30,$23,$63,$47,$CF,$BF
- $6EDE DEFB $0E,$8E,$8F,$8F,$1F,$9F,$BF,$FF
- $6EE6 DEFB $1C,$0E,$06,$03,$03,$01,$F3,$E7
- $6EEE DEFB $00,$00,$23,$01,$81,$87,$8F,$FF
- $6EF6 DEFB $FF,$1F,$9F,$01,$00,$00,$00,$00
- $6EFE DEFB $FF,$FF,$FF,$FF,$1F,$01,$00,$00
- $6F06 DEFB $FF,$FF,$FF,$FF,$FF,$FF,$7F,$0F
- $6F0E DEFB $00,$00,$00,$01,$03,$03,$07,$0F
- $6F16 DEFB $0C,$1E,$7F,$FF,$FF,$FF,$FF,$FF
- $6F1E DEFB $3E,$FF,$FF,$FF,$FF,$FF,$FF,$FF
- $6F26 DEFB $2C,$40,$40,$00,$81,$83,$87,$86
- $6F2E DEFB $0C,$18,$38,$30,$61,$60,$60,$40
- $6F36 DEFB $00,$60,$F0,$C7,$CE,$1C,$18,$0C
- $6F3E DEFB $F0,$3F,$0E,$03,$01,$01,$0F,$F8
- $6F46 DEFB $03,$00,$C0,$30,$DC,$CF,$83,$3C
- $6F4E DEFB $0F,$07,$01,$00,$00,$00,$00,$00
- $6F56 DEFB $FF,$00,$80,$FF,$FF,$B0,$B7,$B7
- $6F5E DEFB $FF,$00,$00,$FF,$FF,$00,$DF,$DF
- $6F66 DEFB $FF,$30,$1F,$FF,$E5,$65,$65,$65
- $6F6E DEFB $F0,$E0,$80,$00,$00,$00,$00,$00
- $6F76 DEFB $FF,$FF,$FF,$FF,$FE,$F8,$F0,$C0
- $6F7E DEFB $E0,$C0,$80,$00,$00,$00,$00,$00
- $6F86 DEFB $00,$00,$00,$0D,$1B,$16,$2D,$5B
- $6F8E DEFB $30,$60,$C0,$B0,$60,$C0,$F8,$0F
- $6F96 DEFB $00,$00,$00,$00,$03,$06,$0D,$0B
- $6F9E DEFB $00,$00,$00,$00,$00,$80,$80,$40
- $6FA6 DEFB $00,$00,$00,$00,$30,$D8,$6C,$37
- $6FAE DEFB $00,$00,$00,$00,$00,$00,$1F,$F0
- $6FB6 DEFB $F0,$ED,$3B,$0E,$03,$01,$F0,$70
- $6FBE DEFB $00,$80,$40,$C0,$B0,$EC,$DB,$B6
- $6FC6 DEFB $00,$00,$00,$00,$00,$00,$00,$6F
- $6FCE DEFB $FF,$3F,$0F,$00,$00,$00,$00,$01
- $6FD6 DEFB $00,$00,$00,$20,$78,$FC,$FF,$FF
- $6FDE DEFB $00,$00,$01,$07,$0F,$7F,$FF,$FF
- $6FE6 DEFB $3F,$7F,$FF,$FF,$FF,$FF,$FF,$FF
- $6FEE DEFB $01,$02,$0D,$1F,$6D,$BF,$ED,$FE
- $6FF6 DEFB $82,$7D,$B2,$ED,$F2,$ED,$BF,$6C
- $6FFE DEFB $86,$8C,$88,$40,$60,$7C,$0E,$07
- $7006 DEFB $40,$00,$01,$03,$06,$3C,$FA,$F4
- $700E DEFB $0F,$00,$E0,$80,$07,$0E,$30,$40
- $7016 DEFB $CC,$1B,$6C,$F0,$C0,$00,$30,$60
- $701E DEFB $C3,$00,$00,$00,$00,$38,$7F,$E7
- $7026 DEFB $00,$00,$00,$1F,$0C,$03,$01,$01
- $702E DEFB $B6,$B6,$B4,$FF,$00,$FF,$FF,$60
- $7036 DEFB $5D,$1D,$19,$FF,$00,$FF,$FF,$00
- $703E DEFB $65,$65,$7F,$E0,$17,$FF,$FA,$6A
- $7046 DEFB $00,$00,$F8,$E0,$80,$80,$80,$80
- $704E DEFB $FF,$FF,$FF,$FF,$FF,$FE,$FC,$F0
- $7056 DEFB $FF,$FE,$FC,$E0,$80,$00,$00,$00
- $705E DEFB $00,$03,$06,$0D,$1B,$36,$6D,$DB
- $7066 DEFB $B7,$6D,$D9,$B1,$60,$C0,$C0,$7C
- $706E DEFB $03,$00,$A0,$F0,$7E,$2F,$23,$38
- $7076 DEFB $FF,$30,$41,$51,$31,$F0,$FF,$0F
- $707E DEFB $FE,$0F,$40,$CC,$4A,$C4,$FF,$FF
- $7086 DEFB $81,$FE,$00,$21,$21,$38,$FF,$F7
- $708E DEFB $FE,$1D,$2D,$3D,$A8,$07,$FF,$F8
- $7096 DEFB $0C,$CA,$4C,$43,$3F,$FD,$E1,$0F
- $709E DEFB $70,$70,$70,$F1,$C1,$C3,$C3,$C2
- $70A6 DEFB $47,$81,$90,$30,$30,$60,$40,$01
- $70AE DEFB $99,$87,$C3,$61,$61,$C0,$F0,$99
- $70B6 DEFB $FC,$03,$80,$C0,$C0,$E0,$F0,$FC
- $70BE DEFB $00,$1F,$F0,$39,$2B,$3F,$7B,$ED
- $70C6 DEFB $70,$9F,$C0,$80,$00,$00,$19,$93
- $70CE DEFB $1E,$B0,$C8,$74,$4C,$BC,$BC,$57
- $70D6 DEFB $83,$C1,$A0,$71,$1B,$0E,$05,$0D
- $70DE DEFB $01,$83,$9E,$FC,$60,$80,$00,$2C
- $70E6 DEFB $81,$00,$00,$00,$00,$00,$00,$00
- $70EE DEFB $C4,$04,$04,$02,$1B,$33,$6F,$D8
- $70F6 DEFB $00,$00,$00,$00,$00,$E7,$FF,$78
- $70FE DEFB $D8,$D1,$61,$23,$1E,$E5,$8F,$1B
- $7106 DEFB $C1,$C0,$80,$BF,$F0,$C0,$00,$C0
- $710E DEFB $00,$00,$00,$00,$40,$7A,$25,$75
- $7116 DEFB $00,$00,$00,$00,$00,$00,$00,$81
- $711E DEFB $01,$01,$01,$01,$01,$3F,$0C,$E7
- $7126 DEFB $6F,$6F,$6E,$6C,$6C,$FF,$00,$7F
- $712E DEFB $DF,$DF,$5D,$59,$59,$FF,$00,$FF
- $7136 DEFB $6A,$6A,$6A,$6B,$6F,$F0,$0B,$FF
- $713E DEFB $7F,$7E,$7C,$78,$00,$20,$40,$80
- $7146 DEFB $00,$00,$00,$07,$0D,$1B,$36,$6D
- $714E DEFB $00,$00,$40,$C0,$BC,$6F,$DB,$B6
- $7156 DEFB $01,$03,$06,$0D,$1B,$36,$EC,$D8
- $715E DEFB $B6,$6D,$DB,$B6,$6D,$DB,$36,$2D
- $7166 DEFB $DC,$B8,$6C,$DA,$B6,$6C,$D8,$B3
- $716E DEFB $7F,$47,$41,$5D,$49,$5F,$59,$C9
- $7176 DEFB $80,$FF,$FF,$80,$80,$80,$80,$FF
- $717E DEFB $05,$FD,$FD,$35,$6D,$5D,$34,$C5
- $7186 DEFB $F0,$97,$97,$96,$D6,$F6,$16,$F6
- $718E DEFB $00,$FF,$FF,$00,$00,$00,$00,$FF
- $7196 DEFB $7F,$F3,$C3,$43,$5B,$4B,$53,$D3
- $719E DEFB $9F,$E1,$80,$80,$80,$80,$80,$F8
- $71A6 DEFB $03,$80,$41,$47,$7E,$30,$00,$03
- $71AE DEFB $19,$30,$E0,$C0,$31,$1F,$FD,$C9
- $71B6 DEFB $F3,$C0,$00,$1F,$FF,$F2,$07,$FA
- $71BE DEFB $FA,$05,$00,$E0,$FF,$00,$FF,$31
- $71C6 DEFB $C6,$28,$29,$1E,$C0,$F8,$8F,$E4
- $71CE DEFB $31,$21,$91,$77,$1D,$03,$00,$C0
- $71D6 DEFB $9D,$B9,$EB,$DA,$BB,$66,$00,$08
- $71DE DEFB $5B,$B6,$6D,$DA,$B0,$4E,$81,$80
- $71E6 DEFB $01,$DF,$B0,$60,$C0,$C0,$80,$41
- $71EE DEFB $98,$08,$C8,$34,$0C,$38,$C0,$C0
- $71F6 DEFB $00,$3F,$03,$00,$00,$00,$00,$00
- $71FE DEFB $73,$C1,$80,$00,$00,$00,$00,$06
- $7206 DEFB $30,$D8,$6C,$36,$1B,$0C,$06,$06
+b$6E96 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6E9E DEFB $5F,$5F,$58,$DF,$9F,$B7,$B6,$B6 ; #UDG(#PC,attr=56)
+ $6EA6 DEFB $FF,$FF,$00,$DE,$DE,$58,$58,$50 ; #UDG(#PC,attr=56)
+ $6EAE DEFB $FE,$FE,$D6,$D7,$D5,$D5,$D5,$FF ; #UDG(#PC,attr=56)
+ $6EB6 DEFB $FF,$FF,$FF,$FF,$FF,$FF,$FC,$F8 ; #UDG(#PC,attr=56)
+ $6EBE DEFB $FC,$F8,$E0,$C0,$80,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6EC6 DEFB $4E,$DC,$B8,$B0,$E2,$E6,$8C,$FC ; #UDG(#PC,attr=56)
+ $6ECE DEFB $01,$03,$87,$0F,$0E,$1E,$1E,$FF ; #UDG(#PC,attr=56)
+ $6ED6 DEFB $80,$10,$30,$23,$63,$47,$CF,$BF ; #UDG(#PC,attr=56)
+ $6EDE DEFB $0E,$8E,$8F,$8F,$1F,$9F,$BF,$FF ; #UDG(#PC,attr=56)
+ $6EE6 DEFB $1C,$0E,$06,$03,$03,$01,$F3,$E7 ; #UDG(#PC,attr=56)
+ $6EEE DEFB $00,$00,$23,$01,$81,$87,$8F,$FF ; #UDG(#PC,attr=56)
+ $6EF6 DEFB $FF,$1F,$9F,$01,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6EFE DEFB $FF,$FF,$FF,$FF,$1F,$01,$00,$00 ; #UDG(#PC,attr=56)
+ $6F06 DEFB $FF,$FF,$FF,$FF,$FF,$FF,$7F,$0F ; #UDG(#PC,attr=56)
+ $6F0E DEFB $00,$00,$00,$01,$03,$03,$07,$0F ; #UDG(#PC,attr=56)
+ $6F16 DEFB $0C,$1E,$7F,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
+ $6F1E DEFB $3E,$FF,$FF,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
+ $6F26 DEFB $2C,$40,$40,$00,$81,$83,$87,$86 ; #UDG(#PC,attr=56)
+ $6F2E DEFB $0C,$18,$38,$30,$61,$60,$60,$40 ; #UDG(#PC,attr=56)
+ $6F36 DEFB $00,$60,$F0,$C7,$CE,$1C,$18,$0C ; #UDG(#PC,attr=56)
+ $6F3E DEFB $F0,$3F,$0E,$03,$01,$01,$0F,$F8 ; #UDG(#PC,attr=56)
+ $6F46 DEFB $03,$00,$C0,$30,$DC,$CF,$83,$3C ; #UDG(#PC,attr=56)
+ $6F4E DEFB $0F,$07,$01,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6F56 DEFB $FF,$00,$80,$FF,$FF,$B0,$B7,$B7 ; #UDG(#PC,attr=56)
+ $6F5E DEFB $FF,$00,$00,$FF,$FF,$00,$DF,$DF ; #UDG(#PC,attr=56)
+ $6F66 DEFB $FF,$30,$1F,$FF,$E5,$65,$65,$65 ; #UDG(#PC,attr=56)
+ $6F6E DEFB $F0,$E0,$80,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6F76 DEFB $FF,$FF,$FF,$FF,$FE,$F8,$F0,$C0 ; #UDG(#PC,attr=56)
+ $6F7E DEFB $E0,$C0,$80,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $6F86 DEFB $00,$00,$00,$0D,$1B,$16,$2D,$5B ; #UDG(#PC,attr=56)
+ $6F8E DEFB $30,$60,$C0,$B0,$60,$C0,$F8,$0F ; #UDG(#PC,attr=56)
+ $6F96 DEFB $00,$00,$00,$00,$03,$06,$0D,$0B ; #UDG(#PC,attr=56)
+ $6F9E DEFB $00,$00,$00,$00,$00,$80,$80,$40 ; #UDG(#PC,attr=56)
+ $6FA6 DEFB $00,$00,$00,$00,$30,$D8,$6C,$37 ; #UDG(#PC,attr=56)
+ $6FAE DEFB $00,$00,$00,$00,$00,$00,$1F,$F0 ; #UDG(#PC,attr=56)
+ $6FB6 DEFB $F0,$ED,$3B,$0E,$03,$01,$F0,$70 ; #UDG(#PC,attr=56)
+ $6FBE DEFB $00,$80,$40,$C0,$B0,$EC,$DB,$B6 ; #UDG(#PC,attr=56)
+ $6FC6 DEFB $00,$00,$00,$00,$00,$00,$00,$6F ; #UDG(#PC,attr=56)
+ $6FCE DEFB $FF,$3F,$0F,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
+ $6FD6 DEFB $00,$00,$00,$20,$78,$FC,$FF,$FF ; #UDG(#PC,attr=56)
+ $6FDE DEFB $00,$00,$01,$07,$0F,$7F,$FF,$FF ; #UDG(#PC,attr=56)
+ $6FE6 DEFB $3F,$7F,$FF,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
+ $6FEE DEFB $01,$02,$0D,$1F,$6D,$BF,$ED,$FE ; #UDG(#PC,attr=56)
+ $6FF6 DEFB $82,$7D,$B2,$ED,$F2,$ED,$BF,$6C ; #UDG(#PC,attr=56)
+ $6FFE DEFB $86,$8C,$88,$40,$60,$7C,$0E,$07 ; #UDG(#PC,attr=56)
+ $7006 DEFB $40,$00,$01,$03,$06,$3C,$FA,$F4 ; #UDG(#PC,attr=56)
+ $700E DEFB $0F,$00,$E0,$80,$07,$0E,$30,$40 ; #UDG(#PC,attr=56)
+ $7016 DEFB $CC,$1B,$6C,$F0,$C0,$00,$30,$60 ; #UDG(#PC,attr=56)
+ $701E DEFB $C3,$00,$00,$00,$00,$38,$7F,$E7 ; #UDG(#PC,attr=56)
+ $7026 DEFB $00,$00,$00,$1F,$0C,$03,$01,$01 ; #UDG(#PC,attr=56)
+ $702E DEFB $B6,$B6,$B4,$FF,$00,$FF,$FF,$60 ; #UDG(#PC,attr=56)
+ $7036 DEFB $5D,$1D,$19,$FF,$00,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $703E DEFB $65,$65,$7F,$E0,$17,$FF,$FA,$6A ; #UDG(#PC,attr=56)
+ $7046 DEFB $00,$00,$F8,$E0,$80,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $704E DEFB $FF,$FF,$FF,$FF,$FF,$FE,$FC,$F0 ; #UDG(#PC,attr=56)
+ $7056 DEFB $FF,$FE,$FC,$E0,$80,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $705E DEFB $00,$03,$06,$0D,$1B,$36,$6D,$DB ; #UDG(#PC,attr=56)
+ $7066 DEFB $B7,$6D,$D9,$B1,$60,$C0,$C0,$7C ; #UDG(#PC,attr=56)
+ $706E DEFB $03,$00,$A0,$F0,$7E,$2F,$23,$38 ; #UDG(#PC,attr=56)
+ $7076 DEFB $FF,$30,$41,$51,$31,$F0,$FF,$0F ; #UDG(#PC,attr=56)
+ $707E DEFB $FE,$0F,$40,$CC,$4A,$C4,$FF,$FF ; #UDG(#PC,attr=56)
+ $7086 DEFB $81,$FE,$00,$21,$21,$38,$FF,$F7 ; #UDG(#PC,attr=56)
+ $708E DEFB $FE,$1D,$2D,$3D,$A8,$07,$FF,$F8 ; #UDG(#PC,attr=56)
+ $7096 DEFB $0C,$CA,$4C,$43,$3F,$FD,$E1,$0F ; #UDG(#PC,attr=56)
+ $709E DEFB $70,$70,$70,$F1,$C1,$C3,$C3,$C2 ; #UDG(#PC,attr=56)
+ $70A6 DEFB $47,$81,$90,$30,$30,$60,$40,$01 ; #UDG(#PC,attr=56)
+ $70AE DEFB $99,$87,$C3,$61,$61,$C0,$F0,$99 ; #UDG(#PC,attr=56)
+ $70B6 DEFB $FC,$03,$80,$C0,$C0,$E0,$F0,$FC ; #UDG(#PC,attr=56)
+ $70BE DEFB $00,$1F,$F0,$39,$2B,$3F,$7B,$ED ; #UDG(#PC,attr=56)
+ $70C6 DEFB $70,$9F,$C0,$80,$00,$00,$19,$93 ; #UDG(#PC,attr=56)
+ $70CE DEFB $1E,$B0,$C8,$74,$4C,$BC,$BC,$57 ; #UDG(#PC,attr=56)
+ $70D6 DEFB $83,$C1,$A0,$71,$1B,$0E,$05,$0D ; #UDG(#PC,attr=56)
+ $70DE DEFB $01,$83,$9E,$FC,$60,$80,$00,$2C ; #UDG(#PC,attr=56)
+ $70E6 DEFB $81,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $70EE DEFB $C4,$04,$04,$02,$1B,$33,$6F,$D8 ; #UDG(#PC,attr=56)
+ $70F6 DEFB $00,$00,$00,$00,$00,$E7,$FF,$78 ; #UDG(#PC,attr=56)
+ $70FE DEFB $D8,$D1,$61,$23,$1E,$E5,$8F,$1B ; #UDG(#PC,attr=56)
+ $7106 DEFB $C1,$C0,$80,$BF,$F0,$C0,$00,$C0 ; #UDG(#PC,attr=56)
+ $710E DEFB $00,$00,$00,$00,$40,$7A,$25,$75 ; #UDG(#PC,attr=56)
+ $7116 DEFB $00,$00,$00,$00,$00,$00,$00,$81 ; #UDG(#PC,attr=56)
+ $711E DEFB $01,$01,$01,$01,$01,$3F,$0C,$E7 ; #UDG(#PC,attr=56)
+ $7126 DEFB $6F,$6F,$6E,$6C,$6C,$FF,$00,$7F ; #UDG(#PC,attr=56)
+ $712E DEFB $DF,$DF,$5D,$59,$59,$FF,$00,$FF ; #UDG(#PC,attr=56)
+ $7136 DEFB $6A,$6A,$6A,$6B,$6F,$F0,$0B,$FF ; #UDG(#PC,attr=56)
+ $713E DEFB $7F,$7E,$7C,$78,$00,$20,$40,$80 ; #UDG(#PC,attr=56)
+ $7146 DEFB $00,$00,$00,$07,$0D,$1B,$36,$6D ; #UDG(#PC,attr=56)
+ $714E DEFB $00,$00,$40,$C0,$BC,$6F,$DB,$B6 ; #UDG(#PC,attr=56)
+ $7156 DEFB $01,$03,$06,$0D,$1B,$36,$EC,$D8 ; #UDG(#PC,attr=56)
+ $715E DEFB $B6,$6D,$DB,$B6,$6D,$DB,$36,$2D ; #UDG(#PC,attr=56)
+ $7166 DEFB $DC,$B8,$6C,$DA,$B6,$6C,$D8,$B3 ; #UDG(#PC,attr=56)
+ $716E DEFB $7F,$47,$41,$5D,$49,$5F,$59,$C9 ; #UDG(#PC,attr=56)
+ $7176 DEFB $80,$FF,$FF,$80,$80,$80,$80,$FF ; #UDG(#PC,attr=56)
+ $717E DEFB $05,$FD,$FD,$35,$6D,$5D,$34,$C5 ; #UDG(#PC,attr=56)
+ $7186 DEFB $F0,$97,$97,$96,$D6,$F6,$16,$F6 ; #UDG(#PC,attr=56)
+ $718E DEFB $00,$FF,$FF,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7196 DEFB $7F,$F3,$C3,$43,$5B,$4B,$53,$D3 ; #UDG(#PC,attr=56)
+ $719E DEFB $9F,$E1,$80,$80,$80,$80,$80,$F8 ; #UDG(#PC,attr=56)
+ $71A6 DEFB $03,$80,$41,$47,$7E,$30,$00,$03 ; #UDG(#PC,attr=56)
+ $71AE DEFB $19,$30,$E0,$C0,$31,$1F,$FD,$C9 ; #UDG(#PC,attr=56)
+ $71B6 DEFB $F3,$C0,$00,$1F,$FF,$F2,$07,$FA ; #UDG(#PC,attr=56)
+ $71BE DEFB $FA,$05,$00,$E0,$FF,$00,$FF,$31 ; #UDG(#PC,attr=56)
+ $71C6 DEFB $C6,$28,$29,$1E,$C0,$F8,$8F,$E4 ; #UDG(#PC,attr=56)
+ $71CE DEFB $31,$21,$91,$77,$1D,$03,$00,$C0 ; #UDG(#PC,attr=56)
+ $71D6 DEFB $9D,$B9,$EB,$DA,$BB,$66,$00,$08 ; #UDG(#PC,attr=56)
+ $71DE DEFB $5B,$B6,$6D,$DA,$B0,$4E,$81,$80 ; #UDG(#PC,attr=56)
+ $71E6 DEFB $01,$DF,$B0,$60,$C0,$C0,$80,$41 ; #UDG(#PC,attr=56)
+ $71EE DEFB $98,$08,$C8,$34,$0C,$38,$C0,$C0 ; #UDG(#PC,attr=56)
+ $71F6 DEFB $00,$3F,$03,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $71FE DEFB $73,$C1,$80,$00,$00,$00,$00,$06 ; #UDG(#PC,attr=56)
+ $7206 DEFB $30,$D8,$6C,$36,$1B,$0C,$06,$06 ; #UDG(#PC,attr=56)
 
 ; Background 2 data.
-b$720E DEFB $04,$03,$00,$00,$00,$00,$00,$01
- $7216 DEFB $C0,$2E,$3F,$07,$01,$00,$00,$80
- $721E DEFB $00,$00,$00,$C0,$F0,$38,$7C,$3E
- $7226 DEFB $FF,$60,$6F,$6F,$6E,$6C,$7F,$EF
- $722E DEFB $FF,$00,$DF,$DF,$5C,$58,$50,$FD
- $7236 DEFB $FB,$6A,$6A,$6A,$6A,$6A,$6A,$6A
- $723E DEFB $80,$81,$80,$80,$80,$80,$80,$81
- $7246 DEFB $DB,$A2,$01,$03,$06,$0D,$1B,$F7
- $724E DEFB $6D,$DB,$B7,$6E,$D9,$B7,$6E,$D9
- $7256 DEFB $73,$E0,$80,$80,$80,$C0,$40,$80
- $725E DEFB $BC,$20,$20,$10,$19,$27,$43,$83
- $7266 DEFB $02,$06,$06,$66,$16,$57,$AB,$A8
- $726E DEFB $43,$43,$5B,$6B,$5B,$C3,$C3,$B3
- $7276 DEFB $80,$86,$85,$85,$85,$80,$FF,$FF
- $727E DEFB $7E,$0F,$08,$08,$0F,$0C,$FF,$FF
- $7286 DEFB $0F,$FE,$06,$06,$FF,$03,$FF,$FF
- $728E DEFB $00,$20,$50,$50,$20,$00,$3F,$FF
- $7296 DEFB $CB,$83,$83,$BB,$EB,$BF,$AB,$83
- $729E DEFB $B8,$B8,$B8,$B8,$B8,$F8,$F8,$80
- $72A6 DEFB $02,$00,$01,$00,$00,$00,$00,$00
- $72AE DEFB $1E,$F0,$B7,$3F,$F9,$E1,$0F,$1C
- $72B6 DEFB $1F,$18,$FF,$F8,$18,$18,$18,$18
- $72BE DEFB $FE,$31,$FE,$7F,$31,$30,$30,$30
- $72C6 DEFB $BF,$F5,$30,$FE,$FF,$31,$30,$3F
- $72CE DEFB $30,$C0,$60,$40,$C0,$E0,$00,$00
- $72D6 DEFB $09,$09,$06,$00,$00,$00,$00,$00
- $72DE DEFB $01,$0E,$08,$10,$13,$0C,$03,$00
- $72E6 DEFB $C1,$00,$00,$3B,$FC,$03,$C0,$60
- $72EE DEFB $C0,$E0,$30,$9F,$E0,$B0,$58,$6C
- $72F6 DEFB $00,$00,$30,$1C,$CE,$33,$08,$7C
- $72FE DEFB $07,$03,$0B,$1D,$2A,$DA,$F9,$70
- $7306 DEFB $C7,$F7,$3E,$89,$D7,$E6,$4C,$9C
- $730E DEFB $03,$03,$06,$0D,$0B,$1E,$1D,$33
- $7316 DEFB $00,$02,$83,$B3,$71,$D2,$A3,$03
- $731E DEFB $7E,$3E,$07,$07,$07,$C3,$C1,$E1
- $7326 DEFB $02,$0C,$30,$20,$40,$80,$80,$CC
- $732E DEFB $79,$36,$3D,$1D,$03,$02,$01,$00
- $7336 DEFB $6A,$6A,$6A,$6B,$6B,$EB,$EB,$7B
- $733E DEFB $8F,$F7,$98,$20,$40,$40,$80,$0C
- $7346 DEFB $FF,$00,$00,$00,$22,$36,$68,$77
- $734E DEFB $FE,$7B,$0D,$0D,$07,$07,$67,$83
- $7356 DEFB $78,$87,$80,$01,$02,$03,$02,$8D
- $735E DEFB $81,$C1,$E0,$60,$F0,$53,$B7,$3D
- $7366 DEFB $98,$DB,$DE,$BD,$BB,$76,$6D,$BB
- $736E DEFB $DB,$D3,$B7,$87,$87,$B7,$BF,$B7
- $7376 DEFB $80,$80,$00,$01,$01,$03,$0E,$F9
- $737E DEFB $3F,$60,$80,$99,$E6,$19,$66,$99
- $7386 DEFB $FF,$00,$00,$98,$66,$98,$66,$99
- $738E DEFB $C3,$00,$00,$00,$00,$00,$00,$3F
- $7396 DEFB $A3,$A3,$93,$9B,$83,$81,$99,$85
- $739E DEFB $80,$80,$80,$C0,$C3,$FD,$C3,$FE
- $73A6 DEFB $0F,$70,$C0,$80,$80,$80,$00,$00
- $73AE DEFB $ED,$1B,$06,$01,$00,$00,$00,$00
- $73B6 DEFB $B6,$6D,$DB,$B6,$6D,$00,$20,$E0
- $73BE DEFB $DB,$B6,$6D,$DB,$B0,$00,$00,$00
- $73C6 DEFB $7D,$DB,$B6,$61,$03,$02,$01,$00
- $73CE DEFB $80,$80,$80,$80,$6D,$DB,$B6,$ED
- $73D6 DEFB $00,$00,$00,$00,$80,$6D,$DB,$B6
- $73DE DEFB $00,$00,$00,$00,$00,$B6,$7D,$C3
- $73E6 DEFB $30,$1C,$07,$03,$01,$18,$B6,$6F
- $73EE DEFB $37,$E2,$C7,$F1,$80,$60,$DE,$F3
- $73F6 DEFB $80,$3F,$FF,$C1,$30,$6D,$DB,$F6
- $73FE DEFB $38,$1F,$87,$E1,$78,$9F,$67,$D9
- $7406 DEFB $58,$2C,$AD,$EF,$0E,$00,$C0,$E3
- $740E DEFB $36,$30,$60,$60,$40,$41,$46,$19
- $7416 DEFB $21,$60,$40,$C0,$B3,$3E,$F5,$9B
- $741E DEFB $F1,$F0,$60,$06,$1C,$B1,$E3,$CF
- $7426 DEFB $F3,$EF,$EA,$47,$D8,$E6,$B3,$1D
- $742E DEFB $80,$40,$E5,$B5,$7B,$19,$0B,$93
- $7436 DEFB $9C,$A3,$40,$40,$20,$C0,$08,$76
- $743E DEFB $07,$01,$81,$C1,$61,$63,$33,$33
- $7446 DEFB $98,$A0,$A0,$C0,$C7,$43,$58,$76
- $744E DEFB $87,$58,$2E,$16,$1C,$F8,$E0,$C0
- $7456 DEFB $65,$11,$1B,$0B,$0B,$16,$16,$16
- $745E DEFB $DE,$E0,$80,$80,$C0,$70,$1E,$03
- $7466 DEFB $7F,$00,$00,$00,$00,$00,$00,$FE
- $746E DEFB $97,$F7,$87,$87,$87,$B7,$97,$F7
- $7476 DEFB $66,$19,$66,$99,$66,$99,$66,$99
- $747E DEFB $66,$99,$66,$99,$66,$99,$66,$99
- $7486 DEFB $66,$99,$66,$99,$66,$99,$66,$98
- $748E DEFB $60,$C0,$80,$80,$00,$00,$00,$80
- $7496 DEFB $B5,$BD,$99,$89,$81,$59,$45,$5D
- $749E DEFB $C0,$C0,$C0,$C3,$C6,$E7,$E3,$F0
- $74A6 DEFB $00,$00,$3F,$F8,$00,$00,$FF,$1F
- $74AE DEFB $0F,$00,$E0,$00,$00,$00,$00,$FC
- $74B6 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $74BE DEFB $07,$38,$40,$3F,$00,$00,$00,$03
- $74C6 DEFB $80,$00,$00,$F8,$07,$00,$00,$FF
- $74CE DEFB $01,$00,$00,$00,$FF,$00,$3F,$FF
- $74D6 DEFB $80,$00,$00,$1E,$E0,$00,$81,$FF
- $74DE DEFB $81,$81,$C5,$ED,$80,$B1,$C9,$4E
- $74E6 DEFB $F0,$00,$00,$80,$80,$00,$80,$66
- $74EE DEFB $0F,$00,$00,$00,$00,$00,$00,$00
- $74F6 DEFB $8D,$0F,$07,$02,$01,$00,$00,$00
- $74FE DEFB $B6,$6D,$DB,$B6,$ED,$DB,$F6,$7F
- $7506 DEFB $F3,$F9,$18,$D8,$BC,$6C,$C4,$86
- $750E DEFB $23,$4E,$58,$11,$18,$0F,$03,$3C
- $7516 DEFB $33,$6E,$DC,$B0,$E3,$C1,$00,$00
- $751E DEFB $18,$0C,$0C,$08,$B8,$F6,$0D,$1B
- $7526 DEFB $06,$03,$01,$01,$00,$C0,$A0,$60
- $752E DEFB $E6,$47,$00,$87,$CF,$CC,$98,$98
- $7536 DEFB $8C,$38,$F0,$C0,$01,$01,$73,$3F
- $753E DEFB $32,$62,$6A,$D6,$88,$87,$80,$01
- $7546 DEFB $ED,$DB,$B6,$C1,$62,$92,$E4,$09
- $754E DEFB $81,$3E,$C0,$00,$60,$C0,$83,$13
- $7556 DEFB $FC,$38,$1C,$06,$02,$01,$03,$87
- $755E DEFB $0C,$10,$20,$12,$13,$09,$04,$06
- $7566 DEFB $63,$14,$08,$18,$10,$30,$F8,$C6
- $756E DEFB $87,$87,$87,$87,$87,$87,$87,$FE
- $7576 DEFB $66,$99,$66,$99,$66,$98,$60,$80
- $757E DEFB $66,$98,$60,$80,$00,$00,$00,$00
- $7586 DEFB $7E,$07,$01,$00,$00,$00,$00,$00
- $758E DEFB $55,$55,$DF,$41,$41,$41,$41,$41
- $7596 DEFB $FE,$DF,$C3,$C0,$C0,$C0,$C0,$FF
- $759E DEFB $00,$C0,$FF,$00,$00,$00,$00,$01
- $75A6 DEFB $3F,$00,$F0,$00,$00,$00,$00,$FF
- $75AE DEFB $FF,$FF,$00,$00,$00,$00,$01,$FF
- $75B6 DEFB $FF,$F8,$00,$00,$00,$00,$FF,$FF
- $75BE DEFB $FF,$00,$00,$00,$00,$00,$00,$FF
- $75C6 DEFB $80,$00,$00,$00,$00,$00,$00,$FE
- $75CE DEFB $03,$06,$06,$06,$06,$07,$07,$03
- $75D6 DEFB $78,$4A,$43,$21,$31,$1D,$0B,$F9
- $75DE DEFB $3C,$3F,$16,$9D,$9B,$36,$6D,$8F
- $75E6 DEFB $00,$FF,$C7,$80,$00,$C0,$80,$FE
- $75EE DEFB $00,$C0,$FF,$1F,$00,$00,$00,$00
- $75F6 DEFB $00,$00,$80,$FC,$00,$00,$00,$3F
- $75FE DEFB $FF,$03,$00,$00,$00,$00,$00,$FF
+b$720E DEFB $04,$03,$00,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
+ $7216 DEFB $C0,$2E,$3F,$07,$01,$00,$00,$80 ; #UDG(#PC,attr=56)
+ $721E DEFB $00,$00,$00,$C0,$F0,$38,$7C,$3E ; #UDG(#PC,attr=56)
+ $7226 DEFB $FF,$60,$6F,$6F,$6E,$6C,$7F,$EF ; #UDG(#PC,attr=56)
+ $722E DEFB $FF,$00,$DF,$DF,$5C,$58,$50,$FD ; #UDG(#PC,attr=56)
+ $7236 DEFB $FB,$6A,$6A,$6A,$6A,$6A,$6A,$6A ; #UDG(#PC,attr=56)
+ $723E DEFB $80,$81,$80,$80,$80,$80,$80,$81 ; #UDG(#PC,attr=56)
+ $7246 DEFB $DB,$A2,$01,$03,$06,$0D,$1B,$F7 ; #UDG(#PC,attr=56)
+ $724E DEFB $6D,$DB,$B7,$6E,$D9,$B7,$6E,$D9 ; #UDG(#PC,attr=56)
+ $7256 DEFB $73,$E0,$80,$80,$80,$C0,$40,$80 ; #UDG(#PC,attr=56)
+ $725E DEFB $BC,$20,$20,$10,$19,$27,$43,$83 ; #UDG(#PC,attr=56)
+ $7266 DEFB $02,$06,$06,$66,$16,$57,$AB,$A8 ; #UDG(#PC,attr=56)
+ $726E DEFB $43,$43,$5B,$6B,$5B,$C3,$C3,$B3 ; #UDG(#PC,attr=56)
+ $7276 DEFB $80,$86,$85,$85,$85,$80,$FF,$FF ; #UDG(#PC,attr=56)
+ $727E DEFB $7E,$0F,$08,$08,$0F,$0C,$FF,$FF ; #UDG(#PC,attr=56)
+ $7286 DEFB $0F,$FE,$06,$06,$FF,$03,$FF,$FF ; #UDG(#PC,attr=56)
+ $728E DEFB $00,$20,$50,$50,$20,$00,$3F,$FF ; #UDG(#PC,attr=56)
+ $7296 DEFB $CB,$83,$83,$BB,$EB,$BF,$AB,$83 ; #UDG(#PC,attr=56)
+ $729E DEFB $B8,$B8,$B8,$B8,$B8,$F8,$F8,$80 ; #UDG(#PC,attr=56)
+ $72A6 DEFB $02,$00,$01,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $72AE DEFB $1E,$F0,$B7,$3F,$F9,$E1,$0F,$1C ; #UDG(#PC,attr=56)
+ $72B6 DEFB $1F,$18,$FF,$F8,$18,$18,$18,$18 ; #UDG(#PC,attr=56)
+ $72BE DEFB $FE,$31,$FE,$7F,$31,$30,$30,$30 ; #UDG(#PC,attr=56)
+ $72C6 DEFB $BF,$F5,$30,$FE,$FF,$31,$30,$3F ; #UDG(#PC,attr=56)
+ $72CE DEFB $30,$C0,$60,$40,$C0,$E0,$00,$00 ; #UDG(#PC,attr=56)
+ $72D6 DEFB $09,$09,$06,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $72DE DEFB $01,$0E,$08,$10,$13,$0C,$03,$00 ; #UDG(#PC,attr=56)
+ $72E6 DEFB $C1,$00,$00,$3B,$FC,$03,$C0,$60 ; #UDG(#PC,attr=56)
+ $72EE DEFB $C0,$E0,$30,$9F,$E0,$B0,$58,$6C ; #UDG(#PC,attr=56)
+ $72F6 DEFB $00,$00,$30,$1C,$CE,$33,$08,$7C ; #UDG(#PC,attr=56)
+ $72FE DEFB $07,$03,$0B,$1D,$2A,$DA,$F9,$70 ; #UDG(#PC,attr=56)
+ $7306 DEFB $C7,$F7,$3E,$89,$D7,$E6,$4C,$9C ; #UDG(#PC,attr=56)
+ $730E DEFB $03,$03,$06,$0D,$0B,$1E,$1D,$33 ; #UDG(#PC,attr=56)
+ $7316 DEFB $00,$02,$83,$B3,$71,$D2,$A3,$03 ; #UDG(#PC,attr=56)
+ $731E DEFB $7E,$3E,$07,$07,$07,$C3,$C1,$E1 ; #UDG(#PC,attr=56)
+ $7326 DEFB $02,$0C,$30,$20,$40,$80,$80,$CC ; #UDG(#PC,attr=56)
+ $732E DEFB $79,$36,$3D,$1D,$03,$02,$01,$00 ; #UDG(#PC,attr=56)
+ $7336 DEFB $6A,$6A,$6A,$6B,$6B,$EB,$EB,$7B ; #UDG(#PC,attr=56)
+ $733E DEFB $8F,$F7,$98,$20,$40,$40,$80,$0C ; #UDG(#PC,attr=56)
+ $7346 DEFB $FF,$00,$00,$00,$22,$36,$68,$77 ; #UDG(#PC,attr=56)
+ $734E DEFB $FE,$7B,$0D,$0D,$07,$07,$67,$83 ; #UDG(#PC,attr=56)
+ $7356 DEFB $78,$87,$80,$01,$02,$03,$02,$8D ; #UDG(#PC,attr=56)
+ $735E DEFB $81,$C1,$E0,$60,$F0,$53,$B7,$3D ; #UDG(#PC,attr=56)
+ $7366 DEFB $98,$DB,$DE,$BD,$BB,$76,$6D,$BB ; #UDG(#PC,attr=56)
+ $736E DEFB $DB,$D3,$B7,$87,$87,$B7,$BF,$B7 ; #UDG(#PC,attr=56)
+ $7376 DEFB $80,$80,$00,$01,$01,$03,$0E,$F9 ; #UDG(#PC,attr=56)
+ $737E DEFB $3F,$60,$80,$99,$E6,$19,$66,$99 ; #UDG(#PC,attr=56)
+ $7386 DEFB $FF,$00,$00,$98,$66,$98,$66,$99 ; #UDG(#PC,attr=56)
+ $738E DEFB $C3,$00,$00,$00,$00,$00,$00,$3F ; #UDG(#PC,attr=56)
+ $7396 DEFB $A3,$A3,$93,$9B,$83,$81,$99,$85 ; #UDG(#PC,attr=56)
+ $739E DEFB $80,$80,$80,$C0,$C3,$FD,$C3,$FE ; #UDG(#PC,attr=56)
+ $73A6 DEFB $0F,$70,$C0,$80,$80,$80,$00,$00 ; #UDG(#PC,attr=56)
+ $73AE DEFB $ED,$1B,$06,$01,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $73B6 DEFB $B6,$6D,$DB,$B6,$6D,$00,$20,$E0 ; #UDG(#PC,attr=56)
+ $73BE DEFB $DB,$B6,$6D,$DB,$B0,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $73C6 DEFB $7D,$DB,$B6,$61,$03,$02,$01,$00 ; #UDG(#PC,attr=56)
+ $73CE DEFB $80,$80,$80,$80,$6D,$DB,$B6,$ED ; #UDG(#PC,attr=56)
+ $73D6 DEFB $00,$00,$00,$00,$80,$6D,$DB,$B6 ; #UDG(#PC,attr=56)
+ $73DE DEFB $00,$00,$00,$00,$00,$B6,$7D,$C3 ; #UDG(#PC,attr=56)
+ $73E6 DEFB $30,$1C,$07,$03,$01,$18,$B6,$6F ; #UDG(#PC,attr=56)
+ $73EE DEFB $37,$E2,$C7,$F1,$80,$60,$DE,$F3 ; #UDG(#PC,attr=56)
+ $73F6 DEFB $80,$3F,$FF,$C1,$30,$6D,$DB,$F6 ; #UDG(#PC,attr=56)
+ $73FE DEFB $38,$1F,$87,$E1,$78,$9F,$67,$D9 ; #UDG(#PC,attr=56)
+ $7406 DEFB $58,$2C,$AD,$EF,$0E,$00,$C0,$E3 ; #UDG(#PC,attr=56)
+ $740E DEFB $36,$30,$60,$60,$40,$41,$46,$19 ; #UDG(#PC,attr=56)
+ $7416 DEFB $21,$60,$40,$C0,$B3,$3E,$F5,$9B ; #UDG(#PC,attr=56)
+ $741E DEFB $F1,$F0,$60,$06,$1C,$B1,$E3,$CF ; #UDG(#PC,attr=56)
+ $7426 DEFB $F3,$EF,$EA,$47,$D8,$E6,$B3,$1D ; #UDG(#PC,attr=56)
+ $742E DEFB $80,$40,$E5,$B5,$7B,$19,$0B,$93 ; #UDG(#PC,attr=56)
+ $7436 DEFB $9C,$A3,$40,$40,$20,$C0,$08,$76 ; #UDG(#PC,attr=56)
+ $743E DEFB $07,$01,$81,$C1,$61,$63,$33,$33 ; #UDG(#PC,attr=56)
+ $7446 DEFB $98,$A0,$A0,$C0,$C7,$43,$58,$76 ; #UDG(#PC,attr=56)
+ $744E DEFB $87,$58,$2E,$16,$1C,$F8,$E0,$C0 ; #UDG(#PC,attr=56)
+ $7456 DEFB $65,$11,$1B,$0B,$0B,$16,$16,$16 ; #UDG(#PC,attr=56)
+ $745E DEFB $DE,$E0,$80,$80,$C0,$70,$1E,$03 ; #UDG(#PC,attr=56)
+ $7466 DEFB $7F,$00,$00,$00,$00,$00,$00,$FE ; #UDG(#PC,attr=56)
+ $746E DEFB $97,$F7,$87,$87,$87,$B7,$97,$F7 ; #UDG(#PC,attr=56)
+ $7476 DEFB $66,$19,$66,$99,$66,$99,$66,$99 ; #UDG(#PC,attr=56)
+ $747E DEFB $66,$99,$66,$99,$66,$99,$66,$99 ; #UDG(#PC,attr=56)
+ $7486 DEFB $66,$99,$66,$99,$66,$99,$66,$98 ; #UDG(#PC,attr=56)
+ $748E DEFB $60,$C0,$80,$80,$00,$00,$00,$80 ; #UDG(#PC,attr=56)
+ $7496 DEFB $B5,$BD,$99,$89,$81,$59,$45,$5D ; #UDG(#PC,attr=56)
+ $749E DEFB $C0,$C0,$C0,$C3,$C6,$E7,$E3,$F0 ; #UDG(#PC,attr=56)
+ $74A6 DEFB $00,$00,$3F,$F8,$00,$00,$FF,$1F ; #UDG(#PC,attr=56)
+ $74AE DEFB $0F,$00,$E0,$00,$00,$00,$00,$FC ; #UDG(#PC,attr=56)
+ $74B6 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $74BE DEFB $07,$38,$40,$3F,$00,$00,$00,$03 ; #UDG(#PC,attr=56)
+ $74C6 DEFB $80,$00,$00,$F8,$07,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $74CE DEFB $01,$00,$00,$00,$FF,$00,$3F,$FF ; #UDG(#PC,attr=56)
+ $74D6 DEFB $80,$00,$00,$1E,$E0,$00,$81,$FF ; #UDG(#PC,attr=56)
+ $74DE DEFB $81,$81,$C5,$ED,$80,$B1,$C9,$4E ; #UDG(#PC,attr=56)
+ $74E6 DEFB $F0,$00,$00,$80,$80,$00,$80,$66 ; #UDG(#PC,attr=56)
+ $74EE DEFB $0F,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $74F6 DEFB $8D,$0F,$07,$02,$01,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $74FE DEFB $B6,$6D,$DB,$B6,$ED,$DB,$F6,$7F ; #UDG(#PC,attr=56)
+ $7506 DEFB $F3,$F9,$18,$D8,$BC,$6C,$C4,$86 ; #UDG(#PC,attr=56)
+ $750E DEFB $23,$4E,$58,$11,$18,$0F,$03,$3C ; #UDG(#PC,attr=56)
+ $7516 DEFB $33,$6E,$DC,$B0,$E3,$C1,$00,$00 ; #UDG(#PC,attr=56)
+ $751E DEFB $18,$0C,$0C,$08,$B8,$F6,$0D,$1B ; #UDG(#PC,attr=56)
+ $7526 DEFB $06,$03,$01,$01,$00,$C0,$A0,$60 ; #UDG(#PC,attr=56)
+ $752E DEFB $E6,$47,$00,$87,$CF,$CC,$98,$98 ; #UDG(#PC,attr=56)
+ $7536 DEFB $8C,$38,$F0,$C0,$01,$01,$73,$3F ; #UDG(#PC,attr=56)
+ $753E DEFB $32,$62,$6A,$D6,$88,$87,$80,$01 ; #UDG(#PC,attr=56)
+ $7546 DEFB $ED,$DB,$B6,$C1,$62,$92,$E4,$09 ; #UDG(#PC,attr=56)
+ $754E DEFB $81,$3E,$C0,$00,$60,$C0,$83,$13 ; #UDG(#PC,attr=56)
+ $7556 DEFB $FC,$38,$1C,$06,$02,$01,$03,$87 ; #UDG(#PC,attr=56)
+ $755E DEFB $0C,$10,$20,$12,$13,$09,$04,$06 ; #UDG(#PC,attr=56)
+ $7566 DEFB $63,$14,$08,$18,$10,$30,$F8,$C6 ; #UDG(#PC,attr=56)
+ $756E DEFB $87,$87,$87,$87,$87,$87,$87,$FE ; #UDG(#PC,attr=56)
+ $7576 DEFB $66,$99,$66,$99,$66,$98,$60,$80 ; #UDG(#PC,attr=56)
+ $757E DEFB $66,$98,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7586 DEFB $7E,$07,$01,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $758E DEFB $55,$55,$DF,$41,$41,$41,$41,$41 ; #UDG(#PC,attr=56)
+ $7596 DEFB $FE,$DF,$C3,$C0,$C0,$C0,$C0,$FF ; #UDG(#PC,attr=56)
+ $759E DEFB $00,$C0,$FF,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
+ $75A6 DEFB $3F,$00,$F0,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $75AE DEFB $FF,$FF,$00,$00,$00,$00,$01,$FF ; #UDG(#PC,attr=56)
+ $75B6 DEFB $FF,$F8,$00,$00,$00,$00,$FF,$FF ; #UDG(#PC,attr=56)
+ $75BE DEFB $FF,$00,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $75C6 DEFB $80,$00,$00,$00,$00,$00,$00,$FE ; #UDG(#PC,attr=56)
+ $75CE DEFB $03,$06,$06,$06,$06,$07,$07,$03 ; #UDG(#PC,attr=56)
+ $75D6 DEFB $78,$4A,$43,$21,$31,$1D,$0B,$F9 ; #UDG(#PC,attr=56)
+ $75DE DEFB $3C,$3F,$16,$9D,$9B,$36,$6D,$8F ; #UDG(#PC,attr=56)
+ $75E6 DEFB $00,$FF,$C7,$80,$00,$C0,$80,$FE ; #UDG(#PC,attr=56)
+ $75EE DEFB $00,$C0,$FF,$1F,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $75F6 DEFB $00,$00,$80,$FC,$00,$00,$00,$3F ; #UDG(#PC,attr=56)
+ $75FE DEFB $FF,$03,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
 
 ; Background 2 data.
-b$7606 DEFB $70,$66,$6C,$DB,$F6,$ED,$DB,$06
- $760E DEFB $05,$1B,$36,$7C,$D5,$B5,$75,$D2
- $7616 DEFB $B6,$6D,$DB,$B6,$ED,$5B,$56,$40
- $761E DEFB $D0,$90,$F0,$C9,$85,$01,$03,$02
- $7626 DEFB $98,$B8,$B8,$B6,$76,$6B,$71,$21
- $762E DEFB $0E,$00,$6D,$DB,$B6,$2D,$1B,$36
- $7636 DEFB $62,$C3,$B6,$6D,$DB,$B6,$6D,$DB
- $763E DEFB $08,$08,$D8,$B4,$6E,$D9,$B0,$60
- $7646 DEFB $19,$29,$2A,$55,$5B,$C7,$46,$BC
- $764E DEFB $87,$4F,$8E,$9E,$9D,$E2,$02,$14
- $7656 DEFB $19,$30,$E0,$00,$00,$80,$80,$80
- $765E DEFB $E1,$00,$00,$00,$00,$00,$00,$00
- $7666 DEFB $B6,$DB,$6D,$76,$3B,$0D,$36,$6F
- $766E DEFB $00,$00,$80,$C0,$6C,$B6,$DB,$6D
- $7676 DEFB $00,$00,$00,$00,$00,$DB,$6D,$B6
- $767E DEFB $00,$00,$00,$00,$08,$6D,$B6,$DB
- $7686 DEFB $00,$00,$00,$00,$6D,$B6,$DB,$6D
- $768E DEFB $3F,$37,$1B,$0D,$B6,$DB,$6D,$B6
- $7696 DEFB $B3,$D8,$6C,$B6,$DB,$6D,$B6,$18
- $769E DEFB $FF,$7E,$00,$00,$00,$80,$00,$00
- $76A6 DEFB $FF,$00,$00,$00,$00,$00,$00,$00
- $76AE DEFB $FE,$00,$00,$00,$00,$00,$00,$00
- $76B6 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $76BE DEFB $7F,$01,$00,$00,$00,$00,$00,$00
- $76C6 DEFB $FC,$F0,$10,$18,$07,$0B,$11,$1E
- $76CE DEFB $EF,$78,$0F,$02,$81,$73,$EC,$3F
- $76D6 DEFB $F9,$CF,$06,$05,$0B,$F6,$4D,$9B
- $76DE DEFB $81,$00,$00,$00,$00,$C0,$80,$00
- $76E6 DEFB $C0,$00,$00,$00,$00,$00,$00,$00
- $76EE DEFB $06,$00,$00,$00,$00,$00,$00,$00
- $76F6 DEFB $30,$0F,$00,$00,$00,$00,$00,$00
- $76FE DEFB $FD,$00,$00,$00,$00,$00,$00,$00
- $7706 DEFB $83,$00,$00,$00,$00,$00,$00,$00
- $770E DEFB $F0,$00,$00,$00,$00,$00,$00,$00
- $7716 DEFB $C1,$00,$00,$00,$00,$00,$00,$00
- $771E DEFB $B6,$60,$00,$00,$00,$00,$00,$00
- $7726 DEFB $0F,$00,$00,$00,$00,$00,$00,$00
- $772E DEFB $DF,$01,$00,$00,$00,$00,$00,$00
- $7736 DEFB $A3,$C0,$00,$00,$00,$00,$00,$00
- $773E DEFB $33,$00,$00,$00,$00,$00,$00,$00
- $7746 DEFB $B6,$00,$00,$00,$00,$00,$00,$00
- $774E DEFB $DB,$0D,$00,$00,$00,$00,$00,$00
- $7756 DEFB $6D,$B0,$00,$00,$00,$00,$00,$00
- $775E DEFB $B0,$00,$00,$00,$00,$00,$00,$00
+b$7606 DEFB $70,$66,$6C,$DB,$F6,$ED,$DB,$06 ; #UDG(#PC,attr=56)
+ $760E DEFB $05,$1B,$36,$7C,$D5,$B5,$75,$D2 ; #UDG(#PC,attr=56)
+ $7616 DEFB $B6,$6D,$DB,$B6,$ED,$5B,$56,$40 ; #UDG(#PC,attr=56)
+ $761E DEFB $D0,$90,$F0,$C9,$85,$01,$03,$02 ; #UDG(#PC,attr=56)
+ $7626 DEFB $98,$B8,$B8,$B6,$76,$6B,$71,$21 ; #UDG(#PC,attr=56)
+ $762E DEFB $0E,$00,$6D,$DB,$B6,$2D,$1B,$36 ; #UDG(#PC,attr=56)
+ $7636 DEFB $62,$C3,$B6,$6D,$DB,$B6,$6D,$DB ; #UDG(#PC,attr=56)
+ $763E DEFB $08,$08,$D8,$B4,$6E,$D9,$B0,$60 ; #UDG(#PC,attr=56)
+ $7646 DEFB $19,$29,$2A,$55,$5B,$C7,$46,$BC ; #UDG(#PC,attr=56)
+ $764E DEFB $87,$4F,$8E,$9E,$9D,$E2,$02,$14 ; #UDG(#PC,attr=56)
+ $7656 DEFB $19,$30,$E0,$00,$00,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $765E DEFB $E1,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7666 DEFB $B6,$DB,$6D,$76,$3B,$0D,$36,$6F ; #UDG(#PC,attr=56)
+ $766E DEFB $00,$00,$80,$C0,$6C,$B6,$DB,$6D ; #UDG(#PC,attr=56)
+ $7676 DEFB $00,$00,$00,$00,$00,$DB,$6D,$B6 ; #UDG(#PC,attr=56)
+ $767E DEFB $00,$00,$00,$00,$08,$6D,$B6,$DB ; #UDG(#PC,attr=56)
+ $7686 DEFB $00,$00,$00,$00,$6D,$B6,$DB,$6D ; #UDG(#PC,attr=56)
+ $768E DEFB $3F,$37,$1B,$0D,$B6,$DB,$6D,$B6 ; #UDG(#PC,attr=56)
+ $7696 DEFB $B3,$D8,$6C,$B6,$DB,$6D,$B6,$18 ; #UDG(#PC,attr=56)
+ $769E DEFB $FF,$7E,$00,$00,$00,$80,$00,$00 ; #UDG(#PC,attr=56)
+ $76A6 DEFB $FF,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76AE DEFB $FE,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76B6 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76BE DEFB $7F,$01,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76C6 DEFB $FC,$F0,$10,$18,$07,$0B,$11,$1E ; #UDG(#PC,attr=56)
+ $76CE DEFB $EF,$78,$0F,$02,$81,$73,$EC,$3F ; #UDG(#PC,attr=56)
+ $76D6 DEFB $F9,$CF,$06,$05,$0B,$F6,$4D,$9B ; #UDG(#PC,attr=56)
+ $76DE DEFB $81,$00,$00,$00,$00,$C0,$80,$00 ; #UDG(#PC,attr=56)
+ $76E6 DEFB $C0,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76EE DEFB $06,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76F6 DEFB $30,$0F,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $76FE DEFB $FD,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7706 DEFB $83,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $770E DEFB $F0,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7716 DEFB $C1,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $771E DEFB $B6,$60,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7726 DEFB $0F,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $772E DEFB $DF,$01,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7736 DEFB $A3,$C0,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $773E DEFB $33,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7746 DEFB $B6,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $774E DEFB $DB,$0D,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7756 DEFB $6D,$B0,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $775E DEFB $B0,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 
 ; Background 3 attribute data.
 b$7766 DEFB $D0,$C0,$DA,$02,$97,$1B,$10,$DA
@@ -1316,7 +1372,8 @@ b$784F DEFB $80,$40,$01,$02,$03,$04,$05,$06
  $7877 DEFB $26,$27,$28,$29,$2A,$2B,$2C,$2D
  $787F DEFB $2E,$2F,$30,$31,$32,$33,$34,$35
  $7887 DEFB $36,$37,$38,$39,$3A,$3B,$3C,$3D
- $788F DEFB $3E,$3F,$00,$00
+ $788F DEFB $3E,$3F
+ $7891 DEFB $00,$00                         ; Terminator.
 
 ; Background 3 data.
 b$7893 DEFB $00,$01,$02,$83,$07,$04,$05,$06
@@ -1334,7 +1391,8 @@ b$7893 DEFB $00,$01,$02,$83,$07,$04,$05,$06
  $78F3 DEFB $1E,$26,$27,$28,$29,$16,$17,$0F
  $78FB DEFB $17,$0F,$17,$0F,$17,$0F,$17,$0F
  $7903 DEFB $17,$0F,$17,$0F,$17,$0F,$17,$0F
- $790B DEFB $1A,$2A,$0C,$00,$00
+ $790B DEFB $1A,$2A,$0C
+ $790E DEFB $00,$00                         ; Terminator.
 
 ; Background 3 data.
 b$7910 DEFB $00,$01,$02,$03,$04,$05,$06,$07
@@ -1352,213 +1410,214 @@ b$7910 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $7970 DEFB $08,$30,$31,$32,$33,$34,$35,$36
  $7978 DEFB $37,$25,$38,$39,$3A,$25,$3B,$0A
  $7980 DEFB $A5,$02,$3C,$3D,$3E,$25,$3F,$40
- $7988 DEFB $41,$25,$42,$43,$08,$44,$45,$00
- $7990 DEFB $00
+ $7988 DEFB $41,$25,$42,$43,$08,$44,$45
+ $798F DEFB $00,$00                         ; Terminator.
 
 ; Background 3 data.
 b$7991 DEFB $00,$81,$03,$02,$03,$04,$05,$06
  $7999 DEFB $87,$02,$08,$06,$87,$03,$06,$87
  $79A1 DEFB $03,$09,$8A,$03,$0B,$0C,$87,$02
- $79A9 DEFB $09,$81,$02,$0D,$81,$60,$00,$00
+ $79A9 DEFB $09,$81,$02,$0D,$81,$60
+ $79AF DEFB $00,$00                         ; Terminator.
 
 ; Background 3 data.
-b$79B1 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $79B9 DEFB $FF,$FF,$FF,$FC,$E0,$00,$00,$00
- $79C1 DEFB $FE,$F0,$80,$00,$00,$00,$00,$00
- $79C9 DEFB $7F,$7F,$60,$60,$60,$60,$60,$60
- $79D1 DEFB $FF,$FF,$00,$00,$00,$00,$3C,$FE
- $79D9 DEFB $FF,$FF,$00,$00,$00,$01,$03,$06
- $79E1 DEFB $FF,$FF,$00,$00,$70,$FC,$8E,$18
- $79E9 DEFB $FF,$FF,$00,$00,$00,$00,$1C,$3F
- $79F1 DEFB $FF,$FF,$00,$00,$03,$07,$0E,$0C
- $79F9 DEFB $FF,$FF,$00,$F0,$F8,$1C,$30,$60
- $7A01 DEFB $FF,$FF,$00,$00,$00,$1C,$60,$8E
- $7A09 DEFB $E7,$E7,$66,$66,$66,$66,$66,$66
- $7A11 DEFB $FF,$FF,$00,$00,$00,$03,$06,$04
- $7A19 DEFB $FF,$FF,$00,$00,$F0,$9C,$61,$C3
- $7A21 DEFB $FF,$FF,$00,$07,$3C,$E1,$8F,$1C
- $7A29 DEFB $FF,$FF,$00,$E0,$1C,$FF,$C1,$80
- $7A31 DEFB $FF,$FF,$01,$01,$01,$01,$81,$0F
- $7A39 DEFB $FF,$FF,$80,$80,$80,$80,$80,$F0
- $7A41 DEFB $FF,$FF,$00,$0E,$1F,$31,$63,$66
- $7A49 DEFB $FF,$FF,$00,$00,$80,$E0,$20,$0F
- $7A51 DEFB $FC,$FC,$0C,$0C,$0C,$0C,$0C,$8C
- $7A59 DEFB $FF,$FF,$C0,$C0,$C0,$C0,$C0,$C3
- $7A61 DEFB $FF,$FF,$00,$00,$00,$1F,$FF,$C3
- $7A69 DEFB $FF,$FF,$00,$00,$00,$00,$C0,$61
- $7A71 DEFB $FF,$FF,$00,$0F,$39,$63,$C6,$8E
- $7A79 DEFB $FF,$FF,$00,$00,$C0,$63,$06,$0C
- $7A81 DEFB $FF,$FF,$00,$00,$00,$C0,$70,$38
- $7A89 DEFB $FF,$FF,$00,$00,$0F,$18,$30,$61
- $7A91 DEFB $FF,$FF,$00,$00,$80,$E0,$70,$99
- $7A99 DEFB $FF,$FF,$03,$03,$03,$03,$F3,$9B
- $7AA1 DEFB $1F,$18,$18,$18,$18,$18,$1B,$1B
- $7AA9 DEFB $FF,$3F,$07,$00,$00,$00,$00,$00
- $7AB1 DEFB $FF,$FF,$FF,$7F,$0F,$07,$07,$07
- $7AB9 DEFB $00,$00,$00,$00,$00,$00,$00,$38
- $7AC1 DEFB $63,$6E,$79,$67,$7C,$7F,$7F,$00
- $7AC9 DEFB $8F,$18,$F0,$B0,$18,$FF,$FF,$00
- $7AD1 DEFB $0C,$19,$19,$33,$E1,$FF,$FF,$00
- $7AD9 DEFB $F0,$B1,$9B,$0E,$81,$FF,$FF,$00
- $7AE1 DEFB $63,$C6,$1C,$74,$C6,$FF,$FF,$00
- $7AE9 DEFB $98,$19,$31,$33,$63,$FF,$FF,$00
- $7AF1 DEFB $E1,$E0,$B0,$1C,$0F,$FF,$FF,$00
- $7AF9 DEFB $1B,$36,$6C,$CC,$9E,$FF,$FF,$00
- $7B01 DEFB $66,$67,$67,$66,$66,$E7,$E7,$00
- $7B09 DEFB $0D,$09,$D9,$73,$06,$FF,$FF,$00
- $7B11 DEFB $83,$81,$C1,$63,$3E,$FF,$FF,$00
- $7B19 DEFB $11,$99,$89,$19,$30,$FF,$FF,$00
- $7B21 DEFB $80,$03,$06,$8C,$CC,$FF,$FF,$00
- $7B29 DEFB $3F,$20,$3F,$60,$FC,$80,$FC,$80
- $7B31 DEFB $FC,$04,$FC,$06,$01,$01,$01,$01
- $7B39 DEFB $CE,$9B,$3B,$20,$60,$FF,$FF,$00
- $7B41 DEFB $18,$31,$E3,$CF,$19,$FF,$FF,$00
- $7B49 DEFB $CC,$8C,$0C,$1C,$BC,$FC,$FC,$00
- $7B51 DEFB $CE,$F8,$F0,$E1,$C3,$FF,$FF,$00
- $7B59 DEFB $06,$1E,$7B,$E3,$80,$FF,$FF,$00
- $7B61 DEFB $01,$03,$03,$C6,$FC,$FF,$FF,$00
- $7B69 DEFB $9A,$1B,$31,$30,$60,$FF,$FF,$00
- $7B71 DEFB $08,$18,$F1,$63,$06,$FF,$FF,$00
- $7B79 DEFB $60,$C0,$E1,$3F,$1C,$FF,$FF,$00
- $7B81 DEFB $67,$CF,$9B,$31,$60,$FF,$FF,$00
- $7B89 DEFB $03,$02,$06,$84,$CC,$FF,$FF,$00
- $7B91 DEFB $33,$33,$63,$63,$33,$FF,$FF,$00
- $7B99 DEFB $1B,$1B,$1B,$1B,$1B,$1B,$1B,$1B
- $7BA1 DEFB $F8,$8F,$80,$80,$80,$80,$80,$80
- $7BA9 DEFB $07,$87,$87,$87,$87,$87,$87,$87
+b$79B1 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $79B9 DEFB $FF,$FF,$FF,$FC,$E0,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $79C1 DEFB $FE,$F0,$80,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $79C9 DEFB $7F,$7F,$60,$60,$60,$60,$60,$60 ; #UDG(#PC,attr=56)
+ $79D1 DEFB $FF,$FF,$00,$00,$00,$00,$3C,$FE ; #UDG(#PC,attr=56)
+ $79D9 DEFB $FF,$FF,$00,$00,$00,$01,$03,$06 ; #UDG(#PC,attr=56)
+ $79E1 DEFB $FF,$FF,$00,$00,$70,$FC,$8E,$18 ; #UDG(#PC,attr=56)
+ $79E9 DEFB $FF,$FF,$00,$00,$00,$00,$1C,$3F ; #UDG(#PC,attr=56)
+ $79F1 DEFB $FF,$FF,$00,$00,$03,$07,$0E,$0C ; #UDG(#PC,attr=56)
+ $79F9 DEFB $FF,$FF,$00,$F0,$F8,$1C,$30,$60 ; #UDG(#PC,attr=56)
+ $7A01 DEFB $FF,$FF,$00,$00,$00,$1C,$60,$8E ; #UDG(#PC,attr=56)
+ $7A09 DEFB $E7,$E7,$66,$66,$66,$66,$66,$66 ; #UDG(#PC,attr=56)
+ $7A11 DEFB $FF,$FF,$00,$00,$00,$03,$06,$04 ; #UDG(#PC,attr=56)
+ $7A19 DEFB $FF,$FF,$00,$00,$F0,$9C,$61,$C3 ; #UDG(#PC,attr=56)
+ $7A21 DEFB $FF,$FF,$00,$07,$3C,$E1,$8F,$1C ; #UDG(#PC,attr=56)
+ $7A29 DEFB $FF,$FF,$00,$E0,$1C,$FF,$C1,$80 ; #UDG(#PC,attr=56)
+ $7A31 DEFB $FF,$FF,$01,$01,$01,$01,$81,$0F ; #UDG(#PC,attr=56)
+ $7A39 DEFB $FF,$FF,$80,$80,$80,$80,$80,$F0 ; #UDG(#PC,attr=56)
+ $7A41 DEFB $FF,$FF,$00,$0E,$1F,$31,$63,$66 ; #UDG(#PC,attr=56)
+ $7A49 DEFB $FF,$FF,$00,$00,$80,$E0,$20,$0F ; #UDG(#PC,attr=56)
+ $7A51 DEFB $FC,$FC,$0C,$0C,$0C,$0C,$0C,$8C ; #UDG(#PC,attr=56)
+ $7A59 DEFB $FF,$FF,$C0,$C0,$C0,$C0,$C0,$C3 ; #UDG(#PC,attr=56)
+ $7A61 DEFB $FF,$FF,$00,$00,$00,$1F,$FF,$C3 ; #UDG(#PC,attr=56)
+ $7A69 DEFB $FF,$FF,$00,$00,$00,$00,$C0,$61 ; #UDG(#PC,attr=56)
+ $7A71 DEFB $FF,$FF,$00,$0F,$39,$63,$C6,$8E ; #UDG(#PC,attr=56)
+ $7A79 DEFB $FF,$FF,$00,$00,$C0,$63,$06,$0C ; #UDG(#PC,attr=56)
+ $7A81 DEFB $FF,$FF,$00,$00,$00,$C0,$70,$38 ; #UDG(#PC,attr=56)
+ $7A89 DEFB $FF,$FF,$00,$00,$0F,$18,$30,$61 ; #UDG(#PC,attr=56)
+ $7A91 DEFB $FF,$FF,$00,$00,$80,$E0,$70,$99 ; #UDG(#PC,attr=56)
+ $7A99 DEFB $FF,$FF,$03,$03,$03,$03,$F3,$9B ; #UDG(#PC,attr=56)
+ $7AA1 DEFB $1F,$18,$18,$18,$18,$18,$1B,$1B ; #UDG(#PC,attr=56)
+ $7AA9 DEFB $FF,$3F,$07,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7AB1 DEFB $FF,$FF,$FF,$7F,$0F,$07,$07,$07 ; #UDG(#PC,attr=56)
+ $7AB9 DEFB $00,$00,$00,$00,$00,$00,$00,$38 ; #UDG(#PC,attr=56)
+ $7AC1 DEFB $63,$6E,$79,$67,$7C,$7F,$7F,$00 ; #UDG(#PC,attr=56)
+ $7AC9 DEFB $8F,$18,$F0,$B0,$18,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7AD1 DEFB $0C,$19,$19,$33,$E1,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7AD9 DEFB $F0,$B1,$9B,$0E,$81,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7AE1 DEFB $63,$C6,$1C,$74,$C6,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7AE9 DEFB $98,$19,$31,$33,$63,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7AF1 DEFB $E1,$E0,$B0,$1C,$0F,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7AF9 DEFB $1B,$36,$6C,$CC,$9E,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B01 DEFB $66,$67,$67,$66,$66,$E7,$E7,$00 ; #UDG(#PC,attr=56)
+ $7B09 DEFB $0D,$09,$D9,$73,$06,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B11 DEFB $83,$81,$C1,$63,$3E,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B19 DEFB $11,$99,$89,$19,$30,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B21 DEFB $80,$03,$06,$8C,$CC,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B29 DEFB $3F,$20,$3F,$60,$FC,$80,$FC,$80 ; #UDG(#PC,attr=56)
+ $7B31 DEFB $FC,$04,$FC,$06,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7B39 DEFB $CE,$9B,$3B,$20,$60,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B41 DEFB $18,$31,$E3,$CF,$19,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B49 DEFB $CC,$8C,$0C,$1C,$BC,$FC,$FC,$00 ; #UDG(#PC,attr=56)
+ $7B51 DEFB $CE,$F8,$F0,$E1,$C3,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B59 DEFB $06,$1E,$7B,$E3,$80,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B61 DEFB $01,$03,$03,$C6,$FC,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B69 DEFB $9A,$1B,$31,$30,$60,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B71 DEFB $08,$18,$F1,$63,$06,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B79 DEFB $60,$C0,$E1,$3F,$1C,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B81 DEFB $67,$CF,$9B,$31,$60,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B89 DEFB $03,$02,$06,$84,$CC,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B91 DEFB $33,$33,$63,$63,$33,$FF,$FF,$00 ; #UDG(#PC,attr=56)
+ $7B99 DEFB $1B,$1B,$1B,$1B,$1B,$1B,$1B,$1B ; #UDG(#PC,attr=56)
+ $7BA1 DEFB $F8,$8F,$80,$80,$80,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $7BA9 DEFB $07,$87,$87,$87,$87,$87,$87,$87 ; #UDG(#PC,attr=56)
 
 ; Background 3 data.
-b$7BB1 DEFB $6C,$82,$83,$01,$01,$00,$00,$7C
- $7BB9 DEFB $01,$01,$01,$01,$81,$41,$61,$11
- $7BC1 DEFB $FF,$00,$7F,$40,$40,$40,$40,$40
- $7BC9 DEFB $FF,$00,$FF,$00,$00,$00,$00,$00
- $7BD1 DEFB $FF,$20,$A0,$A0,$A0,$A0,$A0,$A0
- $7BD9 DEFB $FF,$01,$01,$01,$01,$01,$01,$01
- $7BE1 DEFB $FF,$40,$40,$40,$40,$40,$40,$40
- $7BE9 DEFB $FE,$80,$FC,$80,$FE,$80,$FC,$80
- $7BF1 DEFB $C2,$B0,$18,$08,$36,$22,$80,$C2
- $7BF9 DEFB $7F,$01,$01,$01,$01,$01,$01,$01
- $7C01 DEFB $FB,$0B,$0B,$0B,$0B,$0B,$0B,$0B
- $7C09 DEFB $80,$80,$80,$80,$80,$80,$80,$80
- $7C11 DEFB $87,$87,$87,$87,$87,$87,$87,$87
- $7C19 DEFB $4F,$8F,$03,$03,$01,$01,$01,$01
- $7C21 DEFB $19,$89,$89,$C9,$C9,$C9,$E9,$E9
- $7C29 DEFB $40,$40,$40,$40,$40,$40,$40,$40
- $7C31 DEFB $00,$00,$00,$00,$00,$01,$02,$04
- $7C39 DEFB $00,$01,$0E,$14,$64,$FF,$84,$84
- $7C41 DEFB $00,$FF,$22,$22,$22,$FF,$22,$22
- $7C49 DEFB $00,$00,$E0,$30,$2C,$FE,$23,$22
- $7C51 DEFB $00,$00,$00,$00,$00,$00,$80,$40
- $7C59 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $7C61 DEFB $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0
- $7C69 DEFB $01,$01,$01,$01,$01,$01,$01,$01
- $7C71 DEFB $FE,$80,$FF,$80,$BF,$80,$7E,$30
- $7C79 DEFB $01,$01,$01,$01,$81,$01,$01,$06
- $7C81 DEFB $0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B
- $7C89 DEFB $E9,$E9,$E9,$E9,$E9,$E9,$E9,$E9
- $7C91 DEFB $08,$1F,$18,$18,$18,$3F,$28,$28
- $7C99 DEFB $84,$FF,$84,$84,$84,$FF,$84,$84
- $7CA1 DEFB $22,$FF,$22,$22,$22,$FF,$22,$22
- $7CA9 DEFB $60,$E0,$30,$30,$30,$F8,$28,$28
- $7CB1 DEFB $00,$00,$01,$0E,$1C,$1C,$1E,$0F
- $7CB9 DEFB $00,$00,$80,$40,$20,$20,$40,$80
- $7CC1 DEFB $0F,$0A,$0F,$01,$01,$01,$01,$01
- $7CC9 DEFB $F8,$08,$F8,$40,$40,$40,$40,$40
- $7CD1 DEFB $FF,$FF,$80,$80,$FB,$9A,$9A,$9A
- $7CD9 DEFB $28,$3F,$28,$28,$28,$1F,$18,$18
- $7CE1 DEFB $22,$FF,$22,$22,$22,$FF,$22,$FA
- $7CE9 DEFB $28,$F8,$28,$28,$30,$F0,$20,$20
- $7CF1 DEFB $03,$00,$00,$00,$00,$00,$00,$00
- $7CF9 DEFB $80,$00,$00,$00,$00,$00,$00,$00
- $7D01 DEFB $9A,$9A,$9A,$9A,$9A,$9A,$9A,$9A
+b$7BB1 DEFB $6C,$82,$83,$01,$01,$00,$00,$7C ; #UDG(#PC,attr=56)
+ $7BB9 DEFB $01,$01,$01,$01,$81,$41,$61,$11 ; #UDG(#PC,attr=56)
+ $7BC1 DEFB $FF,$00,$7F,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
+ $7BC9 DEFB $FF,$00,$FF,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7BD1 DEFB $FF,$20,$A0,$A0,$A0,$A0,$A0,$A0 ; #UDG(#PC,attr=56)
+ $7BD9 DEFB $FF,$01,$01,$01,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7BE1 DEFB $FF,$40,$40,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
+ $7BE9 DEFB $FE,$80,$FC,$80,$FE,$80,$FC,$80 ; #UDG(#PC,attr=56)
+ $7BF1 DEFB $C2,$B0,$18,$08,$36,$22,$80,$C2 ; #UDG(#PC,attr=56)
+ $7BF9 DEFB $7F,$01,$01,$01,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7C01 DEFB $FB,$0B,$0B,$0B,$0B,$0B,$0B,$0B ; #UDG(#PC,attr=56)
+ $7C09 DEFB $80,$80,$80,$80,$80,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $7C11 DEFB $87,$87,$87,$87,$87,$87,$87,$87 ; #UDG(#PC,attr=56)
+ $7C19 DEFB $4F,$8F,$03,$03,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7C21 DEFB $19,$89,$89,$C9,$C9,$C9,$E9,$E9 ; #UDG(#PC,attr=56)
+ $7C29 DEFB $40,$40,$40,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
+ $7C31 DEFB $00,$00,$00,$00,$00,$01,$02,$04 ; #UDG(#PC,attr=56)
+ $7C39 DEFB $00,$01,$0E,$14,$64,$FF,$84,$84 ; #UDG(#PC,attr=56)
+ $7C41 DEFB $00,$FF,$22,$22,$22,$FF,$22,$22 ; #UDG(#PC,attr=56)
+ $7C49 DEFB $00,$00,$E0,$30,$2C,$FE,$23,$22 ; #UDG(#PC,attr=56)
+ $7C51 DEFB $00,$00,$00,$00,$00,$00,$80,$40 ; #UDG(#PC,attr=56)
+ $7C59 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7C61 DEFB $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0 ; #UDG(#PC,attr=56)
+ $7C69 DEFB $01,$01,$01,$01,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7C71 DEFB $FE,$80,$FF,$80,$BF,$80,$7E,$30 ; #UDG(#PC,attr=56)
+ $7C79 DEFB $01,$01,$01,$01,$81,$01,$01,$06 ; #UDG(#PC,attr=56)
+ $7C81 DEFB $0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B ; #UDG(#PC,attr=56)
+ $7C89 DEFB $E9,$E9,$E9,$E9,$E9,$E9,$E9,$E9 ; #UDG(#PC,attr=56)
+ $7C91 DEFB $08,$1F,$18,$18,$18,$3F,$28,$28 ; #UDG(#PC,attr=56)
+ $7C99 DEFB $84,$FF,$84,$84,$84,$FF,$84,$84 ; #UDG(#PC,attr=56)
+ $7CA1 DEFB $22,$FF,$22,$22,$22,$FF,$22,$22 ; #UDG(#PC,attr=56)
+ $7CA9 DEFB $60,$E0,$30,$30,$30,$F8,$28,$28 ; #UDG(#PC,attr=56)
+ $7CB1 DEFB $00,$00,$01,$0E,$1C,$1C,$1E,$0F ; #UDG(#PC,attr=56)
+ $7CB9 DEFB $00,$00,$80,$40,$20,$20,$40,$80 ; #UDG(#PC,attr=56)
+ $7CC1 DEFB $0F,$0A,$0F,$01,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7CC9 DEFB $F8,$08,$F8,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
+ $7CD1 DEFB $FF,$FF,$80,$80,$FB,$9A,$9A,$9A ; #UDG(#PC,attr=56)
+ $7CD9 DEFB $28,$3F,$28,$28,$28,$1F,$18,$18 ; #UDG(#PC,attr=56)
+ $7CE1 DEFB $22,$FF,$22,$22,$22,$FF,$22,$FA ; #UDG(#PC,attr=56)
+ $7CE9 DEFB $28,$F8,$28,$28,$30,$F0,$20,$20 ; #UDG(#PC,attr=56)
+ $7CF1 DEFB $03,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7CF9 DEFB $80,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7D01 DEFB $9A,$9A,$9A,$9A,$9A,$9A,$9A,$9A ; #UDG(#PC,attr=56)
 
 ; Background 3 data.
-b$7D09 DEFB $11,$69,$89,$69,$69,$69,$69,$69
- $7D11 DEFB $E9,$E9,$E9,$E9,$E9,$E9,$E9,$E9
- $7D19 DEFB $40,$40,$40,$40,$40,$40,$40,$40
- $7D21 DEFB $08,$07,$02,$01,$00,$00,$00,$00
- $7D29 DEFB $84,$FF,$84,$84,$84,$7F,$1E,$01
- $7D31 DEFB $23,$FE,$22,$24,$24,$FC,$2C,$FE
- $7D39 DEFB $0F,$06,$03,$02,$EF,$6A,$22,$12
- $7D41 DEFB $E0,$40,$C0,$80,$00,$00,$00,$00
- $7D49 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $7D51 DEFB $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0
- $7D59 DEFB $01,$01,$01,$01,$01,$01,$01,$01
- $7D61 DEFB $0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B
- $7D69 DEFB $9A,$9A,$FB,$80,$80,$FF,$80,$80
- $7D71 DEFB $87,$87,$87,$87,$87,$87,$87,$87
- $7D79 DEFB $31,$01,$01,$01,$01,$01,$01,$01
- $7D81 DEFB $40,$40,$40,$40,$40,$40,$7F,$00
- $7D89 DEFB $00,$00,$00,$00,$00,$00,$FF,$00
- $7D91 DEFB $16,$33,$41,$40,$C0,$80,$80,$83
- $7D99 DEFB $3B,$64,$FC,$44,$44,$00,$06,$07
- $7DA1 DEFB $00,$80,$40,$60,$20,$20,$3F,$20
- $7DA9 DEFB $A0,$A0,$A0,$A0,$A0,$A0,$BF,$00
- $7DB1 DEFB $01,$01,$01,$01,$07,$F8,$07,$F8
- $7DB9 DEFB $40,$40,$40,$40,$F0,$0F,$F0,$0F
- $7DC1 DEFB $01,$01,$01,$01,$01,$81,$7F,$80
- $7DC9 DEFB $40,$40,$40,$40,$F8,$07,$F8,$07
- $7DD1 DEFB $01,$01,$01,$01,$01,$C1,$3F,$C0
- $7DD9 DEFB $40,$40,$40,$40,$70,$0F,$F0,$0F
- $7DE1 DEFB $40,$40,$40,$40,$60,$1F,$E0,$1F
- $7DE9 DEFB $0B,$0B,$0B,$0B,$0B,$0B,$FB,$03
- $7DF1 DEFB $80,$80,$80,$80,$80,$80,$80,$80
- $7DF9 DEFB $E9,$E9,$E9,$EB,$EC,$EC,$E8,$F8
- $7E01 DEFB $FF,$00,$00,$00,$00,$00,$00,$00
- $7E09 DEFB $C4,$C7,$C6,$43,$40,$70,$30,$3B
- $7E11 DEFB $03,$83,$F6,$9E,$68,$C8,$89,$9E
- $7E19 DEFB $3F,$20,$20,$20,$20,$60,$C0,$70
- $7E21 DEFB $FF,$00,$00,$00,$00,$00,$00,$1F
- $7E29 DEFB $FF,$00,$00,$00,$00,$00,$00,$FF
- $7E31 DEFB $00,$00,$00,$00,$00,$00,$00,$FF
- $7E39 DEFB $00,$00,$00,$00,$00,$00,$00,$80
- $7E41 DEFB $7F,$00,$00,$00,$00,$00,$00,$FF
- $7E49 DEFB $00,$00,$00,$00,$00,$00,$00,$01
- $7E51 DEFB $00,$00,$00,$00,$00,$00,$00,$03
- $7E59 DEFB $3F,$00,$00,$00,$00,$00,$00,$FF
- $7E61 DEFB $00,$00,$00,$00,$00,$00,$00,$FE
- $7E69 DEFB $00,$00,$00,$00,$00,$00,$00,$FC
- $7E71 DEFB $FF,$06,$07,$03,$01,$00,$00,$00
- $7E79 DEFB $80,$40,$20,$90,$C8,$E4,$E2,$71
- $7E81 DEFB $01,$01,$01,$01,$03,$02,$04,$0C
- $7E89 DEFB $00,$00,$00,$00,$01,$00,$00,$00
- $7E91 DEFB $00,$00,$6D,$DB,$B6,$6D,$1B,$00
- $7E99 DEFB $00,$C1,$B1,$6D,$DB,$B6,$6D,$DB
- $7EA1 DEFB $7F,$C3,$80,$80,$03,$9F,$F9,$E1
- $7EA9 DEFB $61,$87,$7C,$F0,$00,$80,$80,$C7
- $7EB1 DEFB $CE,$01,$01,$00,$01,$07,$3E,$F1
- $7EB9 DEFB $00,$00,$00,$80,$80,$00,$01,$01
- $7EC1 DEFB $20,$20,$40,$40,$80,$80,$00,$FF
- $7EC9 DEFB $00,$00,$00,$01,$01,$01,$02,$FE
- $7ED1 DEFB $80,$80,$80,$00,$01,$01,$01,$01
- $7ED9 DEFB $80,$80,$80,$80,$00,$00,$00,$FF
- $7EE1 DEFB $01,$01,$01,$01,$01,$01,$01,$FF
- $7EE9 DEFB $01,$01,$01,$01,$00,$00,$00,$FF
- $7EF1 DEFB $02,$02,$01,$01,$81,$80,$80,$80
- $7EF9 DEFB $00,$00,$00,$00,$00,$80,$80,$FF
- $7F01 DEFB $02,$02,$01,$01,$00,$00,$00,$FF
- $7F09 DEFB $01,$01,$00,$00,$80,$80,$40,$C0
- $7F11 DEFB $00,$00,$80,$80,$40,$40,$20,$3F
- $7F19 DEFB $04,$02,$02,$01,$01,$00,$00,$FF
- $7F21 DEFB $00,$00,$00,$00,$00,$80,$80,$80
- $7F29 DEFB $38,$1C,$0E,$07,$03,$01,$01,$00
- $7F31 DEFB $87,$87,$87,$87,$87,$87,$C7,$E7
+b$7D09 DEFB $11,$69,$89,$69,$69,$69,$69,$69 ; #UDG(#PC,attr=56)
+ $7D11 DEFB $E9,$E9,$E9,$E9,$E9,$E9,$E9,$E9 ; #UDG(#PC,attr=56)
+ $7D19 DEFB $40,$40,$40,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
+ $7D21 DEFB $08,$07,$02,$01,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7D29 DEFB $84,$FF,$84,$84,$84,$7F,$1E,$01 ; #UDG(#PC,attr=56)
+ $7D31 DEFB $23,$FE,$22,$24,$24,$FC,$2C,$FE ; #UDG(#PC,attr=56)
+ $7D39 DEFB $0F,$06,$03,$02,$EF,$6A,$22,$12 ; #UDG(#PC,attr=56)
+ $7D41 DEFB $E0,$40,$C0,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7D49 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7D51 DEFB $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0 ; #UDG(#PC,attr=56)
+ $7D59 DEFB $01,$01,$01,$01,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7D61 DEFB $0B,$0B,$0B,$0B,$0B,$0B,$0B,$0B ; #UDG(#PC,attr=56)
+ $7D69 DEFB $9A,$9A,$FB,$80,$80,$FF,$80,$80 ; #UDG(#PC,attr=56)
+ $7D71 DEFB $87,$87,$87,$87,$87,$87,$87,$87 ; #UDG(#PC,attr=56)
+ $7D79 DEFB $31,$01,$01,$01,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7D81 DEFB $40,$40,$40,$40,$40,$40,$7F,$00 ; #UDG(#PC,attr=56)
+ $7D89 DEFB $00,$00,$00,$00,$00,$00,$FF,$00 ; #UDG(#PC,attr=56)
+ $7D91 DEFB $16,$33,$41,$40,$C0,$80,$80,$83 ; #UDG(#PC,attr=56)
+ $7D99 DEFB $3B,$64,$FC,$44,$44,$00,$06,$07 ; #UDG(#PC,attr=56)
+ $7DA1 DEFB $00,$80,$40,$60,$20,$20,$3F,$20 ; #UDG(#PC,attr=56)
+ $7DA9 DEFB $A0,$A0,$A0,$A0,$A0,$A0,$BF,$00 ; #UDG(#PC,attr=56)
+ $7DB1 DEFB $01,$01,$01,$01,$07,$F8,$07,$F8 ; #UDG(#PC,attr=56)
+ $7DB9 DEFB $40,$40,$40,$40,$F0,$0F,$F0,$0F ; #UDG(#PC,attr=56)
+ $7DC1 DEFB $01,$01,$01,$01,$01,$81,$7F,$80 ; #UDG(#PC,attr=56)
+ $7DC9 DEFB $40,$40,$40,$40,$F8,$07,$F8,$07 ; #UDG(#PC,attr=56)
+ $7DD1 DEFB $01,$01,$01,$01,$01,$C1,$3F,$C0 ; #UDG(#PC,attr=56)
+ $7DD9 DEFB $40,$40,$40,$40,$70,$0F,$F0,$0F ; #UDG(#PC,attr=56)
+ $7DE1 DEFB $40,$40,$40,$40,$60,$1F,$E0,$1F ; #UDG(#PC,attr=56)
+ $7DE9 DEFB $0B,$0B,$0B,$0B,$0B,$0B,$FB,$03 ; #UDG(#PC,attr=56)
+ $7DF1 DEFB $80,$80,$80,$80,$80,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $7DF9 DEFB $E9,$E9,$E9,$EB,$EC,$EC,$E8,$F8 ; #UDG(#PC,attr=56)
+ $7E01 DEFB $FF,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7E09 DEFB $C4,$C7,$C6,$43,$40,$70,$30,$3B ; #UDG(#PC,attr=56)
+ $7E11 DEFB $03,$83,$F6,$9E,$68,$C8,$89,$9E ; #UDG(#PC,attr=56)
+ $7E19 DEFB $3F,$20,$20,$20,$20,$60,$C0,$70 ; #UDG(#PC,attr=56)
+ $7E21 DEFB $FF,$00,$00,$00,$00,$00,$00,$1F ; #UDG(#PC,attr=56)
+ $7E29 DEFB $FF,$00,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7E31 DEFB $00,$00,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7E39 DEFB $00,$00,$00,$00,$00,$00,$00,$80 ; #UDG(#PC,attr=56)
+ $7E41 DEFB $7F,$00,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7E49 DEFB $00,$00,$00,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
+ $7E51 DEFB $00,$00,$00,$00,$00,$00,$00,$03 ; #UDG(#PC,attr=56)
+ $7E59 DEFB $3F,$00,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7E61 DEFB $00,$00,$00,$00,$00,$00,$00,$FE ; #UDG(#PC,attr=56)
+ $7E69 DEFB $00,$00,$00,$00,$00,$00,$00,$FC ; #UDG(#PC,attr=56)
+ $7E71 DEFB $FF,$06,$07,$03,$01,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7E79 DEFB $80,$40,$20,$90,$C8,$E4,$E2,$71 ; #UDG(#PC,attr=56)
+ $7E81 DEFB $01,$01,$01,$01,$03,$02,$04,$0C ; #UDG(#PC,attr=56)
+ $7E89 DEFB $00,$00,$00,$00,$01,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7E91 DEFB $00,$00,$6D,$DB,$B6,$6D,$1B,$00 ; #UDG(#PC,attr=56)
+ $7E99 DEFB $00,$C1,$B1,$6D,$DB,$B6,$6D,$DB ; #UDG(#PC,attr=56)
+ $7EA1 DEFB $7F,$C3,$80,$80,$03,$9F,$F9,$E1 ; #UDG(#PC,attr=56)
+ $7EA9 DEFB $61,$87,$7C,$F0,$00,$80,$80,$C7 ; #UDG(#PC,attr=56)
+ $7EB1 DEFB $CE,$01,$01,$00,$01,$07,$3E,$F1 ; #UDG(#PC,attr=56)
+ $7EB9 DEFB $00,$00,$00,$80,$80,$00,$01,$01 ; #UDG(#PC,attr=56)
+ $7EC1 DEFB $20,$20,$40,$40,$80,$80,$00,$FF ; #UDG(#PC,attr=56)
+ $7EC9 DEFB $00,$00,$00,$01,$01,$01,$02,$FE ; #UDG(#PC,attr=56)
+ $7ED1 DEFB $80,$80,$80,$00,$01,$01,$01,$01 ; #UDG(#PC,attr=56)
+ $7ED9 DEFB $80,$80,$80,$80,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7EE1 DEFB $01,$01,$01,$01,$01,$01,$01,$FF ; #UDG(#PC,attr=56)
+ $7EE9 DEFB $01,$01,$01,$01,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7EF1 DEFB $02,$02,$01,$01,$81,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $7EF9 DEFB $00,$00,$00,$00,$00,$80,$80,$FF ; #UDG(#PC,attr=56)
+ $7F01 DEFB $02,$02,$01,$01,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7F09 DEFB $01,$01,$00,$00,$80,$80,$40,$C0 ; #UDG(#PC,attr=56)
+ $7F11 DEFB $00,$00,$80,$80,$40,$40,$20,$3F ; #UDG(#PC,attr=56)
+ $7F19 DEFB $04,$02,$02,$01,$01,$00,$00,$FF ; #UDG(#PC,attr=56)
+ $7F21 DEFB $00,$00,$00,$00,$00,$80,$80,$80 ; #UDG(#PC,attr=56)
+ $7F29 DEFB $38,$1C,$0E,$07,$03,$01,$01,$00 ; #UDG(#PC,attr=56)
+ $7F31 DEFB $87,$87,$87,$87,$87,$87,$C7,$E7 ; #UDG(#PC,attr=56)
 
 ; Background 3 data.
-b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00
- $7F41 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $7F49 DEFB $07,$00,$00,$00,$00,$00,$00,$00
- $7F51 DEFB $83,$FC,$00,$00,$00,$00,$00,$00
- $7F59 DEFB $FC,$00,$00,$00,$00,$00,$00,$00
- $7F61 DEFB $7E,$00,$00,$00,$00,$00,$00,$00
- $7F69 DEFB $01,$01,$00,$00,$00,$00,$00,$00
- $7F71 DEFB $55,$FF,$00,$00,$00,$00,$00,$00
- $7F79 DEFB $56,$FE,$00,$00,$00,$00,$00,$00
- $7F81 DEFB $80,$80,$00,$00,$00,$00,$00,$00
- $7F89 DEFB $AA,$FF,$00,$00,$00,$00,$00,$00
- $7F91 DEFB $C0,$C0,$00,$00,$00,$00,$00,$00
- $7F99 DEFB $35,$3F,$00,$00,$00,$00,$00,$00
- $7FA1 DEFB $77,$3F,$3F,$1F,$00,$00,$00,$00
+b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F41 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F49 DEFB $07,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F51 DEFB $83,$FC,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F59 DEFB $FC,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F61 DEFB $7E,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F69 DEFB $01,$01,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F71 DEFB $55,$FF,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F79 DEFB $56,$FE,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F81 DEFB $80,$80,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F89 DEFB $AA,$FF,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F91 DEFB $C0,$C0,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7F99 DEFB $35,$3F,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
+ $7FA1 DEFB $77,$3F,$3F,$1F,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7FA9 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $7FB1 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $7FB9 DEFB $00,$00,$00,$00,$00,$00,$00,$00
@@ -1579,7 +1638,7 @@ b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,
  $8020 DEFB $FF,$00,$00,$00,$00,$00,$80,$80,$80,$38,$1C,$0E,$07,$03,$01,$01,$00,$87,$87,$87,$87,$87,$87,$C7,$E7,$10,$20,$60,$80,$00,$00,$00 ;
  $8040 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$07,$00,$00,$00,$00,$00,$00,$00,$83,$FC,$00,$00,$00,$00,$00,$00,$FC,$00,$00,$00,$00,$00,$00 ;
  $8060 DEFB $00,$7E,$00,$00,$00,$00,$00,$00,$00,$01,$01,$00,$00,$00,$00,$00,$00,$55,$FF,$00,$00,$00,$00,$00,$00,$56,$FE,$00,$00,$00,$00,$00 ;
-*$8080 DEFB $00,$80,$80,$00,$00,$00,$00,$00,$00,$AA,$FF,$00,$00,$00,$00,$00,$00,$C0,$C0,$00,$00,$00,$00,$00,$00,$35,$3F,$00,$00,$00,$00,$00 ;
+ $8080 DEFB $00,$80,$80,$00,$00,$00,$00,$00,$00,$AA,$FF,$00,$00,$00,$00,$00,$00,$C0,$C0,$00,$00,$00,$00,$00,$00,$35,$3F,$00,$00,$00,$00,$00 ;
  $80A0 DEFB $00,$77,$3F,$3F,$1F,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $80C0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $80E0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
@@ -2883,7 +2942,7 @@ c$9200 LD ($5F00),A  ; Write #REGa to #R$5F00.
 
 ; Routine at 9229
 ;
-; Used by the routine at #R$9200.
+; Used by the routines at #R$9200, #R$923A and #R$9255.
 c$9229 INC H         ;
  $922A LD A,H        ;
  $922B AND $07       ;
@@ -2895,9 +2954,12 @@ c$9229 INC H         ;
  $9235 LD A,H        ;
  $9236 SUB $08       ;
  $9238 LD H,A        ;
-*$9239 RET           ;
-; This entry point is used by the routine at #R$92E4.
-*$923A PUSH HL       ;
+*$9239 RET           ; Return.
+
+; Routine at 923A
+;
+; Used by the routine at #R$92E4.
+c$923A PUSH HL       ;
  $923B SUB $20       ;
  $923D LD E,A        ;
  $923E LD D,$08      ;
@@ -2913,9 +2975,12 @@ c$9229 INC H         ;
  $924E CALL $9229    ;
  $9251 EX DE,HL      ;
  $9252 DJNZ $924A    ;
- $9254 RET           ;
-; This entry point is used by the routine at #R$900E.
-*$9255 PUSH DE       ;
+ $9254 RET           ; Return.
+
+; Routine at 9255
+;
+; Used by the routine at #R$900E.
+c$9255 PUSH DE       ;
  $9256 PUSH HL       ;
  $9257 CALL $92CA    ;
  $925A POP HL        ;
@@ -2951,7 +3016,7 @@ c$9229 INC H         ;
  $9284 ADD HL,BC     ;
  $9285 EX DE,HL      ;
  $9286 CALL $92CA    ;
- $9289 RET           ;
+ $9289 RET           ; Return.
  $928A RLCA          ;
  $928B JR $92AD      ;
  $928D LD B,(HL)     ;
@@ -3027,491 +3092,212 @@ c$9229 INC H         ;
 
 ; Print String.
 ;
+; Used by the routines at #R$8C54, #R$8CDB, #R$8D99, #R$900E, #R$932C, #R$9745,
+; #R$A685, #R$AB70, #R$AC05, #R$AEBF and #R$AF1A.
+;
+; .
+;
 ; #TABLE(default,centre,centre)
-;       { =h REGhl | =h REGde }
+;       { =h REGde | =h REGhl }
 ;       { Memory location of string | X/Y position on screen }
 ;       TABLE#
 @label=PRINT_STRING
-c$92E4 PUSH DE                              ;
- $92E5 PUSH HL                              ;
- $92E6 LD A,L                               ;
- $92E7 CALL $C203                           ;
- $92EA POP DE                               ;
- $92EB LD E,D                               ;
- $92EC LD D,$00                             ;
- $92EE ADD HL,DE                            ;
- $92EF POP DE                               ;
-*$92F0 LD A,(DE)                            ;
- $92F1 AND A                                ;
- $92F2 RET Z                                ;
- $92F3 PUSH HL                              ;
- $92F4 PUSH DE                              ;
- $92F5 CALL $923A                           ;
- $92F8 POP DE                               ;
- $92F9 POP HL                               ;
- $92FA INC HL                               ;
- $92FB INC DE                               ;
- $92FC JP $92F0                             ;
-*$92FF RET P                                ;
- $9300 RET C                                ;
- $9301 JR $92FF                             ;
- $9303 SBC A,H                              ;
- $9304 RST $38                              ;
- $9305 OR $FF                               ;
- $9307 RST $38                              ;
- $9308 RST $38                              ;
-*$9309 PUSH HL                              ;
- $930A PUSH DE                              ;
- $930B PUSH BC                              ;
- $930C LD DE,$92FF                          ;
-*$930F LD A,(DE)                            ;
- $9310 LD C,A                               ;
- $9311 INC DE                               ;
- $9312 LD A,(DE)                            ;
- $9313 LD B,A                               ;
- $9314 INC DE                               ;
- $9315 PUSH DE                              ;
- $9316 LD A,$2F                             ;
-*$9318 INC A                                ;
- $9319 LD D,H                               ;
- $931A LD E,L                               ;
- $931B ADD HL,BC                            ;
- $931C JR C,$9318                           ;
- $931E EX DE,HL                             ;
- $931F LD (IX+$00),A                        ;
- $9322 INC IX                               ;
- $9324 POP DE                               ;
- $9325 INC C                                ;
- $9326 JR NZ,$930F                          ;
- $9328 POP BC                               ;
- $9329 POP DE                               ;
- $932A POP HL                               ;
- $932B RET                                  ;
- $932C DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; {Guessing at the length.
- $9334 DEFB $00,$00                         ; }
+c$92E4 PUSH DE       ;
+ $92E5 PUSH HL       ;
+ $92E6 LD A,L        ;
+ $92E7 CALL $C203    ;
+ $92EA POP DE        ;
+ $92EB LD E,D        ;
+ $92EC LD D,$00      ;
+ $92EE ADD HL,DE     ;
+ $92EF POP DE        ;
+@label=PRINT_STRING_LOOP
+*$92F0 LD A,(DE)     ;
+ $92F1 AND A         ;
+ $92F2 RET Z         ;
+ $92F3 PUSH HL       ;
+ $92F4 PUSH DE       ;
+ $92F5 CALL $923A    ;
+ $92F8 POP DE        ;
+ $92F9 POP HL        ;
+ $92FA INC HL        ;
+ $92FB INC DE        ;
+ $92FC JP $92F0      ;
+
+; Expand time byte to ASCII.
+@label=TIME_COUNTER
+c$92FF DEFB $F0,$D8  ; {Guessing at the length.
+ $9301 DEFB $18,$FC  ;
+ $9303 DEFB $9C,$FF  ;
+ $9305 DEFB $F6,$FF  ; }
+ $9307 DEFB $FF,$FF  ; Terminator.
+; On entry #REGhl contains the time as the LSB, e.g. for 30s #REGhl will be
+; $001E.
+@label=PROCESS_TIME
+*$9309 PUSH HL       ; {Pushes #REGhl, #REGde and #REGbc onto the stack.
+ $930A PUSH DE       ;
+ $930B PUSH BC       ; }
+ $930C LD DE,$92FF   ; Point to #R$92FF.
+@label=PROCESS_TIME_LOOP
+*$930F LD A,(DE)     ; {Load the next byte pair from the address pointer into
+ $9310 LD C,A        ; #REGbc.
+ $9311 INC DE        ;
+ $9312 LD A,(DE)     ;
+ $9313 LD B,A        ; }
+ $9314 INC DE        ; {Increase the address pointer by one and stash it on the
+ $9315 PUSH DE       ; stack for later.}
+ $9316 LD A,$2F      ; Store $2F in #REGa.
+; Count "up" from ASCII "0" until the correct representation is reached.
+@label=PROCESS_TIME_CHAR
+*$9318 INC A         ; Increment #REGa by one (so on the first pass #REGa will
+                     ; now contain ASCII "0").
+ $9319 LD D,H        ; {Copy the remaining time into #REGde.
+ $931A LD E,L        ; }
+ $931B ADD HL,BC     ; Adds the remaining time to the 16-bit number held in
+                     ; #REGbc.
+ $931C JR C,$9318    ; If the carry flag is set loop back to #R$9318.
+ $931E EX DE,HL      ; Swap #REGde and #REGhl.
+ $931F LD (IX+$00),A ; Write the processed ASCII number character to the time
+                     ; print buffer.
+ $9322 INC IX        ; Increment #REGix by one to process the next character in
+                     ; the time buffer once looped around.
+ $9324 POP DE        ; Restore the byte pair address pointer from the stack.
+ $9325 INC C         ; {Loop back to #R$930F until the terminator is reached
+ $9326 JR NZ,$930F   ; ($FF+$01 will set the zero flag).}
+ $9328 POP BC        ; {Restores #REGbc, #REGde and #REGhl from the stack.
+ $9329 POP DE        ;
+ $932A POP HL        ; }
+ $932B RET           ; Return.
+
+; Processes the remaining time string.
+;
+; .
+;
+; .
+;
+; Buffer for processing text output.
+@label=TIME_BUFFER
+c$932C DEFM "   30",$00 ; Guessing at the length.
+ $9332 DEFS $04         ; Maybe unused?
 ; This entry point is used by the routine at #R$9C93.
-*$9336 PUSH DE                              ;
- $9337 LD IX,$932C                          ;
- $933B CALL $9309                           ;
- $933E PUSH IX                              ;
- $9340 POP HL                               ;
- $9341 LD A,$00                             ;
- $9343 LD (HL),A                            ;
- $9344 POP HL                               ;
- $9345 LD DE,$932C                          ;
-*$9348 LD A,(DE)                            ;
- $9349 CP $30                               ;
- $934B JP NZ,$9355                          ;
- $934E LD A,$20                             ;
- $9350 LD (DE),A                            ;
- $9351 INC DE                               ;
- $9352 JP $9348                             ;
-*$9355 LD DE,$9330                          ;
- $9358 LD A,(DE)                            ;
- $9359 CP $20                               ;
- $935B JP NZ,$9361                          ;
- $935E LD A,$30                             ;
- $9360 LD (DE),A                            ;
-*$9361 LD DE,$932C                          ;
- $9364 CALL $92E4                           ;
- $9367 RET                                  ;
- $9368 NOP                                  ;
- $9369 NOP                                  ;
- $936A AND H                                ;
- $936B SUB E                                ;
- $936C XOR B                                ;
- $936D SUB E                                ;
- $936E CALL M,$5093                         ;
- $9371 SUB H                                ;
- $9372 LD D,H                               ;
- $9373 SUB H                                ;
- $9374 LD A,B                               ;
- $9375 SUB H                                ;
- $9376 ADD A,H                              ;
- $9377 SUB H                                ;
- $9378 ADC A,B                              ;
- $9379 SUB H                                ;
- $937A XOR H                                ;
- $937B SUB H                                ;
- $937C RET NC                               ;
- $937D SUB H                                ;
- $937E RET C                                ;
- $937F SUB H                                ;
- $9380 RET PO                               ;
- $9381 SUB H                                ;
- $9382 CALL PE,$F894                        ;
- $9385 SUB H                                ;
- $9386 JR NZ,$931D                          ;
- $9388 INC L                                ;
- $9389 SUB L                                ;
- $938A INC A                                ;
- $938B SUB L                                ;
- $938C LD C,H                               ;
- $938D SUB L                                ;
- $938E LD D,B                               ;
- $938F SUB L                                ;
- $9390 LD D,H                               ;
- $9391 SUB L                                ;
- $9392 LD E,B                               ;
- $9393 SUB L                                ;
- $9394 LD H,B                               ;
- $9395 SUB L                                ;
- $9396 ADD A,B                              ;
- $9397 SUB L                                ;
- $9398 SUB H                                ;
- $9399 SUB L                                ;
- $939A AND B                                ;
- $939B SUB L                                ;
- $939C OR H                                 ;
- $939D SUB L                                ;
- $939E CALL NZ,$D095                        ;
- $93A1 SUB L                                ;
- $93A2 CALL NC,$0195                        ;
- $93A5 NOP                                  ;
- $93A6 NOP                                  ;
- $93A7 NOP                                  ;
- $93A8 LD BC,$0001                          ;
- $93AB LD (BC),A                            ;
- $93AC LD BC,$0001                          ;
- $93AF NOP                                  ;
- $93B0 LD BC,$0002                          ;
- $93B3 INC BC                               ;
- $93B4 LD BC,$0002                          ;
- $93B7 NOP                                  ;
- $93B8 LD BC,$0003                          ;
- $93BB NOP                                  ;
- $93BC LD BC,$0000                          ;
- $93BF INC BC                               ;
- $93C0 LD BC,$0000                          ;
- $93C3 NOP                                  ;
- $93C4 LD BC,$0001                          ;
- $93C7 INC BC                               ;
- $93C8 LD BC,$0001                          ;
- $93CB NOP                                  ;
- $93CC LD BC,$0033                          ;
- $93CF INC BC                               ;
- $93D0 LD BC,$0033                          ;
- $93D3 NOP                                  ;
- $93D4 LD BC,$0030                          ;
- $93D7 INC BC                               ;
- $93D8 LD BC,$0030                          ;
- $93DB NOP                                  ;
- $93DC LD BC,$0031                          ;
- $93DF LD (BC),A                            ;
- $93E0 LD BC,$0031                          ;
- $93E3 NOP                                  ;
- $93E4 LD BC,$0032                          ;
- $93E7 LD (BC),A                            ;
- $93E8 LD BC,$0032                          ;
- $93EB NOP                                  ;
- $93EC LD BC,$0003                          ;
- $93EF LD (BC),A                            ;
- $93F0 LD BC,$0003                          ;
- $93F3 NOP                                  ;
- $93F4 LD BC,$0000                          ;
- $93F7 INC BC                               ;
- $93F8 LD BC,$0000                          ;
- $93FB NOP                                  ;
- $93FC LD BC,$0003                          ;
- $93FF DEFB $FD                             ;
- $9400 LD BC,$0003                          ;
- $9403 NOP                                  ;
- $9404 LD BC,$0002                          ;
- $9407 NOP                                  ;
- $9408 LD BC,$0001                          ;
- $940B CP $01                               ;
- $940D LD BC,$0000                          ;
- $9410 LD BC,$0000                          ;
- $9413 DEFB $FD                             ;
-; This entry point is used by the routine at #R$B2FB.
-*$9414 LD BC,$0000                          ;
- $9417 NOP                                  ;
- $9418 LD BC,$0003                          ;
- $941B DEFB $FD                             ;
- $941C LD BC,$0003                          ;
- $941F NOP                                  ;
- $9420 LD BC,$0032                          ;
- $9423 DEFB $FD                             ;
- $9424 LD BC,$0032                          ;
- $9427 NOP                                  ;
- $9428 LD BC,$0031                          ;
- $942B DEFB $FD                             ;
- $942C LD BC,$0031                          ;
- $942F NOP                                  ;
- $9430 LD BC,$0030                          ;
- $9433 CP $01                               ;
- $9435 JR NC,$9437                          ;
-*$9437 NOP                                  ;
- $9438 LD BC,$0033                          ;
- $943B DEFB $FD                             ;
- $943C LD BC,$0033                          ;
- $943F NOP                                  ;
- $9440 LD BC,$0001                          ;
- $9443 CP $01                               ;
- $9445 LD BC,$0000                          ;
- $9448 LD BC,$0000                          ;
- $944B DEFB $FD                             ;
- $944C LD BC,$0000                          ;
- $944F NOP                                  ;
- $9450 INC B                                ;
- $9451 INC C                                ;
- $9452 NOP                                  ;
- $9453 NOP                                  ;
- $9454 LD BC,$0019                          ;
- $9457 NOP                                  ;
- $9458 LD BC,$F809                          ;
- $945B NOP                                  ;
- $945C LD BC,$FB09                          ;
- $945F NOP                                  ;
- $9460 LD BC,$FE09                          ;
- $9463 NOP                                  ;
- $9464 INC B                                ;
- $9465 ADD HL,BC                            ;
- $9466 NOP                                  ;
- $9467 NOP                                  ;
- $9468 LD BC,$0209                          ;
- $946B NOP                                  ;
- $946C LD BC,$0509                          ;
- $946F NOP                                  ;
- $9470 LD BC,$0819                          ;
- $9473 NOP                                  ;
- $9474 LD (BC),A                            ;
- $9475 ADD HL,DE                            ;
- $9476 NOP                                  ;
- $9477 NOP                                  ;
- $9478 LD BC,$0006                          ;
- $947B INC BC                               ;
- $947C LD BC,$0006                          ;
- $947F NOP                                  ;
- $9480 LD (BC),A                            ;
- $9481 RLCA                                 ;
- $9482 NOP                                  ;
- $9483 NOP                                  ;
- $9484 LD BC,$000D                          ;
- $9487 NOP                                  ;
- $9488 LD BC,$0019                          ;
- $948B NOP                                  ;
- $948C LD BC,$F817                          ;
- $948F CALL P,$1702                         ;
- $9492 CALL M,$02FC                         ;
- $9495 LD D,$00                             ;
- $9497 DEFB $FD                             ;
- $9498 LD (BC),A                            ;
- $9499 JR NZ,$949B                          ;
-*$949B CP $01                               ;
- $949D DEC D                                ;
- $949E NOP                                  ;
- $949F LD B,$02                             ;
- $94A1 DEC D                                ;
- $94A2 NOP                                  ;
- $94A3 DEFB $FD                             ;
- $94A4 LD (BC),A                            ;
- $94A5 INC D                                ;
- $94A6 EX AF,AF'                            ;
- $94A7 CP $01                               ;
- $94A9 ADD HL,DE                            ;
- $94AA NOP                                  ;
- $94AB NOP                                  ;
- $94AC LD BC,$0019                          ;
- $94AF NOP                                  ;
- $94B0 LD (BC),A                            ;
- $94B1 INC D                                ;
- $94B2 RET M                                ;
- $94B3 INC BC                               ;
- $94B4 LD (BC),A                            ;
- $94B5 DEC D                                ;
- $94B6 NOP                                  ;
- $94B7 INC BC                               ;
- $94B8 LD BC,$0020                          ;
- $94BB JP M,$2002                           ;
- $94BE NOP                                  ;
- $94BF INC BC                               ;
- $94C0 LD (BC),A                            ;
- $94C1 LD D,$00                             ;
- $94C3 INC BC                               ;
- $94C4 LD (BC),A                            ;
- $94C5 RLA                                  ;
- $94C6 EX AF,AF'                            ;
- $94C7 LD B,$01                             ;
- $94C9 ADD HL,DE                            ;
- $94CA NOP                                  ;
- $94CB LD B,$01                             ;
- $94CD ADD HL,DE                            ;
- $94CE NOP                                  ;
- $94CF NOP                                  ;
- $94D0 INC B                                ;
- $94D1 RRCA                                 ;
- $94D2 NOP                                  ;
- $94D3 NOP                                  ;
- $94D4 LD BC,$0010                          ;
- $94D7 NOP                                  ;
- $94D8 LD (BC),A                            ;
- $94D9 INC B                                ;
- $94DA NOP                                  ;
- $94DB NOP                                  ;
- $94DC LD BC,$0008                          ;
- $94DF NOP                                  ;
- $94E0 LD BC,$0004                          ;
- $94E3 NOP                                  ;
- $94E4 LD BC,$0018                          ;
- $94E7 NOP                                  ;
- $94E8 LD (BC),A                            ;
- $94E9 DEC B                                ;
- $94EA NOP                                  ;
- $94EB NOP                                  ;
- $94EC LD (BC),A                            ;
- $94ED INC B                                ;
- $94EE NOP                                  ;
- $94EF NOP                                  ;
- $94F0 LD BC,$001E                          ;
- $94F3 NOP                                  ;
- $94F4 LD BC,$000B                          ;
- $94F7 NOP                                  ;
- $94F8 LD BC,$0019                          ;
- $94FB NOP                                  ;
- $94FC LD BC,$0004                          ;
- $94FF NOP                                  ;
- $9500 LD BC,$F709                          ;
- $9503 NOP                                  ;
- $9504 LD BC,$FA09                          ;
- $9507 LD BC,$0A01                          ;
- $950A CALL M,$0202                         ;
- $950D LD A,($0000)                         ;
- $9510 LD BC,$040A                          ;
- $9513 NOP                                  ;
- $9514 LD BC,$0609                          ;
- $9517 NOP                                  ;
- $9518 LD BC,$0919                          ;
- $951B NOP                                  ;
- $951C LD BC,$0019                          ;
- $951F NOP                                  ;
- $9520 LD (BC),A                            ;
- $9521 LD DE,$0000                          ;
- $9524 LD BC,$0022                          ;
- $9527 NOP                                  ;
- $9528 LD BC,$0012                          ;
- $952B NOP                                  ;
- $952C LD BC,$0034                          ;
- $952F DEFB $FD                             ;
- $9530 LD (BC),A                            ;
- $9531 INC (HL)                             ;
- $9532 NOP                                  ;
- $9533 NOP                                  ;
- $9534 LD BC,$0039                          ;
- $9537 CALL M,$3901                         ;
- $953A NOP                                  ;
- $953B NOP                                  ;
- $953C LD BC,$001C                          ;
- $953F NOP                                  ;
- $9540 LD (BC),A                            ;
- $9541 DEC E                                ;
- $9542 NOP                                  ;
- $9543 NOP                                  ;
- $9544 LD (BC),A                            ;
- $9545 RRA                                  ;
- $9546 NOP                                  ;
- $9547 NOP                                  ;
- $9548 LD BC,$0024                          ;
- $954B NOP                                  ;
- $954C LD BC,$001B                          ;
- $954F NOP                                  ;
- $9550 LD BC,$0023                          ;
- $9553 NOP                                  ;
- $9554 LD BC,$000E                          ;
- $9557 NOP                                  ;
- $9558 LD (BC),A                            ;
- $9559 INC B                                ;
- $955A NOP                                  ;
- $955B NOP                                  ;
- $955C LD (BC),A                            ;
- $955D JR $955F                             ;
-*$955F NOP                                  ;
- $9560 LD BC,$0029                          ;
- $9563 PUSH AF                              ;
- $9564 LD BC,$0029                          ;
- $9567 NOP                                  ;
- $9568 LD BC,$002A                          ;
- $956B INC BC                               ;
- $956C LD (BC),A                            ;
- $956D LD HL,($0000)                        ;
- $9570 LD BC,$002B                          ;
- $9573 EI                                   ;
- $9574 LD BC,$002B                          ;
- $9577 NOP                                  ;
- $9578 LD BC,$002C                          ;
- $957B LD (BC),A                            ;
- $957C ADD HL,DE                            ;
- $957D INC L                                ;
- $957E NOP                                  ;
- $957F NOP                                  ;
- $9580 LD BC,$001A                          ;
- $9583 LD SP,HL                             ;
- $9584 EX AF,AF'                            ;
- $9585 LD A,(DE)                            ;
- $9586 NOP                                  ;
- $9587 NOP                                  ;
- $9588 LD BC,$0021                          ;
- $958B LD BC,$210C                          ;
- $958E NOP                                  ;
- $958F NOP                                  ;
- $9590 EX AF,AF'                            ;
- $9591 LD A,(DE)                            ;
- $9592 NOP                                  ;
- $9593 NOP                                  ;
- $9594 LD BC,$0006                          ;
- $9597 NOP                                  ;
- $9598 LD (BC),A                            ;
- $9599 LD B,$00                             ;
- $959B NOP                                  ;
- $959C LD BC,$0013                          ;
- $959F NOP                                  ;
- $95A0 DEC B                                ;
- $95A1 LD (HL),$00                          ;
- $95A3 NOP                                  ;
- $95A4 DEC B                                ;
- $95A5 DEC (HL)                             ;
- $95A6 NOP                                  ;
- $95A7 NOP                                  ;
- $95A8 RRCA                                 ;
- $95A9 SCF                                  ;
- $95AA NOP                                  ;
- $95AB NOP                                  ;
- $95AC RRCA                                 ;
- $95AD JR C,$95AF                           ;
-*$95AF NOP                                  ;
- $95B0 ADD HL,DE                            ;
- $95B1 SCF                                  ;
- $95B2 NOP                                  ;
- $95B3 NOP                                  ;
- $95B4 INC BC                               ;
- $95B5 DEC H                                ;
- $95B6 NOP                                  ;
- $95B7 NOP                                  ;
- $95B8 INC BC                               ;
- $95B9 LD H,$00                             ;
- $95BB NOP                                  ;
- $95BC INC B                                ;
- $95BD DAA                                  ;
- $95BE NOP                                  ;
- $95BF NOP                                  ;
- $95C0 LD E,$28                             ;
- $95C2 NOP                                  ;
- $95C3 NOP                                  ;
- $95C4 INC B                                ;
- $95C5 DEC L                                ;
- $95C6 NOP                                  ;
- $95C7 NOP                                  ;
- $95C8 INC B                                ;
- $95C9 LD L,$00                             ;
- $95CB NOP                                  ;
- $95CC INC D                                ;
- $95CD CPL                                  ;
- $95CE NOP                                  ;
- $95CF NOP                                  ;
- $95D0 LD (BC),A                            ;
- $95D1 SCF                                  ;
- $95D2 NOP                                  ;
- $95D3 NOP                                  ;
+@label=PROCESS_PRINT_TIME
+*$9336 PUSH DE          ; Push #REGde containing the screen position for
+                        ; printing onto the stack for later.
+ $9337 LD IX,$932C      ; Point #REGix at the first character of the time
+                        ; display buffer at #R$932C.
+ $933B CALL $9309       ; Call #R$9309.
+ $933E PUSH IX          ; {#REGix points to one byte off the end of the time
+ $9340 POP HL           ; buffer, write $00 as a terminator for the print
+ $9341 LD A,$00         ; routine.
+ $9343 LD (HL),A        ; }
+ $9344 POP HL           ; Fetch the screen position off the stack and store it
+                        ; in #REGhl.
+; The time isn't printed as "00005" so this routine replaces the zeroes with
+; spaces in the time print buffer.
+ $9345 LD DE,$932C      ; Store #R$932C in #REGde.
+@label=TIME_ZERO_TO_SPACES
+*$9348 LD A,(DE)        ; Grab the next character from the time buffer.
+ $9349 CP $30           ; {If it is not ASCII "0" then jump to #R$9355.
+ $934B JP NZ,$9355      ; }
+ $934E LD A,$20         ; {Write ASCII "space" ($20) to the time buffer
+ $9350 LD (DE),A        ; location.}
+ $9351 INC DE           ; Move onto the next character.
+ $9352 JP $9348         ; Jump back to #R$9348.
+; If time has run out, show at least an ASCII "0".
+@label=TIME_CHECK_LAST
+*$9355 LD DE,$9330      ; Point to the last digit of the time buffer
+                        ; #R$932C($9330).
+ $9358 LD A,(DE)        ; {If it is not an ASCII "space" ($20) then jump to
+ $9359 CP $20           ; #R$9361.
+ $935B JP NZ,$9361      ; }
+ $935E LD A,$30         ; {Time has run out, so write ASCII "0" to this last
+ $9360 LD (DE),A        ; character.}
+; Send the time buffer to #R$92E4.
+@label=PRINT_TIME_SCREEN
+*$9361 LD DE,$932C      ; {Point to #R$932C and call #R$92E4.
+ $9364 CALL $92E4       ; }
+ $9367 RET              ; Return.
+
+; Data block at 9368
+b$9368 DEFB $00,$00,$A4,$93,$A8,$93,$FC,$93
+ $9370 DEFB $50,$94,$54,$94,$78,$94,$84,$94
+ $9378 DEFB $88,$94,$AC,$94,$D0,$94,$D8,$94
+ $9380 DEFB $E0,$94,$EC,$94,$F8,$94,$20,$95
+ $9388 DEFB $2C,$95,$3C,$95,$4C,$95,$50,$95
+ $9390 DEFB $54,$95,$58,$95,$60,$95,$80,$95
+ $9398 DEFB $94,$95,$A0,$95,$B4,$95,$C4,$95
+ $93A0 DEFB $D0,$95,$D4,$95,$01,$00,$00,$00
+ $93A8 DEFB $01,$01,$00,$02,$01,$01,$00,$00
+ $93B0 DEFB $01,$02,$00,$03,$01,$02,$00,$00
+ $93B8 DEFB $01,$03,$00,$00,$01,$00,$00,$03
+ $93C0 DEFB $01,$00,$00,$00,$01,$01,$00,$03
+ $93C8 DEFB $01,$01,$00,$00,$01,$33,$00,$03
+ $93D0 DEFB $01,$33,$00,$00,$01,$30,$00,$03
+ $93D8 DEFB $01,$30,$00,$00,$01,$31,$00,$02
+ $93E0 DEFB $01,$31,$00,$00,$01,$32,$00,$02
+ $93E8 DEFB $01,$32,$00,$00,$01,$03,$00,$02
+ $93F0 DEFB $01,$03,$00,$00,$01,$00,$00,$03
+ $93F8 DEFB $01,$00,$00,$00,$01,$03,$00,$FD
+ $9400 DEFB $01,$03,$00,$00,$01,$02,$00,$00
+ $9408 DEFB $01,$01,$00,$FE,$01,$01,$00,$00
+ $9410 DEFB $01,$00,$00
+ $9413 DEFB $FD,$01,$00,$00,$00,$01,$03,$00
+ $941B DEFB $FD,$01,$03,$00,$00,$01,$32,$00
+ $9423 DEFB $FD,$01,$32,$00,$00,$01,$31,$00
+ $942B DEFB $FD,$01,$31,$00,$00,$01,$30,$00
+ $9433 DEFB $FE,$01,$30,$00,$00,$01,$33,$00
+ $943B DEFB $FD,$01,$33,$00,$00,$01,$01,$00
+ $9443 DEFB $FE,$01,$01,$00,$00,$01,$00,$00
+ $944B DEFB $FD,$01,$00,$00,$00,$04,$0C,$00
+ $9453 DEFB $00,$01,$19,$00,$00,$01,$09,$F8
+ $945B DEFB $00,$01,$09,$FB,$00,$01,$09,$FE
+ $9463 DEFB $00,$04,$09,$00,$00,$01,$09,$02
+ $946B DEFB $00,$01,$09,$05,$00,$01,$19,$08
+ $9473 DEFB $00,$02,$19,$00,$00,$01,$06,$00
+ $947B DEFB $03,$01,$06,$00,$00,$02,$07,$00
+ $9483 DEFB $00,$01,$0D,$00,$00,$01,$19,$00
+ $948B DEFB $00,$01,$17,$F8,$F4,$02,$17,$FC
+ $9493 DEFB $FC,$02,$16,$00,$FD,$02,$20,$00
+ $949B DEFB $FE,$01,$15,$00,$06,$02,$15,$00
+ $94A3 DEFB $FD,$02,$14,$08,$FE,$01,$19,$00
+ $94AB DEFB $00,$01,$19,$00,$00,$02,$14,$F8
+ $94B3 DEFB $03,$02,$15,$00,$03,$01,$20,$00
+ $94BB DEFB $FA,$02,$20,$00,$03,$02,$16,$00
+ $94C3 DEFB $03,$02,$17,$08,$06,$01,$19,$00
+ $94CB DEFB $06,$01,$19,$00,$00,$04,$0F,$00
+ $94D3 DEFB $00,$01,$10,$00,$00,$02,$04,$00
+ $94DB DEFB $00,$01,$08,$00,$00,$01,$04,$00
+ $94E3 DEFB $00,$01,$18,$00,$00,$02,$05,$00
+ $94EB DEFB $00,$02,$04,$00,$00,$01,$1E,$00
+ $94F3 DEFB $00,$01,$0B,$00,$00,$01,$19,$00
+ $94FB DEFB $00,$01,$04,$00,$00,$01,$09,$F7
+ $9503 DEFB $00,$01,$09,$FA,$01,$01,$0A,$FC
+ $950B DEFB $02,$02,$3A,$00,$00,$01,$0A,$04
+ $9513 DEFB $00,$01,$09,$06,$00,$01,$19,$09
+ $951B DEFB $00,$01,$19,$00,$00,$02,$11,$00
+ $9523 DEFB $00,$01,$22,$00,$00,$01,$12,$00
+ $952B DEFB $00,$01,$34,$00,$FD,$02,$34,$00
+ $9533 DEFB $00,$01,$39,$00,$FC,$01,$39,$00
+ $953B DEFB $00,$01,$1C,$00,$00,$02,$1D,$00
+ $9543 DEFB $00,$02,$1F,$00,$00,$01,$24,$00
+ $954B DEFB $00,$01,$1B,$00,$00,$01,$23,$00
+ $9553 DEFB $00,$01,$0E,$00,$00,$02,$04,$00
+ $955B DEFB $00,$02,$18,$00,$00,$01,$29,$00
+ $9563 DEFB $F5,$01,$29,$00,$00,$01,$2A,$00
+ $956B DEFB $03,$02,$2A,$00,$00,$01,$2B,$00
+ $9573 DEFB $FB,$01,$2B,$00,$00,$01,$2C,$00
+ $957B DEFB $02,$19,$2C,$00,$00,$01,$1A,$00
+ $9583 DEFB $F9,$08,$1A,$00,$00,$01,$21,$00
+ $958B DEFB $01,$0C,$21,$00,$00,$08,$1A,$00
+ $9593 DEFB $00,$01,$06,$00,$00,$02,$06,$00
+ $959B DEFB $00,$01,$13,$00,$00,$05,$36,$00
+ $95A3 DEFB $00,$05,$35,$00,$00,$0F,$37,$00
+ $95AB DEFB $00,$0F,$38,$00,$00,$19,$37,$00
+ $95B3 DEFB $00,$03,$25,$00,$00,$03,$26,$00
+ $95BB DEFB $00,$04,$27,$00,$00,$1E,$28,$00
+ $95C3 DEFB $00,$04,$2D,$00,$00,$04,$2E,$00
+ $95CB DEFB $00,$14,$2F,$00,$00,$02,$37,$00
+ $95D3 DEFB $00
 
 ; Routine at 95D4
 ;
@@ -3772,10 +3558,10 @@ c$95D4 LD HL,$AA16   ;
  $9743 NOP           ;
  $9744 NOP           ;
 
-; Demo Mode.
+; Routine at 9745
 ;
 ; Used by the routine at #R$AC05.
-@label=DEMO_MODE
+@label=JJJJ
 c$9745 CALL $9C6F    ;
  $9748 CALL $9ED2    ;
  $974B CALL $9D29    ;
@@ -4505,17 +4291,20 @@ g$9C2C DEFB $00,$00
 ; Game Entry Point.
 @label=GAME_START
 c$9C2E DI            ; Disable interrupts.
- $9C2F LD A,$05      ; {Set border colour to $05 (cyan).
- $9C31 OUT ($FE),A   ; }
+ $9C2F LD A,$05      ; {Set border colour to cyan.
+ $9C31 OUT ($FE),A   ; #TABLE(default,centre,centre,centre,centre)
+                     ; { =h Value | =h Ink | =h Paper | =h Bright }
+                     ; { $05 | $05 | $00 | $00 }
+                     ; TABLE#}
  $9C33 LD HL,$5BFF   ; {Set the stack pointer to $5BFF.
  $9C36 LD SP,HL      ; }
  $9C37 CALL $B138    ; Call #R$B138.
- $9C3A LD DE,$5F00   ; {Blah...
- $9C3D LD HL,$6000   ;
- $9C40 LD BC,$2100   ; }
- $9C43 LDIR          ;
- $9C45 LD A,$00      ; #REGa=$00
- $9C47 LD L,A        ; {Writes $00 to #R$C423 and #R$C425.
+ $9C3A LD DE,$5F00   ; {Copies a large chunk of code from $6000 to $5F00. See
+ $9C3D LD HL,$6000   ; the .t2s file.
+ $9C40 LD BC,$2100   ;
+ $9C43 LDIR          ; }
+ $9C45 LD A,$00      ; {Writes $0000 to #R$C423 and #R$C425.
+ $9C47 LD L,A        ;
  $9C48 LD H,$00      ;
  $9C4A LD ($C423),HL ;
  $9C4D LD ($C425),HL ; }
@@ -4575,14 +4364,14 @@ c$9C6F LD A,($9C2B)  ;
  $9C8E LD A,$01      ;
  $9C90 LD ($9C2B),A  ;
 
-; Routine at 9C93
+; Print remaining time to the screen.
 ;
 ; Used by the routines at #R$9C6F, #R$AC05 and #R$AEF8.
-@label=KKKK
-c$9C93 LD A,($9CA5)  ; Stores #R$9CA5 in the accumulator.
- $9C96 LD H,$00      ; {#REGh = $00, #REGl = #REGa.
+@label=PRINT_TIME
+c$9C93 LD A,($9CA5)  ; {Stores #R$9CA5 as the LSB in #REGhl.
+ $9C96 LD H,$00      ;
  $9C98 LD L,A        ; }
- $9C99 LD DE,$0B00   ; #REGde=$0B00.
+ $9C99 LD DE,$0B00   ; Store $0B00 in #REGde for the screen position.
  $9C9C CALL $9336    ; Call #R$9336.
  $9C9F RET           ; Return.
 
@@ -5998,887 +5787,146 @@ c$A697 LD A,$00      ;
 *$A6B3 POP HL        ;
  $A6B4 POP DE        ;
  $A6B5 RET           ;
- $A6B6 NOP           ;
- $A6B7 NOP           ;
- $A6B8 RET M         ;
- $A6B9 LD B,B        ;
- $A6BA LD B,B        ;
- $A6BB LD B,B        ;
- $A6BC LD B,B        ;
- $A6BD RET P         ;
- $A6BE RRCA          ;
- $A6BF RET P         ;
- $A6C0 RRCA          ;
- $A6C1 LD BC,$0101   ;
- $A6C4 LD BC,$8101   ;
- $A6C7 LD A,A        ;
- $A6C8 ADD A,B       ;
- $A6C9 LD B,B        ;
- $A6CA LD B,B        ;
- $A6CB LD B,B        ;
- $A6CC LD B,B        ;
- $A6CD RET M         ;
- $A6CE RLCA          ;
- $A6CF RET M         ;
- $A6D0 RLCA          ;
- $A6D1 LD BC,$0101   ;
- $A6D4 LD BC,$C101   ;
- $A6D7 CCF           ;
- $A6D8 RET NZ        ;
- $A6D9 LD B,B        ;
- $A6DA LD B,B        ;
- $A6DB LD B,B        ;
- $A6DC LD B,B        ;
- $A6DD LD (HL),B     ;
- $A6DE RRCA          ;
- $A6DF RET P         ;
- $A6E0 RRCA          ;
- $A6E1 LD B,B        ;
- $A6E2 LD B,B        ;
- $A6E3 LD B,B        ;
- $A6E4 LD B,B        ;
- $A6E5 LD H,B        ;
- $A6E6 RRA           ;
- $A6E7 RET PO        ;
- $A6E8 RRA           ;
- $A6E9 DEC BC        ;
- $A6EA DEC BC        ;
- $A6EB DEC BC        ;
- $A6EC DEC BC        ;
- $A6ED DEC BC        ;
- $A6EE DEC BC        ;
- $A6EF EI            ;
- $A6F0 INC BC        ;
- $A6F1 ADD A,B       ;
- $A6F2 ADD A,B       ;
- $A6F3 ADD A,B       ;
- $A6F4 ADD A,B       ;
- $A6F5 ADD A,B       ;
- $A6F6 ADD A,B       ;
- $A6F7 ADD A,B       ;
- $A6F8 ADD A,B       ;
- $A6F9 JP (HL)       ;
- $A6FA JP (HL)       ;
- $A6FB JP (HL)       ;
- $A6FC EX DE,HL      ;
- $A6FD CALL PE,$E8EC ;
- $A700 RET M         ;
- $A701 RST $38       ;
- $A702 NOP           ;
- $A703 NOP           ;
- $A704 NOP           ;
- $A705 NOP           ;
- $A706 NOP           ;
- $A707 NOP           ;
- $A708 NOP           ;
- $A709 CALL NZ,$C6C7 ;
- $A70C LD B,E        ;
-*$A70D LD B,B        ;
- $A70E LD (HL),B     ;
- $A70F JR NC,$A74C   ;
- $A711 INC BC        ;
- $A712 ADD A,E       ;
- $A713 OR $9E        ;
- $A715 LD L,B        ;
- $A716 RET Z         ;
- $A717 ADC A,C       ;
- $A718 SBC A,(HL)    ;
- $A719 CCF           ;
- $A71A JR NZ,$A73C   ;
- $A71C JR NZ,$A73E   ;
- $A71E LD H,B        ;
- $A71F RET NZ        ;
- $A720 LD (HL),B     ;
- $A721 RST $38       ;
- $A722 NOP           ;
- $A723 NOP           ;
- $A724 NOP           ;
- $A725 NOP           ;
- $A726 NOP           ;
- $A727 NOP           ;
- $A728 RRA           ;
- $A729 RST $38       ;
- $A72A NOP           ;
- $A72B NOP           ;
- $A72C NOP           ;
- $A72D NOP           ;
- $A72E NOP           ;
- $A72F NOP           ;
- $A730 RST $38       ;
- $A731 NOP           ;
- $A732 NOP           ;
- $A733 NOP           ;
- $A734 NOP           ;
- $A735 NOP           ;
- $A736 NOP           ;
- $A737 NOP           ;
- $A738 RST $38       ;
- $A739 NOP           ;
- $A73A NOP           ;
- $A73B NOP           ;
-*$A73C NOP           ;
- $A73D NOP           ;
-*$A73E NOP           ;
- $A73F NOP           ;
- $A740 ADD A,B       ;
- $A741 LD A,A        ;
- $A742 NOP           ;
- $A743 NOP           ;
- $A744 NOP           ;
- $A745 NOP           ;
- $A746 NOP           ;
- $A747 NOP           ;
- $A748 RST $38       ;
- $A749 NOP           ;
- $A74A NOP           ;
- $A74B NOP           ;
-*$A74C NOP           ;
- $A74D NOP           ;
- $A74E NOP           ;
- $A74F NOP           ;
- $A750 LD BC,$0000   ;
- $A753 NOP           ;
- $A754 NOP           ;
- $A755 NOP           ;
- $A756 NOP           ;
- $A757 NOP           ;
- $A758 INC BC        ;
- $A759 CCF           ;
- $A75A NOP           ;
- $A75B NOP           ;
- $A75C NOP           ;
- $A75D NOP           ;
- $A75E NOP           ;
- $A75F NOP           ;
- $A760 RST $38       ;
- $A761 NOP           ;
- $A762 NOP           ;
- $A763 NOP           ;
- $A764 NOP           ;
- $A765 NOP           ;
- $A766 NOP           ;
- $A767 NOP           ;
- $A768 CP $00        ;
- $A76A NOP           ;
- $A76B NOP           ;
- $A76C NOP           ;
- $A76D NOP           ;
- $A76E NOP           ;
- $A76F NOP           ;
- $A770 CALL M,$06FF  ;
- $A773 RLCA          ;
- $A774 INC BC        ;
- $A775 LD BC,$0000   ;
- $A778 NOP           ;
- $A779 ADD A,B       ;
- $A77A LD B,B        ;
- $A77B JR NZ,$A70D   ;
- $A77D RET Z         ;
- $A77E CALL PO,$71E2 ;
- $A781 LD BC,$0101   ;
- $A784 LD BC,$0203   ;
- $A787 INC B         ;
- $A788 INC C         ;
- $A789 NOP           ;
- $A78A NOP           ;
- $A78B NOP           ;
- $A78C NOP           ;
- $A78D LD BC,$0000   ;
- $A790 NOP           ;
- $A791 NOP           ;
- $A792 NOP           ;
- $A793 LD L,L        ;
- $A794 IN A,($B6)    ;
- $A796 LD L,L        ;
- $A797 DEC DE        ;
- $A798 NOP           ;
- $A799 NOP           ;
- $A79A POP BC        ;
- $A79B OR C          ;
- $A79C LD L,L        ;
- $A79D IN A,($B6)    ;
- $A79F LD L,L        ;
- $A7A0 IN A,($7F)    ;
- $A7A2 JP $8080      ;
- $A7A5 INC BC        ;
- $A7A6 SBC A,A       ;
- $A7A7 LD SP,HL      ;
- $A7A8 POP HL        ;
- $A7A9 LD H,C        ;
- $A7AA ADD A,A       ;
- $A7AB LD A,H        ;
- $A7AC RET P         ;
- $A7AD NOP           ;
- $A7AE ADD A,B       ;
- $A7AF ADD A,B       ;
- $A7B0 RST $00       ;
- $A7B1 ADC A,$01     ;
- $A7B3 LD BC,$0100   ;
- $A7B6 RLCA          ;
- $A7B7 LD A,$F1      ;
- $A7B9 NOP           ;
- $A7BA NOP           ;
- $A7BB NOP           ;
- $A7BC ADD A,B       ;
- $A7BD ADD A,B       ;
- $A7BE NOP           ;
- $A7BF LD BC,$2001   ;
- $A7C2 JR NZ,$A804   ;
- $A7C4 LD B,B        ;
- $A7C5 ADD A,B       ;
- $A7C6 ADD A,B       ;
- $A7C7 NOP           ;
- $A7C8 RST $38       ;
- $A7C9 NOP           ;
- $A7CA NOP           ;
- $A7CB NOP           ;
- $A7CC LD BC,$0101   ;
- $A7CF LD (BC),A     ;
- $A7D0 CP $80        ;
- $A7D2 ADD A,B       ;
- $A7D3 ADD A,B       ;
- $A7D4 NOP           ;
- $A7D5 LD BC,$0101   ;
- $A7D8 LD BC,$8080   ;
- $A7DB ADD A,B       ;
- $A7DC ADD A,B       ;
- $A7DD NOP           ;
- $A7DE NOP           ;
- $A7DF NOP           ;
- $A7E0 RST $38       ;
- $A7E1 LD BC,$0101   ;
- $A7E4 LD BC,$0101   ;
- $A7E7 LD BC,$01FF   ;
- $A7EA LD BC,$0101   ;
- $A7ED NOP           ;
- $A7EE NOP           ;
- $A7EF NOP           ;
- $A7F0 RST $38       ;
- $A7F1 LD (BC),A     ;
- $A7F2 LD (BC),A     ;
- $A7F3 LD BC,$8101   ;
- $A7F6 ADD A,B       ;
- $A7F7 ADD A,B       ;
- $A7F8 ADD A,B       ;
- $A7F9 NOP           ;
- $A7FA NOP           ;
- $A7FB NOP           ;
- $A7FC NOP           ;
- $A7FD NOP           ;
- $A7FE ADD A,B       ;
- $A7FF ADD A,B       ;
- $A800 RST $38       ;
- $A801 LD (BC),A     ;
- $A802 LD (BC),A     ;
- $A803 LD BC,$0001   ;
- $A806 NOP           ;
- $A807 NOP           ;
- $A808 RST $38       ;
- $A809 LD BC,$0001   ;
- $A80C NOP           ;
- $A80D ADD A,B       ;
- $A80E ADD A,B       ;
- $A80F LD B,B        ;
- $A810 RET NZ        ;
- $A811 NOP           ;
- $A812 NOP           ;
- $A813 ADD A,B       ;
- $A814 ADD A,B       ;
- $A815 LD B,B        ;
- $A816 LD B,B        ;
- $A817 JR NZ,$A858   ;
- $A819 INC B         ;
- $A81A LD (BC),A     ;
- $A81B LD (BC),A     ;
- $A81C LD BC,$0001   ;
- $A81F NOP           ;
- $A820 RST $38       ;
- $A821 NOP           ;
- $A822 NOP           ;
- $A823 NOP           ;
- $A824 NOP           ;
- $A825 NOP           ;
- $A826 ADD A,B       ;
- $A827 ADD A,B       ;
- $A828 ADD A,B       ;
- $A829 JR C,$A847    ;
- $A82B LD C,$07      ;
- $A82D INC BC        ;
- $A82E LD BC,$0001   ;
- $A831 ADD A,A       ;
- $A832 ADD A,A       ;
- $A833 ADD A,A       ;
- $A834 ADD A,A       ;
- $A835 ADD A,A       ;
- $A836 ADD A,A       ;
- $A837 RST $00       ;
- $A838 RST $20       ;
- $A839 DJNZ $A85B    ;
- $A83B LD H,B        ;
- $A83C ADD A,B       ;
- $A83D NOP           ;
- $A83E NOP           ;
- $A83F NOP           ;
- $A840 NOP           ;
- $A841 NOP           ;
- $A842 NOP           ;
- $A843 NOP           ;
- $A844 NOP           ;
- $A845 NOP           ;
- $A846 NOP           ;
-*$A847 NOP           ;
- $A848 NOP           ;
- $A849 RLCA          ;
- $A84A NOP           ;
- $A84B NOP           ;
- $A84C NOP           ;
- $A84D NOP           ;
- $A84E NOP           ;
- $A84F NOP           ;
- $A850 NOP           ;
- $A851 ADD A,E       ;
- $A852 CALL M,$0000  ;
- $A855 NOP           ;
- $A856 NOP           ;
- $A857 NOP           ;
-*$A858 NOP           ;
- $A859 CALL M,$0000  ;
- $A85C NOP           ;
- $A85D NOP           ;
- $A85E NOP           ;
- $A85F NOP           ;
- $A860 NOP           ;
- $A861 LD A,(HL)     ;
- $A862 NOP           ;
- $A863 NOP           ;
- $A864 NOP           ;
- $A865 NOP           ;
- $A866 NOP           ;
- $A867 NOP           ;
- $A868 NOP           ;
- $A869 LD BC,$0001   ;
- $A86C NOP           ;
- $A86D NOP           ;
- $A86E NOP           ;
- $A86F NOP           ;
- $A870 NOP           ;
- $A871 LD D,L        ;
- $A872 RST $38       ;
- $A873 NOP           ;
- $A874 NOP           ;
- $A875 NOP           ;
- $A876 NOP           ;
- $A877 NOP           ;
- $A878 NOP           ;
- $A879 LD D,(HL)     ;
- $A87A CP $00        ;
- $A87C NOP           ;
- $A87D NOP           ;
- $A87E NOP           ;
- $A87F NOP           ;
- $A880 NOP           ;
- $A881 ADD A,B       ;
- $A882 ADD A,B       ;
- $A883 NOP           ;
- $A884 NOP           ;
- $A885 NOP           ;
- $A886 NOP           ;
- $A887 NOP           ;
- $A888 NOP           ;
- $A889 XOR D         ;
- $A88A RST $38       ;
- $A88B NOP           ;
- $A88C NOP           ;
- $A88D NOP           ;
- $A88E NOP           ;
- $A88F NOP           ;
- $A890 NOP           ;
- $A891 RET NZ        ;
- $A892 RET NZ        ;
- $A893 NOP           ;
- $A894 NOP           ;
- $A895 NOP           ;
- $A896 NOP           ;
- $A897 NOP           ;
- $A898 NOP           ;
- $A899 DEC (HL)      ;
- $A89A CCF           ;
- $A89B NOP           ;
- $A89C NOP           ;
- $A89D NOP           ;
- $A89E NOP           ;
- $A89F NOP           ;
- $A8A0 NOP           ;
- $A8A1 LD (HL),A     ;
- $A8A2 CCF           ;
- $A8A3 CCF           ;
- $A8A4 RRA           ;
- $A8A5 NOP           ;
- $A8A6 NOP           ;
- $A8A7 NOP           ;
- $A8A8 NOP           ;
- $A8A9 ADD A,H       ;
- $A8AA RET C         ;
- $A8AB RET           ;
- $A8AC RST $30       ;
- $A8AD LD E,$84      ;
- $A8AF JR NC,$A8C2   ;
- $A8B1 RET P         ;
- $A8B2 CALL M,$1884  ;
- $A8B5 RRCA          ;
- $A8B6 RST $30       ;
- $A8B7 RET M         ;
- $A8B8 ADD A,H       ;
- $A8B9 LD E,$1F      ;
- $A8BB POP AF        ;
- $A8BC RET M         ;
- $A8BD ADD A,H       ;
- $A8BE CCF           ;
- $A8BF RST $38       ;
- $A8C0 AND $F0       ;
-*$A8C2 ADD A,H       ;
- $A8C3 CCF           ;
- $A8C4 RST $38       ;
- $A8C5 RST $18       ;
- $A8C6 LD (HL),B     ;
- $A8C7 ADD A,H       ;
- $A8C8 LD A,A        ;
- $A8C9 RST $38       ;
- $A8CA RST $18       ;
- $A8CB RET PO        ;
- $A8CC ADD A,H       ;
- $A8CD LD A,A        ;
- $A8CE RST $38       ;
- $A8CF CP A          ;
- $A8D0 RET PO        ;
- $A8D1 ADD A,H       ;
- $A8D2 RST $38       ;
- $A8D3 RST $00       ;
- $A8D4 LD A,A        ;
- $A8D5 RET NZ        ;
- $A8D6 ADD A,H       ;
- $A8D7 RST $38       ;
- $A8D8 NOP           ;
- $A8D9 RST $38       ;
- $A8DA RET NZ        ;
- $A8DB ADD A,H       ;
- $A8DC RST $38       ;
- $A8DD NOP           ;
- $A8DE CCF           ;
- $A8DF RET NZ        ;
- $A8E0 ADD A,H       ;
- $A8E1 LD A,(HL)     ;
- $A8E2 NOP           ;
- $A8E3 CCF           ;
- $A8E4 RET NZ        ;
- $A8E5 ADD A,H       ;
- $A8E6 LD A,(HL)     ;
- $A8E7 NOP           ;
- $A8E8 CCF           ;
- $A8E9 RET NZ        ;
- $A8EA ADD A,H       ;
- $A8EB CCF           ;
- $A8EC NOP           ;
- $A8ED CCF           ;
- $A8EE RET NZ        ;
- $A8EF ADD A,H       ;
- $A8F0 CCF           ;
- $A8F1 NOP           ;
- $A8F2 CCF           ;
- $A8F3 RET NZ        ;
- $A8F4 ADD A,H       ;
- $A8F5 ADD HL,DE     ;
- $A8F6 NOP           ;
- $A8F7 RRA           ;
- $A8F8 RET NZ        ;
- $A8F9 ADD A,H       ;
- $A8FA ADD HL,BC     ;
- $A8FB NOP           ;
- $A8FC RRA           ;
- $A8FD RET PO        ;
- $A8FE ADD A,H       ;
- $A8FF EX AF,AF'     ;
- $A900 LD B,$0D      ;
- $A902 LD C,$11      ;
- $A904 RLCA          ;
- $A905 DEC BC        ;
- $A906 INC C         ;
- $A907 JR $A909      ;
-*$A909 NOP           ;
- $A90A NOP           ;
- $A90B NOP           ;
- $A90C NOP           ;
- $A90D NOP           ;
- $A90E NOP           ;
- $A90F NOP           ;
- $A910 NOP           ;
- $A911 NOP           ;
- $A912 NOP           ;
- $A913 LD BC,$0001   ;
- $A916 NOP           ;
- $A917 LD BC,$0101   ;
- $A91A LD BC,$0101   ;
- $A91D LD BC,$0001   ;
- $A920 NOP           ;
- $A921 NOP           ;
- $A922 NOP           ;
- $A923 NOP           ;
- $A924 NOP           ;
- $A925 LD BC,$0000   ;
- $A928 NOP           ;
- $A929 NOP           ;
- $A92A NOP           ;
- $A92B NOP           ;
- $A92C INC D         ;
- $A92D INC DE        ;
- $A92E NOP           ;
- $A92F NOP           ;
- $A930 DEC B         ;
- $A931 INC DE        ;
- $A932 INC DE        ;
- $A933 INC D         ;
- $A934 INC D         ;
- $A935 INC D         ;
- $A936 DEC B         ;
- $A937 INC D         ;
- $A938 NOP           ;
- $A939 NOP           ;
- $A93A NOP           ;
- $A93B NOP           ;
- $A93C NOP           ;
- $A93D NOP           ;
- $A93E INC DE        ;
- $A93F NOP           ;
- $A940 NOP           ;
- $A941 NOP           ;
- $A942 NOP           ;
- $A943 NOP           ;
- $A944 NOP           ;
- $A945 LD (BC),A     ;
- $A946 LD (BC),A     ;
- $A947 NOP           ;
- $A948 NOP           ;
- $A949 INC BC        ;
- $A94A LD BC,$0202   ;
- $A94D LD (BC),A     ;
- $A94E LD (BC),A     ;
- $A94F INC BC        ;
- $A950 INC BC        ;
- $A951 NOP           ;
- $A952 NOP           ;
- $A953 NOP           ;
- $A954 NOP           ;
- $A955 NOP           ;
- $A956 NOP           ;
- $A957 LD (BC),A     ;
- $A958 NOP           ;
- $A959 NOP           ;
- $A95A NOP           ;
- $A95B NOP           ;
- $A95C NOP           ;
- $A95D NOP           ;
- $A95E RLCA          ;
- $A95F EX AF,AF'     ;
- $A960 NOP           ;
- $A961 NOP           ;
- $A962 LD A,(BC)     ;
- $A963 LD B,$08      ;
- $A965 DEC B         ;
- $A966 DEC B         ;
- $A967 INC B         ;
- $A968 LD A,(BC)     ;
- $A969 EX AF,AF'     ;
- $A96A NOP           ;
- $A96B NOP           ;
- $A96C NOP           ;
- $A96D NOP           ;
- $A96E NOP           ;
- $A96F NOP           ;
- $A970 DEC B         ;
- $A971 NOP           ;
- $A972 NOP           ;
- $A973 NOP           ;
- $A974 NOP           ;
- $A975 NOP           ;
- $A976 NOP           ;
- $A977 RLCA          ;
- $A978 DEC C         ;
- $A979 NOP           ;
- $A97A NOP           ;
- $A97B DJNZ $A985    ;
- $A97D DEC B         ;
- $A97E DEC BC        ;
- $A97F LD A,($3912)  ;
- $A982 INC H         ;
- $A983 NOP           ;
- $A984 NOP           ;
-*$A985 NOP           ;
- $A986 NOP           ;
- $A987 NOP           ;
- $A988 NOP           ;
- $A989 INC DE        ;
- $A98A NOP           ;
- $A98B NOP           ;
- $A98C NOP           ;
- $A98D NOP           ;
- $A98E NOP           ;
- $A98F NOP           ;
- $A990 NOP           ;
- $A991 NOP           ;
- $A992 NOP           ;
- $A993 NOP           ;
- $A994 NOP           ;
- $A995 NOP           ;
- $A996 NOP           ;
- $A997 CP D          ;
- $A998 DEC SP        ;
- $A999 CP D          ;
- $A99A NOP           ;
- $A99B NOP           ;
- $A99C NOP           ;
- $A99D NOP           ;
- $A99E HALT          ;
- $A99F CP D          ;
- $A9A0 OR C          ;
- $A9A1 CP D          ;
- $A9A2 CALL PE,$27BA ;
- $A9A5 CP E          ;
- $A9A6 LD H,D        ;
- $A9A7 CP E          ;
- $A9A8 SBC A,L       ;
- $A9A9 CP E          ;
- $A9AA RET C         ;
- $A9AB CP E          ;
- $A9AC INC DE        ;
- $A9AD CP H          ;
- $A9AE NOP           ;
- $A9AF NOP           ;
- $A9B0 NOP           ;
- $A9B1 NOP           ;
- $A9B2 NOP           ;
- $A9B3 NOP           ;
- $A9B4 NOP           ;
- $A9B5 NOP           ;
- $A9B6 NOP           ;
- $A9B7 NOP           ;
- $A9B8 NOP           ;
- $A9B9 NOP           ;
- $A9BA LD C,(HL)     ;
- $A9BB CP H          ;
- $A9BC NOP           ;
- $A9BD NOP           ;
- $A9BE NOP           ;
- $A9BF NOP           ;
- $A9C0 NOP           ;
- $A9C1 NOP           ;
- $A9C2 NOP           ;
- $A9C3 NOP           ;
- $A9C4 NOP           ;
- $A9C5 NOP           ;
- $A9C6 NOP           ;
- $A9C7 NOP           ;
- $A9C8 ADC A,C       ;
- $A9C9 CP H          ;
- $A9CA CALL NZ,$00BC ;
- $A9CD NOP           ;
- $A9CE NOP           ;
- $A9CF NOP           ;
- $A9D0 RST $38       ;
- $A9D1 CP H          ;
- $A9D2 LD A,($75BD)  ;
- $A9D5 CP L          ;
- $A9D6 OR B          ;
- $A9D7 CP L          ;
- $A9D8 EX DE,HL      ;
- $A9D9 CP L          ;
- $A9DA AND (HL)      ;
- $A9DB CP (HL)       ;
- $A9DC LD H,C        ;
- $A9DD CP (HL)       ;
- $A9DE SBC A,H       ;
- $A9DF CP (HL)       ;
- $A9E0 NOP           ;
- $A9E1 NOP           ;
- $A9E2 NOP           ;
- $A9E3 NOP           ;
- $A9E4 NOP           ;
- $A9E5 NOP           ;
- $A9E6 NOP           ;
- $A9E7 NOP           ;
- $A9E8 NOP           ;
- $A9E9 NOP           ;
- $A9EA NOP           ;
- $A9EB NOP           ;
- $A9EC RST $10       ;
- $A9ED CP (HL)       ;
- $A9EE RST $38       ;
- $A9EF CP $CB        ;
- $A9F1 RST $38       ;
- $A9F2 RST $30       ;
- $A9F3 CP $CB        ;
- $A9F5 RST $38       ;
- $A9F6 POP HL        ;
- $A9F7 CP $84        ;
- $A9F9 LD BC,$C0FF   ;
- $A9FC CP $84        ;
- $A9FE INC BC        ;
- $A9FF RST $38       ;
- $AA00 NOP           ;
- $AA01 NOP           ;
- $AA02 NOP           ;
- $AA03 NOP           ;
- $AA04 NOP           ;
- $AA05 NOP           ;
- $AA06 NOP           ;
- $AA07 NOP           ;
- $AA08 NOP           ;
- $AA09 NOP           ;
- $AA0A NOP           ;
- $AA0B NOP           ;
- $AA0C NOP           ;
- $AA0D NOP           ;
- $AA0E NOP           ;
- $AA0F NOP           ;
- $AA10 NOP           ;
- $AA11 NOP           ;
- $AA12 NOP           ;
- $AA13 NOP           ;
- $AA14 NOP           ;
- $AA15 NOP           ;
- $AA16 NOP           ;
- $AA17 NOP           ;
- $AA18 NOP           ;
- $AA19 NOP           ;
- $AA1A NOP           ;
- $AA1B NOP           ;
- $AA1C NOP           ;
- $AA1D NOP           ;
- $AA1E NOP           ;
- $AA1F NOP           ;
- $AA20 NOP           ;
- $AA21 NOP           ;
- $AA22 NOP           ;
- $AA23 NOP           ;
- $AA24 NOP           ;
- $AA25 NOP           ;
- $AA26 NOP           ;
- $AA27 NOP           ;
- $AA28 NOP           ;
- $AA29 NOP           ;
-; This entry point is used by the routine at #R$B2FB.
-*$AA2A NOP           ;
- $AA2B NOP           ;
- $AA2C NOP           ;
- $AA2D NOP           ;
- $AA2E NOP           ;
- $AA2F NOP           ;
- $AA30 NOP           ;
- $AA31 NOP           ;
- $AA32 NOP           ;
- $AA33 NOP           ;
- $AA34 NOP           ;
- $AA35 NOP           ;
- $AA36 NOP           ;
- $AA37 NOP           ;
- $AA38 NOP           ;
- $AA39 NOP           ;
- $AA3A NOP           ;
- $AA3B NOP           ;
- $AA3C NOP           ;
- $AA3D NOP           ;
- $AA3E NOP           ;
- $AA3F NOP           ;
- $AA40 NOP           ;
- $AA41 NOP           ;
- $AA42 NOP           ;
- $AA43 NOP           ;
- $AA44 NOP           ;
- $AA45 NOP           ;
- $AA46 NOP           ;
- $AA47 NOP           ;
- $AA48 NOP           ;
- $AA49 NOP           ;
- $AA4A NOP           ;
- $AA4B NOP           ;
- $AA4C NOP           ;
- $AA4D NOP           ;
- $AA4E NOP           ;
- $AA4F NOP           ;
- $AA50 NOP           ;
- $AA51 NOP           ;
- $AA52 NOP           ;
- $AA53 NOP           ;
- $AA54 NOP           ;
- $AA55 NOP           ;
- $AA56 NOP           ;
- $AA57 NOP           ;
- $AA58 NOP           ;
- $AA59 NOP           ;
- $AA5A NOP           ;
- $AA5B NOP           ;
- $AA5C NOP           ;
- $AA5D NOP           ;
- $AA5E NOP           ;
- $AA5F NOP           ;
- $AA60 NOP           ;
- $AA61 NOP           ;
- $AA62 NOP           ;
- $AA63 NOP           ;
- $AA64 NOP           ;
- $AA65 NOP           ;
- $AA66 NOP           ;
- $AA67 NOP           ;
- $AA68 NOP           ;
- $AA69 NOP           ;
- $AA6A NOP           ;
- $AA6B NOP           ;
- $AA6C NOP           ;
- $AA6D NOP           ;
- $AA6E NOP           ;
- $AA6F NOP           ;
- $AA70 NOP           ;
- $AA71 NOP           ;
- $AA72 NOP           ;
- $AA73 NOP           ;
- $AA74 NOP           ;
- $AA75 NOP           ;
- $AA76 NOP           ;
- $AA77 NOP           ;
- $AA78 RRA           ;
- $AA79 LD A,A        ;
- $AA7A NOP           ;
- $AA7B NOP           ;
- $AA7C NOP           ;
- $AA7D NOP           ;
- $AA7E NOP           ;
- $AA7F NOP           ;
- $AA80 NOP           ;
- $AA81 NOP           ;
- $AA82 NOP           ;
- $AA83 NOP           ;
- $AA84 NOP           ;
- $AA85 NOP           ;
- $AA86 NOP           ;
- $AA87 NOP           ;
- $AA88 NOP           ;
- $AA89 NOP           ;
- $AA8A NOP           ;
- $AA8B NOP           ;
- $AA8C ADD A,$7F     ;
- $AA8E NOP           ;
- $AA8F NOP           ;
- $AA90 NOP           ;
- $AA91 NOP           ;
- $AA92 NOP           ;
- $AA93 NOP           ;
- $AA94 LD A,(BC)     ;
- $AA95 NOP           ;
- $AA96 NOP           ;
- $AA97 NOP           ;
- $AA98 NOP           ;
- $AA99 NOP           ;
- $AA9A NOP           ;
- $AA9B NOP           ;
+
+; Data block at A6B6
+b$A6B6 DEFB $00,$00,$F8,$40,$40,$40,$40,$F0
+ $A6BE DEFB $0F,$F0,$0F,$01,$01,$01,$01,$01
+ $A6C6 DEFB $81,$7F,$80,$40,$40,$40,$40,$F8
+ $A6CE DEFB $07,$F8,$07,$01,$01,$01,$01,$01
+ $A6D6 DEFB $C1,$3F,$C0,$40,$40,$40,$40,$70
+ $A6DE DEFB $0F,$F0,$0F,$40,$40,$40,$40,$60
+ $A6E6 DEFB $1F,$E0,$1F,$0B,$0B,$0B,$0B,$0B
+ $A6EE DEFB $0B,$FB,$03,$80,$80,$80,$80,$80
+ $A6F6 DEFB $80,$80,$80,$E9,$E9,$E9,$EB,$EC
+ $A6FE DEFB $EC,$E8,$F8,$FF,$00,$00,$00,$00
+ $A706 DEFB $00,$00,$00,$C4,$C7,$C6,$43,$40
+ $A70E DEFB $70,$30,$3B,$03,$83,$F6,$9E,$68
+ $A716 DEFB $C8,$89,$9E,$3F,$20,$20,$20,$20
+ $A71E DEFB $60,$C0,$70,$FF,$00,$00,$00,$00
+ $A726 DEFB $00,$00,$1F,$FF,$00,$00,$00,$00
+ $A72E DEFB $00,$00,$FF,$00,$00,$00,$00,$00
+ $A736 DEFB $00,$00,$FF,$00,$00,$00,$00,$00
+ $A73E DEFB $00,$00,$80,$7F,$00,$00,$00,$00
+ $A746 DEFB $00,$00,$FF,$00,$00,$00,$00,$00
+ $A74E DEFB $00,$00,$01,$00,$00,$00,$00,$00
+ $A756 DEFB $00,$00,$03,$3F,$00,$00,$00,$00
+ $A75E DEFB $00,$00,$FF,$00,$00,$00,$00,$00
+ $A766 DEFB $00,$00,$FE,$00,$00,$00,$00,$00
+ $A76E DEFB $00,$00,$FC,$FF,$06,$07,$03,$01
+ $A776 DEFB $00,$00,$00,$80,$40,$20,$90,$C8
+ $A77E DEFB $E4,$E2,$71,$01,$01,$01,$01,$03
+ $A786 DEFB $02,$04,$0C,$00,$00,$00,$00,$01
+ $A78E DEFB $00,$00,$00,$00,$00,$6D,$DB,$B6
+ $A796 DEFB $6D,$1B,$00,$00,$C1,$B1,$6D,$DB
+ $A79E DEFB $B6,$6D,$DB,$7F,$C3,$80,$80,$03
+ $A7A6 DEFB $9F,$F9,$E1,$61,$87,$7C,$F0,$00
+ $A7AE DEFB $80,$80,$C7,$CE,$01,$01,$00,$01
+ $A7B6 DEFB $07,$3E,$F1,$00,$00,$00,$80,$80
+ $A7BE DEFB $00,$01,$01,$20,$20,$40,$40,$80
+ $A7C6 DEFB $80,$00,$FF,$00,$00,$00,$01,$01
+ $A7CE DEFB $01,$02,$FE,$80,$80,$80,$00,$01
+ $A7D6 DEFB $01,$01,$01,$80,$80,$80,$80,$00
+ $A7DE DEFB $00,$00,$FF,$01,$01,$01,$01,$01
+ $A7E6 DEFB $01,$01,$FF,$01,$01,$01,$01,$00
+ $A7EE DEFB $00,$00,$FF,$02,$02,$01,$01,$81
+ $A7F6 DEFB $80,$80,$80,$00,$00,$00,$00,$00
+ $A7FE DEFB $80,$80,$FF,$02,$02,$01,$01,$00
+ $A806 DEFB $00,$00,$FF,$01,$01,$00,$00,$80
+ $A80E DEFB $80,$40,$C0,$00,$00,$80,$80,$40
+ $A816 DEFB $40,$20,$3F,$04,$02,$02,$01,$01
+ $A81E DEFB $00,$00,$FF,$00,$00,$00,$00,$00
+ $A826 DEFB $80,$80,$80,$38,$1C,$0E,$07,$03
+ $A82E DEFB $01,$01,$00,$87,$87,$87,$87,$87
+ $A836 DEFB $87,$C7,$E7,$10,$20,$60,$80,$00
+ $A83E DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $A846 DEFB $00,$00,$00,$07,$00,$00,$00,$00
+ $A84E DEFB $00,$00,$00,$83,$FC,$00,$00,$00
+ $A856 DEFB $00,$00,$00,$FC,$00,$00,$00,$00
+ $A85E DEFB $00,$00,$00,$7E,$00,$00,$00,$00
+ $A866 DEFB $00,$00,$00,$01,$01,$00,$00,$00
+ $A86E DEFB $00,$00,$00,$55,$FF,$00,$00,$00
+ $A876 DEFB $00,$00,$00,$56,$FE,$00,$00,$00
+ $A87E DEFB $00,$00,$00,$80,$80,$00,$00,$00
+ $A886 DEFB $00,$00,$00,$AA,$FF,$00,$00,$00
+ $A88E DEFB $00,$00,$00,$C0,$C0,$00,$00,$00
+ $A896 DEFB $00,$00,$00,$35,$3F,$00,$00,$00
+ $A89E DEFB $00,$00,$00,$77,$3F,$3F,$1F,$00
+ $A8A6 DEFB $00,$00,$00,$84,$D8,$C9,$F7,$1E
+ $A8AE DEFB $84,$30,$11,$F0,$FC,$84,$18,$0F
+ $A8B6 DEFB $F7,$F8,$84,$1E,$1F,$F1,$F8,$84
+ $A8BE DEFB $3F,$FF,$E6,$F0,$84,$3F,$FF,$DF
+ $A8C6 DEFB $70,$84,$7F,$FF,$DF,$E0,$84,$7F
+ $A8CE DEFB $FF,$BF,$E0,$84,$FF,$C7,$7F,$C0
+ $A8D6 DEFB $84,$FF,$00,$FF,$C0,$84,$FF,$00
+ $A8DE DEFB $3F,$C0,$84,$7E,$00,$3F,$C0,$84
+ $A8E6 DEFB $7E,$00,$3F,$C0,$84,$3F,$00,$3F
+ $A8EE DEFB $C0,$84,$3F,$00,$3F,$C0,$84,$19
+ $A8F6 DEFB $00,$1F,$C0,$84,$09,$00,$1F,$E0
+ $A8FE DEFB $84,$08,$06,$0D,$0E,$11,$07,$0B
+ $A906 DEFB $0C,$18,$00,$00,$00,$00,$00,$00
+ $A90E DEFB $00,$00,$00,$00,$00,$01,$01,$00
+ $A916 DEFB $00,$01,$01,$01,$01,$01,$01,$01
+ $A91E DEFB $01,$00,$00,$00,$00,$00,$00,$01
+ $A926 DEFB $00,$00,$00,$00,$00,$00,$14,$13
+ $A92E DEFB $00,$00,$05,$13,$13,$14,$14,$14
+ $A936 DEFB $05,$14,$00,$00,$00,$00,$00,$00
+ $A93E DEFB $13,$00,$00,$00,$00,$00,$00,$02
+ $A946 DEFB $02,$00,$00,$03,$01,$02,$02,$02
+ $A94E DEFB $02,$03,$03,$00,$00,$00,$00,$00
+ $A956 DEFB $00,$02,$00,$00,$00,$00,$00,$00
+ $A95E DEFB $07,$08,$00,$00,$0A,$06,$08,$05
+ $A966 DEFB $05,$04,$0A,$08,$00,$00,$00,$00
+ $A96E DEFB $00,$00,$05,$00,$00,$00,$00,$00
+ $A976 DEFB $00,$07,$0D,$00,$00,$10,$08,$05
+ $A97E DEFB $0B,$3A,$12,$39,$24,$00,$00,$00
+ $A986 DEFB $00,$00,$00,$13,$00,$00,$00,$00
+ $A98E DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $A996 DEFB $00,$BA,$3B,$BA,$00,$00,$00,$00
+ $A99E DEFB $76,$BA,$B1,$BA,$EC,$BA,$27,$BB
+ $A9A6 DEFB $62,$BB,$9D,$BB,$D8,$BB,$13,$BC
+ $A9AE DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $A9B6 DEFB $00,$00,$00,$00,$4E,$BC,$00,$00
+ $A9BE DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $A9C6 DEFB $00,$00,$89,$BC,$C4,$BC,$00,$00
+ $A9CE DEFB $00,$00,$FF,$BC,$3A,$BD,$75,$BD
+ $A9D6 DEFB $B0,$BD,$EB,$BD,$A6,$BE,$61,$BE
+ $A9DE DEFB $9C,$BE,$00,$00,$00,$00,$00,$00
+ $A9E6 DEFB $00,$00,$00,$00,$00,$00,$D7,$BE
+ $A9EE DEFB $FF,$FE,$CB,$FF,$F7,$FE,$CB,$FF
+ $A9F6 DEFB $E1,$FE,$84,$01,$FF,$C0,$FE,$84
+ $A9FE DEFB $03,$FF,$00,$00,$00,$00,$00,$00
+@label=IS_DEMO_MODE
+ $AA06 DEFB $00
+ $AA07 DEFB $00
+@label=POINTS_AWARD_P1
+ $AA08 DEFB $00
+ $AA09 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA11 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA19 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA21 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA29 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA31 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA39 DEFB $00,$00,$00
+ $AA3C DEFB $00
+ $AA3D DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA45 DEFB $00
+ $AA46 DEFB $00
+ $AA47 DEFB $00
+@label=POINTS_AWARD_P2
+ $AA48 DEFB $00
+ $AA49 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA51 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA59 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA61 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA69 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA71 DEFB $00,$00,$00,$00,$00,$00,$00,$1F
+ $AA79 DEFB $7F,$00,$00,$00,$00,$00,$00
+@label=ALSO_RANK
+ $AA80 DEFB $00
+ $AA81 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $AA89 DEFB $00,$00,$00,$C6,$7F,$00,$00,$00
+ $AA91 DEFB $00,$00,$00,$0A,$00,$00,$00,$00
+ $AA99 DEFB $00,$00,$00
 
 ; Message at AA9C
 t$AA9C DEFM $00
@@ -6977,12 +6025,13 @@ c$AB70 XOR A         ; #REGa=$00
  $AC03 XOR A         ;
  $AC04 RET           ;
 
-; Quit game.
+; Demo Mode.
 ;
 ; Used by the routine at #R$9C2E.
-@label=QUIT_GAME
-c$AC05 XOR A         ; {Writes $00 to #R$9C2C.
- $AC06 LD ($9C2C),A  ; }
+@label=DEMO_MODE
+c$AC05 XOR A         ; {Writes $00 to #R$9C2C - this signifies we're in "demo
+ $AC06 LD ($9C2C),A  ; mode".}
+@label=DEMO_MODE_LOOP
 *$AC09 LD HL,$0022   ; {Point to #R$B060 and call #R$92E4.
  $AC0C LD DE,$B060   ;
  $AC0F CALL $92E4    ; }
@@ -6993,29 +6042,32 @@ c$AC05 XOR A         ; {Writes $00 to #R$9C2C.
  $AC1E LD DE,$B039   ;
  $AC21 CALL $92E4    ; }
  $AC24 CALL $AB70    ; Call #R$AB70.
- $AC27 LD A,($9C2C)  ;
+ $AC27 LD A,($9C2C)  ; {If #R$9C2C is still zero, loop back round to #R$AC09.
  $AC2A AND A         ;
- $AC2B JR Z,$AC09    ;
- $AC2D CP $01        ;
- $AC2F JR Z,$AC36    ;
- $AC31 CALL $AD9C    ;
- $AC34 JR $AC09      ;
-*$AC36 CALL $AC3E    ;
+ $AC2B JR Z,$AC09    ; }
+ $AC2D CP $01        ; {If #R$9C2C is $01, then jump to #R$AC3E.
+ $AC2F JR Z,$AC36    ; }
+ $AC31 CALL $AD9C    ; Else, call #R$AD9C.
+ $AC34 JR $AC09      ; Loop back round to #R$AC09.
+@label=DEMO_START_GAME
+*$AC36 CALL $AC3E    ; Call #R$AC3E.
  $AC39 CALL $A647    ;
- $AC3C JR $AC09      ;
-*$AC3E XOR A         ;
- $AC3F LD ($AA80),A  ;
+ $AC3C JR $AC09      ; Loop back round to #R$AC09.
+; fff
+@label=START_1UP_GAME
+*$AC3E XOR A         ; {Writes $00 to; #R$AA80, #R$B05F, #R$AA06, #R$AA08 and
+ $AC3F LD ($AA80),A  ; #R$AA48.
  $AC42 LD ($B05F),A  ;
  $AC45 LD ($AA06),A  ;
  $AC48 LD ($AA08),A  ;
- $AC4B LD ($AA48),A  ;
- $AC4E INC A         ;
+ $AC4B LD ($AA48),A  ; }
+ $AC4E INC A         ; {Writes $01 to; #R$AF35 and #R$AA46.
  $AC4F LD ($AF35),A  ;
- $AC52 LD ($AA46),A  ;
- $AC55 INC A         ;
+ $AC52 LD ($AA46),A  ; }
+ $AC55 INC A         ; {Writes $02 to; #R$AA3C and #R$AF34.
  $AC56 LD ($AA3C),A  ;
- $AC59 LD ($AF34),A  ;
- $AC5C CALL $AF0B    ;
+ $AC59 LD ($AF34),A  ; }
+ $AC5C CALL $AF0B    ; Call #R$AF0B.
 *$AC5F LD A,($AF35)  ;
  $AC62 AND A         ;
  $AC63 JR Z,$AC9D    ;
@@ -7151,14 +6203,15 @@ c$AC05 XOR A         ; {Writes $00 to #R$9C2C.
  $AD98 RET           ;
 *$AD99 LD A,$81      ;
  $AD9B RET           ;
-*$AD9C XOR A         ;
- $AD9D LD ($B05F),A  ;
+@label=START_2UP_GAME
+*$AD9C XOR A         ; {Writes $00 to; #R$B05F, #R$AA06, #R$AA46, #R$AA08 and
+ $AD9D LD ($B05F),A  ; #R$AA48.
  $ADA0 LD ($AA06),A  ;
  $ADA3 LD ($AA46),A  ;
  $ADA6 LD ($AA08),A  ;
- $ADA9 LD ($AA48),A  ;
- $ADAC LD A,$02      ;
- $ADAE LD ($AF34),A  ;
+ $ADA9 LD ($AA48),A  ; }
+ $ADAC LD A,$02      ; {Writes $02 to; #R$AF34.
+ $ADAE LD ($AF34),A  ; }
  $ADB1 CALL $90D1    ;
  $ADB4 CALL $909E    ;
  $ADB7 CALL $AF0B    ;
@@ -7372,10 +6425,11 @@ c$AF1A LD BC,$0000   ;
  $AF2F LD A,$01      ;
  $AF31 LD (HL),A     ;
  $AF32 RET           ;
- $AF33 NOP           ;
- $AF34 LD BC,$3A00   ;
- $AF37 EX AF,AF'     ;
- $AF38 XOR D         ;
+ $AF33 DEFB $00      ;
+ $AF34 DEFB $01      ;
+ $AF35 DEFB $00      ;
+; This entry point is used by the routines at #R$AB70 and #R$AC05.
+*$AF36 LD A,($AA08)  ;
  $AF39 CP $00        ;
  $AF3B JP Z,$AF7D    ;
  $AF3E LD HL,$B00B   ;
@@ -7586,33 +6640,23 @@ b$B06A DEFB $FF,$FE,$83,$01,$FE,$FE,$83,$07
 ; Routine at B138
 ;
 ; Used by the routine at #R$9C2E.
-c$B138 LD A,$01      ;
- $B13A LD ($B153),A  ;
- $B13D LD HL,$FFFF   ;
- $B140 LD ($B151),HL ;
- $B143 RET           ;
- $B144 LD A,C        ;
- $B145 OR C          ;
- $B146 ADD A,L       ;
- $B147 OR C          ;
- $B148 SUB C         ;
- $B149 OR C          ;
- $B14A SBC A,L       ;
- $B14B OR C          ;
- $B14C EI            ;
- $B14D OR C          ;
- $B14E LD HL,$00B2   ;
- $B151 NOP           ;
- $B152 NOP           ;
- $B153 NOP           ;
- $B154 NOP           ;
- $B155 NOP           ;
- $B156 NOP           ;
- $B157 NOP           ;
- $B158 NOP           ;
- $B159 DEC E         ;
-; This entry point is used by the routine at #R$9745.
-*$B15A AND A         ;
+@label=GAME_INIT
+c$B138 LD A,$01                             ; {Writes $01 to #R$B153.
+ $B13A LD ($B153),A                         ; }
+ $B13D LD HL,$FFFF                          ; {Writes $FFFF to #R$B151.
+ $B140 LD ($B151),HL                        ; }
+ $B143 RET                                  ; Return.
+; TODO.
+ $B144 DEFB $79,$B1,$85,$B1,$91,$B1,$9D,$B1 ;
+ $B14C DEFB $FB,$B1,$21,$B2,$00             ;
+ $B151 DEFW $0000                           ;
+ $B153 DEFB $00                             ;
+ $B154 DEFB $00,$00,$00,$00,$00,$1D         ;
+
+; Routine at B15A
+;
+; Used by the routine at #R$9745.
+c$B15A AND A         ;
  $B15B RET Z         ;
  $B15C LD C,A        ;
  $B15D LD A,($B2FA)  ;
@@ -9485,7 +8529,7 @@ c$C1F6 PUSH DE       ;
 
 ; Screen Calculation.
 ;
-; Used by the routines at #R$9200, #R$9229, #R$92E4, #R$BF13 and #R$C101.
+; Used by the routines at #R$9200, #R$9255, #R$92E4, #R$BF13 and #R$C101.
 ;
 ; .
 ;
@@ -9504,7 +8548,7 @@ c$C1F6 PUSH DE       ;
 ;       #REGhl=$4280
 @label=SCREEN_CALC
 c$C203 LD E,A        ; Stash the accumulator in #REGe for later.
- $C204 AND $C0       ; Mask off low bits d06-d07.
+ $C204 AND $C0       ; Mask off low bits d6-d7.
  $C206 JP Z,$C21A    ; If the result is now zero, jump to #R$C21A.
  $C209 CP $40        ; {If #REGa is $40 then jump to #R$C214.
  $C20B JP Z,$C214    ; }
@@ -9526,7 +8570,7 @@ c$C203 LD E,A        ; Stash the accumulator in #REGe for later.
  $C221 LD C,$00      ; (low is $00).}
  $C223 ADD HL,BC     ; Adds #REGbc to #REGhl.
  $C224 LD A,E        ; Again, restore the accumulator from #REGe.
- $C225 AND $38       ; Mask bits d03-d05.
+ $C225 AND $38       ; Mask bits d3-d5.
  $C227 LD C,A        ; {Push the accumulator into #REGbc as the low-order byte
  $C228 LD B,$00      ; (high is $00).}
  $C22A SLA C         ; {* 2 * 2.
@@ -9679,7 +8723,7 @@ c$C305 PUSH HL       ;
 
 ; Routine at C319
 ;
-; Used by the routines at #R$9229, #R$C234, #R$C2B5 and #R$C305.
+; Used by the routines at #R$923A, #R$C234, #R$C2B5 and #R$C305.
 c$C319 XOR A         ;
  $C31A RR E          ;
  $C31C JR NC,$C31F   ;
@@ -9857,10 +8901,10 @@ g$C41F DEFB $00,$01
 g$C421 DEFB $00,$01
 
 ; Game status buffer entry at C423
-g$C423 DEFB $00,$00
+g$C423 DEFW $0000
 
 ; Game status buffer entry at C425
-g$C425 DEFB $00,$00
+g$C425 DEFW $0000
 
 ; Data block at C427
 b$C427 DEFB $00,$00,$00,$00,$00,$1E,$1E,$78
@@ -9947,7 +8991,7 @@ b$C427 DEFB $00,$00,$00,$00,$00,$1E,$1E,$78
  $C6AF DEFB $F0,$D2,$03,$F0,$D2,$01,$F0,$00
  $C6B7 DEFB $00,$19,$08,$00,$07,$E1,$18,$E1
  $C6BF DEFB $36,$E1,$C2,$00,$01,$CD,$75,$82
-*$C6C7 DEFB $DA,$05,$82,$3A,$03,$1C,$46,$00
+ $C6C7 DEFB $DA,$05,$82,$3A,$03,$1C,$46,$00
  $C6CF DEFB $0C,$B3,$00,$07,$CA,$03,$C0,$CA
  $C6D7 DEFB $0C,$20,$CA,$19,$F0,$CA,$16,$78
  $C6DF DEFB $CA,$31,$88,$CA,$E2,$38,$83,$01
@@ -11542,7 +10586,7 @@ b$C427 DEFB $00,$00,$00,$00,$00,$1E,$1E,$78
  $F87C DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $F884 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $F88C DEFB $00,$00,$00,$00,$00,$00,$00,$00
-*$F894 DEFB $00,$00,$00,$00,$00,$00,$00,$00
+ $F894 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $F89C DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $F8A4 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $F8AC DEFB $00,$00,$00,$00,$00,$00,$00,$00

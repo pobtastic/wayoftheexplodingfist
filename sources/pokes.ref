@@ -1,0 +1,45 @@
+; Copyright 2021 Paul Maddern (paul@arcadegeek.co.uk)
+
+[Poke:extraTime:Extra time]
+To give the fighters 255 seconds of time:
+
+POKE #R$AEF8(44793),255
+
+[Poke:pointsToWinP1:Points to win (P1)]
+
+POKE #R$AD2B(44332),255
+
+[Poke:pointsToWinP2:Points to win (P2)]
+
+POKE #R$AD32(44339),255
+
+[Poke:CPUNonScoring:CPU doesn't score]
+
+POKE #R$9057(36951),201
+
+[Poke:winOnDraw:Win on draw]
+
+POKE #R$AD4D(44366),16
+
+[Poke:disableTime:Combat without time]
+
+<div>POKE #R$AD82(44418),175</div>
+<div>POKE #R$9CF5(40181),182</div>
+<div>POKE #R$9CA3(40099),182</div>
+
+NTime
+Z 8 44793 256 0
+N[P1]Points to win
+Z 8 44332 256 0
+N[P2/CPU]Points to win
+Z 8 44339 256 0
+NP2/CPU doesn't score
+Z 8 36951 201 0
+N[P1]Win on draw
+Z 8 44366 16 0
+NCombat without time
+M 8 44418 175 0
+M 8 40181 182 0
+Z 8 40099 182 0
+Y
+

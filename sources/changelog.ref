@@ -1,0 +1,10 @@
+; Copyright 2021 Paul Maddern (paul@arcadegeek.co.uk)
+
+[Page:Changelog]
+SectionType=BulletPoints
+
+[Changelog:20210528]
+-
+
+- Added POKEs:
+  - Infinite Time

@@ -10,26 +10,36 @@ B $5800,768,32 Attributes
 s $5B00
 
 b $5F00
-B $5F00,$01
+B $5F00,$01 Current Background Reference.
 @ $5F00 label=BACKGROUND_REFERENCE
-B $5F02,$02
-@ $5F02 label=BBB
-W $5F08
-@ $5F08 label=BBBB
+B $5F02,$02 Holds current screen location
+@ $5F02 label=BACKGROUND_SCREEN_ADDRESS
+W $5F04 Used during processing.
+@ $5F04 label=TEMP_BACKGROUND_SCREEN_ADDR
+W $5F08 Holds currently processed pixel data block.
+@ $5F08 label=BACKGROUND_PIXEL_DATA
 W $5F0A,$02 Location of code to copy background 1 reference data.
 @ $5F0A label=COPY_BACKGROUND_1
 W $5F0C,$02 Location of code to copy background 2 reference data.
 @ $5F0C label=COPY_BACKGROUND_2
 W $5F0E,$02 Location of code to copy background 3 reference data.
 @ $5F0E label=COPY_BACKGROUND_3
-B $5F10,$12 Buffer which holds the currently processed background data.
+W $5F10,$12 Buffer which holds the currently processed background data.
 @ $5F10 label=BACKGROUND_DATA_BUFFER
 
 c $5F22 Change Background.
+D $5F22 #HTML(Takes the background reference from #R$5F00 and executes the appropriate routine to copy the background data
+.       addresses to the buffer at #R$5F10.
+.       <div>Used by the routine at #R$9200.</div>)
 N $5F22 Blanks the screen.
   $5F22,$0D Writes $3F to all $300 locations of the attributes buffer.
+. #TABLE(default,centre,centre,centre,centre)
+. { =h Value | =h Ink | =h Paper | =h Bright }
+. { $3F | $07 | $07 | $00 }
+. TABLE#
+. This is white ink on white paper.
   $5F2F,$0D Writes $00 to all $1800 locations of the screen buffer.
-N $5F3C Fetch the background reference from #R$5F00.
+N $5F3C Fetch the background reference from #R$5F00 and use it to calculate the address for the copy-to-buffer routine.
   $5F3C,$04 Loads #REGa with the contents of #R$5F00.
   $5F40,$02 Decrease it by one, then double it.
   $5F42,$03 Store it as the low-order byte of #REGbc (high-order is $00).
@@ -40,9 +50,10 @@ N $5F3C Fetch the background reference from #R$5F00.
   $5F4D,$01 Swap #REGde and #REGhl.
   $5F4E,$03 Call #R$5F52.
   $5F51,$01 Return.
+N $5F52 Indirect jump to copy-to-buffer routine.
   $5F52,$01 Indirect jump to address held by #REGhl.
 . #TABLE(default,centre,centre,centre,centre)
-. { =h #R$5F00 | =h Jump }
+. { =h #R$5F00 | =h Jumps To... }
 . { $01 | #R$5F53 }
 . { $02 | #R$5F62 }
 . { $03 | #R$5F71 }
@@ -63,34 +74,75 @@ N $5F71 Set up background 3.
   $5F7C,$03 Call #R$5F80.
   $5F7F,$01 Return.
 
-N $5F80 Copy.
+c $5F80 Creates the background image.
+@ $5F80 label=CREATE_BACKGROUND
   $5F80,$06 Stash $4080 at #R$5F02.
   $5F86,$03 #REGhl=#R$5F10.
-  $5F89,$02 #REGb=$04.
-  $5F8C,$04 Loads #REGde with the contents of #REGhl. #REGhl is now +2.
-  $5F90,$04 Stash #REGde at #R$5F08.
-  $5F94,$04 Loads #REGde with the contents of #REGhl. #REGhl is now +2.
-  $5F99,$03
+  $5F89,$03 Each background has 4 "sets" of data, so set a counter of $04.
+.           Push it onto the stack for now.
+@ $5F8B label=CREATE_BACKGROUND_LOOP
+  $5F8C,$08 Fetch the address of the next pixel data block and store it at #R$5F08.
+  $5F94,$04 Fetch the address of the next pixel data block and store it in #REGde.
+  $5F98,$01 Push #REGhl (pointing to the next data block) onto the stack.
+  $5F99,$03 Fetch #R$5F02 and store it in #REGhl.
+  $5F9C,$01 Switch #REGde and #REGhl so #REGde now holds the screen address and #REGhl holds the start of the pixel
+.           data block.
   $5F9D,$03 Call #R$5FBE.
-  $5FBA,$03 Call #R$6010.
+  $5FB2,$02 Restores #REGhl and the counter from the stack.
+  $5FB4,$02 Decrease counter by one and loop back to #R$5F8B until counter is zero.
+  $5FB6,$07 Fetch the address for the attributes data and call #R$6010.
   $5FBD,$01 Return.
-
-c $5FBE
-  $5FBE,$01 Grab the contents of #REGhl and store it in #REGa.
-  $5FBF,$01 Increase #REGhl by 1.
-  $5FC0,$01 Compares the contents of #REGhl with #REGa.
-N $5FF4
-  $5FF4,$01 Push #REGde onto the stack.
-  $5FF5,$01 Push #REGhl onto the stack.
-  $5FF6,$02 #REGa=$08.
+  $5FA0,$03
+@ $5FAF label=BACKGROUND_XXXX
+N $5FBE Fetch the data and check for the terminator.
+@ $5FBE label=BACKGROUND_CHECK_END
+  $5FBE,$01 Fetch the next pixel data byte.
+  $5FBF,$01 Increase #REGhl by one to point to the next item of pixel data.
+  $5FC0,$01 Check if this data is the same as the previous pixel data value.
+  $5FC1,$02 Jump to #R$5FC6 if the values are different.
+  $5FC3,$03 Double zero is the terminator, so jump to #R$5FF3 to return if this is detected.
+N $5FC6 Process the pixel data.
+@ $5FC6 label=BACKGROUND_PROCESS
+  $5FC6,$04 Check if d7 is set, reset it regardless.
+  $5FCA,$01 Push #REGaf onto the stack.
+  $5FCB,$01 Exchange the registers.
+  $5FCC,$03 Set the LSB of #REGbc to #REGa, and the MSB to $00.
+  $5FCF,$02 Copy the same value into #REGhl.
+  $5FD1,$01 Unclear yet...
+  $5FD2,$02 Unclear yet...
+  $5FD4,$04 Fetch the contents of #R$5F08 and store in #REGbc.
+  $5FDC,$01 Exchange the registers.
+  $5FDD,$03 Call #R$5FF4.
+  $5FE0,$03 Call #R$6007.
+@ $5FE9 label=BACKGROUND_XXXXX
+  $5FE9,$03 Call #R$5FF4.
+  $5FEC,$03 Call #R$6007.
+  $5FEF,$02 Decrease counter by one and loop back to #R$5FE9 until counter is zero.
+  $5FF1,$02 Jump back round to #R$5FBE.
+N $5FF3 Used to "just return" after flag checking operations.
+@ $5FF3 label=BACKGROUND_RETURN
+  $5FF3,$01 Return.
+@ $5FF4 label=COPY_UDG
+N $5FF4 Copy a single UDG 8x8 pixel block to the screen.
+  $5FF4,$02 Push #REGde and #REGhl onto the stack.
+  $5FF6,$02 Set a counter of $08 for the number of lines in a character block.
   $5FF8,$03 Store the contents of #R$5F04 in #REGhl.
-  $5FFB,$01
-  $5FFC,$02 Copy the contents of #REGhl into the contents of #REGde.
-  $5FFE,$01 Increase #REGhl by one.
-  $5FFF,$01 Increase #REGd by one.
-  $6000,$01
-  $6001,$01 Decrease #REGa by one.
-  $6002,$02 Jump to #R$5FFB if #REGa is not zero.
+@ $5FFB label=COPY_UDG_LOOP
+  $5FFB,$01 Stash the counter for later.
+  $5FFC,$02 Copy the pixel data held by #REGhl into the screen buffer currently pointed to by #REGde.
+  $5FFE,$01 Increment #REGhl by one to point to the next item of pixel data.
+  $5FFF,$01 Increment the MSB of #REGde by one to point to the next line down in the screen.
+  $6000,$01 Restore the counter.
+  $6001,$01 Decrease the counter by one.
+  $6002,$02 Loop back to #R$5FFB until the counter is zero.
+  $6004,$02 Restore the original #REGhl and #REGde values from the stack.
+  $6006,$01 Return.
+N $6007 Handles moving from one screen section to the next.
+@ $6007 label=BACKGROUND_BLOCK_DOWN
+  $6007,$01 Increase #REGde by 1.
+  $6008,$03 Return if d0 is not set on the MSB of #REGde. Check if we're at a screen boundary.
+  $600B,$04 Add $07 to #REGd, so that #REGde points to the next block down.
+  $600F,$01 Return.
 
 c $6010 Unpack background attribute data.
 @ $6010 label=BACKGROUND_ATTRIBUTES
@@ -108,7 +160,7 @@ N $6010 Moves the attribute data into the buffer. On entry #REGhl will contain o
   $6014,$01 Increase #REGhl by one.
   $6015,$03 If the following data is different jump to #R$601A.
   $6018,$02 The data terminates with double zeroes, so if this occurs then return.
-  $601A,$04 Test if d07 is set in current attribute data. Reset bit to zero.
+  $601A,$04 Test if d7 is set in current attribute data. Reset bit to zero.
 N $601A Copy and loop back round to #R$6013 until bit 7 in the current attribute data is zero.
 @ $601A label=BACKGROUND_REPEAT_COPY
   $601E,$01 Write the attribute data to #REGde.
@@ -124,30 +176,46 @@ N $6022 Using the following attribute data byte as a counter, copy the current b
   $6027,$02 Decrease counter by one and loop back to #R$6025 until counter is zero.
   $6029,$02 Jump back to #R$6013.
 
-b $602B Background 1 Data.
-@ $602B label=BACKGROUND_1_DATA
-W $602B,$10
+b $602B Background 1 Address references.
+N $602B The data blocks containing pixel data.
+@ $602B label=BACKGROUND_1_ADDRESSES
+W $602B,$04 Block 1.
+W $602F,$04 Block 2.
+W $6033,$04 Block 3.
+W $6037,$04 Block 4.
 W $603B Attribute data.
 @ $603B label=BACKGROUND_1_ATTRIBUTE_DATA
 
-b $603D Background 2 Data.
-@ $603D label=BACKGROUND_2_DATA
-W $603D,$10
+b $603D Background 2 Address references.
+N $603D The data blocks containing pixel data.
+@ $603D label=BACKGROUND_2_ADDRESSES
+W $603D,$04 Block 1.
+W $6041,$04 Block 2.
+W $6045,$04 Block 3.
+W $6049,$04 Block 4.
 W $604D Attribute data.
 @ $604D label=BACKGROUND_2_ATTRIBUTE_DATA
 
-b $604F Background 3 Data.
-@ $604F label=BACKGROUND_3_DATA
-W $604F,$10
+b $604F Background 3 Address references.
+N $604F The data blocks containing pixel data.
+@ $604F label=BACKGROUND_3_ADDRESSES
+W $604F,$04 Block 1.
+W $6053,$04 Block 2.
+W $6057,$04 Block 3.
+W $605B,$04 Block 4.
 W $605F Attribute data.
 @ $605F label=BACKGROUND_3_ATTRIBUTE_DATA
 
 b $6061 Background 1 attribute data.
 B $6100,$02 Terminator.
 b $6102 Background 1 data.
+B $6155,$02 Terminator.
 b $6157 Background 1 data.
+B $61D7,$02 Terminator.
 b $61D9 Background 1 data.
+B $624B,$02 Terminator.
 b $624D Background 1 data.
+B $6268,$02 Terminator.
 b $626A Background 1 data.
 b $648A Background 1 data.
 b $685A Background 1 data.
@@ -155,23 +223,47 @@ b $6AE2 Background 1 data.
 b $6B83 Background 2 attribute data.
 B $6C49,$02 Terminator.
 b $6C4B Background 2 data.
+B $6C77,$02 Terminator.
 b $6C79 Background 2 data.
+B $6CF5,$02 Terminator.
 b $6CF7 Background 2 data.
+B $6D77,$02 Terminator.
 b $6D79 Background 2 data.
+B $6DAC,$02 Terminator.
 b $6DAE Background 2 data.
+B $6DAE,$08 #UDG(#PC,attr=56)
+L $6DAE,$08,$1D
 b $6E96 Background 2 data.
+B $6E96,$08 #UDG(#PC,attr=56)
+L $6E96,$08,$6F
 b $720E Background 2 data.
+B $720E,$08 #UDG(#PC,attr=56)
+L $720E,$08,$7F
 b $7606 Background 2 data.
+B $7606,$08 #UDG(#PC,attr=56)
+L $7606,$08,$2C
 b $7766 Background 3 attribute data.
 B $784D,$02 Terminator.
 b $784F Background 3 data.
+B $7891,$02 Terminator.
 b $7893 Background 3 data.
+B $790E,$02 Terminator.
 b $7910 Background 3 data.
+B $798F,$02 Terminator.
 b $7991 Background 3 data.
+B $79AF,$02 Terminator.
 b $79B1 Background 3 data.
+B $79B1,$08 #UDG(#PC,attr=56)
+L $79B1,$08,$40
 b $7BB1 Background 3 data.
+B $7BB1,$08 #UDG(#PC,attr=56)
+L $7BB1,$08,$2B
 b $7D09 Background 3 data.
+B $7D09,$08 #UDG(#PC,attr=56)
+L $7D09,$08,$46
 b $7F39 Background 3 data.
+B $7F39,$08 #UDG(#PC,attr=56)
+L $7F39,$08,$0E
 
 b $8000 Background
 @ $8000 label=BACKGROUND_1
@@ -460,23 +552,87 @@ c $9200
   $9213,$05 Copy #REGhl to #REGde $20 times.
 
 c $9229
+  $9239,$01 Return.
+
+c $923A
+  $9254,$01 Return.
+
+c $9255
+  $9289,$01 Return.
 
 c $92E4 Print String.
 @ $92E4 label=PRINT_STRING
-D $92E4 #TABLE(default,centre,centre)
-.       { =h REGhl | =h REGde }
+N $92E4 #TABLE(default,centre,centre)
+.       { =h REGde | =h REGhl }
 .       { Memory location of string | X/Y position on screen }
 .       TABLE#
+@ $92F0 label=PRINT_STRING_LOOP
 
-B $932C,$0A Guessing at the length.
+c $92FF Expand time byte to ASCII.
+@ $92FF label=TIME_COUNTER
+B $92FF,$08,$02 Guessing at the length.
+B $9307,$02 Terminator.
+N $9309 On entry #REGhl contains the time as the LSB, e.g. for 30s #REGhl will be $001E.
+@ $9309 label=PROCESS_TIME
+  $9309,$03 Pushes #REGhl, #REGde and #REGbc onto the stack.
+  $930C,$03 Point to #R$92FF.
+@ $930F label=PROCESS_TIME_LOOP
+  $930F,$05 Load the next byte pair from the address pointer into #REGbc.
+  $9314,$02 Increase the address pointer by one and stash it on the stack for later.
+  $9316,$02 Store $2F in #REGa.
+N $9318 Count "up" from ASCII "0" until the correct representation is reached.
+@ $9318 label=PROCESS_TIME_CHAR
+  $9318,$01 Increment #REGa by one (so on the first pass #REGa will now contain ASCII "0").
+  $9319,$02 Copy the remaining time into #REGde.
+  $931B,$01 Adds the remaining time to the 16-bit number held in #REGbc.
+  $931C,$02 If the carry flag is set loop back to #R$9318.
+  $931E,$01 Swap #REGde and #REGhl.
+  $931F,$03 Write the processed ASCII number character to the time print buffer.
+  $9322,$02 Increment #REGix by one to process the next character in the time buffer once looped around.
+  $9324,$01 Restore the byte pair address pointer from the stack.
+  $9325,$03 Loop back to #R$930F until the terminator is reached ($FF+$01 will set the zero flag).
+  $9328,$03 Restores #REGbc, #REGde and #REGhl from the stack.
+  $932B,$01 Return.
+
+c $932C Processes the remaining time string.
+N $932C Buffer for processing text output.
+@ $932C label=TIME_BUFFER
+T $932C,$06,$05:1 Guessing at the length.
+S $9332,$04 Maybe unused?
+  $9336,$01 Push #REGde containing the screen position for printing onto the stack for later.
+@ $9336 label=PROCESS_PRINT_TIME
+  $9337,$04 Point #REGix at the first character of the time display buffer at #R$932C.
+  $933B,$03 Call #R$9309.
+  $933E,$06 #REGix points to one byte off the end of the time buffer, write $00 as a terminator for the print routine.
+  $9344,$01 Fetch the screen position off the stack and store it in #REGhl.
+N $9345 The time isn't printed as "00005" so this routine replaces the zeroes with spaces in the time print buffer.
+  $9345,$03 Store #R$932C in #REGde.
+@ $9348 label=TIME_ZERO_TO_SPACES
+  $9348,$01 Grab the next character from the time buffer.
+  $9349,$05 If it is not ASCII "0" then jump to #R$9355.
+  $934E,$03 Write ASCII "space" ($20) to the time buffer location.
+  $9351,$01 Move onto the next character.
+  $9352,$03 Jump back to #R$9348.
+N $9355 If time has run out, show at least an ASCII "0".
+@ $9355 label=TIME_CHECK_LAST
+  $9355,$03 Point to the last digit of the time buffer #R$932C($9330).
+  $9358,$06 If it is not an ASCII "space" ($20) then jump to #R$9361.
+  $935E,$03 Time has run out, so write ASCII "0" to this last character.
+N $9361 Send the time buffer to #R$92E4.
+@ $9361 label=PRINT_TIME_SCREEN
+  $9361,$06 Point to #R$932C and call #R$92E4.
+  $9367,$01 Return.
+
+b $9368
+B $9413
 
 c $95D4
   $95E0,$01 Return.
 N $95E1 fffff
   $95E1,$01
 
-c $9745 Demo Mode.
-@ $9745 label=DEMO_MODE
+c $9745
+@ $9745 label=JJJJ
 
   $97DC
 
@@ -524,13 +680,16 @@ g $9C2C Number of players.
 c $9C2E Game Entry Point.
 @ $9C2E label=GAME_START
   $9C2E,$01 Disable interrupts.
-  $9C2F,$04 Set border colour to $05 (cyan).
+  $9C2F,$04 Set border colour to cyan.
+. #TABLE(default,centre,centre,centre,centre)
+. { =h Value | =h Ink | =h Paper | =h Bright }
+. { $05 | $05 | $00 | $00 }
+. TABLE#
   $9C33,$04 Set the stack pointer to $5BFF.
   $9C37,$03 Call #R$B138.
 
-  $9C3A,$09 Blah...
-  $9C45,$02 #REGa=$00
-  $9C47,$09 Writes $00 to #R$C423 and #R$C425.
+  $9C3A,$0B Copies a large chunk of code from $6000 to $5F00. See the .t2s file.
+  $9C45,$0B Writes $0000 to #R$C423 and #R$C425.
   $9C50,$03 Jump to #R$AC05.
 
 c $9C53 Read Key Input.
@@ -559,11 +718,10 @@ u $9C6E
 
 c $9C6F
 
-c $9C93
-@ $9C93 label=KKKK
-  $9C93,$03 Stores #R$9CA5 in the accumulator.
-  $9C96,$03 #REGh = $00, #REGl = #REGa.
-  $9C99,$03 #REGde=$0B00.
+c $9C93 Print remaining time to the screen.
+@ $9C93 label=PRINT_TIME
+  $9C93,$06 Stores #R$9CA5 as the LSB in #REGhl.
+  $9C99,$03 Store $0B00 in #REGde for the screen position.
   $9C9C,$03 Call #R$9336.
   $9C9F,$01 Return.
 
@@ -585,6 +743,20 @@ c $A685 Print Hi-Score.
   $A696,$01 Return.
 
 c $A697
+
+b $A6B6
+
+B $AA06,$01
+@ $AA06 label=IS_DEMO_MODE
+B $AA08,$01
+@ $AA08 label=POINTS_AWARD_P1
+
+B $AA3C,$01
+B $AA46,$01
+B $AA48,$01
+@ $AA48 label=POINTS_AWARD_P2
+B $AA80,$01
+@ $AA80 label=ALSO_RANK
 
 t $AA9C
 T $AA9D,$04 "DEMO" text.
@@ -610,13 +782,28 @@ c $AB70
   $ABC2,$05 If this value is not $04 then jump to #R$AB97.
   $ABC7,$01 Else, return.
 
-c $AC05 Quit game.
-@ $AC05 label=QUIT_GAME
-  $AC05,$04 Writes $00 to #R$9C2C.
+c $AC05 Demo Mode.
+@ $AC05 label=DEMO_MODE
+  $AC05,$04 Writes $00 to #R$9C2C - this signifies we're in "demo mode".
+@ $AC09 label=DEMO_MODE_LOOP
   $AC09,$09 Point to #R$B060 and call #R$92E4.
   $AC12,$09 Point to #R$B060 and call #R$92E4.
   $AC1B,$09 Point to #R$B039 and call #R$92E4.
   $AC24,$03 Call #R$AB70.
+  $AC27,$06 If #R$9C2C is still zero, loop back round to #R$AC09.
+  $AC2D,$04 If #R$9C2C is $01, then jump to #R$AC3E.
+  $AC31,$03 Else, call #R$AD9C.
+  $AC34,$02 Loop back round to #R$AC09.
+@ $AC36 label=DEMO_START_GAME
+  $AC36,$03 Call #R$AC3E.
+  $AC3C,$02 Loop back round to #R$AC09.
+
+N $AC3E fff
+@ $AC3E label=START_1UP_GAME
+  $AC3E,$10 Writes $00 to; #R$AA80, #R$B05F, #R$AA06, #R$AA08 and #R$AA48.
+  $AC4E,$07 Writes $01 to; #R$AF35 and #R$AA46.
+  $AC55,$07 Writes $02 to; #R$AA3C and #R$AF34.
+  $AC5C,$03 Call #R$AF0B.
 
   $AC7A,$06 Point to #R$B035 and call #R$A685.
 
@@ -626,6 +813,10 @@ c $AC05 Quit game.
   $AD2B,$02 Check if player 1 has 4 points.
 
   $AD32,$02 Check if player 2 has 4 points.
+
+@ $AD9C label=START_2UP_GAME
+  $AD9C,$10 Writes $00 to; #R$B05F, #R$AA06, #R$AA46, #R$AA08 and #R$AA48.
+  $ADAC,$05 Writes $02 to; #R$AF34.
 
 c $AEBF Print the current Dan (or "NOVICE") message.
 @ $AEBF label=SHOW_RANK
@@ -661,7 +852,11 @@ c $AF0B Resets score.
   $AF19,$01 Return.
 
 c $AF1A
+B $AF33
+B $AF34
+B $AF35
 
+  $AF36
 N $AF68 Player 1 display score.
   $AF68,$03 Point to #R$B02F.
   $AF6B,$02 Set a counter of $03.
@@ -755,6 +950,17 @@ T $B060,$0A,$09:1 Whitespace?
 b $B06A
 
 c $B138
+@ $B138 label=GAME_INIT
+  $B138,$05 Writes $01 to #R$B153.
+  $B13D,$06 Writes $FFFF to #R$B151.
+  $B143,$01 Return.
+N $B144 TODO.
+B $B144
+W $B151
+B $B153,$01
+B $B154
+
+c $B15A
 
 g $B2FA Sound flag.
 @ $B2FA label=FLAG_SOUND
@@ -790,7 +996,7 @@ N $C203 This routine works out which area of the screen we are in.
 .       #REGhl=$4280
 @ $C203 label=SCREEN_CALC
   $C203 Stash the accumulator in #REGe for later.
-  $C204,$02 Mask off low bits d06-d07.
+  $C204,$02 Mask off low bits d6-d7.
   $C206,$03 If the result is now zero, jump to #R$C21A.
   $C209,$05 If #REGa is $40 then jump to #R$C214.
   $C20E,$06 Sets #REGhl to $5000 (the bottom of the screen buffer) and jump to #R$C21D.
@@ -807,7 +1013,7 @@ N $C21D Now we have the base screen address; work out the exact address to retur
   $C220,$03 Push the accumulator into #REGbc as the high-order byte (low is $00).
   $C223,$01 Adds #REGbc to #REGhl.
   $C224,$01 Again, restore the accumulator from #REGe.
-  $C225,$02 Mask bits d03-d05.
+  $C225,$02 Mask bits d3-d5.
   $C227,$03 Push the accumulator into #REGbc as the low-order byte (high is $00).
   $C22A,$08 * 2 * 2.
   $C232,$01 Adds #REGbc to #REGhl.
@@ -843,7 +1049,9 @@ g $C41B
 g $C41F
 g $C421
 g $C423
+W $C423
 g $C425
+W $C425
 b $C427
 
 B $D293,$40,$08 #UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
