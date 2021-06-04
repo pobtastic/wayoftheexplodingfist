@@ -92,8 +92,12 @@ c $5F80 Creates the background image.
   $5FB4,$02 Decrease counter by one and loop back to #R$5F8B until counter is zero.
   $5FB6,$07 Fetch the address for the attributes data and call #R$6010.
   $5FBD,$01 Return.
-  $5FA0,$03
-@ $5FAF label=BACKGROUND_XXXX
+  $5FA0,$03 Fetch #R$5F02 and store it in #REGhl.
+  $5FA3,$04 Add $0080 to #REGhl.
+  $5FA7,$04 Set the zero flag if we're at a screen section boundary. Skip forward to #R$5FAF if not.
+  $5FAB,$04 Add $07 to the MSB of #REGhl to handle moving between screen sections.
+@ $5FAF label=BACKGROUND_NO_BOUNDARY
+  $5FAF,$03 Stash #REGhl at #R$5F02.
 N $5FBE Fetch the data and check for the terminator.
 @ $5FBE label=BACKGROUND_CHECK_END
   $5FBE,$01 Fetch the next pixel data byte.
@@ -146,14 +150,23 @@ N $6007 Handles moving from one screen section to the next.
 
 c $6010 Unpack background attribute data.
 @ $6010 label=BACKGROUND_ATTRIBUTES
-N $6010 Moves the attribute data into the buffer. On entry #REGhl will contain one of the following background reference
-.       memory locations;
+N $6010 Unpacks the attribute data into the buffer. On entry #REGhl will contain one of the following background
+. reference memory locations;
 . #TABLE(default,centre,centre)
 . { =h Background reference | =h Background data }
 . { $01 | #R$6061 }
 . { $02 | #R$6B83 }
 . { $03 | #R$7766 }
 . TABLE#
+. The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For
+. example;
+. #TABLE(default,centre,centre,centre,centre)
+. { =h Address | =h Value | =h Binary | =h Reset Bit 7 }
+. { $6061 | $#N(#PEEK($6061)) | #EVAL(#PEEK($6061),2,8) | $#N(#EVAL(#PEEK$6061-128)) }
+. { $6062 | $#N(#PEEK($6062)) |  |  }
+. TABLE#
+. So, in $6061 bit 7 is set - after a reset we take $6062 as a counter and hence copy $#N(#EVAL(#PEEK$6061-128)) into
+. the following #PEEK($6062) memory locations.
   $6010,$03 Begin at the start of the #R$5800.
   $6013,$01 Pick up the attribute data from #REGhl.
 @ $6013 label=BACKGROUND_ATTR_LOOP
@@ -161,11 +174,11 @@ N $6010 Moves the attribute data into the buffer. On entry #REGhl will contain o
   $6015,$03 If the following data is different jump to #R$601A.
   $6018,$02 The data terminates with double zeroes, so if this occurs then return.
   $601A,$04 Test if d7 is set in current attribute data. Reset bit to zero.
-N $601A Copy and loop back round to #R$6013 until bit 7 in the current attribute data is zero.
+N $601A Copy and loop back round to #R$6013 until bit 7 in the current attribute data is set.
 @ $601A label=BACKGROUND_REPEAT_COPY
   $601E,$01 Write the attribute data to #REGde.
   $601F,$01 Increment #REGde by one.
-  $6020,$02 Jump back to #R$6013 unless the bit operation was zero.
+  $6020,$02 Jump back to #R$6013 unless the bit was set.
 N $6022 Using the following attribute data byte as a counter, copy the current byte this number of times.
   $6022,$01 Pick up the attribute data from HL into #REGb to use as a counter.
   $6023,$01 Increase #REGhl by one.
@@ -217,9 +230,18 @@ B $624B,$02 Terminator.
 b $624D Background 1 data.
 B $6268,$02 Terminator.
 b $626A Background 1 data.
+B $626A,$08 #UDG(#PC,attr=56)
+L $626A,$08,$44
 b $648A Background 1 data.
+B $648A,$08 #UDG(#PC,attr=56)
+L $648A,$08,$7A
 b $685A Background 1 data.
+B $685A,$08 #UDG(#PC,attr=56)
+L $685A,$08,$51
 b $6AE2 Background 1 data.
+B $6AE2,$08 #UDG(#PC,attr=56)
+L $6AE2,$08,$14
+u $6B82
 b $6B83 Background 2 attribute data.
 B $6C49,$02 Terminator.
 b $6C4B Background 2 data.
@@ -539,6 +561,19 @@ i $900D
 
 c $900E
 
+c $909E
+@ $909E label=NEW_ROUND
+  $909E,$0D Write $00 to #R$AA01, #R$AA41, #R$AA02 and #R$AA42.
+  $90AB,$09 Point to #R$B060($B064) and call #R$92E4.
+  $90B4,$09 Point to #R$B060($B064) and call #R$92E4.
+  $90BD,$09 Point to #R$B060($B064) and call #R$92E4.
+  $90C6,$09 Point to #R$B060($B064) and call #R$92E4.
+  $90CF,$01 Return.
+
+c $90D0
+B $90D0,$01
+  $90D1,$01 Disable interrupts.
+
 B $9128
 
 c $9200
@@ -745,13 +780,15 @@ c $A685 Print Hi-Score.
 c $A697
 
 b $A6B6
-
+B $AA01,$01
+B $AA02,$01
 B $AA06,$01
 @ $AA06 label=IS_DEMO_MODE
 B $AA08,$01
 @ $AA08 label=POINTS_AWARD_P1
-
 B $AA3C,$01
+B $AA41,$01
+B $AA42,$01
 B $AA46,$01
 B $AA48,$01
 @ $AA48 label=POINTS_AWARD_P2
@@ -1043,6 +1080,10 @@ c $C3E4
 
 b $C407
 
+g $C409 Player 1 screen position.
+@ $C409 label=POSITION_P1
+W $C409 The position in the screen buffer for Player 1.
+g $C40B
 g $C410
 g $C411
 g $C41B
