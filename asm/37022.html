@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 909E</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="36878.html">900E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#37022">Map</a></td>
+<td class="next">
+Next: <a href="37072.html">90D0</a>
+</td>
+</tr>
+</table>
+<div class="description">909E: Routine at 909E</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="38725.html">JJJJ</a>, <a href="43888.html">AB70</a> and <a href="44037.html">DEMO_MODE</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">NEW_ROUND</td>
+<td class="address-2"><span id="37022"></span>909E</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="5">Write $00 to <a href="42678.html#43521">AA01</a>, <a href="42678.html#43585">AA41</a>, <a href="42678.html#43522">AA02</a> and <a href="42678.html#43586">AA42</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37023"></span>909F</td>
+<td class="instruction">LD ($AA01),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37026"></span>90A2</td>
+<td class="instruction">LD ($AA41),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37029"></span>90A5</td>
+<td class="instruction">LD ($AA02),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37032"></span>90A8</td>
+<td class="instruction">LD ($AA42),A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37035"></span>90AB</td>
+<td class="instruction">LD DE,$B064</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html#45152">$B064</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37038"></span>90AE</td>
+<td class="instruction">LD HL,$0108</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37041"></span>90B1</td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37044"></span>90B4</td>
+<td class="instruction">LD DE,$B064</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html#45152">$B064</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37047"></span>90B7</td>
+<td class="instruction">LD HL,$0110</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37050"></span>90BA</td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37053"></span>90BD</td>
+<td class="instruction">LD DE,$B064</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html#45152">$B064</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37056"></span>90C0</td>
+<td class="instruction">LD HL,$1A08</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37059"></span>90C3</td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37062"></span>90C6</td>
+<td class="instruction">LD DE,$B064</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html#45152">$B064</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37065"></span>90C9</td>
+<td class="instruction">LD HL,$1A10</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37068"></span>90CC</td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="37071"></span>90CF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="36878.html">900E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#37022">Map</a></td>
+<td class="next">
+Next: <a href="37072.html">90D0</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+</footer>
+</body>
+</html>

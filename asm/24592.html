@@ -41,7 +41,7 @@ Used by the routine at <a href="24448.html">CREATE_BACKGROUND</a>.
 <span id="24592"></span>
 <div class="comments">
 <div class="paragraph">
-Moves the attribute data into the buffer. On entry <span class="register">HL</span> will contain one of the following background reference memory locations; <table class="default">
+Unpacks the attribute data into the buffer. On entry <span class="register">HL</span> will contain one of the following background reference memory locations; <table class="default">
 <tr>
 <th colspan="1" rowspan="1">Background reference</th>
 <th colspan="1" rowspan="1">Background data</th>
@@ -58,7 +58,26 @@ Moves the attribute data into the buffer. On entry <span class="register">HL</sp
 <td class="centre" colspan="1" rowspan="1">$03</td>
 <td class="centre" colspan="1" rowspan="1"><a href="30566.html">7766</a></td>
 </tr>
-</table>
+</table> The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For example; <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Address</th>
+<th colspan="1" rowspan="1">Value</th>
+<th colspan="1" rowspan="1">Binary</th>
+<th colspan="1" rowspan="1">Reset Bit 7</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$6061</td>
+<td class="centre" colspan="1" rowspan="1">$E8</td>
+<td class="centre" colspan="1" rowspan="1">11101000</td>
+<td class="centre" colspan="1" rowspan="1">$68</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$6062</td>
+<td class="centre" colspan="1" rowspan="1">$9E</td>
+<td class="centre" colspan="1" rowspan="1"></td>
+<td class="centre" colspan="1" rowspan="1"></td>
+</tr>
+</table> So, in $6061 bit 7 is set - after a reset we take $6062 as a counter and hence copy $68 into the following 158 memory locations.
 </div>
 </div>
 </td>
@@ -108,7 +127,7 @@ Moves the attribute data into the buffer. On entry <span class="register">HL</sp
 <span id="24602"></span>
 <div class="comments">
 <div class="paragraph">
-Copy and loop back round to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> until bit 7 in the current attribute data is zero.
+Copy and loop back round to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> until bit 7 in the current attribute data is set.
 </div>
 </div>
 </td>
@@ -140,7 +159,7 @@ Copy and loop back round to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> 
 <td class="asm-label"></td>
 <td class="address-1"><span id="24608"></span>6020</td>
 <td class="instruction">JR Z,<a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a></td>
-<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> unless the bit operation was zero.</td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> unless the bit was set.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">

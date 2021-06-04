@@ -139,55 +139,51 @@ Used by the routine at <a href="24354.html">5F22</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="24480"></span>5FA0</td>
 <td class="instruction">LD HL,($5F02)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Fetch <a href="24320.html#24322">BACKGROUND_SCREEN_ADDRESS</a> and store it in <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24483"></span>5FA3</td>
 <td class="instruction">LD BC,$0080</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Add $0080 to <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24486"></span>5FA6</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24487"></span>5FA7</td>
 <td class="instruction">BIT 0,H</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Set the zero flag if we're at a screen section boundary. Skip forward to <a href="24448.html#24495">BACKGROUND_NO_BOUNDARY</a> if not.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24489"></span>5FA9</td>
-<td class="instruction">JR Z,<a href="24448.html#24495">BACKGROUND_XXXX</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR Z,<a href="24448.html#24495">BACKGROUND_NO_BOUNDARY</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24491"></span>5FAB</td>
 <td class="instruction">LD A,$07</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Add $07 to the MSB of <span class="register">HL</span> to handle moving between screen sections.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24493"></span>5FAD</td>
 <td class="instruction">ADD A,H</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24494"></span>5FAE</td>
 <td class="instruction">LD H,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">BACKGROUND_XXXX</td>
+<td class="asm-label">BACKGROUND_NO_BOUNDARY</td>
 <td class="address-2"><span id="24495"></span>5FAF</td>
 <td class="instruction">LD ($5F02),HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> at <a href="24320.html#24322">BACKGROUND_SCREEN_ADDRESS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
