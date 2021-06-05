@@ -228,33 +228,52 @@ b$4000 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,
 ; Unused
 s$5B00 DEFS $0400
 
-; Data block at 5F00
+; Background Reference.
+;
+; Used by the routine at #R$5F3C. Can be either; #LIST { $01 } { $02 } { $03 } LIST#
+; This represents which background is shown.
 @label=BACKGROUND_REFERENCE
-b$5F00 DEFB $00      ; Current Background Reference.
- $5F01 DEFB $00
+g$5F00 DEFB $00
+
+; Unused.
+g$5F01 DEFS $01
+
+; Background screen buffer.
 @label=BACKGROUND_SCREEN_ADDRESS
- $5F02 DEFB $00,$00  ; Holds current screen location
-@label=TEMP_BACKGROUND_SCREEN_ADDR
- $5F04 DEFW $0000    ; {Used during processing.
+g$5F02 DEFW $0000    ; Holds current screen location
+@label=BACKGROUND_CURRENT_UDG
+ $5F04 DEFW $0000    ; {Background UDG reference buffer.
  $5F06 DEFW $0000    ; }
-@label=BACKGROUND_PIXEL_DATA
- $5F08 DEFW $0000    ; Holds currently processed pixel data block.
+@label=BACKGROUND_UDG_DATA
+ $5F08 DEFW $0000    ; Holds currently processed UDG data block.
+; Used with the indirect jump at #R$5F46/ #R$5F52.
 @label=COPY_BACKGROUND_1
  $5F0A DEFW $5F53    ; Location of code to copy background 1 reference data.
 @label=COPY_BACKGROUND_2
  $5F0C DEFW $5F62    ; Location of code to copy background 2 reference data.
 @label=COPY_BACKGROUND_3
  $5F0E DEFW $5F71    ; Location of code to copy background 3 reference data.
+
+; Background address buffer.
+;
+; Buffer that holds the currently processed background data depending on the background reference value.
+; #TABLE(default,centre,centre)
+; { =h #R$5F00 | =h Background Data }
+; { $01 | #R$602B }
+; { $02 | #R$603D }
+; { $03 | #R$604F }
+; TABLE#
+;       Populated from one of #R$5F53, #R$5F62 or #R$5F71.
 @label=BACKGROUND_DATA_BUFFER
- $5F10 DEFW $0000    ; {Buffer which holds the currently processed background
- $5F12 DEFW $0000    ; data.
- $5F14 DEFW $0000    ;
- $5F16 DEFW $0000    ;
- $5F18 DEFW $0000    ;
- $5F1A DEFW $0000    ;
- $5F1C DEFW $0000    ;
- $5F1E DEFW $0000    ;
- $5F20 DEFW $0000    ; }
+g$5F10 DEFW $0000    ; {Block 1.
+ $5F12 DEFW $0000    ; }
+ $5F14 DEFW $0000    ; {Block 2.
+ $5F16 DEFW $0000    ; }
+ $5F18 DEFW $0000    ; {Block 3.
+ $5F1A DEFW $0000    ; }
+ $5F1C DEFW $0000    ; {Block 4.
+ $5F1E DEFW $0000    ; }
+ $5F20 DEFW $0000    ; Attribute data.
 
 ; Change Background.
 ;
@@ -285,20 +304,25 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes buffe
  $5F3F LD A,(HL)     ; }
  $5F40 DEC A         ; {Decrease it by one, then double it.
  $5F41 ADD A,A       ; }
- $5F42 LD C,A        ; {Store it as the low-order byte of #REGbc (high-order is
- $5F43 LD B,$00      ; $00).}
+ $5F42 LD C,A        ; {Store it as the LSB of #REGbc (MSB is $00).
+ $5F43 LD B,$00      ; }
  $5F45 LD (HL),B     ; Write $00 to #R$5F00.
- $5F46 LD HL,$5F0A   ; #REGhl=#R$5F0A
+ $5F46 LD HL,$5F0A   ; #REGhl=The beginning of three address references for the copy routines which populate #R$5F10 at
+                     ;           #R$5F0A($5F0A).
  $5F49 ADD HL,BC     ; Add #REGbc to #REGhl.
- $5F4A LD E,(HL)     ; {Loads #REGde with the contents of #REGhl.
- $5F4B INC HL        ;
- $5F4C LD D,(HL)     ; }
+ $5F4A LD E,(HL)     ; {#REGde=One of the three background address references;
+ $5F4B INC HL        ; #TABLE(default,centre,centre)
+ $5F4C LD D,(HL)     ; { =h #R$5F00 | =h Address Reference }
+                     ; { $01 | #R$5F0A($5F0A) }
+                     ; { $02 | #R$5F0C($5F0C) }
+                     ; { $03 | #R$5F0E($5F0E) }
+                     ; TABLE#}
  $5F4D EX DE,HL      ; Swap #REGde and #REGhl.
  $5F4E CALL $5F52    ; Call #R$5F52.
  $5F51 RET           ; Return.
 ; Indirect jump to copy-to-buffer routine.
 *$5F52 JP (HL)       ; Indirect jump to address held by #REGhl.
-                     ; #TABLE(default,centre,centre,centre,centre)
+                     ; #TABLE(default,centre,centre)
                      ; { =h #R$5F00 | =h Jumps To... }
                      ; { $01 | #R$5F53 }
                      ; { $02 | #R$5F62 }
@@ -329,29 +353,49 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes buffe
 ; Creates the background image.
 ;
 ; Used by the routine at #R$5F22.
+;
+; .
+;
+; Each background uses 4 sets of data "pairs" and a single reference for attribute data (handled separately at
+; #R$6010). For example, #R$602B(background 1) uses;
+; #TABLE(default,centre,centre,centre)
+; { =h Block | =h UDGs | =h Data }
+; { 1 | #R$626A | #R$6102 }
+; { 2 | #R$648A | #R$6157 }
+; { 3 | #R$685A | #R$61D9 }
+; { 4 | #R$6AE2 | #R$624D }
+; { =h,c2 Attribute Data | #R$6061 }
+; TABLE#
 @label=CREATE_BACKGROUND
-c$5F80 LD HL,$4080   ; {Stash $4080 at #R$5F02.
- $5F83 LD ($5F02),HL ; }
- $5F86 LD HL,$5F10   ; #REGhl=#R$5F10.
- $5F89 LD B,$04      ; {Each background has 4 "sets" of data, so set a counter of $04.
+c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for the "header". This is the top of character block 4.
+ $5F83 LD ($5F02),HL ; This is then stored in the buffer at #R$5F02.}
+ $5F86 LD HL,$5F10   ; #REGhl=#R$5F10(Background address data buffer).
+; Each background has 4 "sets" of data, so set a counter of 4.
+ $5F89 LD B,$04      ; #REGb=Initialise block counter.
+; The block processing loop.
 @label=CREATE_BACKGROUND_LOOP
-*$5F8B PUSH BC       ; Push it onto the stack for now.}
- $5F8C LD E,(HL)     ; {Fetch the address of the next pixel data block and
- $5F8D INC HL        ; store it at #R$5F08.
+*$5F8B PUSH BC       ; Push the counter onto the stack.
+; Each block contains two address references, one is for UDG data, and one is
+; for positioning data.
+ $5F8C LD E,(HL)     ; {Pick up the next background UDG data block and store it
+ $5F8D INC HL        ; at #R$5F08.
  $5F8E LD D,(HL)     ;
  $5F8F INC HL        ;
  $5F90 LD ($5F08),DE ; }
- $5F94 LD E,(HL)     ; {Fetch the address of the next pixel data block and
- $5F95 INC HL        ; store it in #REGde.
+ $5F94 LD E,(HL)     ; {Fetch the address of the next positioning data block
+ $5F95 INC HL        ; and store it in #REGde.
  $5F96 LD D,(HL)     ;
  $5F97 INC HL        ; }
- $5F98 PUSH HL       ; Push #REGhl (pointing to the next data block) onto the
-                     ; stack.
- $5F99 LD HL,($5F02) ; Fetch #R$5F02 and store it in #REGhl.
- $5F9C EX DE,HL      ; Switch #REGde and #REGhl so #REGde now holds the screen address and #REGhl holds the start of the pixel
-                     ;           data block.
+ $5F98 PUSH HL       ; Push the position of the address data buffer (pointing
+                     ; to the start of the next block) onto the stack.
+; Set up the current screen position, the positioning data and the UDG data
+; block.
+ $5F99 LD HL,($5F02) ; #REGhl=The current screen address from #R$5F02.
+ $5F9C EX DE,HL      ; Switch #REGde and #REGhl so #REGde now holds the screen address and #REGhl holds the start of the
+                     ;           positioning data block.
  $5F9D CALL $5FBE    ; Call #R$5FBE.
- $5FA0 LD HL,($5F02) ; Fetch #R$5F02 and store it in #REGhl.
+; fgg
+ $5FA0 LD HL,($5F02) ; #REGhl=The current screen address from #R$5F02.
  $5FA3 LD BC,$0080   ; {Add $0080 to #REGhl.
  $5FA6 ADD HL,BC     ; }
  $5FA7 BIT 0,H       ; {Set the zero flag if we're at a screen section
@@ -365,81 +409,90 @@ c$5F80 LD HL,$4080   ; {Stash $4080 at #R$5F02.
  $5FB3 POP BC        ; }
  $5FB4 DJNZ $5F8B    ; Decrease counter by one and loop back to #R$5F8B until
                      ; counter is zero.
- $5FB6 LD E,(HL)     ; {Fetch the address for the attributes data and call
- $5FB7 INC HL        ; #R$6010.
+; Finally, now write the attributes and return.
+ $5FB6 LD E,(HL)     ; {Fetch the last address from the #R$5F10(Background address data buffer) which is the attributes data and
+ $5FB7 INC HL        ;           call #R$6010 to process and display in the attributes buffer.
  $5FB8 LD D,(HL)     ;
  $5FB9 EX DE,HL      ;
  $5FBA CALL $6010    ; }
  $5FBD RET           ; Return.
-; Fetch the data and check for the terminator.
-@label=BACKGROUND_CHECK_END
-*$5FBE LD A,(HL)     ; Fetch the next pixel data byte.
- $5FBF INC HL        ; Increase #REGhl by one to point to the next item of
-                     ; pixel data.
- $5FC0 CP (HL)       ; Check if this data is the same as the previous pixel
-                     ; data value.
+; Fetch the next positioning data and check for the terminator.
+@label=BACKGROUND_FETCH_NEXT
+*$5FBE LD A,(HL)     ; Fetch the next positioning data byte.
+ $5FBF INC HL        ; Increase #REGhl by one to point to the next byte.
+ $5FC0 CP (HL)       ; Check if this byte is the same as the previous
+                     ; positioning data byte value.
  $5FC1 JR NZ,$5FC6   ; Jump to #R$5FC6 if the values are different.
  $5FC3 AND A         ; {Double zero is the terminator, so jump to #R$5FF3 to
  $5FC4 JR Z,$5FF3    ; return if this is detected.}
-; Process the pixel data.
+; Process the UDG data.
 @label=BACKGROUND_PROCESS
 *$5FC6 BIT 7,A       ; {Check if d7 is set, reset it regardless.
  $5FC8 RES 7,A       ; }
- $5FCA PUSH AF       ; Push #REGaf onto the stack.
+ $5FCA PUSH AF       ; Push the new positioning data value onto the stack.
  $5FCB EXX           ; Exchange the registers.
+; Point #REGhl to the base address of the currently referenced UDG.
  $5FCC LD C,A        ; {Set the LSB of #REGbc to #REGa, and the MSB to $00.
  $5FCD LD B,$00      ; }
  $5FCF LD L,C        ; {Copy the same value into #REGhl.
  $5FD0 LD H,B        ; }
- $5FD1 ADD HL,BC     ; Unclear yet...
- $5FD2 ADD HL,HL     ; {Unclear yet...
+ $5FD1 ADD HL,BC     ; {* 8.
+ $5FD2 ADD HL,HL     ;
  $5FD3 ADD HL,HL     ; }
- $5FD4 LD BC,($5F08) ; Fetch the contents of #R$5F08 and store in #REGbc.
- $5FD8 ADD HL,BC     ;
- $5FD9 LD ($5F04),HL ;
- $5FDC EXX           ; Exchange the registers.
+ $5FD4 LD BC,($5F08) ; #REGbc=Fetch the address of the start of the UDG data
+                     ; block from #R$5F08.
+ $5FD8 ADD HL,BC     ; {Choose the referenced UDG and store this at #R$5F04.
+ $5FD9 LD ($5F04),HL ; }
+ $5FDC EXX           ; Restore the registers.
  $5FDD CALL $5FF4    ; Call #R$5FF4.
  $5FE0 CALL $6007    ; Call #R$6007.
- $5FE3 POP AF        ;
- $5FE4 JR Z,$5FBE    ;
- $5FE6 LD B,(HL)     ;
- $5FE7 INC HL        ;
- $5FE8 DEC B         ;
-@label=BACKGROUND_XXXXX
+; Check if the flag for repetition is set, if so - action it. If not, jump and
+; work on the next position.
+ $5FE3 POP AF        ; Fetch the position data off the stack, as this is #REGaf
+                     ; this also restores the d7 check flag.
+ $5FE4 JR Z,$5FBE    ; Jump back to #R$5FBE unless the bit was set.
+; Using the following position data byte as a counter, copy the current byte
+; this number of times.
+ $5FE6 LD B,(HL)     ; Pick up the position data from #REGhl and store it in
+                     ; #REGb to use as a counter.
+ $5FE7 INC HL        ; Increment #REGhl to point to the next item of position
+                     ; data.
+ $5FE8 DEC B         ; Decrease the counter by one.
+@label=BACKGROUND_REPEAT_COPY
 *$5FE9 CALL $5FF4    ; Call #R$5FF4.
  $5FEC CALL $6007    ; Call #R$6007.
  $5FEF DJNZ $5FE9    ; Decrease counter by one and loop back to #R$5FE9 until
-                     ; counter is zero.
+                     ; the counter is zero.
  $5FF1 JR $5FBE      ; Jump back round to #R$5FBE.
 ; Used to "just return" after flag checking operations.
 @label=BACKGROUND_RETURN
 *$5FF3 RET           ; Return.
-; Copy a single UDG 8x8 pixel block to the screen.
+; Copy a single UDG 8x8 block to the screen.
 @label=COPY_UDG
-*$5FF4 PUSH DE       ; {Push #REGde and #REGhl onto the stack.
- $5FF5 PUSH HL       ; }
+*$5FF4 PUSH DE       ; {Push #REGde (current screen location) and #REGhl (next
+ $5FF5 PUSH HL       ; position data location) onto the stack.}
  $5FF6 LD A,$08      ; Set a counter of $08 for the number of lines in a
                      ; character block.
- $5FF8 LD HL,($5F04) ; Store the contents of #R$5F04 in #REGhl.
+ $5FF8 LD HL,($5F04) ; #REGhl=#R$5F04(the currently targeted UDG address).
 @label=COPY_UDG_LOOP
 *$5FFB EX AF,AF'     ; Stash the counter for later.
- $5FFC LD A,(HL)     ; {Copy the pixel data held by #REGhl into the screen
- $5FFD LD (DE),A     ; buffer currently pointed to by #REGde.}
- $5FFE INC HL        ; Increment #REGhl by one to point to the next item of
-                     ; pixel data.
- $5FFF INC D         ; Increment the MSB of #REGde by one to point to the next
-                     ; line down in the screen.
+ $5FFC LD A,(HL)     ; {Copy the UDG data held by #REGhl into the screen buffer
+ $5FFD LD (DE),A     ; currently pointed to by #REGde.}
+ $5FFE INC HL        ; Increment #REGhl by one to point to the next line of the
+                     ; UDG data.
+ $5FFF INC D         ; Increment the MSB of #REGde by one to point to the line
+                     ; directly below in the screen buffer.
  $6000 EX AF,AF'     ; Restore the counter.
  $6001 DEC A         ; Decrease the counter by one.
  $6002 JR NZ,$5FFB   ; Loop back to #R$5FFB until the counter is zero.
- $6004 POP HL        ; {Restore the original #REGhl and #REGde values from the
- $6005 POP DE        ; stack.}
+ $6004 POP HL        ; {Restore the original #REGhl and #REGde values for
+ $6005 POP DE        ; screen location and position data from the stack.}
  $6006 RET           ; Return.
-; Handles moving from one screen section to the next.
-@label=BACKGROUND_BLOCK_DOWN
+; Handles moving from one screen location block to the next.
+@label=BKG_NEXT_SCREEN_BLOCK
 *$6007 INC DE        ; Increase #REGde by 1.
- $6008 BIT 0,D       ; {Return if d0 is not set on the MSB of #REGde. Check if
- $600A RET Z         ; we're at a screen boundary.}
+ $6008 BIT 0,D       ; {Return if d0 is not set on the MSB of #REGde. This
+ $600A RET Z         ; checks to see if we're at a screen boundary.}
  $600B LD A,$07      ; {Add $07 to #REGd, so that #REGde points to the next
  $600D ADD A,D       ; block down.
  $600E LD D,A        ; }
@@ -462,7 +515,7 @@ c$5F80 LD HL,$4080   ; {Stash $4080 at #R$5F02.
 ; The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For
 ; example;
 ; #TABLE(default,centre,centre,centre,centre)
-; { =h Address | =h Value | =h Binary | =h Reset Bit 7 }
+; { =h Address | =h Value | =h Binary | =h Value After Reset }
 ; { $6061 | $#N(#PEEK($6061)) | #EVAL(#PEEK($6061),2,8) | $#N(#EVAL(#PEEK$6061-128)) }
 ; { $6062 | $#N(#PEEK($6062)) |  |  }
 ; TABLE#
@@ -473,13 +526,13 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 @label=BACKGROUND_ATTR_LOOP
 *$6013 LD A,(HL)     ; Pick up the attribute data from #REGhl.
  $6014 INC HL        ; Increase #REGhl by one.
- $6015 CP (HL)       ; {If the following data is different jump to #R$601A.
- $6016 JR NZ,$601A   ; }
+ $6015 CP (HL)       ; {If the following byte is different to the current
+ $6016 JR NZ,$601A   ; attribute byte jump to #R$601A.}
  $6018 AND A         ; {The data terminates with double zeroes, so if this
  $6019 RET Z         ; occurs then return.}
 ; Copy and loop back round to #R$6013 until bit 7 in the current attribute data
 ; is set.
-@label=BACKGROUND_REPEAT_COPY
+@label=BKG_ATTR_REPEAT_COPY
 *$601A BIT 7,A       ; {Test if d7 is set in current attribute data. Reset bit
  $601C RES 7,A       ; to zero.}
  $601E LD (DE),A     ; Write the attribute data to #REGde.
@@ -504,7 +557,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 ;
 ; .
 ;
-; The data blocks containing pixel data.
+; The data blocks containing UDG, positioning and attribute data.
 @label=BACKGROUND_1_ADDRESSES
 b$602B DEFW $626A    ; {Block 1.
  $602D DEFW $6102    ; }
@@ -523,7 +576,7 @@ b$602B DEFW $626A    ; {Block 1.
 ;
 ; .
 ;
-; The data blocks containing pixel data.
+; The data blocks containing UDG, positioning and attribute data.
 @label=BACKGROUND_2_ADDRESSES
 b$603D DEFW $6DAE    ; {Block 1.
  $603F DEFW $6C4B    ; }
@@ -542,7 +595,7 @@ b$603D DEFW $6DAE    ; {Block 1.
 ;
 ; .
 ;
-; The data blocks containing pixel data.
+; The data blocks containing UDG, positioning and attribute data.
 @label=BACKGROUND_3_ADDRESSES
 b$604F DEFW $79B1    ; {Block 1.
  $6051 DEFW $784F    ; }
@@ -556,6 +609,8 @@ b$604F DEFW $79B1    ; {Block 1.
  $605F DEFW $7766    ; Attribute data.
 
 ; Background 1 attribute data.
+;
+; See #R$6010 for usage.
 b$6061 DEFB $E8,$9E,$6B,$6C,$E8,$1A,$EB,$04
  $6069 DEFB $EC,$02,$90,$07,$6A,$E8,$02,$EF
  $6071 DEFB $04,$B8,$02,$6F,$E8,$03,$EF,$02
@@ -939,6 +994,8 @@ b$6AE2 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 u$6B82 DEFB $00
 
 ; Background 2 attribute data.
+;
+; See #R$6010 for usage.
 b$6B83 DEFB $E8,$A4,$6A,$E8,$18,$EC,$03,$E8
  $6B8B DEFB $04,$6A,$E8,$08,$EF,$04,$E8,$0B
  $6B93 DEFB $EC,$04,$E8,$02,$EA,$02,$50,$EA
@@ -1343,6 +1400,8 @@ b$7606 DEFB $70,$66,$6C,$DB,$F6,$ED,$DB,$06 ; #UDG(#PC,attr=56)
  $775E DEFB $B0,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 
 ; Background 3 attribute data.
+;
+; See #R$6010 for usage.
 b$7766 DEFB $D0,$C0,$DA,$02,$97,$1B,$10,$DA
  $776E DEFB $02,$98,$02,$97,$0D,$B0,$02,$97
  $7776 DEFB $0C,$10,$08,$98,$03,$A8,$08,$E8
@@ -8916,8 +8975,13 @@ g$C40B DEFB $00,$00,$00,$01,$00
 g$C410 DEFB $00
 
 ; Game status buffer entry at C411
-g$C411 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $C419 DEFB $00,$00
+g$C411 DEFB $00
+
+; Game status buffer entry at C412
+g$C412 DEFW $0000
+
+; Game status buffer entry at C414
+g$C414 DEFB $00,$00,$00,$00,$00,$00,$00
 
 ; Game status buffer entry at C41B
 g$C41B DEFB $1E,$78,$50,$78

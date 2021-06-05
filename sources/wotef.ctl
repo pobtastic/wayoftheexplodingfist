@@ -9,23 +9,41 @@ B $5800,768,32 Attributes
 
 s $5B00
 
-b $5F00
-B $5F00,$01 Current Background Reference.
+g $5F00 Background Reference.
 @ $5F00 label=BACKGROUND_REFERENCE
-B $5F02,$02 Holds current screen location
+D $5F00 Used by the routine at #R$5F3C. Can be either; #LIST { $01 } { $02 } { $03 } LIST#
+. This represents which background is shown.
+g $5F01 Unused.
+S $5F01
+g $5F02 Background screen buffer.
+W $5F02 Holds current screen location
 @ $5F02 label=BACKGROUND_SCREEN_ADDRESS
-W $5F04 Used during processing.
-@ $5F04 label=TEMP_BACKGROUND_SCREEN_ADDR
-W $5F08 Holds currently processed pixel data block.
-@ $5F08 label=BACKGROUND_PIXEL_DATA
+W $5F04 Background UDG reference buffer.
+@ $5F04 label=BACKGROUND_CURRENT_UDG
+W $5F08 Holds currently processed UDG data block.
+@ $5F08 label=BACKGROUND_UDG_DATA
+N $5F0A Used with the indirect jump at #R$5F46/ #R$5F52.
 W $5F0A,$02 Location of code to copy background 1 reference data.
 @ $5F0A label=COPY_BACKGROUND_1
 W $5F0C,$02 Location of code to copy background 2 reference data.
 @ $5F0C label=COPY_BACKGROUND_2
 W $5F0E,$02 Location of code to copy background 3 reference data.
 @ $5F0E label=COPY_BACKGROUND_3
-W $5F10,$12 Buffer which holds the currently processed background data.
+g $5F10 Background address buffer.
 @ $5F10 label=BACKGROUND_DATA_BUFFER
+D $5F10 Buffer that holds the currently processed background data depending on the background reference value.
+. #TABLE(default,centre,centre)
+. { =h #R$5F00 | =h Background Data }
+. { $01 | #R$602B }
+. { $02 | #R$603D }
+. { $03 | #R$604F }
+. TABLE#
+.       Populated from one of #R$5F53, #R$5F62 or #R$5F71.
+W $5F10,$04 Block 1.
+W $5F14,$04 Block 2.
+W $5F18,$04 Block 3.
+W $5F1C,$04 Block 4.
+W $5F20 Attribute data.
 
 c $5F22 Change Background.
 D $5F22 #HTML(Takes the background reference from #R$5F00 and executes the appropriate routine to copy the background data
@@ -42,17 +60,24 @@ N $5F22 Blanks the screen.
 N $5F3C Fetch the background reference from #R$5F00 and use it to calculate the address for the copy-to-buffer routine.
   $5F3C,$04 Loads #REGa with the contents of #R$5F00.
   $5F40,$02 Decrease it by one, then double it.
-  $5F42,$03 Store it as the low-order byte of #REGbc (high-order is $00).
+  $5F42,$03 Store it as the LSB of #REGbc (MSB is $00).
   $5F45,$01 Write $00 to #R$5F00.
-  $5F46,$03 #REGhl=#R$5F0A
+  $5F46,$03 #REGhl=The beginning of three address references for the copy routines which populate #R$5F10 at
+.           #R$5F0A($5F0A).
   $5F49,$01 Add #REGbc to #REGhl.
-  $5F4A,$03 Loads #REGde with the contents of #REGhl.
+  $5F4A,$03 #REGde=One of the three background address references;
+. #TABLE(default,centre,centre)
+. { =h #R$5F00 | =h Address Reference }
+. { $01 | #R$5F0A($5F0A) }
+. { $02 | #R$5F0C($5F0C) }
+. { $03 | #R$5F0E($5F0E) }
+. TABLE#
   $5F4D,$01 Swap #REGde and #REGhl.
   $5F4E,$03 Call #R$5F52.
   $5F51,$01 Return.
 N $5F52 Indirect jump to copy-to-buffer routine.
   $5F52,$01 Indirect jump to address held by #REGhl.
-. #TABLE(default,centre,centre,centre,centre)
+. #TABLE(default,centre,centre)
 . { =h #R$5F00 | =h Jumps To... }
 . { $01 | #R$5F53 }
 . { $02 | #R$5F62 }
@@ -75,76 +100,102 @@ N $5F71 Set up background 3.
   $5F7F,$01 Return.
 
 c $5F80 Creates the background image.
+N $5F80 Each background uses 4 sets of data "pairs" and a single reference for attribute data (handled separately at
+. #R$6010). For example, #R$602B(background 1) uses;
+. #TABLE(default,centre,centre,centre)
+. { =h Block | =h UDGs | =h Data }
+. { 1 | #R$626A | #R$6102 }
+. { 2 | #R$648A | #R$6157 }
+. { 3 | #R$685A | #R$61D9 }
+. { 4 | #R$6AE2 | #R$624D }
+. { =h,c2 Attribute Data | #R$6061 }
+. TABLE#
 @ $5F80 label=CREATE_BACKGROUND
-  $5F80,$06 Stash $4080 at #R$5F02.
-  $5F86,$03 #REGhl=#R$5F10.
-  $5F89,$03 Each background has 4 "sets" of data, so set a counter of $04.
-.           Push it onto the stack for now.
+  $5F80,$06 The first screen address is $4080 which allows space for the "header". This is the top of character block 4.
+.           This is then stored in the buffer at #R$5F02.
+  $5F86,$03 #REGhl=#R$5F10(Background address data buffer).
+N $5F89 Each background has 4 "sets" of data, so set a counter of 4.
+  $5F89,$02 #REGb=Initialise block counter.
+N $5F8B The block processing loop.
+  $5F8B,$01 Push the counter onto the stack.
 @ $5F8B label=CREATE_BACKGROUND_LOOP
-  $5F8C,$08 Fetch the address of the next pixel data block and store it at #R$5F08.
-  $5F94,$04 Fetch the address of the next pixel data block and store it in #REGde.
-  $5F98,$01 Push #REGhl (pointing to the next data block) onto the stack.
-  $5F99,$03 Fetch #R$5F02 and store it in #REGhl.
-  $5F9C,$01 Switch #REGde and #REGhl so #REGde now holds the screen address and #REGhl holds the start of the pixel
-.           data block.
+N $5F8C Each block contains two address references, one is for UDG data, and one is for positioning data.
+  $5F8C,$08 Pick up the next background UDG data block and store it at #R$5F08.
+  $5F94,$04 Fetch the address of the next positioning data block and store it in #REGde.
+  $5F98,$01 Push the position of the address data buffer (pointing to the start of the next block) onto the stack.
+N $5F99 Set up the current screen position, the positioning data and the UDG data block.
+  $5F99,$03 #REGhl=The current screen address from #R$5F02.
+  $5F9C,$01 Switch #REGde and #REGhl so #REGde now holds the screen address and #REGhl holds the start of the
+.           positioning data block.
   $5F9D,$03 Call #R$5FBE.
   $5FB2,$02 Restores #REGhl and the counter from the stack.
   $5FB4,$02 Decrease counter by one and loop back to #R$5F8B until counter is zero.
-  $5FB6,$07 Fetch the address for the attributes data and call #R$6010.
+N $5FB6 Finally, now write the attributes and return.
+  $5FB6,$07 Fetch the last address from the #R$5F10(Background address data buffer) which is the attributes data and
+.           call #R$6010 to process and display in the attributes buffer.
   $5FBD,$01 Return.
-  $5FA0,$03 Fetch #R$5F02 and store it in #REGhl.
+N $5FA0 fgg
+  $5FA0,$03 #REGhl=The current screen address from #R$5F02.
   $5FA3,$04 Add $0080 to #REGhl.
   $5FA7,$04 Set the zero flag if we're at a screen section boundary. Skip forward to #R$5FAF if not.
   $5FAB,$04 Add $07 to the MSB of #REGhl to handle moving between screen sections.
 @ $5FAF label=BACKGROUND_NO_BOUNDARY
   $5FAF,$03 Stash #REGhl at #R$5F02.
-N $5FBE Fetch the data and check for the terminator.
-@ $5FBE label=BACKGROUND_CHECK_END
-  $5FBE,$01 Fetch the next pixel data byte.
-  $5FBF,$01 Increase #REGhl by one to point to the next item of pixel data.
-  $5FC0,$01 Check if this data is the same as the previous pixel data value.
+N $5FBE Fetch the next positioning data and check for the terminator.
+@ $5FBE label=BACKGROUND_FETCH_NEXT
+  $5FBE,$01 Fetch the next positioning data byte.
+  $5FBF,$01 Increase #REGhl by one to point to the next byte.
+  $5FC0,$01 Check if this byte is the same as the previous positioning data byte value.
   $5FC1,$02 Jump to #R$5FC6 if the values are different.
   $5FC3,$03 Double zero is the terminator, so jump to #R$5FF3 to return if this is detected.
-N $5FC6 Process the pixel data.
+N $5FC6 Process the UDG data.
 @ $5FC6 label=BACKGROUND_PROCESS
   $5FC6,$04 Check if d7 is set, reset it regardless.
-  $5FCA,$01 Push #REGaf onto the stack.
+  $5FCA,$01 Push the new positioning data value onto the stack.
   $5FCB,$01 Exchange the registers.
+N $5FCC Point #REGhl to the base address of the currently referenced UDG.
   $5FCC,$03 Set the LSB of #REGbc to #REGa, and the MSB to $00.
   $5FCF,$02 Copy the same value into #REGhl.
-  $5FD1,$01 Unclear yet...
-  $5FD2,$02 Unclear yet...
-  $5FD4,$04 Fetch the contents of #R$5F08 and store in #REGbc.
-  $5FDC,$01 Exchange the registers.
+  $5FD1,$03 * 8.
+  $5FD4,$04 #REGbc=Fetch the address of the start of the UDG data block from #R$5F08.
+  $5FD8,$04 Choose the referenced UDG and store this at #R$5F04.
+  $5FDC,$01 Restore the registers.
   $5FDD,$03 Call #R$5FF4.
   $5FE0,$03 Call #R$6007.
-@ $5FE9 label=BACKGROUND_XXXXX
+N $5FE3 Check if the flag for repetition is set, if so - action it. If not, jump and work on the next position.
+  $5FE3,$01 Fetch the position data off the stack, as this is #REGaf this also restores the d7 check flag.
+  $5FE4,$02 Jump back to #R$5FBE unless the bit was set.
+N $5FE6 Using the following position data byte as a counter, copy the current byte this number of times.
+  $5FE6,$01 Pick up the position data from #REGhl and store it in #REGb to use as a counter.
+  $5FE7,$01 Increment #REGhl to point to the next item of position data.
+  $5FE8,$01 Decrease the counter by one.
+@ $5FE9 label=BACKGROUND_REPEAT_COPY
   $5FE9,$03 Call #R$5FF4.
   $5FEC,$03 Call #R$6007.
-  $5FEF,$02 Decrease counter by one and loop back to #R$5FE9 until counter is zero.
+  $5FEF,$02 Decrease counter by one and loop back to #R$5FE9 until the counter is zero.
   $5FF1,$02 Jump back round to #R$5FBE.
 N $5FF3 Used to "just return" after flag checking operations.
 @ $5FF3 label=BACKGROUND_RETURN
   $5FF3,$01 Return.
 @ $5FF4 label=COPY_UDG
-N $5FF4 Copy a single UDG 8x8 pixel block to the screen.
-  $5FF4,$02 Push #REGde and #REGhl onto the stack.
+N $5FF4 Copy a single UDG 8x8 block to the screen.
+  $5FF4,$02 Push #REGde (current screen location) and #REGhl (next position data location) onto the stack.
   $5FF6,$02 Set a counter of $08 for the number of lines in a character block.
-  $5FF8,$03 Store the contents of #R$5F04 in #REGhl.
+  $5FF8,$03 #REGhl=#R$5F04(the currently targeted UDG address).
 @ $5FFB label=COPY_UDG_LOOP
   $5FFB,$01 Stash the counter for later.
-  $5FFC,$02 Copy the pixel data held by #REGhl into the screen buffer currently pointed to by #REGde.
-  $5FFE,$01 Increment #REGhl by one to point to the next item of pixel data.
-  $5FFF,$01 Increment the MSB of #REGde by one to point to the next line down in the screen.
+  $5FFC,$02 Copy the UDG data held by #REGhl into the screen buffer currently pointed to by #REGde.
+  $5FFE,$01 Increment #REGhl by one to point to the next line of the UDG data.
+  $5FFF,$01 Increment the MSB of #REGde by one to point to the line directly below in the screen buffer.
   $6000,$01 Restore the counter.
   $6001,$01 Decrease the counter by one.
   $6002,$02 Loop back to #R$5FFB until the counter is zero.
-  $6004,$02 Restore the original #REGhl and #REGde values from the stack.
+  $6004,$02 Restore the original #REGhl and #REGde values for screen location and position data from the stack.
   $6006,$01 Return.
-N $6007 Handles moving from one screen section to the next.
-@ $6007 label=BACKGROUND_BLOCK_DOWN
+N $6007 Handles moving from one screen location block to the next.
+@ $6007 label=BKG_NEXT_SCREEN_BLOCK
   $6007,$01 Increase #REGde by 1.
-  $6008,$03 Return if d0 is not set on the MSB of #REGde. Check if we're at a screen boundary.
+  $6008,$03 Return if d0 is not set on the MSB of #REGde. This checks to see if we're at a screen boundary.
   $600B,$04 Add $07 to #REGd, so that #REGde points to the next block down.
   $600F,$01 Return.
 
@@ -161,7 +212,7 @@ N $6010 Unpacks the attribute data into the buffer. On entry #REGhl will contain
 . The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For
 . example;
 . #TABLE(default,centre,centre,centre,centre)
-. { =h Address | =h Value | =h Binary | =h Reset Bit 7 }
+. { =h Address | =h Value | =h Binary | =h Value After Reset }
 . { $6061 | $#N(#PEEK($6061)) | #EVAL(#PEEK($6061),2,8) | $#N(#EVAL(#PEEK$6061-128)) }
 . { $6062 | $#N(#PEEK($6062)) |  |  }
 . TABLE#
@@ -171,11 +222,11 @@ N $6010 Unpacks the attribute data into the buffer. On entry #REGhl will contain
   $6013,$01 Pick up the attribute data from #REGhl.
 @ $6013 label=BACKGROUND_ATTR_LOOP
   $6014,$01 Increase #REGhl by one.
-  $6015,$03 If the following data is different jump to #R$601A.
+  $6015,$03 If the following byte is different to the current attribute byte jump to #R$601A.
   $6018,$02 The data terminates with double zeroes, so if this occurs then return.
   $601A,$04 Test if d7 is set in current attribute data. Reset bit to zero.
 N $601A Copy and loop back round to #R$6013 until bit 7 in the current attribute data is set.
-@ $601A label=BACKGROUND_REPEAT_COPY
+@ $601A label=BKG_ATTR_REPEAT_COPY
   $601E,$01 Write the attribute data to #REGde.
   $601F,$01 Increment #REGde by one.
   $6020,$02 Jump back to #R$6013 unless the bit was set.
@@ -190,7 +241,7 @@ N $6022 Using the following attribute data byte as a counter, copy the current b
   $6029,$02 Jump back to #R$6013.
 
 b $602B Background 1 Address references.
-N $602B The data blocks containing pixel data.
+N $602B The data blocks containing UDG, positioning and attribute data.
 @ $602B label=BACKGROUND_1_ADDRESSES
 W $602B,$04 Block 1.
 W $602F,$04 Block 2.
@@ -200,7 +251,7 @@ W $603B Attribute data.
 @ $603B label=BACKGROUND_1_ATTRIBUTE_DATA
 
 b $603D Background 2 Address references.
-N $603D The data blocks containing pixel data.
+N $603D The data blocks containing UDG, positioning and attribute data.
 @ $603D label=BACKGROUND_2_ADDRESSES
 W $603D,$04 Block 1.
 W $6041,$04 Block 2.
@@ -210,7 +261,7 @@ W $604D Attribute data.
 @ $604D label=BACKGROUND_2_ATTRIBUTE_DATA
 
 b $604F Background 3 Address references.
-N $604F The data blocks containing pixel data.
+N $604F The data blocks containing UDG, positioning and attribute data.
 @ $604F label=BACKGROUND_3_ADDRESSES
 W $604F,$04 Block 1.
 W $6053,$04 Block 2.
@@ -220,6 +271,7 @@ W $605F Attribute data.
 @ $605F label=BACKGROUND_3_ATTRIBUTE_DATA
 
 b $6061 Background 1 attribute data.
+D $6061 See #R$6010 for usage.
 B $6100,$02 Terminator.
 b $6102 Background 1 data.
 B $6155,$02 Terminator.
@@ -243,6 +295,7 @@ B $6AE2,$08 #UDG(#PC,attr=56)
 L $6AE2,$08,$14
 u $6B82
 b $6B83 Background 2 attribute data.
+D $6B83 See #R$6010 for usage.
 B $6C49,$02 Terminator.
 b $6C4B Background 2 data.
 B $6C77,$02 Terminator.
@@ -265,6 +318,7 @@ b $7606 Background 2 data.
 B $7606,$08 #UDG(#PC,attr=56)
 L $7606,$08,$2C
 b $7766 Background 3 attribute data.
+D $7766 See #R$6010 for usage.
 B $784D,$02 Terminator.
 b $784F Background 3 data.
 B $7891,$02 Terminator.
@@ -1086,6 +1140,9 @@ W $C409 The position in the screen buffer for Player 1.
 g $C40B
 g $C410
 g $C411
+g $C412
+W $C412
+g $C414
 g $C41B
 g $C41F
 g $C421
