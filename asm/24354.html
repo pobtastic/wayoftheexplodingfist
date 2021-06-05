@@ -17,7 +17,7 @@
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="24320.html">5F00</a>
+Prev: <a href="24336.html">5F10</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#24354">Map</a></td>
 <td class="next">
@@ -31,7 +31,7 @@ Next: <a href="24448.html">5F80</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Takes the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a> and executes the appropriate routine to copy the background data addresses to the buffer at <a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>. <div>Used by the routine at <a href="37376.html">9200</a>.</div>
+Takes the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a> and executes the appropriate routine to copy the background data addresses to the buffer at <a href="24336.html">BACKGROUND_DATA_BUFFER</a>. <div>Used by the routine at <a href="37376.html">9200</a>.</div>
 </div>
 </div>
 </td>
@@ -148,7 +148,7 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <tr>
 <td class="address-1"><span id="24386"></span>5F42</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-1" rowspan="2">Store it as the low-order byte of <span class="register">BC</span> (high-order is $00).</td>
+<td class="comment-1" rowspan="2">Store it as the LSB of <span class="register">BC</span> (MSB is $00).</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24387"></span>5F43</td>
@@ -162,7 +162,7 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <tr>
 <td class="address-1"><span id="24390"></span>5F46</td>
 <td class="instruction">LD HL,$5F0A</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="24320.html#24330">COPY_BACKGROUND_1</a></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=The beginning of three address references for the copy routines which populate <a href="24336.html">BACKGROUND_DATA_BUFFER</a> at <a href="24322.html#24330">$5F0A</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24393"></span>5F49</td>
@@ -172,7 +172,24 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <tr>
 <td class="address-1"><span id="24394"></span>5F4A</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-1" rowspan="3">Loads <span class="register">DE</span> with the contents of <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="3"><span class="register">DE</span>=One of the three background address references; <table class="default">
+<tr>
+<th colspan="1" rowspan="1"><a href="24320.html">BACKGROUND_REFERENCE</a></th>
+<th colspan="1" rowspan="1">Address Reference</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24322.html#24330">$5F0A</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24322.html#24332">$5F0C</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24322.html#24334">$5F0E</a></td>
+</tr>
+</table></td>
 </tr>
 <tr>
 <td class="address-1"><span id="24395"></span>5F4B</td>
@@ -242,7 +259,7 @@ Set up background 1.
 <tr>
 <td class="address-1"><span id="24403"></span>5F53</td>
 <td class="instruction">LD HL,$602B</td>
-<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24619.html">BACKGROUND_1_ADDRESSES</a> to <a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>.</td>
+<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24619.html">BACKGROUND_1_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24406"></span>5F56</td>
@@ -279,7 +296,7 @@ Set up background 2.
 <tr>
 <td class="address-1"><span id="24418"></span>5F62</td>
 <td class="instruction">LD HL,$603D</td>
-<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24637.html">BACKGROUND_2_ADDRESSES</a> to <a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>.</td>
+<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24637.html">BACKGROUND_2_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24421"></span>5F65</td>
@@ -316,7 +333,7 @@ Set up background 3.
 <tr>
 <td class="address-1"><span id="24433"></span>5F71</td>
 <td class="instruction">LD HL,$604F</td>
-<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24655.html">BACKGROUND_3_ADDRESSES</a> to <a href="24320.html#24336">BACKGROUND_DATA_BUFFER</a>.</td>
+<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24655.html">BACKGROUND_3_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="24436"></span>5F74</td>
@@ -344,7 +361,7 @@ Set up background 3.
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="24320.html">5F00</a>
+Prev: <a href="24336.html">5F10</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#24354">Map</a></td>
 <td class="next">

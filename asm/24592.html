@@ -63,7 +63,7 @@ Unpacks the attribute data into the buffer. On entry <span class="register">HL</
 <th colspan="1" rowspan="1">Address</th>
 <th colspan="1" rowspan="1">Value</th>
 <th colspan="1" rowspan="1">Binary</th>
-<th colspan="1" rowspan="1">Reset Bit 7</th>
+<th colspan="1" rowspan="1">Value After Reset</th>
 </tr>
 <tr>
 <td class="centre" colspan="1" rowspan="1">$6061</td>
@@ -104,12 +104,12 @@ Unpacks the attribute data into the buffer. On entry <span class="register">HL</
 <td class="asm-label"></td>
 <td class="address-1"><span id="24597"></span>6015</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-1" rowspan="2">If the following data is different jump to <a href="24592.html#24602">BACKGROUND_REPEAT_COPY</a>.</td>
+<td class="comment-1" rowspan="2">If the following byte is different to the current attribute byte jump to <a href="24592.html#24602">BKG_ATTR_REPEAT_COPY</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24598"></span>6016</td>
-<td class="instruction">JR NZ,<a href="24592.html#24602">BACKGROUND_REPEAT_COPY</a></td>
+<td class="instruction">JR NZ,<a href="24592.html#24602">BKG_ATTR_REPEAT_COPY</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -133,7 +133,7 @@ Copy and loop back round to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> 
 </td>
 </tr>
 <tr>
-<td class="asm-label">BACKGROUND_REPEAT_COPY</td>
+<td class="asm-label">BKG_ATTR_REPEAT_COPY</td>
 <td class="address-2"><span id="24602"></span>601A</td>
 <td class="instruction">BIT 7,A</td>
 <td class="comment-1" rowspan="2">Test if d7 is set in current attribute data. Reset bit to zero.</td>

@@ -22,6 +22,69 @@
 <th>Description</th>
 </tr>
 <tr>
+<td class="map-g"><span id="24320"></span><a href="../asm/24320.html">5F00</a></td>
+<td class="map-length">1</td>
+<td class="map-g-desc">
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/24320.html">Background Reference.</a></div>
+<div class="map-entry-desc">
+<div class="paragraph">
+Used by the routine at <a href="../asm/24354.html#24380">5F3C</a>. Can be either; <ul class="">
+<li>$01</li>
+<li>$02</li>
+<li>$03</li>
+</ul> This represents which background is shown.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="map-g"><span id="24321"></span><a href="../asm/24321.html">5F01</a></td>
+<td class="map-length">1</td>
+<td class="map-g-desc">
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/24321.html">Unused.</a></div>
+<div class="map-entry-desc">
+</div>
+</td>
+</tr>
+<tr>
+<td class="map-g"><span id="24322"></span><a href="../asm/24322.html">5F02</a></td>
+<td class="map-length">14</td>
+<td class="map-g-desc">
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/24322.html">Background screen buffer.</a></div>
+<div class="map-entry-desc">
+</div>
+</td>
+</tr>
+<tr>
+<td class="map-g"><span id="24336"></span><a href="../asm/24336.html">5F10</a></td>
+<td class="map-length">18</td>
+<td class="map-g-desc">
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/24336.html">Background address buffer.</a></div>
+<div class="map-entry-desc">
+<div class="paragraph">
+Buffer that holds the currently processed background data depending on the background reference value. <table class="default">
+<tr>
+<th colspan="1" rowspan="1"><a href="../asm/24320.html">BACKGROUND_REFERENCE</a></th>
+<th colspan="1" rowspan="1">Background Data</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1"><a href="../asm/24619.html">BACKGROUND_1_ADDRESSES</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1"><a href="../asm/24637.html">BACKGROUND_2_ADDRESSES</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1"><a href="../asm/24655.html">BACKGROUND_3_ADDRESSES</a></td>
+</tr>
+</table> Populated from one of <a href="../asm/24354.html#24403">5F53</a>, <a href="../asm/24354.html#24418">5F62</a> or <a href="../asm/24354.html#24433">5F71</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="map-g"><span id="39980"></span><a href="../asm/39980.html">9C2C</a></td>
 <td class="map-length">2</td>
 <td class="map-g-desc">
@@ -77,9 +140,27 @@
 </tr>
 <tr>
 <td class="map-g"><span id="50193"></span><a href="../asm/50193.html">C411</a></td>
-<td class="map-length">10</td>
+<td class="map-length">1</td>
 <td class="map-g-desc">
 <div class="map-entry-title-11"><a class="map-entry-title" href="../asm/50193.html">Game status buffer entry at C411</a></div>
+<div class="map-entry-desc">
+</div>
+</td>
+</tr>
+<tr>
+<td class="map-g"><span id="50194"></span><a href="../asm/50194.html">C412</a></td>
+<td class="map-length">2</td>
+<td class="map-g-desc">
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/50194.html">Game status buffer entry at C412</a></div>
+<div class="map-entry-desc">
+</div>
+</td>
+</tr>
+<tr>
+<td class="map-g"><span id="50196"></span><a href="../asm/50196.html">C414</a></td>
+<td class="map-length">7</td>
+<td class="map-g-desc">
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/50196.html">Game status buffer entry at C414</a></div>
 <div class="map-entry-desc">
 </div>
 </td>
