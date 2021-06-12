@@ -6,14 +6,19 @@
 ;   sna2skool.py -H -c wayoftheexplodingfist.ctl wayoftheexplodingfist.z80 > wayoftheexplodingfist.skool
 ;   skool2html.py -H wayoftheexplodingfist.skool -T dark
 
+[Config]
+RefFiles=changelog.ref;pokes.ref
+HtmlWriterClass=:wotef.WayOfTheExplodingFistHtmlWriter
+GameDir=wotef
+
 [Game]
 Game=The Way Of The Exploding Fist
 Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
 Copyright=&copy; 1985 Melbourne House
 StyleSheet=skoolkit.css;skoolkit-dark.css
 
-[Config]
-RefFiles=changelog.ref;pokes.ref
-
 [PageHeaders]
 GameIndex=The complete<>RAM disassembly (work in progress)
+
+[Paths]
+PlayAreaImagePath={ImagePath}/play_area

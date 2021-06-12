@@ -241,7 +241,8 @@ N $6022 Using the following attribute data byte as a counter, copy the current b
   $6029,$02 Jump back to #R$6013.
 
 b $602B Background 1 Address references.
-N $602B The data blocks containing UDG, positioning and attribute data.
+D $602B The data blocks containing UDG, positioning and attribute data.
+N $602B #CALL:background(background_1, 1)
 @ $602B label=BACKGROUND_1_ADDRESSES
 W $602B,$04 Block 1.
 W $602F,$04 Block 2.
@@ -251,7 +252,8 @@ W $603B Attribute data.
 @ $603B label=BACKGROUND_1_ATTRIBUTE_DATA
 
 b $603D Background 2 Address references.
-N $603D The data blocks containing UDG, positioning and attribute data.
+D $603D The data blocks containing UDG, positioning and attribute data.
+N $603D #CALL:background(background_2, 2)
 @ $603D label=BACKGROUND_2_ADDRESSES
 W $603D,$04 Block 1.
 W $6041,$04 Block 2.
@@ -261,7 +263,8 @@ W $604D Attribute data.
 @ $604D label=BACKGROUND_2_ATTRIBUTE_DATA
 
 b $604F Background 3 Address references.
-N $604F The data blocks containing UDG, positioning and attribute data.
+D $604F The data blocks containing UDG, positioning and attribute data.
+N $604F #CALL:background(background_3, 3)
 @ $604F label=BACKGROUND_3_ADDRESSES
 W $604F,$04 Block 1.
 W $6053,$04 Block 2.

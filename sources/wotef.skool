@@ -553,11 +553,11 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 
 ; Background 1 Address references.
 ;
-; .
-;
-; .
-;
 ; The data blocks containing UDG, positioning and attribute data.
+;
+; .
+;
+; #CALL:background(background_1, 1)
 @label=BACKGROUND_1_ADDRESSES
 b$602B DEFW $626A    ; {Block 1.
  $602D DEFW $6102    ; }
@@ -572,11 +572,11 @@ b$602B DEFW $626A    ; {Block 1.
 
 ; Background 2 Address references.
 ;
-; .
-;
-; .
-;
 ; The data blocks containing UDG, positioning and attribute data.
+;
+; .
+;
+; #CALL:background(background_2, 2)
 @label=BACKGROUND_2_ADDRESSES
 b$603D DEFW $6DAE    ; {Block 1.
  $603F DEFW $6C4B    ; }
@@ -591,11 +591,11 @@ b$603D DEFW $6DAE    ; {Block 1.
 
 ; Background 3 Address references.
 ;
-; .
-;
-; .
-;
 ; The data blocks containing UDG, positioning and attribute data.
+;
+; .
+;
+; #CALL:background(background_3, 3)
 @label=BACKGROUND_3_ADDRESSES
 b$604F DEFW $79B1    ; {Block 1.
  $6051 DEFW $784F    ; }
