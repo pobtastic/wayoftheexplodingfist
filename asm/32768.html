@@ -25,19 +25,19 @@ Next: <a href="34867.html">8833</a>
 </td>
 </tr>
 </table>
-<div class="description">8000: Background</div>
+<div class="description">8000: Shadow buffer</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-<img alt="scr" src="../images/scr/scr.png" /> (background-1)
+<img alt="scr" src="../images/scr/scr.png" /> (shadow-screen)
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">BACKGROUND_1</td>
+<td class="asm-label">SHADOW_BUFFER</td>
 <td class="address-1"><span id="32768"></span>8000</td>
 <td class="instruction">DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,$00,$00,$80,$80,$40,$40,$20,$3F,$04,$02,$02,$01,$01,$00,$00</td>
 <td class="comment-1" rowspan="64">Pixels</td>
@@ -360,13 +360,44 @@ Next: <a href="34867.html">8833</a>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="34816"></span>8800</td>
-<td class="instruction">DEFB $C3,$2E,$9C,$3A,$0E,$C4,$E6,$FE,$CA,$13,$88,$3E,$01,$32,$0A,$8B,$C3,$17,$88,$AF,$32,$0A,$8B,$3E,$00,$32,$F3,$8A,$7E,$32,$1C,$8B</td>
-<td class="comment-1" rowspan="2">Attributes</td>
+<td class="instruction">DEFB $C3,$2E,$9C,$3A,$0E,$C4,$E6,$FE</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="34824"></span>8808</td>
+<td class="instruction">DEFB $CA,$13,$88,$3E,$01,$32,$0A,$8B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="34832"></span>8810</td>
+<td class="instruction">DEFB $C3,$17,$88,$AF,$32,$0A,$8B,$3E</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="34840"></span>8818</td>
+<td class="instruction">DEFB $00,$32,$F3,$8A,$7E,$32,$1C,$8B</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="34848"></span>8820</td>
-<td class="instruction">DEFB $32,$1B,$8B,$47,$3A,$0A,$8B,$A7,$CA,$32,$88,$3A,$1C,$8B,$3C,$32,$1C,$8B,$23</td>
+<td class="instruction">DEFB $32,$1B,$8B,$47,$3A,$0A,$8B,$A7</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="34856"></span>8828</td>
+<td class="instruction">DEFB $CA,$32,$88,$3A,$1C,$8B,$3C,$32</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="34864"></span>8830</td>
+<td class="instruction">DEFB $1C,$8B,$23</td>
+<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
