@@ -1,4 +1,7 @@
 > $4000 @org=$4000
+> $4000 @expand=#DEFINE0(BUG,#LINK:Bugs)
+> $4000 @expand=#DEFINE0(FACT,#LINK:Facts)
+> $4000 @expand=#DEFINE0(POKE,#LINK:Pokes)
 b $4000 Loading screen
 D $4000 #UDGTABLE { #SCR(loading) | The Way Of The Exploding Fist Loading Screen. } TABLE#
 @ $4000 label=LOADING
@@ -242,7 +245,7 @@ N $6022 Using the following attribute data byte as a counter, copy the current b
 
 b $602B Background 1 Address references.
 D $602B The data blocks containing UDG, positioning and attribute data.
-N $602B #CALL:background(background_1, 1)
+N $602B #CALL:background(background_1, 1, 1)
 @ $602B label=BACKGROUND_1_ADDRESSES
 W $602B,$04 Block 1.
 W $602F,$04 Block 2.
@@ -253,7 +256,7 @@ W $603B Attribute data.
 
 b $603D Background 2 Address references.
 D $603D The data blocks containing UDG, positioning and attribute data.
-N $603D #CALL:background(background_2, 2)
+N $603D #CALL:background(background_2, 2, 1)
 @ $603D label=BACKGROUND_2_ADDRESSES
 W $603D,$04 Block 1.
 W $6041,$04 Block 2.
@@ -264,7 +267,7 @@ W $604D Attribute data.
 
 b $604F Background 3 Address references.
 D $604F The data blocks containing UDG, positioning and attribute data.
-N $604F #CALL:background(background_3, 3)
+N $604F #CALL:background(background_3, 3, 1)
 @ $604F label=BACKGROUND_3_ADDRESSES
 W $604F,$04 Block 1.
 W $6053,$04 Block 2.
@@ -276,79 +279,78 @@ W $605F Attribute data.
 b $6061 Background 1 attribute data.
 D $6061 See #R$6010 for usage.
 B $6100,$02 Terminator.
-b $6102 Background 1 data.
+b $6102 Background 1 positioning data.
 B $6155,$02 Terminator.
-b $6157 Background 1 data.
+b $6157 Background 1 positioning data.
 B $61D7,$02 Terminator.
-b $61D9 Background 1 data.
+b $61D9 Background 1 positioning data.
 B $624B,$02 Terminator.
-b $624D Background 1 data.
+b $624D Background 1 positioning data.
 B $6268,$02 Terminator.
-b $626A Background 1 data.
+b $626A Background 1 tile data.
 B $626A,$08 #UDG(#PC,attr=56)
 L $626A,$08,$44
-b $648A Background 1 data.
+b $648A Background 1 tile data.
 B $648A,$08 #UDG(#PC,attr=56)
 L $648A,$08,$7A
-b $685A Background 1 data.
+b $685A Background 1 tile data.
 B $685A,$08 #UDG(#PC,attr=56)
 L $685A,$08,$51
-b $6AE2 Background 1 data.
+b $6AE2 Background 1 tile data.
 B $6AE2,$08 #UDG(#PC,attr=56)
 L $6AE2,$08,$14
 u $6B82
 b $6B83 Background 2 attribute data.
 D $6B83 See #R$6010 for usage.
 B $6C49,$02 Terminator.
-b $6C4B Background 2 data.
+b $6C4B Background 2 positioning data.
 B $6C77,$02 Terminator.
-b $6C79 Background 2 data.
+b $6C79 Background 2 positioning data.
 B $6CF5,$02 Terminator.
-b $6CF7 Background 2 data.
+b $6CF7 Background 2 positioning data.
 B $6D77,$02 Terminator.
-b $6D79 Background 2 data.
+b $6D79 Background 2 positioning data.
 B $6DAC,$02 Terminator.
-b $6DAE Background 2 data.
+b $6DAE Background 2 tile data.
 B $6DAE,$08 #UDG(#PC,attr=56)
 L $6DAE,$08,$1D
-b $6E96 Background 2 data.
+b $6E96 Background 2 tile data.
 B $6E96,$08 #UDG(#PC,attr=56)
 L $6E96,$08,$6F
-b $720E Background 2 data.
+b $720E Background 2 tile data.
 B $720E,$08 #UDG(#PC,attr=56)
 L $720E,$08,$7F
-b $7606 Background 2 data.
+b $7606 Background 2 tile data.
 B $7606,$08 #UDG(#PC,attr=56)
 L $7606,$08,$2C
 b $7766 Background 3 attribute data.
 D $7766 See #R$6010 for usage.
 B $784D,$02 Terminator.
-b $784F Background 3 data.
+b $784F Background 3 positioning data.
 B $7891,$02 Terminator.
-b $7893 Background 3 data.
+b $7893 Background 3 positioning data.
 B $790E,$02 Terminator.
-b $7910 Background 3 data.
+b $7910 Background 3 positioning data.
 B $798F,$02 Terminator.
-b $7991 Background 3 data.
+b $7991 Background 3 positioning data.
 B $79AF,$02 Terminator.
-b $79B1 Background 3 data.
+b $79B1 Background 3 tile data.
 B $79B1,$08 #UDG(#PC,attr=56)
 L $79B1,$08,$40
-b $7BB1 Background 3 data.
+b $7BB1 Background 3 tile data.
 B $7BB1,$08 #UDG(#PC,attr=56)
 L $7BB1,$08,$2B
-b $7D09 Background 3 data.
+b $7D09 Background 3 tile data.
 B $7D09,$08 #UDG(#PC,attr=56)
 L $7D09,$08,$46
-b $7F39 Background 3 data.
+b $7F39 Background 3 tile data.
 B $7F39,$08 #UDG(#PC,attr=56)
 L $7F39,$08,$0E
 
-b $8000 Background
-@ $8000 label=BACKGROUND_1
-D $8000 #SCR2,0,0,32,8,$8000,$8800 (background-1)
+b $8000 Shadow buffer
+@ $8000 label=SHADOW_BUFFER
+D $8000 #SCR2,0,0,32,8,$8000,$8800 (shadow-screen)
 B $8000,$800,$20 Pixels
-B $8800,$100,$20 Attributes
 
 c $8833
 

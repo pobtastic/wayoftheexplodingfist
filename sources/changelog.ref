@@ -7,4 +7,25 @@ SectionType=BulletPoints
 -
 
 - Added POKEs:
-  - Infinite Time
+  - #POKE#extraTime()
+  - #POKE#pointsToWinP1()
+  - #POKE#pointsToWinP2()
+  - #POKE#cpuNonScoring()
+  - #POKE#winOnDraw()
+  - #POKE#disableTime()
+
+[Changelog:20210612]
+-
+
+- Added background images/ script to decode and generate them.
+
+[Changelog:20210613]
+-
+
+- Added trivia:
+  - #FACT#music()
+  - #FACT#scoring()
+  - #FACT#nes()
+  - #FACT#records()
+  - #FACT#awards()
+  - #FACT#sequels()

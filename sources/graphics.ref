@@ -1,0 +1,31 @@
+; Copyright 2021 Paul Maddern (paul@arcadegeek.co.uk)
+
+[Page:Graphics]
+PageContent=#INCLUDE(Graphics)
+
+[Graphics]
+<h3>Characters</h3>
+<table cellpadding="5">
+<tr>Placeholder</tr>
+</table>
+
+[Page:Backgrounds]
+PageContent=#INCLUDE(Backgrounds)
+
+[Backgrounds]
+<h3>Backgrounds</h3>
+
+<h4>Background 1</h4>
+#UDGTABLE
+  { #CALL:background(background_1_large,1,2) }
+UDGTABLE#
+
+<h4>Background 2</h4>
+#UDGTABLE
+  { #CALL:background(background_2_large,2,2) }
+UDGTABLE#
+
+<h4>Background 3</h4>
+#UDGTABLE
+  { #CALL:background(background_3_large,3,2) }
+UDGTABLE#

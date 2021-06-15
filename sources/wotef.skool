@@ -1,4 +1,7 @@
 @org=$4000
+@expand=#DEFINE0(BUG,#LINK:Bugs)
+@expand=#DEFINE0(FACT,#LINK:Facts)
+@expand=#DEFINE0(POKE,#LINK:Pokes)
 
 ; Loading screen
 ;
@@ -557,7 +560,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 ;
 ; .
 ;
-; #CALL:background(background_1, 1)
+; #CALL:background(background_1, 1, 1)
 @label=BACKGROUND_1_ADDRESSES
 b$602B DEFW $626A    ; {Block 1.
  $602D DEFW $6102    ; }
@@ -576,7 +579,7 @@ b$602B DEFW $626A    ; {Block 1.
 ;
 ; .
 ;
-; #CALL:background(background_2, 2)
+; #CALL:background(background_2, 2, 1)
 @label=BACKGROUND_2_ADDRESSES
 b$603D DEFW $6DAE    ; {Block 1.
  $603F DEFW $6C4B    ; }
@@ -595,7 +598,7 @@ b$603D DEFW $6DAE    ; {Block 1.
 ;
 ; .
 ;
-; #CALL:background(background_3, 3)
+; #CALL:background(background_3, 3, 1)
 @label=BACKGROUND_3_ADDRESSES
 b$604F DEFW $79B1    ; {Block 1.
  $6051 DEFW $784F    ; }
@@ -633,7 +636,7 @@ b$6061 DEFB $E8,$9E,$6B,$6C,$E8,$1A,$EB,$04
  $60F9 DEFB $10,$F0,$10,$A0,$10,$F0,$E8
  $6100 DEFB $00,$00                         ; Terminator.
 
-; Background 1 data.
+; Background 1 positioning data.
 b$6102 DEFB $80,$1E,$01,$02,$83,$06,$04,$05
  $610A DEFB $80,$06,$06,$07,$08,$80,$09,$09
  $6112 DEFB $0A,$0B,$0C,$0D,$0E,$0F,$10,$11
@@ -647,7 +650,7 @@ b$6102 DEFB $80,$1E,$01,$02,$83,$06,$04,$05
  $6152 DEFB $41,$42,$43
  $6155 DEFB $00,$00                         ; Terminator.
 
-; Background 1 data.
+; Background 1 positioning data.
 b$6157 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $615F DEFB $08,$09,$0A,$0B,$0C,$0D,$0E,$0F
  $6167 DEFB $10,$11,$12,$13,$14,$15,$16,$17
@@ -666,7 +669,7 @@ b$6157 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $61CF DEFB $73,$62,$74,$75,$76,$77,$78,$79
  $61D7 DEFB $00,$00                         ; Terminator.
 
-; Background 1 data.
+; Background 1 positioning data.
 b$61D9 DEFB $80,$02,$01,$02,$03,$00,$04,$05
  $61E1 DEFB $86,$02,$07,$06,$08,$09,$0A,$0B
  $61E9 DEFB $0C,$0D,$0E,$06,$0F,$10,$86,$02
@@ -684,14 +687,14 @@ b$61D9 DEFB $80,$02,$01,$02,$03,$00,$04,$05
  $6249 DEFB $80,$06
  $624B DEFB $00,$00                         ; Terminator.
 
-; Background 1 data.
+; Background 1 positioning data.
 b$624D DEFB $80,$03,$01,$02,$03,$04,$05,$06
  $6255 DEFB $07,$08,$09,$0A,$0B,$0C,$0D,$06
  $625D DEFB $0E,$0B,$0C,$0F,$10,$11,$0D,$12
  $6265 DEFB $13,$80,$66
  $6268 DEFB $00,$00                         ; Terminator.
 
-; Background 1 data.
+; Background 1 tile data.
 b$626A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6272 DEFB $00,$38,$C4,$38,$E0,$D9,$85,$B8 ; #UDG(#PC,attr=56)
  $627A DEFB $00,$00,$38,$47,$30,$C8,$30,$8C ; #UDG(#PC,attr=56)
@@ -761,7 +764,7 @@ b$626A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $647A DEFB $FD,$37,$EE,$75,$8F,$7D,$F7,$EA ; #UDG(#PC,attr=56)
  $6482 DEFB $F0,$AC,$50,$F0,$8F,$B4,$8F,$4C ; #UDG(#PC,attr=56)
 
-; Background 1 data.
+; Background 1 tile data.
 b$648A DEFB $24,$24,$24,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
  $6492 DEFB $48,$44,$44,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
  $649A DEFB $92,$89,$89,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
@@ -885,7 +888,7 @@ b$648A DEFB $24,$24,$24,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
  $684A DEFB $60,$FF,$00,$00,$FF,$01,$01,$01 ; #UDG(#PC,attr=56)
  $6852 DEFB $93,$AB,$AB,$8B,$8A,$12,$12,$12 ; #UDG(#PC,attr=56)
 
-; Background 1 data.
+; Background 1 tile data.
 b$685A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6862 DEFB $01,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $686A DEFB $F0,$00,$01,$03,$02,$02,$03,$02 ; #UDG(#PC,attr=56)
@@ -968,7 +971,7 @@ b$685A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6AD2 DEFB $DB,$B6,$ED,$DB,$B6,$ED,$DB,$B6 ; #UDG(#PC,attr=56)
  $6ADA DEFB $00,$80,$80,$00,$80,$80,$00,$80 ; #UDG(#PC,attr=56)
 
-; Background 1 data.
+; Background 1 tile data.
 b$6AE2 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6AEA DEFB $0F,$11,$11,$1F,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6AF2 DEFB $C0,$FF,$B6,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
@@ -1023,7 +1026,7 @@ b$6B83 DEFB $E8,$A4,$6A,$E8,$18,$EC,$03,$E8
  $6C43 DEFB $F0,$06,$B8,$03,$F0,$E4
  $6C49 DEFB $00,$00                         ; Terminator.
 
-; Background 2 data.
+; Background 2 positioning data.
 b$6C4B DEFB $80,$24,$01,$80,$19,$02,$80,$05
  $6C53 DEFB $03,$80,$08,$04,$05,$06,$07,$80
  $6C5B DEFB $0B,$08,$09,$0A,$0B,$80,$02,$0C
@@ -1032,7 +1035,7 @@ b$6C4B DEFB $80,$24,$01,$80,$19,$02,$80,$05
  $6C73 DEFB $19,$1A,$1B,$1C
  $6C77 DEFB $00,$00                         ; Terminator.
 
-; Background 2 data.
+; Background 2 positioning data.
 b$6C79 DEFB $80,$03,$01,$02,$03,$80,$04,$04
  $6C81 DEFB $05,$06,$07,$08,$09,$0A,$0B,$0C
  $6C89 DEFB $0D,$0E,$80,$03,$0F,$10,$11,$12
@@ -1051,7 +1054,7 @@ b$6C79 DEFB $80,$03,$01,$02,$03,$80,$04,$04
  $6CF1 DEFB $6B,$6C,$6D,$6E
  $6CF5 DEFB $00,$00                         ; Terminator.
 
-; Background 2 data.
+; Background 2 positioning data.
 b$6CF7 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $6CFF DEFB $08,$09,$0A,$0B,$0C,$0D,$0E,$0F
  $6D07 DEFB $10,$11,$12,$13,$14,$15,$16,$17
@@ -1070,7 +1073,7 @@ b$6CF7 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $6D6F DEFB $77,$78,$79,$7A,$7B,$7C,$7D,$7E
  $6D77 DEFB $00,$00                         ; Terminator.
 
-; Background 2 data.
+; Background 2 positioning data.
 b$6D79 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $6D81 DEFB $08,$09,$0A,$0B,$0C,$0D,$0E,$0F
  $6D89 DEFB $10,$11,$12,$13,$14,$15,$96,$02
@@ -1080,7 +1083,7 @@ b$6D79 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $6DA9 DEFB $2B,$96,$4F
  $6DAC DEFB $00,$00                         ; Terminator.
 
-; Background 2 data.
+; Background 2 tile data.
 b$6DAE DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6DB6 DEFB $00,$00,$00,$18,$18,$3C,$18,$3C ; #UDG(#PC,attr=56)
  $6DBE DEFB $00,$00,$00,$00,$00,$00,$00,$30 ; #UDG(#PC,attr=56)
@@ -1111,7 +1114,7 @@ b$6DAE DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6E86 DEFB $06,$01,$7C,$FF,$81,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6E8E DEFB $00,$80,$C0,$C7,$EE,$7C,$1E,$07 ; #UDG(#PC,attr=56)
 
-; Background 2 data.
+; Background 2 tile data.
 b$6E96 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6E9E DEFB $5F,$5F,$58,$DF,$9F,$B7,$B6,$B6 ; #UDG(#PC,attr=56)
  $6EA6 DEFB $FF,$FF,$00,$DE,$DE,$58,$58,$50 ; #UDG(#PC,attr=56)
@@ -1224,7 +1227,7 @@ b$6E96 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $71FE DEFB $73,$C1,$80,$00,$00,$00,$00,$06 ; #UDG(#PC,attr=56)
  $7206 DEFB $30,$D8,$6C,$36,$1B,$0C,$06,$06 ; #UDG(#PC,attr=56)
 
-; Background 2 data.
+; Background 2 tile data.
 b$720E DEFB $04,$03,$00,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
  $7216 DEFB $C0,$2E,$3F,$07,$01,$00,$00,$80 ; #UDG(#PC,attr=56)
  $721E DEFB $00,$00,$00,$C0,$F0,$38,$7C,$3E ; #UDG(#PC,attr=56)
@@ -1353,7 +1356,7 @@ b$720E DEFB $04,$03,$00,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
  $75F6 DEFB $00,$00,$80,$FC,$00,$00,$00,$3F ; #UDG(#PC,attr=56)
  $75FE DEFB $FF,$03,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
 
-; Background 2 data.
+; Background 2 tile data.
 b$7606 DEFB $70,$66,$6C,$DB,$F6,$ED,$DB,$06 ; #UDG(#PC,attr=56)
  $760E DEFB $05,$1B,$36,$7C,$D5,$B5,$75,$D2 ; #UDG(#PC,attr=56)
  $7616 DEFB $B6,$6D,$DB,$B6,$ED,$5B,$56,$40 ; #UDG(#PC,attr=56)
@@ -1433,7 +1436,7 @@ b$7766 DEFB $D0,$C0,$DA,$02,$97,$1B,$10,$DA
  $7846 DEFB $03,$F0,$03,$18,$F0,$FF,$70
  $784D DEFB $00,$00                         ; Terminator.
 
-; Background 3 data.
+; Background 3 positioning data.
 b$784F DEFB $80,$40,$01,$02,$03,$04,$05,$06
  $7857 DEFB $07,$08,$09,$0A,$0B,$0C,$0D,$0E
  $785F DEFB $0F,$10,$11,$12,$13,$14,$15,$16
@@ -1445,7 +1448,7 @@ b$784F DEFB $80,$40,$01,$02,$03,$04,$05,$06
  $788F DEFB $3E,$3F
  $7891 DEFB $00,$00                         ; Terminator.
 
-; Background 3 data.
+; Background 3 positioning data.
 b$7893 DEFB $00,$01,$02,$83,$07,$04,$05,$06
  $789B DEFB $05,$06,$07,$08,$09,$06,$05,$06
  $78A3 DEFB $05,$06,$05,$06,$05,$06,$05,$06
@@ -1464,7 +1467,7 @@ b$7893 DEFB $00,$01,$02,$83,$07,$04,$05,$06
  $790B DEFB $1A,$2A,$0C
  $790E DEFB $00,$00                         ; Terminator.
 
-; Background 3 data.
+; Background 3 positioning data.
 b$7910 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $7918 DEFB $88,$02,$09,$0A,$02,$0A,$02,$0A
  $7920 DEFB $02,$0A,$02,$0A,$02,$0A,$02,$0A
@@ -1483,14 +1486,14 @@ b$7910 DEFB $00,$01,$02,$03,$04,$05,$06,$07
  $7988 DEFB $41,$25,$42,$43,$08,$44,$45
  $798F DEFB $00,$00                         ; Terminator.
 
-; Background 3 data.
+; Background 3 positioning data.
 b$7991 DEFB $00,$81,$03,$02,$03,$04,$05,$06
  $7999 DEFB $87,$02,$08,$06,$87,$03,$06,$87
  $79A1 DEFB $03,$09,$8A,$03,$0B,$0C,$87,$02
  $79A9 DEFB $09,$81,$02,$0D,$81,$60
  $79AF DEFB $00,$00                         ; Terminator.
 
-; Background 3 data.
+; Background 3 tile data.
 b$79B1 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $79B9 DEFB $FF,$FF,$FF,$FC,$E0,$00,$00,$00 ; #UDG(#PC,attr=56)
  $79C1 DEFB $FE,$F0,$80,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
@@ -1556,7 +1559,7 @@ b$79B1 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7BA1 DEFB $F8,$8F,$80,$80,$80,$80,$80,$80 ; #UDG(#PC,attr=56)
  $7BA9 DEFB $07,$87,$87,$87,$87,$87,$87,$87 ; #UDG(#PC,attr=56)
 
-; Background 3 data.
+; Background 3 tile data.
 b$7BB1 DEFB $6C,$82,$83,$01,$01,$00,$00,$7C ; #UDG(#PC,attr=56)
  $7BB9 DEFB $01,$01,$01,$01,$81,$41,$61,$11 ; #UDG(#PC,attr=56)
  $7BC1 DEFB $FF,$00,$7F,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
@@ -1601,7 +1604,7 @@ b$7BB1 DEFB $6C,$82,$83,$01,$01,$00,$00,$7C ; #UDG(#PC,attr=56)
  $7CF9 DEFB $80,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7D01 DEFB $9A,$9A,$9A,$9A,$9A,$9A,$9A,$9A ; #UDG(#PC,attr=56)
 
-; Background 3 data.
+; Background 3 tile data.
 b$7D09 DEFB $11,$69,$89,$69,$69,$69,$69,$69 ; #UDG(#PC,attr=56)
  $7D11 DEFB $E9,$E9,$E9,$E9,$E9,$E9,$E9,$E9 ; #UDG(#PC,attr=56)
  $7D19 DEFB $40,$40,$40,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
@@ -1673,7 +1676,7 @@ b$7D09 DEFB $11,$69,$89,$69,$69,$69,$69,$69 ; #UDG(#PC,attr=56)
  $7F29 DEFB $38,$1C,$0E,$07,$03,$01,$01,$00 ; #UDG(#PC,attr=56)
  $7F31 DEFB $87,$87,$87,$87,$87,$87,$C7,$E7 ; #UDG(#PC,attr=56)
 
-; Background 3 data.
+; Background 3 tile data.
 b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7F41 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7F49 DEFB $07,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
@@ -1700,10 +1703,10 @@ b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7FF1 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $7FF9 DEFB $00,$00,$00,$00,$00,$00,$00
 
-; Background
+; Shadow buffer
 ;
-; #SCR2,0,0,32,8,$8000,$8800 (background-1)
-@label=BACKGROUND_1
+; #SCR2,0,0,32,8,$8000,$8800 (shadow-screen)
+@label=SHADOW_BUFFER
 b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,$00,$00,$80,$80,$40,$40,$20,$3F,$04,$02,$02,$01,$01,$00,$00 ; {Pixels
  $8020 DEFB $FF,$00,$00,$00,$00,$00,$80,$80,$80,$38,$1C,$0E,$07,$03,$01,$01,$00,$87,$87,$87,$87,$87,$87,$C7,$E7,$10,$20,$60,$80,$00,$00,$00 ;
  $8040 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$07,$00,$00,$00,$00,$00,$00,$00,$83,$FC,$00,$00,$00,$00,$00,$00,$FC,$00,$00,$00,$00,$00,$00 ;
@@ -1768,8 +1771,13 @@ b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,
  $87A0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $87C0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $87E0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; }
- $8800 DEFB $C3,$2E,$9C,$3A,$0E,$C4,$E6,$FE,$CA,$13,$88,$3E,$01,$32,$0A,$8B,$C3,$17,$88,$AF,$32,$0A,$8B,$3E,$00,$32,$F3,$8A,$7E,$32,$1C,$8B ; {Attributes
- $8820 DEFB $32,$1B,$8B,$47,$3A,$0A,$8B,$A7,$CA,$32,$88,$3A,$1C,$8B,$3C,$32,$1C,$8B,$23                                                     ; }
+ $8800 DEFB $C3,$2E,$9C,$3A,$0E,$C4,$E6,$FE
+ $8808 DEFB $CA,$13,$88,$3E,$01,$32,$0A,$8B
+ $8810 DEFB $C3,$17,$88,$AF,$32,$0A,$8B,$3E
+ $8818 DEFB $00,$32,$F3,$8A,$7E,$32,$1C,$8B
+ $8820 DEFB $32,$1B,$8B,$47,$3A,$0A,$8B,$A7
+ $8828 DEFB $CA,$32,$88,$3A,$1C,$8B,$3C,$32
+ $8830 DEFB $1C,$8B,$23
 
 ; Routine at 8833
 ;
