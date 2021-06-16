@@ -363,11 +363,142 @@ C $8AA2,$03 Jump to #R$8833.
 c $8AD1
 C $8AE8,$01 Return.
 
-w $8BD2 Player 1 configs.
-@ $8BD2 label=PLAYER_1
+g $8BD2 Player 1 controls.
+D $8BD2 Points to the address containing the player 1 control address mappings.
+W $8BD2 Player 2 control address mappings.
+@ $8BD2 label=PLAYER_1_CONTROLS
 
-w $8BE6 Player 2 configs.
-@ $8BE6 label=PLAYER_2
+g $8BD4 Player 1 redefined keys.
+D $8BD4 When player 1 is using the keyboard, these byte pairs will be populated with the corresponding keys.
+N $8BD4 #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
+.       See #R$8E3A.
+B $8BD4,$02 Player 1 - "up" key.
+@ $8BD4 label=PLAYER_1_UP
+B $8BD6,$02 Player 1 - "up/ right" key.
+@ $8BD6 label=PLAYER_1_UP_RIGHT
+B $8BD8,$02 Player 1 - "right" key.
+@ $8BD8 label=PLAYER_1_RIGHT
+B $8BDA,$02 Player 1 - "down/ right" key.
+@ $8BDA label=PLAYER_1_DOWN_RIGHT
+B $8BDC,$02 Player 1 - "down" key.
+@ $8BDC label=PLAYER_1_DOWN
+B $8BDE,$02 Player 1 - "down/ left" key.
+@ $8BDE label=PLAYER_1_DOWN_LEFT
+B $8BE0,$02 Player 1 - "left" key.
+@ $8BE0 label=PLAYER_1_LEFT
+B $8BE2,$02 Player 1 - "up/ left" key.
+@ $8BE2 label=PLAYER_1_UP_LEFT
+B $8BE4,$02 Player 1 - "fire" key.
+@ $8BE4 label=PLAYER_1_FIRE
+
+g $8BE6 Player 2 controls.
+D $8BE6 Points to the address containing the player 2 control address mappings.
+W $8BE6 Player 2 control address mappings.
+@ $8BE6 label=PLAYER_2_CONTROLS
+
+g $8BE8 Player 2 redefined keys.
+D $8BE8 When player 2 is using the keyboard, these byte pairs will be populated with the corresponding keys.
+N $8BE8 #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
+.       See #R$8E3A.
+B $8BE8,$02 Player 2 - "up" key.
+@ $8BE8 label=PLAYER_2_UP
+B $8BEA,$02 Player 2 - "up/ right" key.
+@ $8BEA label=PLAYER_2_UP_RIGHT
+B $8BEC,$02 Player 2 - "right" key.
+@ $8BEC label=PLAYER_2_RIGHT
+B $8BEE,$02 Player 2 - "down/ right" key.
+@ $8BEE label=PLAYER_2_DOWN_RIGHT
+B $8BF0,$02 Player 2 - "down" key.
+@ $8BF0 label=PLAYER_2_DOWN
+B $8BF2,$02 Player 2 - "down/ left" key.
+@ $8BF2 label=PLAYER_2_DOWN_LEFT
+B $8BF4,$02 Player 2 - "left" key.
+@ $8BF4 label=PLAYER_2_LEFT
+B $8BF6,$02 Player 2 - "up/ left" key.
+@ $8BF6 label=PLAYER_2_UP_LEFT
+B $8BF8,$02 Player 2 - "fire" key.
+@ $8BF8 label=PLAYER_2_FIRE
+
+g $8BFA Player 1 default keys.
+D $8BFA See #R$8E3A for key mappings.
+B $8BFA,$12,$02 #TABLE(default,centre,centre,centre,centre)
+. { =h Port Number | =h Bit | =h Action | =h Key }
+. { $#N(#PEEK($8BFB)) | #EVAL(#PEEK($8BFA),2,8) | Up | "#CALL:get_key(#PEEK($8BFB), #PEEK($8BFA))" }
+. { $#N(#PEEK($8BFD)) | #EVAL(#PEEK($8BFC),2,8) | Up-Right | "#CALL:get_key(#PEEK($8BFD), #PEEK($8BFC))" }
+. { $#N(#PEEK($8BFF)) | #EVAL(#PEEK($8BFE),2,8) | Right | "#CALL:get_key(#PEEK($8BFF), #PEEK($8BFE))" }
+. { $#N(#PEEK($8C01)) | #EVAL(#PEEK($8C00),2,8) | Down-Right | "#CALL:get_key(#PEEK($8C01), #PEEK($8C00))" }
+. { $#N(#PEEK($8C03)) | #EVAL(#PEEK($8C02),2,8) | Down | "#CALL:get_key(#PEEK($8C03), #PEEK($8C02))" }
+. { $#N(#PEEK($8C05)) | #EVAL(#PEEK($8C04),2,8) | Down-Left | "#CALL:get_key(#PEEK($8C05), #PEEK($8C04))" }
+. { $#N(#PEEK($8C07)) | #EVAL(#PEEK($8C06),2,8) | Left | "#CALL:get_key(#PEEK($8C07), #PEEK($8C06))" }
+. { $#N(#PEEK($8C09)) | #EVAL(#PEEK($8C08),2,8) | Up-Left | "#CALL:get_key(#PEEK($8C09), #PEEK($8C08))" }
+. { $#N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),2,8) | Fire | "#CALL:get_key(#PEEK($8C0B), #PEEK($8C0A))" }
+. TABLE#
+@ $8BFA label=P1_DEFAULT_KEYS
+
+g $8C0C Player 2 default keys.
+D $8C0C See #R$8E3A for key mappings.
+B $8C0C,$12,$02  #TABLE(default,centre,centre,centre,centre)
+. { =h Port Number | =h Bit | =h Action | =h Key }
+. { $#N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),2,8) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
+. { $#N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),2,8) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
+. { $#N(#PEEK($8C11)) | #EVAL(#PEEK($8C10),2,8) | Right | "#CALL:get_key(#PEEK($8C11), #PEEK($8C10))" }
+. { $#N(#PEEK($8C13)) | #EVAL(#PEEK($8C12),2,8) | Down-Right | "#CALL:get_key(#PEEK($8C13), #PEEK($8C12))" }
+. { $#N(#PEEK($8C15)) | #EVAL(#PEEK($8C14),2,8) | Down | "#CALL:get_key(#PEEK($8C15), #PEEK($8C14))" }
+. { $#N(#PEEK($8C17)) | #EVAL(#PEEK($8C16),2,8) | Down-Left | "#CALL:get_key(#PEEK($8C17), #PEEK($8C16))" }
+. { $#N(#PEEK($8C19)) | #EVAL(#PEEK($8C18),2,8) | Left | "#CALL:get_key(#PEEK($8C19), #PEEK($8C18))" }
+. { $#N(#PEEK($8C1B)) | #EVAL(#PEEK($8C1A),2,8) | Up-Left | "#CALL:get_key(#PEEK($8C1B), #PEEK($8C1A))" }
+. { $#N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),2,8) | Fire | "#CALL:get_key(#PEEK($8C1D), #PEEK($8C1C))" }
+. TABLE#
+@ $8C0C label=P2_DEFAULT_KEYS
+
+g $8C1E Sinclair Joystick #2.
+D $8C1E See #R$8E3A for key mappings.
+N $8C1E Note the Sinclair joystick maps directional movements and fire to keys.
+B $8C1E,$12,$02  #TABLE(default,centre,centre,centre,centre)
+. { =h Port Number | =h Bit | =h Action | =h Key }
+. { $#N(#PEEK($8C1F)) | #EVAL(#PEEK($8C1E),2,8) | Up | "#CALL:get_key(#PEEK($8C1F), #PEEK($8C1E))" }
+. { $#N(#PEEK($8C21)) | #EVAL(#PEEK($8C20),2,8) | Up-Right | - }
+. { $#N(#PEEK($8C23)) | #EVAL(#PEEK($8C22),2,8) | Right | "#CALL:get_key(#PEEK($8C23), #PEEK($8C22))" }
+. { $#N(#PEEK($8C25)) | #EVAL(#PEEK($8C24),2,8) | Down-Right | - }
+. { $#N(#PEEK($8C27)) | #EVAL(#PEEK($8C26),2,8) | Down | "#CALL:get_key(#PEEK($8C27), #PEEK($8C26))" }
+. { $#N(#PEEK($8C29)) | #EVAL(#PEEK($8C28),2,8) | Down-Left | - }
+. { $#N(#PEEK($8C2B)) | #EVAL(#PEEK($8C2A),2,8) | Left | "#CALL:get_key(#PEEK($8C2B), #PEEK($8C2A))" }
+. { $#N(#PEEK($8C2D)) | #EVAL(#PEEK($8C2C),2,8) | Up-Left | - }
+. { $#N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),2,8) | Fire | "#CALL:get_key(#PEEK($8C2F), #PEEK($8C2E))" }
+. TABLE#
+@ $8C1E label=SINCLAIR_2
+
+g $8C30 Sinclair Joystick #1.
+D $8C30 See #R$8E3A for key mappings.
+N $8C30 Note the Sinclair joystick maps directional movements and fire to keys.
+B $8C30,$12,$02  #TABLE(default,centre,centre,centre,centre)
+. { =h Port Number | =h Bit | =h Action | =h Key }
+. { $#N(#PEEK($8C31)) | #EVAL(#PEEK($8C30),2,8) | Up | "#CALL:get_key(#PEEK($8C31), #PEEK($8C30))" }
+. { $#N(#PEEK($8C33)) | #EVAL(#PEEK($8C32),2,8) | Up-Right | - }
+. { $#N(#PEEK($8C35)) | #EVAL(#PEEK($8C34),2,8) | Right | "#CALL:get_key(#PEEK($8C35), #PEEK($8C34))" }
+. { $#N(#PEEK($8C37)) | #EVAL(#PEEK($8C36),2,8) | Down-Right | - }
+. { $#N(#PEEK($8C39)) | #EVAL(#PEEK($8C38),2,8) | Down | "#CALL:get_key(#PEEK($8C39), #PEEK($8C38))" }
+. { $#N(#PEEK($8C3B)) | #EVAL(#PEEK($8C3A),2,8) | Down-Left | - }
+. { $#N(#PEEK($8C3D)) | #EVAL(#PEEK($8C3C),2,8) | Left | "#CALL:get_key(#PEEK($8C3D), #PEEK($8C3C))" }
+. { $#N(#PEEK($8C3F)) | #EVAL(#PEEK($8C3E),2,8) | Up-Left | - }
+. { $#N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),2,8) | Fire | "#CALL:get_key(#PEEK($8C41), #PEEK($8C40))" }
+. TABLE#
+@ $8C30 label=SINCLAIR_1
+
+g $8C42 Kempston Joystick.
+B $8C42,$12,$02  #TABLE(default,centre,centre,centre,centre)
+. { =h Port Number | =h Bit | =h Action | =h Joystick }
+. { $#N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),2,8) | Up | "#CALL:get_kempston(#PEEK($8C43), #PEEK($8C42))" }
+. { $#N(#PEEK($8C45)) | #EVAL(#PEEK($8C44),2,8) | Up-Right | - }
+. { $#N(#PEEK($8C47)) | #EVAL(#PEEK($8C46),2,8) | Right | "#CALL:get_kempston(#PEEK($8C47), #PEEK($8C46))" }
+. { $#N(#PEEK($8C49)) | #EVAL(#PEEK($8C48),2,8) | Down-Right | - }
+. { $#N(#PEEK($8C4B)) | #EVAL(#PEEK($8C4A),2,8) | Down | "#CALL:get_kempston(#PEEK($8C4B), #PEEK($8C4A))" }
+. { $#N(#PEEK($8C4D)) | #EVAL(#PEEK($8C4C),2,8) | Down-Left | - }
+. { $#N(#PEEK($8C4F)) | #EVAL(#PEEK($8C4E),2,8) | Left | "#CALL:get_kempston(#PEEK($8C4F), #PEEK($8C4E))" }
+. { $#N(#PEEK($8C51)) | #EVAL(#PEEK($8C50),2,8) | Up-Left | - }
+. { $#N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),2,8) | Fire | "#CALL:get_kempston(#PEEK($8C53), #PEEK($8C52))" }
+. TABLE#
+@ $8C42 label=KEMPSTON
 
 c $8C54 Game Settings.
 N $8C54 The main settings page, used for directing to the controls for P1/ P2 and turning the sound on or off.
@@ -520,11 +651,10 @@ N $8E22 CCCC
   $8E30,$01 Increase #REGde by one.
   $8E31,$02 Decrease counter by one and loop back to #R$8E27 until counter is zero.
   $8E33,$03 Jump to #R$8E22.
-
-  $8E36,$01 #REGl=#REGa.
+N $8E36 Stores the port number as the MSB of #REGhl, and the key byte as the LSB.
 @ $8E36 label=STORE_KEY
-  $8E37,$01 Store the contents of #REGde in #REGa.
-  $8E38,$01 #REGh=#REGa.
+  $8E36,$01 Store the key byte as the LSB of #REGhl.
+  $8E37,$02 Store the port number from #REGde as the MSB of #REGhl.
   $8E39,$01 Return.
 
 N $8E3A The keyboard is split into 8 sections - 4 'half rows' on each side, and each with a unique port number.

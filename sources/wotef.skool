@@ -2377,76 +2377,164 @@ c$8AD1 PUSH AF       ;
  $8BD0 POP HL        ;
  $8BD1 RET           ;
 
-; Player 1 configs.
-@label=PLAYER_1
-w$8BD2 DEFW $8BFA
- $8BD4 DEFW $0000
- $8BD6 DEFW $0000
- $8BD8 DEFW $0000
- $8BDA DEFW $0000
- $8BDC DEFW $0000
- $8BDE DEFW $0000
- $8BE0 DEFW $0000
- $8BE2 DEFW $0000
- $8BE4 DEFW $0000
+; Player 1 controls.
+;
+; Points to the address containing the player 1 control address mappings.
+@label=PLAYER_1_CONTROLS
+g$8BD2 DEFW $8BFA    ; Player 2 control address mappings.
 
-; Player 2 configs.
-@label=PLAYER_2
-w$8BE6 DEFW $8C0C
- $8BE8 DEFW $0000
- $8BEA DEFW $0000
- $8BEC DEFW $0000
- $8BEE DEFW $0000
- $8BF0 DEFW $0000
- $8BF2 DEFW $0000
- $8BF4 DEFW $0000
- $8BF6 DEFW $0000
- $8BF8 DEFW $0000
- $8BFA DEFW $FB02
- $8BFC DEFW $FB04
- $8BFE DEFW $FD04
- $8C00 DEFW $FE08
- $8C02 DEFW $FE04
- $8C04 DEFW $FE02
- $8C06 DEFW $FD01
- $8C08 DEFW $FB01
- $8C0A DEFW $F701
-*$8C0C DEFW $DF08
- $8C0E DEFW $DF04
- $8C10 DEFW $BF04
- $8C12 DEFW $7F04
- $8C14 DEFW $7F08
- $8C16 DEFW $7F10
- $8C18 DEFW $BF10
- $8C1A DEFW $DF10
- $8C1C DEFW $7F01
- $8C1E DEFW $F708
- $8C20 DEFW $F700
- $8C22 DEFW $F702
- $8C24 DEFW $F700
- $8C26 DEFW $F704
- $8C28 DEFW $F700
- $8C2A DEFW $F701
- $8C2C DEFW $F700
- $8C2E DEFW $F710
- $8C30 DEFW $EF02
- $8C32 DEFW $EF00
- $8C34 DEFW $EF08
- $8C36 DEFW $EF00
- $8C38 DEFW $EF04
- $8C3A DEFW $EF00
- $8C3C DEFW $EF10
- $8C3E DEFW $EF00
- $8C40 DEFW $EF01
- $8C42 DEFW $0008
- $8C44 DEFW $0000
- $8C46 DEFW $0001
- $8C48 DEFW $0000
- $8C4A DEFW $0004
- $8C4C DEFW $0000
- $8C4E DEFW $0002
- $8C50 DEFW $0000
- $8C52 DEFW $0010
+; Player 1 redefined keys.
+;
+; When player 1 is using the keyboard, these byte pairs will be populated with
+; the corresponding keys.
+;
+; .
+;
+; #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
+;       See #R$8E3A.
+@label=PLAYER_1_UP
+g$8BD4 DEFB $00,$00  ; Player 1 - "up" key.
+@label=PLAYER_1_UP_RIGHT
+ $8BD6 DEFB $00,$00  ; Player 1 - "up/ right" key.
+@label=PLAYER_1_RIGHT
+ $8BD8 DEFB $00,$00  ; Player 1 - "right" key.
+@label=PLAYER_1_DOWN_RIGHT
+ $8BDA DEFB $00,$00  ; Player 1 - "down/ right" key.
+@label=PLAYER_1_DOWN
+ $8BDC DEFB $00,$00  ; Player 1 - "down" key.
+@label=PLAYER_1_DOWN_LEFT
+ $8BDE DEFB $00,$00  ; Player 1 - "down/ left" key.
+@label=PLAYER_1_LEFT
+ $8BE0 DEFB $00,$00  ; Player 1 - "left" key.
+@label=PLAYER_1_UP_LEFT
+ $8BE2 DEFB $00,$00  ; Player 1 - "up/ left" key.
+@label=PLAYER_1_FIRE
+ $8BE4 DEFB $00,$00  ; Player 1 - "fire" key.
+
+; Player 2 controls.
+;
+; Points to the address containing the player 2 control address mappings.
+@label=PLAYER_2_CONTROLS
+g$8BE6 DEFW $8C0C    ; Player 2 control address mappings.
+
+; Player 2 redefined keys.
+;
+; When player 2 is using the keyboard, these byte pairs will be populated with
+; the corresponding keys.
+;
+; .
+;
+; #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
+;       See #R$8E3A.
+@label=PLAYER_2_UP
+g$8BE8 DEFB $00,$00  ; Player 2 - "up" key.
+@label=PLAYER_2_UP_RIGHT
+ $8BEA DEFB $00,$00  ; Player 2 - "up/ right" key.
+@label=PLAYER_2_RIGHT
+ $8BEC DEFB $00,$00  ; Player 2 - "right" key.
+@label=PLAYER_2_DOWN_RIGHT
+ $8BEE DEFB $00,$00  ; Player 2 - "down/ right" key.
+@label=PLAYER_2_DOWN
+ $8BF0 DEFB $00,$00  ; Player 2 - "down" key.
+@label=PLAYER_2_DOWN_LEFT
+ $8BF2 DEFB $00,$00  ; Player 2 - "down/ left" key.
+@label=PLAYER_2_LEFT
+ $8BF4 DEFB $00,$00  ; Player 2 - "left" key.
+@label=PLAYER_2_UP_LEFT
+ $8BF6 DEFB $00,$00  ; Player 2 - "up/ left" key.
+@label=PLAYER_2_FIRE
+ $8BF8 DEFB $00,$00  ; Player 2 - "fire" key.
+
+; Player 1 default keys.
+;
+; See #R$8E3A for key mappings.
+@label=P1_DEFAULT_KEYS
+g$8BFA DEFB $02,$FB  ; {#TABLE(default,centre,centre,centre,centre)
+ $8BFC DEFB $04,$FB  ; { =h Port Number | =h Bit | =h Action | =h Key }
+ $8BFE DEFB $04,$FD  ; { $#N(#PEEK($8BFB)) | #EVAL(#PEEK($8BFA),2,8) | Up | "#CALL:get_key(#PEEK($8BFB), #PEEK($8BFA))" }
+ $8C00 DEFB $08,$FE  ; { $#N(#PEEK($8BFD)) | #EVAL(#PEEK($8BFC),2,8) | Up-Right | "#CALL:get_key(#PEEK($8BFD), #PEEK($8BFC))" }
+ $8C02 DEFB $04,$FE  ; { $#N(#PEEK($8BFF)) | #EVAL(#PEEK($8BFE),2,8) | Right | "#CALL:get_key(#PEEK($8BFF), #PEEK($8BFE))" }
+ $8C04 DEFB $02,$FE  ; { $#N(#PEEK($8C01)) | #EVAL(#PEEK($8C00),2,8) | Down-Right | "#CALL:get_key(#PEEK($8C01), #PEEK($8C00))" }
+ $8C06 DEFB $01,$FD  ; { $#N(#PEEK($8C03)) | #EVAL(#PEEK($8C02),2,8) | Down | "#CALL:get_key(#PEEK($8C03), #PEEK($8C02))" }
+ $8C08 DEFB $01,$FB  ; { $#N(#PEEK($8C05)) | #EVAL(#PEEK($8C04),2,8) | Down-Left | "#CALL:get_key(#PEEK($8C05), #PEEK($8C04))" }
+ $8C0A DEFB $01,$F7  ; { $#N(#PEEK($8C07)) | #EVAL(#PEEK($8C06),2,8) | Left | "#CALL:get_key(#PEEK($8C07), #PEEK($8C06))" }
+                     ; { $#N(#PEEK($8C09)) | #EVAL(#PEEK($8C08),2,8) | Up-Left | "#CALL:get_key(#PEEK($8C09), #PEEK($8C08))" }
+                     ; { $#N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),2,8) | Fire | "#CALL:get_key(#PEEK($8C0B), #PEEK($8C0A))" }
+                     ; TABLE#}
+
+; Player 2 default keys.
+;
+; See #R$8E3A for key mappings.
+@label=P2_DEFAULT_KEYS
+g$8C0C DEFB $08,$DF  ; { #TABLE(default,centre,centre,centre,centre)
+ $8C0E DEFB $04,$DF  ; { =h Port Number | =h Bit | =h Action | =h Key }
+ $8C10 DEFB $04,$BF  ; { $#N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),2,8) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
+ $8C12 DEFB $04,$7F  ; { $#N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),2,8) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
+ $8C14 DEFB $08,$7F  ; { $#N(#PEEK($8C11)) | #EVAL(#PEEK($8C10),2,8) | Right | "#CALL:get_key(#PEEK($8C11), #PEEK($8C10))" }
+ $8C16 DEFB $10,$7F  ; { $#N(#PEEK($8C13)) | #EVAL(#PEEK($8C12),2,8) | Down-Right | "#CALL:get_key(#PEEK($8C13), #PEEK($8C12))" }
+ $8C18 DEFB $10,$BF  ; { $#N(#PEEK($8C15)) | #EVAL(#PEEK($8C14),2,8) | Down | "#CALL:get_key(#PEEK($8C15), #PEEK($8C14))" }
+ $8C1A DEFB $10,$DF  ; { $#N(#PEEK($8C17)) | #EVAL(#PEEK($8C16),2,8) | Down-Left | "#CALL:get_key(#PEEK($8C17), #PEEK($8C16))" }
+ $8C1C DEFB $01,$7F  ; { $#N(#PEEK($8C19)) | #EVAL(#PEEK($8C18),2,8) | Left | "#CALL:get_key(#PEEK($8C19), #PEEK($8C18))" }
+                     ; { $#N(#PEEK($8C1B)) | #EVAL(#PEEK($8C1A),2,8) | Up-Left | "#CALL:get_key(#PEEK($8C1B), #PEEK($8C1A))" }
+                     ; { $#N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),2,8) | Fire | "#CALL:get_key(#PEEK($8C1D), #PEEK($8C1C))" }
+                     ; TABLE#}
+
+; Sinclair Joystick #2.
+;
+; See #R$8E3A for key mappings.
+;
+; .
+;
+; Note the Sinclair joystick maps directional movements and fire to keys.
+@label=SINCLAIR_2
+g$8C1E DEFB $08,$F7  ; { #TABLE(default,centre,centre,centre,centre)
+ $8C20 DEFB $00,$F7  ; { =h Port Number | =h Bit | =h Action | =h Key }
+ $8C22 DEFB $02,$F7  ; { $#N(#PEEK($8C1F)) | #EVAL(#PEEK($8C1E),2,8) | Up | "#CALL:get_key(#PEEK($8C1F), #PEEK($8C1E))" }
+ $8C24 DEFB $00,$F7  ; { $#N(#PEEK($8C21)) | #EVAL(#PEEK($8C20),2,8) | Up-Right | - }
+ $8C26 DEFB $04,$F7  ; { $#N(#PEEK($8C23)) | #EVAL(#PEEK($8C22),2,8) | Right | "#CALL:get_key(#PEEK($8C23), #PEEK($8C22))" }
+ $8C28 DEFB $00,$F7  ; { $#N(#PEEK($8C25)) | #EVAL(#PEEK($8C24),2,8) | Down-Right | - }
+ $8C2A DEFB $01,$F7  ; { $#N(#PEEK($8C27)) | #EVAL(#PEEK($8C26),2,8) | Down | "#CALL:get_key(#PEEK($8C27), #PEEK($8C26))" }
+ $8C2C DEFB $00,$F7  ; { $#N(#PEEK($8C29)) | #EVAL(#PEEK($8C28),2,8) | Down-Left | - }
+ $8C2E DEFB $10,$F7  ; { $#N(#PEEK($8C2B)) | #EVAL(#PEEK($8C2A),2,8) | Left | "#CALL:get_key(#PEEK($8C2B), #PEEK($8C2A))" }
+                     ; { $#N(#PEEK($8C2D)) | #EVAL(#PEEK($8C2C),2,8) | Up-Left | - }
+                     ; { $#N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),2,8) | Fire | "#CALL:get_key(#PEEK($8C2F), #PEEK($8C2E))" }
+                     ; TABLE#}
+
+; Sinclair Joystick #1.
+;
+; See #R$8E3A for key mappings.
+;
+; .
+;
+; Note the Sinclair joystick maps directional movements and fire to keys.
+@label=SINCLAIR_1
+g$8C30 DEFB $02,$EF  ; { #TABLE(default,centre,centre,centre,centre)
+ $8C32 DEFB $00,$EF  ; { =h Port Number | =h Bit | =h Action | =h Key }
+ $8C34 DEFB $08,$EF  ; { $#N(#PEEK($8C31)) | #EVAL(#PEEK($8C30),2,8) | Up | "#CALL:get_key(#PEEK($8C31), #PEEK($8C30))" }
+ $8C36 DEFB $00,$EF  ; { $#N(#PEEK($8C33)) | #EVAL(#PEEK($8C32),2,8) | Up-Right | - }
+ $8C38 DEFB $04,$EF  ; { $#N(#PEEK($8C35)) | #EVAL(#PEEK($8C34),2,8) | Right | "#CALL:get_key(#PEEK($8C35), #PEEK($8C34))" }
+ $8C3A DEFB $00,$EF  ; { $#N(#PEEK($8C37)) | #EVAL(#PEEK($8C36),2,8) | Down-Right | - }
+ $8C3C DEFB $10,$EF  ; { $#N(#PEEK($8C39)) | #EVAL(#PEEK($8C38),2,8) | Down | "#CALL:get_key(#PEEK($8C39), #PEEK($8C38))" }
+ $8C3E DEFB $00,$EF  ; { $#N(#PEEK($8C3B)) | #EVAL(#PEEK($8C3A),2,8) | Down-Left | - }
+ $8C40 DEFB $01,$EF  ; { $#N(#PEEK($8C3D)) | #EVAL(#PEEK($8C3C),2,8) | Left | "#CALL:get_key(#PEEK($8C3D), #PEEK($8C3C))" }
+                     ; { $#N(#PEEK($8C3F)) | #EVAL(#PEEK($8C3E),2,8) | Up-Left | - }
+                     ; { $#N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),2,8) | Fire | "#CALL:get_key(#PEEK($8C41), #PEEK($8C40))" }
+                     ; TABLE#}
+
+; Kempston Joystick.
+@label=KEMPSTON
+g$8C42 DEFB $08,$00  ; { #TABLE(default,centre,centre,centre,centre)
+ $8C44 DEFB $00,$00  ; { =h Port Number | =h Bit | =h Action | =h Joystick }
+ $8C46 DEFB $01,$00  ; { $#N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),2,8) | Up | "#CALL:get_kempston(#PEEK($8C43), #PEEK($8C42))" }
+ $8C48 DEFB $00,$00  ; { $#N(#PEEK($8C45)) | #EVAL(#PEEK($8C44),2,8) | Up-Right | - }
+ $8C4A DEFB $04,$00  ; { $#N(#PEEK($8C47)) | #EVAL(#PEEK($8C46),2,8) | Right | "#CALL:get_kempston(#PEEK($8C47), #PEEK($8C46))" }
+ $8C4C DEFB $00,$00  ; { $#N(#PEEK($8C49)) | #EVAL(#PEEK($8C48),2,8) | Down-Right | - }
+ $8C4E DEFB $02,$00  ; { $#N(#PEEK($8C4B)) | #EVAL(#PEEK($8C4A),2,8) | Down | "#CALL:get_kempston(#PEEK($8C4B), #PEEK($8C4A))" }
+ $8C50 DEFB $00,$00  ; { $#N(#PEEK($8C4D)) | #EVAL(#PEEK($8C4C),2,8) | Down-Left | - }
+ $8C52 DEFB $10,$00  ; { $#N(#PEEK($8C4F)) | #EVAL(#PEEK($8C4E),2,8) | Left | "#CALL:get_kempston(#PEEK($8C4F), #PEEK($8C4E))" }
+                     ; { $#N(#PEEK($8C51)) | #EVAL(#PEEK($8C50),2,8) | Up-Left | - }
+                     ; { $#N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),2,8) | Fire | "#CALL:get_kempston(#PEEK($8C53), #PEEK($8C52))" }
+                     ; TABLE#}
 
 ; Game Settings.
 ;
@@ -2703,11 +2791,12 @@ c$8D99 CALL $8E4C                           ; Call #R$8E4C.
                                             ; back to #R$8E27 until counter is
                                             ; zero.
  $8E33 JP $8E22                             ; Jump to #R$8E22.
+; Stores the port number as the MSB of #REGhl, and the key byte as the LSB.
 @label=STORE_KEY
-*$8E36 LD L,A                               ; #REGl=#REGa.
- $8E37 LD A,(DE)                            ; Store the contents of #REGde in
-                                            ; #REGa.
- $8E38 LD H,A                               ; #REGh=#REGa.
+*$8E36 LD L,A                               ; Store the key byte as the LSB of
+                                            ; #REGhl.
+ $8E37 LD A,(DE)                            ; {Store the port number from
+ $8E38 LD H,A                               ; #REGde as the MSB of #REGhl.}
  $8E39 RET                                  ; Return.
 ; The keyboard is split into 8 sections - 4 'half rows' on each side, and each with a unique port number.
 ; #TABLE(default,centre,centre,centre,centre,centre,centre)

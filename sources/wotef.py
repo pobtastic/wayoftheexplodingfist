@@ -86,3 +86,73 @@ class WayOfTheExplodingFistHtmlWriter(HtmlWriter):
             udg_address = tile * 8 + udg_base_address
             udg.append(self.snapshot[udg_address:udg_address + 8])
         return udg
+
+    def get_key(self, cwd, msb, lsb):
+        key_map = {}
+        key_map[0xFE] = {
+            0x01: "SHIFT",
+            0x02: "Z",
+            0x04: "X",
+            0x08: "C",
+            0x10: "V",
+        }
+        key_map[0xFD] = {
+            0x01: "A",
+            0x02: "S",
+            0x04: "D",
+            0x08: "F",
+            0x10: "G",
+        }
+        key_map[0xFB] = {
+            0x01: "Q",
+            0x02: "W",
+            0x04: "E",
+            0x08: "R",
+            0x10: "T",
+        }
+        key_map[0xF7] = {
+            0x01: "1",
+            0x02: "2",
+            0x04: "3",
+            0x08: "4",
+            0x10: "5",
+        }
+        key_map[0xEF] = {
+            0x01: "0",
+            0x02: "9",
+            0x04: "8",
+            0x08: "7",
+            0x10: "6",
+        }
+        key_map[0xDF] = {
+            0x01: "P",
+            0x02: "O",
+            0x04: "I",
+            0x08: "U",
+            0x10: "Y",
+        }
+        key_map[0xBF] = {
+            0x01: "ENTER",
+            0x02: "L",
+            0x04: "K",
+            0x08: "J",
+            0x10: "H",
+        }
+        key_map[0x7F] = {
+            0x01: "SPACE",
+            0x02: "FULL-STOP",
+            0x04: "M",
+            0x08: "N",
+            0x10: "B",
+        }
+        return key_map[msb][lsb]
+
+    def get_kempston(self, cwd, msb, lsb):
+        key_map = {
+            0x01: "RIGHT",
+            0x02: "LEFT",
+            0x04: "DOWN",
+            0x08: "UP",
+            0x10: "FIRE",
+        }
+        return key_map[lsb]
