@@ -1,377 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>The Way Of The Exploding Fist: Data at 8BE6</title>
+<title>The Way Of The Exploding Fist: Game status buffer entry at 8BE6</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
 </head>
-<body class="Asm-w">
+<body class="Asm-g">
 <table class="header">
 <tr>
 <td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
-<td class="page-header">Data</td>
+<td class="page-header">Game status buffer</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="35794.html">8BD2</a>
+Prev: <a href="35796.html">8BD4</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#35814">Map</a></td>
 <td class="next">
-Next: <a href="35924.html">8C54</a>
+Next: <a href="35816.html">8BE8</a>
 </td>
 </tr>
 </table>
-<div class="description">8BE6: Player 2 configs.</div>
+<div class="description">8BE6: Player 2 controls.</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
+<div class="paragraph">
+Points to the address containing the player 2 control address mappings.
+</div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">PLAYER_2</td>
+<td class="asm-label">PLAYER_2_CONTROLS</td>
 <td class="address-1"><span id="35814"></span>8BE6</td>
-<td class="instruction">DEFW <a href="35814.html#35852">PLAYER_2_0</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35816"></span>8BE8</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35818"></span>8BEA</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35820"></span>8BEC</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35822"></span>8BEE</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35824"></span>8BF0</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35826"></span>8BF2</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35828"></span>8BF4</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35830"></span>8BF6</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35832"></span>8BF8</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35834"></span>8BFA</td>
-<td class="instruction">DEFW $FB02</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35836"></span>8BFC</td>
-<td class="instruction">DEFW <a href="50215.html#64260">$FB04</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35838"></span>8BFE</td>
-<td class="instruction">DEFW <a href="50215.html#64772">$FD04</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35840"></span>8C00</td>
-<td class="instruction">DEFW $FE08</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35842"></span>8C02</td>
-<td class="instruction">DEFW <a href="50215.html#65028">$FE04</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35844"></span>8C04</td>
-<td class="instruction">DEFW $FE02</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35846"></span>8C06</td>
-<td class="instruction">DEFW $FD01</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35848"></span>8C08</td>
-<td class="instruction">DEFW $FB01</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35850"></span>8C0A</td>
-<td class="instruction">DEFW $F701</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">PLAYER_2_0</td>
-<td class="address-2"><span id="35852"></span>8C0C</td>
-<td class="instruction">DEFW $DF08</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35854"></span>8C0E</td>
-<td class="instruction">DEFW $DF04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35856"></span>8C10</td>
-<td class="instruction">DEFW $BF04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35858"></span>8C12</td>
-<td class="instruction">DEFW $7F04</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35860"></span>8C14</td>
-<td class="instruction">DEFW $7F08</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35862"></span>8C16</td>
-<td class="instruction">DEFW $7F10</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35864"></span>8C18</td>
-<td class="instruction">DEFW <a href="47104.html#48912">$BF10</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35866"></span>8C1A</td>
-<td class="instruction">DEFW $DF10</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35868"></span>8C1C</td>
-<td class="instruction">DEFW <a href="32009.html#32513">$7F01</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35870"></span>8C1E</td>
-<td class="instruction">DEFW $F708</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35872"></span>8C20</td>
-<td class="instruction">DEFW $F700</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35874"></span>8C22</td>
-<td class="instruction">DEFW $F702</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35876"></span>8C24</td>
-<td class="instruction">DEFW $F700</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35878"></span>8C26</td>
-<td class="instruction">DEFW <a href="50215.html#63236">$F704</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35880"></span>8C28</td>
-<td class="instruction">DEFW $F700</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35882"></span>8C2A</td>
-<td class="instruction">DEFW $F701</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35884"></span>8C2C</td>
-<td class="instruction">DEFW $F700</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35886"></span>8C2E</td>
-<td class="instruction">DEFW $F710</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35888"></span>8C30</td>
-<td class="instruction">DEFW $EF02</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35890"></span>8C32</td>
-<td class="instruction">DEFW $EF00</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35892"></span>8C34</td>
-<td class="instruction">DEFW $EF08</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35894"></span>8C36</td>
-<td class="instruction">DEFW $EF00</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35896"></span>8C38</td>
-<td class="instruction">DEFW <a href="50215.html#61188">$EF04</a></td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35898"></span>8C3A</td>
-<td class="instruction">DEFW $EF00</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35900"></span>8C3C</td>
-<td class="instruction">DEFW $EF10</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35902"></span>8C3E</td>
-<td class="instruction">DEFW $EF00</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35904"></span>8C40</td>
-<td class="instruction">DEFW $EF01</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35906"></span>8C42</td>
-<td class="instruction">DEFW $0008</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35908"></span>8C44</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35910"></span>8C46</td>
-<td class="instruction">DEFW $0001</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35912"></span>8C48</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35914"></span>8C4A</td>
-<td class="instruction">DEFW $0004</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35916"></span>8C4C</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35918"></span>8C4E</td>
-<td class="instruction">DEFW $0002</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35920"></span>8C50</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-0" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="35922"></span>8C52</td>
-<td class="instruction">DEFW $0010</td>
-<td class="comment-0" rowspan="1"></td>
+<td class="instruction">DEFW <a href="35852.html">P2_DEFAULT_KEYS</a></td>
+<td class="comment-1" rowspan="1">Player 2 control address mappings.</td>
 </tr>
 </table>
 <table class="asm-navigation">
 <tr>
 <td class="prev">
-Prev: <a href="35794.html">8BD2</a>
+Prev: <a href="35796.html">8BD4</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#35814">Map</a></td>
 <td class="next">
-Next: <a href="35924.html">8C54</a>
+Next: <a href="35816.html">8BE8</a>
 </td>
 </tr>
 </table>

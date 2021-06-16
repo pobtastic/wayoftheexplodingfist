@@ -349,7 +349,7 @@ Actions setting keyboard controls for player back to defaults.
 <td class="asm-label">GAME_CONTROLS_SET_DEFAULT</td>
 <td class="address-2"><span id="36183"></span>8D57</td>
 <td class="instruction">LD HL,($8E69)</td>
-<td class="comment-1" rowspan="4">Check if <a href="36457.html">TEMP_PLAYER</a> is equal to <a href="35794.html">PLAYER_1</a>.</td>
+<td class="comment-1" rowspan="4">Check if <a href="36457.html">TEMP_PLAYER</a> is equal to <a href="35794.html">PLAYER_1_CONTROLS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -376,7 +376,7 @@ Actions setting keyboard controls for player back to defaults.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36195"></span>8D63</td>
 <td class="instruction">LD HL,$8BFA</td>
-<td class="comment-1" rowspan="2">Store <a href="35814.html#35834">8BFA</a> at <a href="35794.html">PLAYER_1</a>.</td>
+<td class="comment-1" rowspan="2">Store <a href="35834.html">P1_DEFAULT_KEYS</a> at <a href="35794.html">PLAYER_1_CONTROLS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -393,7 +393,7 @@ Actions setting keyboard controls for player back to defaults.
 <td class="asm-label">GAME_CONTROLS_SET_DEFAULT_P2</td>
 <td class="address-2"><span id="36204"></span>8D6C</td>
 <td class="instruction">LD HL,$8C0C</td>
-<td class="comment-1" rowspan="2">Store <a href="35814.html#35852">PLAYER_2_0</a> at <a href="35814.html">PLAYER_2</a>.</td>
+<td class="comment-1" rowspan="2">Store <a href="35852.html">P2_DEFAULT_KEYS</a> at <a href="35814.html">PLAYER_2_CONTROLS</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -426,7 +426,7 @@ Actions setting player to use Sinclair Joystick #1.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36216"></span>8D78</td>
 <td class="instruction">LD DE,$8C30</td>
-<td class="comment-1" rowspan="4">Pushes <a href="35814.html#35888">8C30</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="35888.html">SINCLAIR_1</a> for the current player.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -469,7 +469,7 @@ Actions setting player to use Sinclair Joystick #2.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36228"></span>8D84</td>
 <td class="instruction">LD DE,$8C1E</td>
-<td class="comment-1" rowspan="4">Pushes <a href="35814.html#35870">8C1E</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="35870.html">SINCLAIR_2</a> for the current player.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -512,7 +512,7 @@ Actions setting player to use Kempston Joystick.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36240"></span>8D90</td>
 <td class="instruction">LD DE,$8C42</td>
-<td class="comment-1" rowspan="4">Pushes <a href="35814.html#35906">8C42</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="35906.html">KEMPSTON</a> for the current player.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
