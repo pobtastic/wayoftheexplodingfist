@@ -25,341 +25,411 @@ Next: <a href="44037.html">AC05</a>
 </td>
 </tr>
 </table>
-<div class="description">AB70: Routine at AB70</div>
+<div class="description">AB70: Demo mode.</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="44037.html">DEMO_MODE</a>.
+Used by the routine at <a href="44037.html">MAIN_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">DEMO_MODE</td>
 <td class="address-2"><span id="43888"></span>AB70</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>=$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43889"></span>AB71</td>
 <td class="instruction">LD ($B05F),A</td>
 <td class="comment-1" rowspan="2">Writes $00 to <a href="45092.html#45151">CURRENT_RANK</a> and <a href="39980.html">NUM_PLAYERS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43892"></span>AB74</td>
 <td class="instruction">LD ($9C2C),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43895"></span>AB77</td>
-<td class="instruction">CALL <a href="40102.html#41983">$A3FF</a></td>
-<td class="comment-1" rowspan="1">Call <a href="40102.html#41983">A3FF</a>.</td>
+<td class="instruction">CALL <a href="41983.html">RANDOM_NUMBER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="41983.html">RANDOM_NUMBER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43898"></span>AB7A</td>
 <td class="instruction">AND $03</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43900"></span>AB7C</td>
 <td class="instruction">ADD A,$07</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43902"></span>AB7E</td>
 <td class="instruction">LD ($AA94),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43905"></span>AB81</td>
-<td class="instruction">CALL <a href="40102.html#41983">$A3FF</a></td>
+<td class="instruction">CALL <a href="41983.html">RANDOM_NUMBER</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43908"></span>AB84</td>
 <td class="instruction">AND $03</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43910"></span>AB86</td>
 <td class="instruction">ADD A,$07</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43912"></span>AB88</td>
 <td class="instruction">LD ($AA80),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43915"></span>AB8B</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Write $01 to; <ul class="">
+<li><a href="43585.html#43590">AA46</a></li>
+<li><a href="43526.html">IS_DEMO_MODE</a></li>
+</ul></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43917"></span>AB8D</td>
 <td class="instruction">LD ($AA46),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43920"></span>AB90</td>
 <td class="instruction">LD ($AA06),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43923"></span>AB93</td>
 <td class="instruction">INC A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $02 to; <ul class="">
+<li><a href="44826.html#44852">AF34</a></li>
+</ul></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43924"></span>AB94</td>
 <td class="instruction">LD ($AF34),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">DEMO_MODE_0</td>
 <td class="address-2"><span id="43927"></span>AB97</td>
 <td class="instruction">LD A,($AF34)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><a href="44826.html#44852">AF34</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43930"></span>AB9A</td>
 <td class="instruction">CALL <a href="37376.html">$9200</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43933"></span>AB9D</td>
 <td class="instruction">LD HL,$0222</td>
 <td class="comment-1" rowspan="3">Point to <a href="45092.html#45113">TEXT_DEMO</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43936"></span>ABA0</td>
 <td class="instruction">LD DE,$B039</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43939"></span>ABA3</td>
 <td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43942"></span>ABA6</td>
 <td class="instruction">LD HL,$B035</td>
 <td class="comment-1" rowspan="2">Point to <a href="45092.html#45109">HISCORE</a> and call <a href="42629.html">PRINT_HISCORE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43945"></span>ABA9</td>
 <td class="instruction">CALL <a href="42629.html">PRINT_HISCORE</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43948"></span>ABAC</td>
 <td class="instruction">CALL <a href="37022.html">NEW_ROUND</a></td>
 <td class="comment-1" rowspan="1">Call <a href="37022.html">NEW_ROUND</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43951"></span>ABAF</td>
 <td class="instruction">CALL <a href="44792.html">$AEF8</a></td>
 <td class="comment-1" rowspan="1">Call <a href="44792.html">AEF8</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43954"></span>ABB2</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
+<li>$9C2B</li>
+</ul></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43955"></span>ABB3</td>
 <td class="instruction">LD ($9C2B),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43958"></span>ABB6</td>
-<td class="instruction">CALL $ABC8</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">CALL <a href="43888.html#43976">DEMO_MODE_1</a></td>
+<td class="comment-1" rowspan="1">Call <a href="43888.html#43976">DEMO_MODE_1</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43961"></span>ABB9</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43962"></span>ABBA</td>
 <td class="instruction">RET M</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43963"></span>ABBB</td>
 <td class="instruction">CALL <a href="44826.html#44839">$AF27</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43966"></span>ABBE</td>
 <td class="instruction">LD HL,$B05F</td>
 <td class="comment-1" rowspan="2">Point to <a href="45092.html#45151">CURRENT_RANK</a> and increment it by 1.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43969"></span>ABC1</td>
 <td class="instruction">INC (HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43970"></span>ABC2</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="3">If this value is not $04 then jump to <a href="43888.html#43927">AB97</a>.</td>
+<td class="comment-1" rowspan="3">If this value is not $04 then jump to <a href="43888.html#43927">DEMO_MODE_0</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43971"></span>ABC3</td>
 <td class="instruction">CP $04</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43973"></span>ABC5</td>
-<td class="instruction">JR NZ,$AB97</td>
+<td class="instruction">JR NZ,<a href="43888.html#43927">DEMO_MODE_0</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43975"></span>ABC7</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Else, return.</td>
 </tr>
 <tr>
+<td class="asm-label">DEMO_MODE_1</td>
 <td class="address-2"><span id="43976"></span>ABC8</td>
-<td class="instruction">CALL <a href="44037.html#44582">DEMO_MODE_24</a></td>
+<td class="instruction">CALL <a href="44094.html#44582">START_1UP_GAME_24</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43979"></span>ABCB</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43980"></span>ABCC</td>
 <td class="instruction">RET M</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43981"></span>ABCD</td>
 <td class="instruction">CALL <a href="44792.html#44801">$AF01</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43984"></span>ABD0</td>
-<td class="instruction">JR Z,$ABF1</td>
+<td class="instruction">JR Z,<a href="43888.html#44017">DEMO_MODE_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43986"></span>ABD2</td>
-<td class="instruction">CALL <a href="36878.html">$900E</a></td>
+<td class="instruction">CALL <a href="36878.html">YIN_YANG_1UP</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43989"></span>ABD5</td>
 <td class="instruction">CALL <a href="44826.html#44854">$AF36</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43992"></span>ABD8</td>
 <td class="instruction">LD A,($AA03)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43995"></span>ABDB</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43996"></span>ABDC</td>
-<td class="instruction">JR Z,$ABEA</td>
+<td class="instruction">JR Z,<a href="43888.html#44010">DEMO_MODE_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="43998"></span>ABDE</td>
 <td class="instruction">LD A,($AA41)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44001"></span>ABE1</td>
 <td class="instruction">CP $04</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44003"></span>ABE3</td>
-<td class="instruction">JR C,$ABF1</td>
+<td class="instruction">JR C,<a href="43888.html#44017">DEMO_MODE_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44005"></span>ABE5</td>
-<td class="instruction">CALL <a href="44037.html#44701">DEMO_MODE_33</a></td>
+<td class="instruction">CALL <a href="44094.html#44701">START_1UP_GAME_33</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44008"></span>ABE8</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44009"></span>ABE9</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">DEMO_MODE_2</td>
 <td class="address-2"><span id="44010"></span>ABEA</td>
 <td class="instruction">LD A,($AA01)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44013"></span>ABED</td>
 <td class="instruction">CP $04</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44015"></span>ABEF</td>
-<td class="instruction">JR NC,$AC00</td>
+<td class="instruction">JR NC,<a href="43888.html#44032">DEMO_MODE_4</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">DEMO_MODE_3</td>
 <td class="address-2"><span id="44017"></span>ABF1</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44018"></span>ABF2</td>
 <td class="instruction">LD ($AA08),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44021"></span>ABF5</td>
 <td class="instruction">LD ($AA48),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44024"></span>ABF8</td>
 <td class="instruction">LD A,($9C2B)</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44027"></span>ABFB</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44028"></span>ABFC</td>
-<td class="instruction">JR Z,$ABC8</td>
+<td class="instruction">JR Z,<a href="43888.html#43976">DEMO_MODE_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44030"></span>ABFE</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44031"></span>ABFF</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">DEMO_MODE_4</td>
 <td class="address-2"><span id="44032"></span>AC00</td>
-<td class="instruction">CALL <a href="44037.html#44666">DEMO_MODE_30</a></td>
+<td class="instruction">CALL <a href="44094.html#44666">START_1UP_GAME_30</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44035"></span>AC03</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44036"></span>AC04</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1"></td>

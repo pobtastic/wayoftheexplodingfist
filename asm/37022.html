@@ -25,13 +25,13 @@ Next: <a href="37072.html">90D0</a>
 </td>
 </tr>
 </table>
-<div class="description">909E: Routine at 909E</div>
+<div class="description">909E: New round.</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="38725.html">JJJJ</a>, <a href="43888.html">AB70</a> and <a href="44037.html">DEMO_MODE</a>.
+Used by the routines at <a href="38725.html">GAME_OVER</a>, <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -40,7 +40,12 @@ Used by the routines at <a href="38725.html">JJJJ</a>, <a href="43888.html">AB70
 <td class="asm-label">NEW_ROUND</td>
 <td class="address-2"><span id="37022"></span>909E</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="5">Write $00 to <a href="42678.html#43521">AA01</a>, <a href="42678.html#43585">AA41</a>, <a href="42678.html#43522">AA02</a> and <a href="42678.html#43586">AA42</a>.</td>
+<td class="comment-1" rowspan="5">Write $00 to; <ul class="">
+<li><a href="43521.html">P1_YIN_YANG</a></li>
+<li><a href="43585.html">P2_YIN_YANG</a></li>
+<li><a href="43521.html#43522">AA02</a></li>
+<li><a href="43585.html#43586">AA42</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="asm-label"></td>

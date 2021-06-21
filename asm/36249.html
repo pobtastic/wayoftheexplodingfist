@@ -105,7 +105,7 @@ Displays the "for each direction ... press key" banner.
 <span id="36279"></span>
 <div class="comments">
 <div class="paragraph">
-xxxx
+Set that this player should use the "redefined keys" for their input.
 </div>
 </div>
 </td>
@@ -114,7 +114,7 @@ xxxx
 <td class="asm-label"></td>
 <td class="address-1"><span id="36279"></span>8DB7</td>
 <td class="instruction">LD HL,($8E69)</td>
-<td class="comment-1" rowspan="2">Stores the contents of <a href="36457.html">TEMP_PLAYER</a> in both <span class="register">DE</span> and <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="2">Fetch the current player from <a href="36457.html">TEMP_PLAYER</a>, and set it in both <span class="register">DE</span> and <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -125,19 +125,18 @@ xxxx
 <td class="asm-label"></td>
 <td class="address-1"><span id="36286"></span>8DBE</td>
 <td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1">Increase <span class="register">DE</span> by two.</td>
+<td class="comment-1" rowspan="2">Increase <span class="register">DE</span> by two to point to the beginning of that players redefined keys map.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36287"></span>8DBF</td>
 <td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36288"></span>8DC0</td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-1" rowspan="3">Stores <span class="register">DE</span> at the address held by <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="3">Stores either <a href="35796.html">PLAYER_1_UP</a> or <a href="35816.html">PLAYER_2_UP</a> at the address for the player control method.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -269,7 +268,7 @@ Go through each key and process.
 <span id="36348"></span>
 <div class="comments">
 <div class="paragraph">
-gggg
+Print the message, get the key and write it to the mapping buffer for this player.
 </div>
 </div>
 </td>
@@ -278,12 +277,13 @@ gggg
 <td class="asm-label">PRINT_KEY_LOOP</td>
 <td class="address-2"><span id="36348"></span>8DFC</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-1" rowspan="4">Call <a href="37604.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="1">Stash the current key mapping address on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36349"></span>8DFD</td>
 <td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="3">Use <a href="37604.html">PRINT_STRING</a> to show the message for which key to press.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -299,73 +299,68 @@ gggg
 <td class="asm-label"></td>
 <td class="address-1"><span id="36356"></span>8E04</td>
 <td class="instruction">POP DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Fetch the current key mapping address from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36357"></span>8E05</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash it again for later.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36358"></span>8E06</td>
 <td class="instruction">CALL <a href="36249.html#36386">GET_KEY</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="36249.html#36386">GET_KEY</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36361"></span>8E09</td>
 <td class="instruction">POP DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Fetch the current key mapping address from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36362"></span>8E0A</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="6">Writes the port number and key byte to the current key mapping address.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36363"></span>8E0B</td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36364"></span>8E0C</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36365"></span>8E0D</td>
 <td class="instruction">LD (HL),D</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36366"></span>8E0E</td>
 <td class="instruction">INC HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36367"></span>8E0F</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36368"></span>8E10</td>
 <td class="instruction">PUSH DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash the next key mapping address on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36369"></span>8E11</td>
 <td class="instruction">LD DE,$9000</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36864">TEXT_WHITESPACE_12</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Blank out the "press key" message with whitespace.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -405,7 +400,7 @@ gggg
 <span id="36386"></span>
 <div class="comments">
 <div class="paragraph">
-CCCC
+Detect the key press.
 </div>
 </div>
 </td>

@@ -47,6 +47,7 @@ Blanks the screen.
 </td>
 </tr>
 <tr>
+<td class="asm-label">CHANGE_BACKGROUND</td>
 <td class="address-2"><span id="24354"></span>5F22</td>
 <td class="instruction">LD HL,$5800</td>
 <td class="comment-1" rowspan="7">Writes $3F to all $300 locations of the attributes buffer. <table class="default">
@@ -65,55 +66,68 @@ Blanks the screen.
 </table> This is white ink on white paper.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24357"></span>5F25</td>
 <td class="instruction">LD E,L</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24358"></span>5F26</td>
 <td class="instruction">LD D,H</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24359"></span>5F27</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24360"></span>5F28</td>
 <td class="instruction">LD (HL),$3F</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24362"></span>5F2A</td>
 <td class="instruction">LD BC,$02FF</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24365"></span>5F2D</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24367"></span>5F2F</td>
 <td class="instruction">LD HL,$4000</td>
 <td class="comment-1" rowspan="7">Writes $00 to all $1800 locations of the screen buffer.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24370"></span>5F32</td>
 <td class="instruction">LD E,L</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24371"></span>5F33</td>
 <td class="instruction">LD D,H</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24372"></span>5F34</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24373"></span>5F35</td>
 <td class="instruction">LD BC,$17FF</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24376"></span>5F38</td>
 <td class="instruction">LD (HL),$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24378"></span>5F3A</td>
 <td class="instruction">LDIR</td>
 </tr>
@@ -128,48 +142,58 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24380"></span>5F3C</td>
 <td class="instruction">LD HL,$5F00</td>
 <td class="comment-1" rowspan="2">Loads <span class="register">A</span> with the contents of <a href="24320.html">BACKGROUND_REFERENCE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24383"></span>5F3F</td>
 <td class="instruction">LD A,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24384"></span>5F40</td>
 <td class="instruction">DEC A</td>
 <td class="comment-1" rowspan="2">Decrease it by one, then double it.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24385"></span>5F41</td>
 <td class="instruction">ADD A,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24386"></span>5F42</td>
 <td class="instruction">LD C,A</td>
 <td class="comment-1" rowspan="2">Store it as the LSB of <span class="register">BC</span> (MSB is $00).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24387"></span>5F43</td>
 <td class="instruction">LD B,$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24389"></span>5F45</td>
 <td class="instruction">LD (HL),B</td>
 <td class="comment-1" rowspan="1">Write $00 to <a href="24320.html">BACKGROUND_REFERENCE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24390"></span>5F46</td>
 <td class="instruction">LD HL,$5F0A</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=The beginning of three address references for the copy routines which populate <a href="24336.html">BACKGROUND_DATA_BUFFER</a> at <a href="24322.html#24330">$5F0A</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24393"></span>5F49</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1">Add <span class="register">BC</span> to <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24394"></span>5F4A</td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-1" rowspan="3"><span class="register">DE</span>=One of the three background address references; <table class="default">
@@ -192,24 +216,29 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 </table></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24395"></span>5F4B</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24396"></span>5F4C</td>
 <td class="instruction">LD D,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24397"></span>5F4D</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Swap <span class="register">DE</span> and <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24398"></span>5F4E</td>
-<td class="instruction">CALL $5F52</td>
-<td class="comment-1" rowspan="1">Call <a href="24354.html#24402">5F52</a>.</td>
+<td class="instruction">CALL <a href="24354.html#24402">INDIRECT_JUMP</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html#24402">INDIRECT_JUMP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24401"></span>5F51</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -225,6 +254,7 @@ Indirect jump to copy-to-buffer routine.
 </td>
 </tr>
 <tr>
+<td class="asm-label">INDIRECT_JUMP</td>
 <td class="address-2"><span id="24402"></span>5F52</td>
 <td class="instruction">JP (HL)</td>
 <td class="comment-1" rowspan="1">Indirect jump to address held by <span class="register">HL</span>. <table class="default">
@@ -257,28 +287,34 @@ Set up background 1.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24403"></span>5F53</td>
 <td class="instruction">LD HL,$602B</td>
 <td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24619.html">BACKGROUND_1_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24406"></span>5F56</td>
 <td class="instruction">LD DE,$5F10</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24409"></span>5F59</td>
 <td class="instruction">LD BC,$0012</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24412"></span>5F5C</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24414"></span>5F5E</td>
 <td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
 <td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24417"></span>5F61</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -294,28 +330,34 @@ Set up background 2.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24418"></span>5F62</td>
 <td class="instruction">LD HL,$603D</td>
 <td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24637.html">BACKGROUND_2_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24421"></span>5F65</td>
 <td class="instruction">LD DE,$5F10</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24424"></span>5F68</td>
 <td class="instruction">LD BC,$0012</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24427"></span>5F6B</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24429"></span>5F6D</td>
 <td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
 <td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24432"></span>5F70</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -331,28 +373,34 @@ Set up background 3.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24433"></span>5F71</td>
 <td class="instruction">LD HL,$604F</td>
 <td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24655.html">BACKGROUND_3_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24436"></span>5F74</td>
 <td class="instruction">LD DE,$5F10</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24439"></span>5F77</td>
 <td class="instruction">LD BC,$0012</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24442"></span>5F7A</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24444"></span>5F7C</td>
 <td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
 <td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="24447"></span>5F7F</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
