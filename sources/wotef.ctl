@@ -49,6 +49,7 @@ W $5F1C,$04 Block 4.
 W $5F20 Attribute data.
 
 c $5F22 Change Background.
+@ $5F22 label=CHANGE_BACKGROUND
 D $5F22 #HTML(Takes the background reference from #R$5F00 and executes the appropriate routine to copy the background data
 .       addresses to the buffer at #R$5F10.
 .       <div>Used by the routine at #R$9200.</div>)
@@ -79,6 +80,7 @@ N $5F3C Fetch the background reference from #R$5F00 and use it to calculate the 
   $5F4E,$03 Call #R$5F52.
   $5F51,$01 Return.
 N $5F52 Indirect jump to copy-to-buffer routine.
+@ $5F52 label=INDIRECT_JUMP
   $5F52,$01 Indirect jump to address held by #REGhl.
 . #TABLE(default,centre,centre)
 . { =h #R$5F00 | =h Jumps To... }
@@ -280,12 +282,20 @@ b $6061 Background 1 attribute data.
 D $6061 See #R$6010 for usage.
 B $6100,$02 Terminator.
 b $6102 Background 1 positioning data.
+D $6102 See #R$5F80 for usage.
+B $6102 #CALL:position_data(#PC, $626A, position_1_1, 1)
 B $6155,$02 Terminator.
 b $6157 Background 1 positioning data.
+D $6157 See #R$5F80 for usage.
+B $6157 #CALL:position_data(#PC, $648A, position_1_2, 1)
 B $61D7,$02 Terminator.
 b $61D9 Background 1 positioning data.
+D $61D9 See #R$5F80 for usage.
+B $61D9 #CALL:position_data(#PC, $685A, position_1_3, 1)
 B $624B,$02 Terminator.
 b $624D Background 1 positioning data.
+D $624D See #R$5F80 for usage.
+B $624D #CALL:position_data(#PC, $6AE2, position_1_4, 1)
 B $6268,$02 Terminator.
 b $626A Background 1 tile data.
 B $626A,$08 #UDG(#PC,attr=56)
@@ -304,12 +314,20 @@ b $6B83 Background 2 attribute data.
 D $6B83 See #R$6010 for usage.
 B $6C49,$02 Terminator.
 b $6C4B Background 2 positioning data.
+D $6C4B See #R$5F80 for usage.
+B $6C4B #CALL:position_data(#PC, $6DAE, position_2_1, 1)
 B $6C77,$02 Terminator.
 b $6C79 Background 2 positioning data.
+D $6C79 See #R$5F80 for usage.
+B $6C79 #CALL:position_data(#PC, $6E96, position_2_2, 1)
 B $6CF5,$02 Terminator.
 b $6CF7 Background 2 positioning data.
+D $6CF7 See #R$5F80 for usage.
+B $6CF7 #CALL:position_data(#PC, $720E, position_2_3, 1)
 B $6D77,$02 Terminator.
 b $6D79 Background 2 positioning data.
+D $6D79 See #R$5F80 for usage.
+B $6D79 #CALL:position_data(#PC, $7606, position_2_4, 1)
 B $6DAC,$02 Terminator.
 b $6DAE Background 2 tile data.
 B $6DAE,$08 #UDG(#PC,attr=56)
@@ -327,12 +345,20 @@ b $7766 Background 3 attribute data.
 D $7766 See #R$6010 for usage.
 B $784D,$02 Terminator.
 b $784F Background 3 positioning data.
+D $784F See #R$5F80 for usage.
+B $784F #CALL:position_data(#PC, $79B1, position_3_1, 1)
 B $7891,$02 Terminator.
 b $7893 Background 3 positioning data.
+D $7893 See #R$5F80 for usage.
+B $7893 #CALL:position_data(#PC, $7BB1, position_3_2, 1)
 B $790E,$02 Terminator.
 b $7910 Background 3 positioning data.
+D $7910 See #R$5F80 for usage.
+B $7910 #CALL:position_data(#PC, $7D09, position_3_3, 1)
 B $798F,$02 Terminator.
 b $7991 Background 3 positioning data.
+D $7991 See #R$5F80 for usage.
+B $7991 #CALL:position_data(#PC, $7F39, position_3_4, 1)
 B $79AF,$02 Terminator.
 b $79B1 Background 3 tile data.
 B $79B1,$08 #UDG(#PC,attr=56)
@@ -615,32 +641,36 @@ N $8D9C Displays the "for each direction ... press key" banner.
   $8D9C,$09 Point to #R$8F6B and call #R$92E4.
   $8DA5,$09 Point to #R$8F89 and call #R$92E4.
   $8DAE,$09 Point to #R$8FA7 and call #R$92E4.
-N $8DB7 xxxx
-  $8DB7,$08 Stores the contents of #R$8E69 in both #REGde and #REGhl.
-  $8DBE,$02 Increase #REGde by two.
-  $8DC0,$03 Stores #REGde at the address held by #REGhl.
+N $8DB7 Set that this player should use the "redefined keys" for their input.
+  $8DB7,$07 Fetch the current player from #R$8E69, and set it in both #REGde and #REGhl.
+  $8DBE,$02 Increase #REGde by two to point to the beginning of that players redefined keys map.
+  $8DC0,$03 Stores either #R$8BD4 or #R$8BE8 at the address for the player control method.
 N $8DC3 Go through each key and process.
-C $8DC3,$06 Point to #R$8FBB and call #R$8DFC.
-C $8DC9,$06 Point to #R$8FBE and call #R$8DFC.
-C $8DCF,$06 Point to #R$8FC7 and call #R$8DFC.
-C $8DD5,$06 Point to #R$8FCD and call #R$8DFC.
-C $8DDB,$06 Point to #R$8FD8 and call #R$8DFC.
-C $8DE1,$06 Point to #R$8FDD and call #R$8DFC.
-C $8DE7,$06 Point to #R$8FE7 and call #R$8DFC.
-C $8DED,$06 Point to #R$8FEC and call #R$8DFC.
-C $8DF3,$06 Point to #R$8FF4 and call #R$8DFC.
+  $8DC3,$06 Point to #R$8FBB and call #R$8DFC.
+  $8DC9,$06 Point to #R$8FBE and call #R$8DFC.
+  $8DCF,$06 Point to #R$8FC7 and call #R$8DFC.
+  $8DD5,$06 Point to #R$8FCD and call #R$8DFC.
+  $8DDB,$06 Point to #R$8FD8 and call #R$8DFC.
+  $8DE1,$06 Point to #R$8FDD and call #R$8DFC.
+  $8DE7,$06 Point to #R$8FE7 and call #R$8DFC.
+  $8DED,$06 Point to #R$8FEC and call #R$8DFC.
+  $8DF3,$06 Point to #R$8FF4 and call #R$8DFC.
   $8DF9,$03 Jump to #R$8CDA.
-N $8DFC gggg
-C $8DFC,$08 Call #R$92E4.
+N $8DFC Print the message, get the key and write it to the mapping buffer for this player.
+  $8DFC,$01 Stash the current key mapping address on the stack.
+C $8DFD,$07 Use #R$92E4 to show the message for which key to press.
+  $8E04,$01 Fetch the current key mapping address from the stack.
+  $8E05,$01 Stash it again for later.
+  $8E06,$03 Call #R$8E22.
+  $8E09,$01 Fetch the current key mapping address from the stack.
+  $8E0A,$06 Writes the port number and key byte to the current key mapping address.
+  $8E10,$01 Stash the next key mapping address on the stack.
 @ $8DFC label=PRINT_KEY_LOOP
-
-C $8E11,$09 Point to #R$9000 and call #R$92E4.
-
+  $8E11,$09 Blank out the "press key" message with whitespace.
   $8E1A,$06 Delay (for debounce) twice #R$8E42.
   $8E20,$01 Restores the current key location off the stack.
   $8E21,$01 Return.
-
-N $8E22 CCCC
+N $8E22 Detect the key press.
 @ $8E22 label=GET_KEY
   $8E22,$03 #REGde=#R$8E3A.
   $8E25,$02 Set a counter #REGb=$08.
@@ -748,11 +778,59 @@ T $9000,$0D,$0C:1 Blank text.
 
 i $900D
 
-c $900E
+c $900E Yin-yang controller.
+N $900E Player 1 yin-yang functionality.
+@ $900E label=YIN_YANG_1UP
+  $900E,$07 If #R$AA08 is $00 then no point was awarded for 1UP. Jump forward to #R$9057.
+N $9015 Update 1UP yin-yang total.
+  $9015,$05 Add #R$AA08 to #R$AA01 and update the new total at #R$AA01.
+N $901A Check if 1UP yin-yang total is now $01.
+  $901A,$04 #HTML(If the total is not <strong>$01</strong> then skip forward to #R$9028.)
+  $901E,$09 Call #R$9255 using #R$92AA.
+  $9027,$01 Return.
+N $9028 Check if 1UP yin-yang total is now $02.
+@ $9028 label=YIN_YANG_1UP_2
+  $9028,$04 #HTML(If the total is not <strong>$02</strong> then skip forward to #R$9036.)
+  $902C,$09 Call #R$9255 using #R$928A.
+  $9035,$01 Return.
+N $9036 Check if 1UP yin-yang total is now $03.
+@ $9036 label=YIN_YANG_1UP_3
+  $9036,$04 #HTML(If the total is not <strong>$03</strong> then skip forward to #R$904D.)
+  $903A,$09 Call #R$9255 using #R$928A.
+  $9043,$09 Call #R$9255 using #R$92AA.
+  $904C,$01 Return.
+N $904D 1UP yin-yang total is $04.
+@ $904D label=YIN_YANG_1UP_4
+  $904D,$09 Call #R$9255 using #R$928A.
+  $9056,$01 Return.
+N $9057 Player 2 yin-yang functionality.
+@ $9057 label=YIN_YANG_2UP
+  $9057,$05 #HTML(If #R$AA48 is <strong>$00</strong> then no point was awarded for 2UP, if so then return.)
+N $905C Update 2UP yin-yang total.
+  $905C,$05 Add #R$AA48 to #R$AA41 and update the new total at #R$AA41.
+N $9061 Check if 2UP yin-yang total is now $01.
+  $9061,$04 #HTML(If the total is not <strong>$01</strong> then skip forward to #R$906F.)
+  $9065,$09 Call #R$9255 using #R$92AA.
+  $906E,$01 Return.
+N $906F Check if 2UP yin-yang total is now $02.
+@ $906F label=YIN_YANG_2UP_2
+  $906F,$04 #HTML(If the total is not <strong>$02</strong> then skip forward to #R$907D.)
+  $9073,$09 Call #R$9255 using #R$928A.
+  $907C,$01 Return.
+N $907D Check if 2UP yin-yang total is now $03.
+@ $907D label=YIN_YANG_2UP_3
+  $907D,$04 #HTML(If the total is not <strong>$03</strong> then skip forward to #R$9094.)
+  $9081,$09 Call #R$9255 using #R$928A.
+  $908A,$09 Call #R$9255 using #R$92AA.
+  $9093,$01 Return.
+N $9094 2UP yin-yang total is $04.
+@ $9094 label=YIN_YANG_2UP_4
+  $9094,$09 Call #R$9255 using #R$928A.
+  $909D,$01 Return.
 
-c $909E
+c $909E New round.
 @ $909E label=NEW_ROUND
-  $909E,$0D Write $00 to #R$AA01, #R$AA41, #R$AA02 and #R$AA42.
+  $909E,$0D Write $00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02 } { #R$AA42 } LIST#
   $90AB,$09 Point to #R$B060($B064) and call #R$92E4.
   $90B4,$09 Point to #R$B060($B064) and call #R$92E4.
   $90BD,$09 Point to #R$B060($B064) and call #R$92E4.
@@ -761,19 +839,47 @@ c $909E
 
 c $90D0
 B $90D0,$01
+@ $90D1 label=INTRO_MUSIC
   $90D1,$01 Disable interrupts.
+  $90D2,$05 If #R$B2FA is zero then return.
+  $90D7,$03 #R$90D0.
+  $90DA,$02 Check bits 0-4.
+  $90E0,$04 #REGix=#R$9128
+@ $90E4 label=INTRO_MUSIC_LOOP
+  $90E4,$03 #REGc=the next note byte from #REGix+$00.
+  $90E7,$03 If the current note is $00 then return.
+  $90EA,$02 Move the index onto the next note.
+  $90EC,$03 #REGb=the next note byte from #REGix+$00.
+  $90EF,$02 Move the index onto the next note.
+  $90F1,$03 #REGe=the next note byte from #REGix+$00.
+  $90F4,$02 Move the index onto the next note.
+  $90F6,$03 #REGd=the next note byte from #REGix+$00.
+  $90F9,$02 Move the index onto the next note.
+  $90FB
+@ $9106 label=INTRO_MUSIC_DELAY_1
+  $910B,$02 Loop back to #R$90E4.
+N $910D Process the note data and create the sounds.
+@ $910D label=INTRO_MUSIC_PLAY
+@ $9111 label=INTRO_MUSIC_DELAY_2
+@ $911B label=INTRO_MUSIC_DELAY_3
 
-B $9128
+B $9128,$D8,$04
+@ $9128 label=INTRO_MUSIC_DATA
 
 c $9200
   $9200,$03 Write #REGa to #R$5F00.
   $9203,$03 Call #R$5F22.
   $9206,$05 Call #R$C203 using $48.
-  $920B,$05
+  $920B,$02 Set a counter of $40.
+  $920D,$03 #REGde=#R$8000.
   $9210,$01 Push #REGhl onto the stack.
   $9211,$01 Push #REGde onto the stack.
   $9212,$01 Push #REGbc onto the stack.
   $9213,$05 Copy #REGhl to #REGde $20 times.
+  $921E,$01 Stash the counter on the stack.
+  $9225,$01 Restore the counter from the stack.
+  $9226,$02 Decrease counter by one and loop back to #R$9210 until counter is zero.
+  $9228,$01 Return.
 
 c $9229
   $9239,$01 Return.
@@ -781,8 +887,49 @@ c $9229
 c $923A
   $9254,$01 Return.
 
-c $9255
+c $9255 Copy yin-yang to screen.
+N $9255 On entry #REGde points to a yin-yang UDG and #REGhl to screen coordinates;
+. #TABLE(default,centre,centre,centre)
+. { =h #REGde | =h,c2 Yin-yang UDG }
+. { #R$92AA($92AA) | =c2 Half }
+. { #R$928A($928A) | =c2 Full }
+. { =h #REGhl | =h,c2 Screen Position }
+. { $0108 | 1 | 8 }
+. { $0408 | 4 | 8 }
+. { $1A08 | 26 | 8 }
+. { $1D08 | 29 | 8 }
+. TABLE#
+@ $9255 label=YIN_YANG_COPY
+  $9255,$02 Stash yin-yang UDG and screen coordinates on the stack.
+  $9257,$03 Call #R$92CA.
+  $925A,$02 Restore yin-yang UDG and screen coordinates from the stack.
+  $925C,$01 Keep a reference to #REGhl on the stack as we'll need to refer to it again later.
+  $925D,$01 Increase the LSB of #REGhl by one.
+  $925E,$07 Add $0008 to #REGde and stash it on the stack.
+  $9265,$03 Call #R$92CA.
+  $926F,$07 Add $0008 to #REGde and stash it on the stack.
+  $9276,$03 Call #R$92CA.
+  $9280,$06 Add $0008 to #REGde.
+  $9286,$03 Call #R$92CA.
   $9289,$01 Return.
+N $928A Full yin-yang UDG.
+@ $928A label=YIN_YANG_UDG_FULL
+B $928A,$20,$08 #UDGARRAY2,scale=4;(#PC)-(#PC+28)-8(full-yin-yang)
+N $92AA Half yin-yang UDG.
+@ $92AA label=YIN_YANG_UDG_HALF
+B $92AA,$20,$08 #UDGARRAY2,scale=4;(#PC)-(#PC+28)-8(half-yin-yang)
+N $92CA fff
+@ $92CA label=YIN_YANG_COPY_LINE
+  $92CA,$02 Stash #REGde and #REGhl on the stack.
+  $92CD,$03 Call #R$C203.
+  $92D0,$01 Restore #REGde from the stack.
+  $92D7,$02 Set a counter of $08.
+@ $92D9 label=YIN_YANG_COPY_LOOP
+  $92D9,$02 Copy a byte from #REGhl to #REGde.
+  $92DB,$01 Increase #REGhl by one.
+  $92DC,$05 Call #R$9229.
+  $92E1,$02 Decrease counter by one and loop back to #R$92D9 until counter is zero.
+  $92E3,$01 Return.
 
 c $92E4 Print String.
 @ $92E4 label=PRINT_STRING
@@ -856,16 +1003,33 @@ N $95E1 fffff
   $95E1,$01
 
 c $9745
-@ $9745 label=JJJJ
+@ $9745 label=GAME_OVER
 
-  $97DC
+  $977C,$0A Clear the yin-yang images by writing $00 to #R$AA08 and #R$AA48 and calling #R$900E.
+  $9786,$0A Clear the yin-yang images by writing $00 to #R$AA01 and #R$AA41 and calling #R$95D4, #R$BF13.
+
+  $97CA,$01 Return.
+N $97DC Should we start a 1 player game?
+  $97DC,$05 Check if "1" key is pressed.
+  $97E1,$02 If it is, jump to #R$97EF.
+  $97E3,$02 Take a reading from the kempston joystick port.
+  $97E5,$05 If the fire button is not being pressed, jump to #R$9801.
+  $97EA,$05 Keep only bit 4 (fire), if it's not being pressed, jump to #R$9801.
+N $97EF Starts a 1 player game.
+@ $97EF label=START_1UP
+  $97EF,$08 Write $01 to; #LIST { #R$9C2C } { #R$AA46 } LIST#
+  $97F7,$04 Write $00 to; #LIST { #R$AA06 } LIST#
+  $97FB,$03 Call #R$909E.
+  $97FE,$02 #REGa=$80.
+  $9800,$01 Return.
 
 N $9801 Should we start a 2 player game?
-@ $9801 label=DEMO_START_2UP
   $9801,$05 Check if "2" key is pressed.
   $9806,$02 No keys were pressed, continue on to #R$981A.
-  $9808,$05 Writes $02 to #R$9C2C.
-  $980D,$07 Writes $00 to #R$AA06 and #R$AA46.
+N $9808 Starts a 2 player game.
+@ $9808 label=START_2UP
+  $9808,$05 Write $02 to; #LIST { #R$9C2C } LIST#
+  $980D,$07 Write $00 to; #LIST { #R$AA06 } { #R$AA46 } LIST#
   $9814,$03 Call #R$909E.
   $9817,$02 #REGa=$80.
   $9819,$01 Return.
@@ -958,6 +1122,49 @@ g $9CA5 Time.
 
 c $9CA6
 
+c $A3FF Random number.
+D $A3FF Semi-random number generator using the refresh register.
+@ $A3FF label=RANDOM_NUMBER
+  $A3FF #REGa=0-127 (the contents of the refresh register).
+  $A401,$01 Return.
+
+c $A402
+
+c $A647 New high score?
+N $A647 Check if either player has broken the high score.
+@ $A647 label=CHECK_HISCORE
+  $A647,$03 #REGhl=#R$B035(high score).
+  $A64A,$03 #REGde=#R$B02F(1UP score)
+N $A64D If this is not a two player game then we skip forward to #R$A679 to only test for the 1UP score.
+  $A64D,$05 Check #R$9C2C; is this a 2 player game?
+  $A652,$02 If not, jump to #R$A679.
+N $A654 #R$A6B6 mirrors #R$9C2C here. todo: why?
+  $A654,$03 Store $02 at #R$A6B6.
+N $A657 Check 2UP score.
+  $A657,$06 #REGhl=#R$B032 and call #R$A697.
+  $A65D,$02 Jump to #R$A669 if this is not a new high score.
+N $A65F Overwrite the high score with the 2UP score.
+  $A65F,$05 Copy the 2UP score over the current #R$B035.
+  $A664,$03 #REGde=#R$B02F(2UP score)
+  $A667,$02 Jump to #R$A676.
+N $A669 Checks if all three digits changed. todo: why?
+@ $A669 label=CHECK_HS_CHANGES
+  $A669,$05 Check #R$A6B7; are there three digit changes?
+  $A66E,$02 Store $01 at #R$A6B6 (skips forward to #R$A673).
+N $A672 Else reset #R$A6B6.
+  $A672,$04 Write $00 to #R$A6B6.
+@ $A673 label=HS_WRITE_A6B6
+N $A676 Resets #REGhl with #R$B038 so the 1UP score can also be tested.
+@ $A676 label=CHECK_HS_RESTORE
+  $A676,$06 #REGhl=#R$B038 and call #R$A697.
+@ $A679 label=CHECK_HISCORE_1UP
+  $A679,$03 Call #R$A697.
+  $A67C,$01 Return if this is not a new high score.
+N $A67D Overwrite the high score with the 1UP score.
+  $A67D,$01 Stash the high score memory address temporarily.
+  $A67E,$06 Overwrite the high score.
+  $A684,$01 Restore the high score memory address to #REGhl.
+
 c $A685 Print Hi-Score.
 @ $A685 label=PRINT_HISCORE
   $A685,$02 Set a counter = $03 digits.
@@ -966,21 +1173,55 @@ c $A685 Print Hi-Score.
   $A68D,$09 Point to #R$B024 and call #R$92E4.
   $A696,$01 Return.
 
-c $A697
+c $A697 Check player score against high score.
+@ $A697 label=IS_HIGH_SCORE
+  $A697,$05 Write $00 to #R$A6B7.
+  $A69C,$02 Stash the high score and player score positions on the stack.
+  $A69E,$02 Set the counter to $03 for the three score digits.
+@ $A6A0 label=IS_HS_LOOP
+  $A6A0,$01 Fetch the score digit.
+  $A6A1,$01 Compare the score digit against the high score.
+  $A6A2,$02 If the the high score is higher, jump to #R$A6B3.
+  $A6A4,$02 If the high score is lower skip ahead to #R$A6AD.
+  $A6A6,$07 Increase #R$A6B7 by one.
+@ $A6AD label=IS_HS_SKIP
+  $A6AD,$02 Move onto the next digits for both the player score and high score.
+  $A6AF,$02 Decrease counter by one and loop back to #R$A6A0 until counter is zero.
+  $A6B1,$02 Sets then clears the carry flag.
+@ $A6B3 label=IS_HS_RETURN
+  $A6B3,$02 Restore high score and player score positions from the stack.
+  $A6B5,$01 Return.
 
-b $A6B6
+g $A6B6
+g $A6B7
+g $AA01 1UP Yin-yang count.
+@ $AA01 label=P1_YIN_YANG
 B $AA01,$01
 B $AA02,$01
+
+g $AA06 Is this demo mode?
 B $AA06,$01
 @ $AA06 label=IS_DEMO_MODE
+
 B $AA08,$01
-@ $AA08 label=POINTS_AWARD_P1
+@ $AA08 label=P1_POINTS_AWARDED
+B $AA0B,$01
+B $AA0D,$01
+B $AA16,$01
+B $AA18,$01
 B $AA3C,$01
+
+g $AA41
+@ $AA41 label=P2_YIN_YANG
 B $AA41,$01
+
 B $AA42,$01
 B $AA46,$01
 B $AA48,$01
-@ $AA48 label=POINTS_AWARD_P2
+@ $AA48 label=P2_POINTS_AWARDED
+B $AA4B,$01
+B $AA56,$01
+B $AA58,$01
 B $AA80,$01
 @ $AA80 label=ALSO_RANK
 
@@ -994,24 +1235,32 @@ T $AABA,$08 "JOYSTICK" text.
 T $AAC2,$08 "KEYBOARD" text.
 T $AACC,$0C Whitespace?
 
-c $AB70
+c $AB70 Demo mode.
+@ $AB70 label=DEMO_MODE
   $AB70,$01 #REGa=$00
   $AB71,$06 Writes $00 to #R$B05F and #R$9C2C.
   $AB77,$03 Call #R$A3FF.
+
+  $AB8B,$08 Write $01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
+  $AB93,$04 Write $02 to; #LIST { #R$AF34 } LIST#
+  $AB97,$03 #R$AF34.
 
   $AB9D,$09 Point to #R$B039 and call #R$92E4.
   $ABA6,$06 Point to #R$B035 and call #R$A685.
   $ABAC,$03 Call #R$909E.
   $ABAF,$03 Call #R$AEF8.
 
+  $ABB2,$04 Write $00 to; #LIST { $9C2B } LIST#
+  $ABB6,$03 Call #R$ABC8.
+
   $ABBE,$04 Point to #R$B05F and increment it by 1.
   $ABC2,$05 If this value is not $04 then jump to #R$AB97.
   $ABC7,$01 Else, return.
 
-c $AC05 Demo Mode.
-@ $AC05 label=DEMO_MODE
+c $AC05 Main game loop.
+@ $AC05 label=MAIN_GAME
   $AC05,$04 Writes $00 to #R$9C2C - this signifies we're in "demo mode".
-@ $AC09 label=DEMO_MODE_LOOP
+@ $AC09 label=MAIN_GAME_LOOP
   $AC09,$09 Point to #R$B060 and call #R$92E4.
   $AC12,$09 Point to #R$B060 and call #R$92E4.
   $AC1B,$09 Point to #R$B039 and call #R$92E4.
@@ -1020,15 +1269,17 @@ c $AC05 Demo Mode.
   $AC2D,$04 If #R$9C2C is $01, then jump to #R$AC3E.
   $AC31,$03 Else, call #R$AD9C.
   $AC34,$02 Loop back round to #R$AC09.
-@ $AC36 label=DEMO_START_GAME
+@ $AC36 label=MAIN_GAME_START_1UP
   $AC36,$03 Call #R$AC3E.
+  $AC39,$03 Call #R$A647.
   $AC3C,$02 Loop back round to #R$AC09.
 
+c $AC3E
 N $AC3E fff
 @ $AC3E label=START_1UP_GAME
-  $AC3E,$10 Writes $00 to; #R$AA80, #R$B05F, #R$AA06, #R$AA08 and #R$AA48.
-  $AC4E,$07 Writes $01 to; #R$AF35 and #R$AA46.
-  $AC55,$07 Writes $02 to; #R$AA3C and #R$AF34.
+  $AC3E,$10 Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 } { #R$AA08 } { #R$AA48 } LIST#
+  $AC4E,$07 Write $01 to; #LIST { #R$AF35 } { #R$AA46 } LIST#
+  $AC55,$07 Write $02 to; #LIST { #R$AA3C } { #R$AF34 } LIST#
   $AC5C,$03 Call #R$AF0B.
 
   $AC7A,$06 Point to #R$B035 and call #R$A685.
@@ -1036,13 +1287,20 @@ N $AC3E fff
   $AC91,$09 Point to #R$B024 and call #R$92E4.
   $AC9A,$03 Call #R$AEBF.
 
+  $ACE8,$08 Write $19 to; #LIST { #R$AA0C } { #R$AA4C } LIST#
+  $ACF0,$13 Write $00 to; #LIST { #R$AA0D } { #R$AA0B } { #R$AA4B } { #R$AA16 } { #R$AA56 } { #R$AA0D } LIST#
+  $AD03,$08 Write $7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
+
+  $AD0B,$03 Call #R$95D4.
+  $AD0E,$03 Call #R$BF13.
+
   $AD2B,$02 Check if player 1 has 4 points.
 
   $AD32,$02 Check if player 2 has 4 points.
 
 @ $AD9C label=START_2UP_GAME
-  $AD9C,$10 Writes $00 to; #R$B05F, #R$AA06, #R$AA46, #R$AA08 and #R$AA48.
-  $ADAC,$05 Writes $02 to; #R$AF34.
+  $AD9C,$10 Write $00 to; #LIST { #R$B05F } { #R$AA06 } { #R$AA46 } { #R$AA08 } { #R$AA48 } LIST#
+  $ADAC,$05 Write $02 to; #LIST { #R$AF34 } LIST#
 
 c $AEBF Print the current Dan (or "NOVICE") message.
 @ $AEBF label=SHOW_RANK
@@ -1193,7 +1451,9 @@ g $B2FA Sound flag.
 
 c $B2FB
 
-b $B800 #UDGARRAY2,attr=7,scale=4,step=2,flip=2;(#PC)-(#PC+$11)-$01-$10(test-1)
+b $B800 UDGs
+B $B800,$08 #UDG(#PC,attr=56)
+L $B800,$08,$E0
 
 c $BF13
   $C100,$01 Return.

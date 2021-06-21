@@ -33,6 +33,30 @@ class WayOfTheExplodingFistHtmlWriter(HtmlWriter):
         frame = Frame(lambda: self.get_playarea_udgs(background), scale)
         return self.handle_image(frame, fname, cwd, path_id='PlayAreaImagePath')
 
+    def position_data(self, cwd, positioning, tiles, fname, scale=2):
+        udgs = []
+        for udg in self.get_playarea_udg(
+                self.unpack_data(positioning),
+                tiles
+            ):
+            udgs.append(udg)
+        frame = Frame(lambda: self.position_create_frame(udgs), scale)
+        return self.handle_image(frame, fname, cwd, path_id='PlayAreaImagePath')
+
+    def position_create_frame(self, udgs):
+        playarea_udgs = []
+        pos = 0
+        x = y = 0
+        w, h = 0x20, 0x18
+        for row in range(y, y + h):
+            playarea_udgs.append([])
+            for col in range(x, x + w):
+                playarea_udgs[-1].append(Udg(56, udgs[pos], x=x, y=y))
+                pos += 1
+                if pos >= len(udgs):
+                    return playarea_udgs
+        
+
     def unpack_data(self, address):
         data = []
         while True:
