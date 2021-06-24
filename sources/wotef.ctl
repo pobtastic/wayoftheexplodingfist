@@ -247,7 +247,7 @@ N $6022 Using the following attribute data byte as a counter, copy the current b
 
 b $602B Background 1 Address references.
 D $602B The data blocks containing UDG, positioning and attribute data.
-N $602B #CALL:background(background_1, 1, 1)
+N $602B #BACKGROUND1,1(background_1)
 @ $602B label=BACKGROUND_1_ADDRESSES
 W $602B,$04 Block 1.
 W $602F,$04 Block 2.
@@ -258,7 +258,7 @@ W $603B Attribute data.
 
 b $603D Background 2 Address references.
 D $603D The data blocks containing UDG, positioning and attribute data.
-N $603D #CALL:background(background_2, 2, 1)
+N $603D #BACKGROUND2,1(background_2)
 @ $603D label=BACKGROUND_2_ADDRESSES
 W $603D,$04 Block 1.
 W $6041,$04 Block 2.
@@ -269,7 +269,7 @@ W $604D Attribute data.
 
 b $604F Background 3 Address references.
 D $604F The data blocks containing UDG, positioning and attribute data.
-N $604F #CALL:background(background_3, 3, 1)
+N $604F #BACKGROUND3,1(background_3)
 @ $604F label=BACKGROUND_3_ADDRESSES
 W $604F,$04 Block 1.
 W $6053,$04 Block 2.
@@ -375,9 +375,11 @@ L $7F39,$08,$0E
 
 b $8000 Shadow buffer
 @ $8000 label=SHADOW_BUFFER
-D $8000 #SCR2,0,0,32,8,$8000,$8800 (shadow-screen)
+D $8000 A copy of $4820-$5020 for.
+N $8000 #SCR2,0,0,$20,$08,$8000 (shadow-screen)
 B $8000,$800,$20 Pixels
 
+c $8800
 c $8833
 
 c $8898
@@ -837,7 +839,7 @@ c $909E New round.
   $90C6,$09 Point to #R$B060($B064) and call #R$92E4.
   $90CF,$01 Return.
 
-c $90D0
+c $90D0 Intro music.
 B $90D0,$01
 @ $90D1 label=INTRO_MUSIC
   $90D1,$01 Disable interrupts.
@@ -998,17 +1000,32 @@ b $9368
 B $9413
 
 c $95D4
+  $95D4,$06 Call #R$95E1 using #R$AA16.
+  $95DA,$06 Call #R$95E1 using #R$AA56.
   $95E0,$01 Return.
 N $95E1 fffff
   $95E1,$01
+B $9743,$01
+B $9744,$01
 
 c $9745
 @ $9745 label=GAME_OVER
 
+  $975C,$05 Write $40 to #R$9C29.
+
+  $9768,$04 Write $00 to #R$9C29.
+
   $977C,$0A Clear the yin-yang images by writing $00 to #R$AA08 and #R$AA48 and calling #R$900E.
   $9786,$0A Clear the yin-yang images by writing $00 to #R$AA01 and #R$AA41 and calling #R$95D4, #R$BF13.
 
+  $9795,$05 Write $40 to #R$9C29.
+
+  $97BA,$01 Return.
+
   $97CA,$01 Return.
+  $97CB,$07 If #R$9C2C is not $00 then jump to #R$9827.
+  $97D4,$08 Write $01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
+
 N $97DC Should we start a 1 player game?
   $97DC,$05 Check if "1" key is pressed.
   $97E1,$02 If it is, jump to #R$97EF.
@@ -1048,7 +1065,7 @@ N $9827 Checks if "G" and "H" are being held to quit a game.
   $982C,$02 No keys were pressed, continue on to #R$983D.
   $982E,$05 Check if "G" key is pressed.
   $9833,$02 No keys were pressed, continue on to #R$983D.
-  $9835,$04 Writes $00 to #R$9C2C.
+  $9835,$04 Write $00 to; #LIST { #R$9C2C } LIST#
   $9839,$02 #REGa=$80.
   $983C,$01 Return.
 
@@ -1060,10 +1077,14 @@ N $9827 Checks if "G" and "H" are being held to quit a game.
   $98D3,$09 Point to #R$B03E and call #R$92E4.
   $98DC,$01 Return.
 
-b $9C28
-
+g $9C28
+g $9C29
+g $9C2A
+g $9C2B
 g $9C2C Number of players.
 @ $9C2C label=NUM_PLAYERS
+
+g $9C2D
 
 c $9C2E Game Entry Point.
 @ $9C2E label=GAME_START
@@ -1077,7 +1098,7 @@ c $9C2E Game Entry Point.
   $9C37,$03 Call #R$B138.
 
   $9C3A,$0B Copies a large chunk of code from $6000 to $5F00. See the .t2s file.
-  $9C45,$0B Writes $0000 to #R$C423 and #R$C425.
+  $9C45,$0B Write $0000 to; #LIST { #R$C423 } { #R$C425 } LIST#
   $9C50,$03 Jump to #R$AC05.
 
 c $9C53 Read Key Input.
@@ -1105,6 +1126,13 @@ N $9C53 Annotated by Stephen Jones; Spectrum Discovery Club.
 u $9C6E
 
 c $9C6F
+  $9C6F,$05 Return if #R$9C2B is not zero.
+  $9C74,$08 Return if #R$AA03 or #R$AA43 is not zero.
+  $9C7C,$06 Return if #R$AA04 is $17.
+  $9C82,$05 Decrease #R$9CA6 by one, return if it is not zero.
+  $9C87,$02 Write $0D to; #LIST { #R$9CA6 } LIST#
+  $9C89,$05 Call #R$9CA0 and jump to #R$9C93 if it is not zero.
+  $9C8E,$05 Write $01 to; #LIST { #R$9C2B } LIST#
 
 c $9C93 Print remaining time to the screen.
 @ $9C93 label=PRINT_TIME
@@ -1199,6 +1227,8 @@ g $AA01 1UP Yin-yang count.
 B $AA01,$01
 B $AA02,$01
 
+B $AA04,$01
+
 g $AA06 Is this demo mode?
 B $AA06,$01
 @ $AA06 label=IS_DEMO_MODE
@@ -1238,7 +1268,7 @@ T $AACC,$0C Whitespace?
 c $AB70 Demo mode.
 @ $AB70 label=DEMO_MODE
   $AB70,$01 #REGa=$00
-  $AB71,$06 Writes $00 to #R$B05F and #R$9C2C.
+  $AB71,$06 Write $00 to; #LIST { #R$B05F } { #R$9C2C } LIST#
   $AB77,$03 Call #R$A3FF.
 
   $AB8B,$08 Write $01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
@@ -1302,6 +1332,17 @@ N $AC3E fff
   $AD9C,$10 Write $00 to; #LIST { #R$B05F } { #R$AA06 } { #R$AA46 } { #R$AA08 } { #R$AA48 } LIST#
   $ADAC,$05 Write $02 to; #LIST { #R$AF34 } LIST#
 
+  $AE51,$04 Write $00 to; #LIST { #R$C427 } LIST#
+  $AE55,$02 Jump to #R$AE5C.
+  $AE57,$05 Write $01 to; #LIST { #R$C427 } LIST#
+  $AE5C,$05 Return if #R$9C28 is not zero.
+  $AE61,$06 Jump to #R$AE29 if #R$9C2B is not zero.
+  $AE67,$08 Write $1C to; #LIST { #R$AA0C } { #R$AA4C } LIST#
+  $AE6F,$03 Call #R$ACF0.
+  $AE72,$03 Call #R$AF1A.
+  $AE75,$03 Call #R$AF1A.
+  $AE78,$01 Return.
+
 c $AEBF Print the current Dan (or "NOVICE") message.
 @ $AEBF label=SHOW_RANK
 N $AEBF Should this be a Dan, or just "novice"?
@@ -1326,9 +1367,13 @@ N $AEE8 Print the result to screen.
   $AEF7,$01 Return.
 
 c $AEF8 Initialise time counter.
-C $AEF8,$05 Write $1E (30 seconds) to #R$9CA5.
-C $AEFD,$03 Call #R$9C93.
-C $AF00,$01 Return.
+@ $AEF8 label=INIT_TIME
+  $AEF8,$05 Write $1E (30 seconds) to #R$9CA5.
+  $AEFD,$03 Call #R$9C93.
+  $AF00,$01 Return.
+
+c $AF01
+  $AF0A,$01 Return.
 
 c $AF0B Resets score.
 @ $AF0B label=RESET_SCORE
@@ -1435,8 +1480,8 @@ b $B06A
 
 c $B138
 @ $B138 label=GAME_INIT
-  $B138,$05 Writes $01 to #R$B153.
-  $B13D,$06 Writes $FFFF to #R$B151.
+  $B138,$05 Write $01 to; #LIST { #R$B153 } LIST#
+  $B13D,$06 Write $FFFF to; #LIST { #R$B151 } LIST#
   $B143,$01 Return.
 N $B144 TODO.
 B $B144
@@ -1547,6 +1592,7 @@ g $C425
 W $C425
 b $C427
 
-B $D293,$40,$08 #UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
+B $D296,$40,$08 #UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
+B $D2F1,$4B,$05 #UDGARRAY5,scale=4,step=5;(#PC)-(#PC+$F2)-$08(test-3)
 
-B $EB6C,$40,$08 #UDGARRAY2,scale=4,step=2;(#PC)-(#PC+$10)-$10(test-3)
+B $EB6C,$40,$08 #UDGARRAY2,scale=4,step=2;(#PC)-(#PC+$10)-$10(test-4)

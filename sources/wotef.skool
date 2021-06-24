@@ -562,7 +562,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 ;
 ; .
 ;
-; #CALL:background(background_1, 1, 1)
+; #BACKGROUND1,1(background_1)
 @label=BACKGROUND_1_ADDRESSES
 b$602B DEFW $626A    ; {Block 1.
  $602D DEFW $6102    ; }
@@ -581,7 +581,7 @@ b$602B DEFW $626A    ; {Block 1.
 ;
 ; .
 ;
-; #CALL:background(background_2, 2, 1)
+; #BACKGROUND2,1(background_2)
 @label=BACKGROUND_2_ADDRESSES
 b$603D DEFW $6DAE    ; {Block 1.
  $603F DEFW $6C4B    ; }
@@ -600,7 +600,7 @@ b$603D DEFW $6DAE    ; {Block 1.
 ;
 ; .
 ;
-; #CALL:background(background_3, 3, 1)
+; #BACKGROUND3,1(background_3)
 @label=BACKGROUND_3_ADDRESSES
 b$604F DEFW $79B1    ; {Block 1.
  $6051 DEFW $784F    ; }
@@ -1731,7 +1731,11 @@ b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 
 ; Shadow buffer
 ;
-; #SCR2,0,0,32,8,$8000,$8800 (shadow-screen)
+; A copy of $4820-$5020 for.
+;
+; .
+;
+; #SCR2,0,0,$20,$08,$8000 (shadow-screen)
 @label=SHADOW_BUFFER
 b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,$00,$00,$80,$80,$40,$40,$20,$3F,$04,$02,$02,$01,$01,$00,$00 ; {Pixels
  $8020 DEFB $FF,$00,$00,$00,$00,$00,$80,$80,$80,$38,$1C,$0E,$07,$03,$01,$01,$00,$87,$87,$87,$87,$87,$87,$C7,$E7,$10,$20,$60,$80,$00,$00,$00 ;
@@ -1797,13 +1801,31 @@ b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,
  $87A0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $87C0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $87E0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; }
- $8800 DEFB $C3,$2E,$9C,$3A,$0E,$C4,$E6,$FE
- $8808 DEFB $CA,$13,$88,$3E,$01,$32,$0A,$8B
- $8810 DEFB $C3,$17,$88,$AF,$32,$0A,$8B,$3E
- $8818 DEFB $00,$32,$F3,$8A,$7E,$32,$1C,$8B
- $8820 DEFB $32,$1B,$8B,$47,$3A,$0A,$8B,$A7
- $8828 DEFB $CA,$32,$88,$3A,$1C,$8B,$3C,$32
- $8830 DEFB $1C,$8B,$23
+
+; Routine at 8800
+c$8800 JP $9C2E      ;
+; This entry point is used by the routine at #R$C2B5.
+*$8803 LD A,($C40E)  ;
+ $8806 AND $FE       ;
+ $8808 JP Z,$8813    ;
+ $880B LD A,$01      ;
+ $880D LD ($8B0A),A  ;
+ $8810 JP $8817      ;
+*$8813 XOR A         ;
+ $8814 LD ($8B0A),A  ;
+*$8817 LD A,$00      ;
+ $8819 LD ($8AF3),A  ;
+ $881C LD A,(HL)     ;
+ $881D LD ($8B1C),A  ;
+ $8820 LD ($8B1B),A  ;
+ $8823 LD B,A        ;
+ $8824 LD A,($8B0A)  ;
+ $8827 AND A         ;
+ $8828 JP Z,$8832    ;
+ $882B LD A,($8B1C)  ;
+ $882E INC A         ;
+ $882F LD ($8B1C),A  ;
+*$8832 INC HL        ;
 
 ; Routine at 8833
 ;
@@ -3056,7 +3078,7 @@ c$909E XOR A         ; {Write $00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02 }
  $90CC CALL $92E4    ; }
  $90CF RET           ; Return.
 
-; Routine at 90D0
+; Intro music.
 c$90D0 DEFB $1D             ;
 ; This entry point is used by the routine at #R$AC3E.
 @label=INTRO_MUSIC
@@ -3549,10 +3571,10 @@ b$9368 DEFB $00,$00,$A4,$93,$A8,$93,$FC,$93
 ; Routine at 95D4
 ;
 ; Used by the routines at #R$9745 and #R$AC3E.
-c$95D4 LD HL,$AA16   ;
- $95D7 CALL $95E1    ;
- $95DA LD HL,$AA56   ;
- $95DD CALL $95E1    ;
+c$95D4 LD HL,$AA16   ; {Call #R$95E1 using #R$AA16.
+ $95D7 CALL $95E1    ; }
+ $95DA LD HL,$AA56   ; {Call #R$95E1 using #R$AA56.
+ $95DD CALL $95E1    ; }
  $95E0 RET           ; Return.
 ; fffff
 *$95E1 LD A,(HL)     ;
@@ -3802,8 +3824,8 @@ c$95D4 LD HL,$AA16   ;
  $973D LD ($9744),A  ;
  $9740 JR NZ,$9727   ;
  $9742 RET           ;
- $9743 NOP           ;
- $9744 NOP           ;
+ $9743 DEFB $00      ;
+ $9744 DEFB $00      ;
 
 ; Routine at 9745
 ;
@@ -3818,13 +3840,13 @@ c$9745 CALL $9C6F    ;
  $9757 CALL $97CB    ;
  $975A AND A         ;
  $975B RET M         ;
- $975C LD A,$40      ;
- $975E LD ($9C29),A  ;
+ $975C LD A,$40      ; {Write $40 to #R$9C29.
+ $975E LD ($9C29),A  ; }
  $9761 LD C,$00      ;
  $9763 CALL $97BB    ;
  $9766 LD C,$40      ;
- $9768 XOR A         ;
- $9769 LD ($9C29),A  ;
+ $9768 XOR A         ; {Write $00 to #R$9C29.
+ $9769 LD ($9C29),A  ; }
  $976C CALL $97BB    ;
  $976F LD A,($9C2C)  ;
  $9772 CP $02        ;
@@ -3842,8 +3864,8 @@ c$9745 CALL $9C6F    ;
 *$978D CALL $95D4    ; }
  $9790 CALL $BF13    ;
  $9793 LD C,$00      ;
- $9795 LD A,$40      ;
- $9797 LD ($9C29),A  ;
+ $9795 LD A,$40      ; {Write $40 to #R$9C29.
+ $9797 LD ($9C29),A  ; }
  $979A CALL $9AD7    ;
  $979D CALL $9B9D    ;
  $97A0 LD C,$40      ;
@@ -3857,20 +3879,20 @@ c$9745 CALL $9C6F    ;
  $97B3 LD A,($AA59)  ;
  $97B6 LD ($AA76),A  ;
  $97B9 XOR A         ;
- $97BA RET           ;
+ $97BA RET           ; Return.
 *$97BB CALL $9B93    ;
  $97BE CALL $9920    ;
  $97C1 CALL $9994    ;
  $97C4 CALL $9AA1    ;
  $97C7 CALL $9B9D    ;
  $97CA RET           ; Return.
-*$97CB LD A,($9C2C)  ;
+*$97CB LD A,($9C2C)  ; {If #R$9C2C is not $00 then jump to #R$9827.
  $97CE AND A         ;
- $97CF JP NZ,$9827   ;
+ $97CF JP NZ,$9827   ; }
  $97D2 LD A,R        ;
- $97D4 LD A,$01      ;
+ $97D4 LD A,$01      ; {Write $01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
  $97D6 LD ($AA46),A  ;
- $97D9 LD ($AA06),A  ;
+ $97D9 LD ($AA06),A  ; }
 ; Should we start a 1 player game?
  $97DC LD A,$24      ; {Check if "1" key is pressed.
  $97DE CALL $9C53    ; }
@@ -3920,7 +3942,7 @@ c$9745 CALL $9C6F    ;
  $982E LD A,$06      ; {Check if "G" key is pressed.
  $9830 CALL $9C53    ; }
  $9833 JR C,$983D    ; No keys were pressed, continue on to #R$983D.
- $9835 XOR A         ; {Writes $00 to #R$9C2C.
+ $9835 XOR A         ; {Write $00 to; #LIST { #R$9C2C } LIST#
  $9836 LD ($9C2C),A  ; }
  $9839 LD A,$80      ; #REGa=$80.
  $983B AND A         ;
@@ -4532,14 +4554,28 @@ c$9745 CALL $9C6F    ;
  $9C25 LD A,$01      ;
  $9C27 RET           ;
 
-; Data block at 9C28
-b$9C28 DEFB $00,$00,$00,$01
+; Game status buffer entry at 9C28
+g$9C28 DEFB $00
+
+; Game status buffer entry at 9C29
+g$9C29 DEFB $00
+
+; Game status buffer entry at 9C2A
+g$9C2A DEFB $00
+
+; Game status buffer entry at 9C2B
+g$9C2B DEFB $01
 
 ; Number of players.
 @label=NUM_PLAYERS
-g$9C2C DEFB $00,$00
+g$9C2C DEFB $00
+
+; Game status buffer entry at 9C2D
+g$9C2D DEFB $00
 
 ; Game Entry Point.
+;
+; Used by the routine at #R$8800.
 @label=GAME_START
 c$9C2E DI            ; Disable interrupts.
  $9C2F LD A,$05      ; {Set border colour to cyan.
@@ -4554,7 +4590,7 @@ c$9C2E DI            ; Disable interrupts.
  $9C3D LD HL,$6000   ; the .t2s file.
  $9C40 LD BC,$2100   ;
  $9C43 LDIR          ; }
- $9C45 LD A,$00      ; {Writes $0000 to #R$C423 and #R$C425.
+ $9C45 LD A,$00      ; {Write $0000 to; #LIST { #R$C423 } { #R$C425 } LIST#
  $9C47 LD L,A        ;
  $9C48 LD H,$00      ;
  $9C4A LD ($C423),HL ;
@@ -4596,24 +4632,24 @@ u$9C6E DEFB $00
 ; Routine at 9C6F
 ;
 ; Used by the routine at #R$9745.
-c$9C6F LD A,($9C2B)  ;
+c$9C6F LD A,($9C2B)  ; {Return if #R$9C2B is not zero.
  $9C72 AND A         ;
- $9C73 RET NZ        ;
- $9C74 LD A,($AA03)  ;
+ $9C73 RET NZ        ; }
+ $9C74 LD A,($AA03)  ; {Return if #R$AA03 or #R$AA43 is not zero.
  $9C77 LD HL,$AA43   ;
  $9C7A OR (HL)       ;
- $9C7B RET NZ        ;
- $9C7C LD A,($AA04)  ;
+ $9C7B RET NZ        ; }
+ $9C7C LD A,($AA04)  ; {Return if #R$AA04 is $17.
  $9C7F CP $17        ;
- $9C81 RET Z         ;
- $9C82 LD HL,$9CA6   ;
+ $9C81 RET Z         ; }
+ $9C82 LD HL,$9CA6   ; {Decrease #R$9CA6 by one, return if it is not zero.
  $9C85 DEC (HL)      ;
- $9C86 RET NZ        ;
- $9C87 LD (HL),$0D   ;
- $9C89 CALL $9CA0    ;
- $9C8C JR NZ,$9C93   ;
- $9C8E LD A,$01      ;
- $9C90 LD ($9C2B),A  ;
+ $9C86 RET NZ        ; }
+ $9C87 LD (HL),$0D   ; Write $0D to; #LIST { #R$9CA6 } LIST#
+ $9C89 CALL $9CA0    ; {Call #R$9CA0 and jump to #R$9C93 if it is not zero.
+ $9C8C JR NZ,$9C93   ; }
+ $9C8E LD A,$01      ; {Write $01 to; #LIST { #R$9C2B } LIST#
+ $9C90 LD ($9C2B),A  ; }
 
 ; Print remaining time to the screen.
 ;
@@ -6191,7 +6227,9 @@ g$A6B7 DEFB $00,$F8,$40,$40,$40,$40,$F0,$0F
 @label=P1_YIN_YANG
 g$AA01 DEFB $00
  $AA02 DEFB $00
- $AA03 DEFB $00,$00,$00
+ $AA03 DEFB $00
+ $AA04 DEFB $00
+ $AA05 DEFB $00
 
 ; Is this demo mode?
 @label=IS_DEMO_MODE
@@ -6274,7 +6312,7 @@ t$AA9C DEFM $00
 ; Used by the routine at #R$AC05.
 @label=DEMO_MODE
 c$AB70 XOR A         ; #REGa=$00
- $AB71 LD ($B05F),A  ; {Writes $00 to #R$B05F and #R$9C2C.
+ $AB71 LD ($B05F),A  ; {Write $00 to; #LIST { #R$B05F } { #R$9C2C } LIST#
  $AB74 LD ($9C2C),A  ; }
  $AB77 CALL $A3FF    ; Call #R$A3FF.
  $AB7A AND $03       ;
@@ -6611,24 +6649,24 @@ c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
  $AE4D LD A,(HL)     ;
  $AE4E AND A         ;
  $AE4F JR NZ,$AE57   ;
-*$AE51 XOR A         ;
- $AE52 LD ($C427),A  ;
- $AE55 JR $AE5C      ;
-*$AE57 LD A,$01      ;
- $AE59 LD ($C427),A  ;
-*$AE5C LD A,($9C28)  ;
+*$AE51 XOR A         ; {Write $00 to; #LIST { #R$C427 } LIST#
+ $AE52 LD ($C427),A  ; }
+ $AE55 JR $AE5C      ; Jump to #R$AE5C.
+*$AE57 LD A,$01      ; {Write $01 to; #LIST { #R$C427 } LIST#
+ $AE59 LD ($C427),A  ; }
+*$AE5C LD A,($9C28)  ; {Return if #R$9C28 is not zero.
  $AE5F AND A         ;
- $AE60 RET NZ        ;
- $AE61 LD A,($9C2B)  ;
+ $AE60 RET NZ        ; }
+ $AE61 LD A,($9C2B)  ; {Jump to #R$AE29 if #R$9C2B is not zero.
  $AE64 AND A         ;
- $AE65 JR Z,$AE29    ;
- $AE67 LD A,$1C      ;
+ $AE65 JR Z,$AE29    ; }
+ $AE67 LD A,$1C      ; {Write $1C to; #LIST { #R$AA0C } { #R$AA4C } LIST#
  $AE69 LD ($AA0C),A  ;
- $AE6C LD ($AA4C),A  ;
- $AE6F CALL $ACF0    ;
- $AE72 CALL $AF1A    ;
- $AE75 CALL $AF1A    ;
-*$AE78 RET           ;
+ $AE6C LD ($AA4C),A  ; }
+ $AE6F CALL $ACF0    ; Call #R$ACF0.
+ $AE72 CALL $AF1A    ; Call #R$AF1A.
+ $AE75 CALL $AF1A    ; Call #R$AF1A.
+*$AE78 RET           ; Return.
  $AE79 RET           ;
 ; This entry point is used by the routine at #R$AB70.
 *$AE7A LD A,$19      ;
@@ -6706,16 +6744,20 @@ c$AEBF LD HL,$0122   ; {Grab #R$B05F.
 ; Initialise time counter.
 ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
+@label=INIT_TIME
 c$AEF8 LD A,$1E      ; {Write $1E (30 seconds) to #R$9CA5.
  $AEFA LD ($9CA5),A  ; }
  $AEFD CALL $9C93    ; Call #R$9C93.
  $AF00 RET           ; Return.
-; This entry point is used by the routines at #R$9745, #R$AB70 and #R$AC3E.
-*$AF01 LD A,($AA03)  ;
+
+; Routine at AF01
+;
+; Used by the routines at #R$9745, #R$AB70 and #R$AC3E.
+c$AF01 LD A,($AA03)  ;
  $AF04 LD HL,$AA43   ;
  $AF07 XOR (HL)      ;
  $AF08 AND $10       ;
- $AF0A RET           ;
+ $AF0A RET           ; Return.
 
 ; Resets score.
 ;
@@ -6965,10 +7007,10 @@ b$B06A DEFB $FF,$FE,$83,$01,$FE,$FE,$83,$07
 ;
 ; Used by the routine at #R$9C2E.
 @label=GAME_INIT
-c$B138 LD A,$01                             ; {Writes $01 to #R$B153.
- $B13A LD ($B153),A                         ; }
- $B13D LD HL,$FFFF                          ; {Writes $FFFF to #R$B151.
- $B140 LD ($B151),HL                        ; }
+c$B138 LD A,$01                             ; {Write $01 to; #LIST { #R$B153 }
+ $B13A LD ($B153),A                         ; LIST#}
+ $B13D LD HL,$FFFF                          ; {Write $FFFF to; #LIST { #R$B151
+ $B140 LD ($B151),HL                        ; } LIST#}
  $B143 RET                                  ; Return.
 ; TODO.
  $B144 DEFB $79,$B1,$85,$B1,$91,$B1,$9D,$B1 ;
@@ -9703,804 +9745,809 @@ b$C427 DEFB $00,$00,$00,$00,$00,$1E,$1E,$78
  $D277 DEFB $03,$08,$46,$CB,$05,$E4,$5A,$CB
  $D27F DEFB $C6,$3C,$22,$CB,$18,$C4,$32,$CB
  $D287 DEFB $35,$1C,$12,$CB,$05,$0E,$12,$CB
- $D28F DEFB $05,$82,$11,$CB
- $D293 DEFB $05,$84,$11,$CB,$02,$0C,$11,$CB ; {#UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
- $D29B DEFB $01,$24,$11,$CB,$06,$18,$31,$CB ;
- $D2A3 DEFB $1E,$0F,$F9,$CB,$3F,$1F,$FF,$CB ;
- $D2AB DEFB $7F,$1F,$FF,$CB,$FF,$DF,$FE,$CB ;
- $D2B3 DEFB $FF,$CF,$F8,$CB,$FF,$FF,$F0,$CB ;
- $D2BB DEFB $FE,$FF,$E0,$CB,$FE,$FF,$C0,$CB ;
- $D2C3 DEFB $FE,$FF,$80,$CB,$7F,$7F,$80,$CA ;
- $D2CB DEFB $3F,$BF,$CA,$3F,$DF,$CA,$1F,$FF ; }
- $D2D3 DEFB $CA,$17,$F7,$CA,$19,$C1,$CB,$17
- $D2DB DEFB $C0,$C0,$CB,$18,$F0,$38,$CB,$3F
- $D2E3 DEFB $18,$08,$CB,$3E,$1F,$84,$CB,$7E
- $D2EB DEFB $F7,$64,$CB,$FE,$F7,$98,$CB,$FE
- $D2F3 DEFB $F7,$80,$84,$01,$FF,$F7,$C0,$84
- $D2FB DEFB $01,$FF,$FF,$C0,$84,$03,$FF,$FF
- $D303 DEFB $E0,$84,$03,$FF,$FF,$E0,$84,$07
- $D30B DEFB $FF,$0F,$F0,$84,$07,$FC,$07,$F0
- $D313 DEFB $84,$0F,$F8,$03,$F0,$84,$0F,$F8
- $D31B DEFB $03,$F0,$84,$0F,$F0,$01,$F0,$84
- $D323 DEFB $1F,$E0,$01,$F0,$84,$1F,$C1,$B1
- $D32B DEFB $F8,$84,$1F,$C3,$6C,$F8,$84,$1F
- $D333 DEFB $96,$DB,$F8,$84,$1E,$6D,$B6,$B6
- $D33B DEFB $85,$26,$5B,$6D,$A1,$80,$85,$41
- $D343 DEFB $36,$1A,$80,$60,$85,$81,$60,$01
- $D34B DEFB $40,$20,$85,$FE,$00,$00,$7F,$C0
- $D353 DEFB $00,$36,$01,$00,$FD,$36,$02,$00
- $D35B DEFB $E1,$01,$1C,$46,$00,$1B,$AF,$00
- $D363 DEFB $07,$D1,$F0,$CA,$03,$08,$CA,$04
- $D36B DEFB $E8,$CA,$07,$3C,$CA,$38,$C4,$CA
- $D373 DEFB $09,$1C,$CA,$09,$0E,$CA,$0A,$82
- $D37B DEFB $CA,$0E,$84,$CA,$02,$0C,$CA,$02
- $D383 DEFB $44,$CA,$06,$3F,$CB,$1E,$1F,$C0
- $D38B DEFB $CB,$3F,$1F,$F8,$CB,$7F,$1F,$FE
- $D393 DEFB $CB,$FF,$3F,$FE,$CB,$FF,$3C,$FF
- $D39B DEFB $84,$01,$FF,$FF,$FE,$84,$01,$FB
- $D3A3 DEFB $FF,$39,$85,$03,$FB,$FF,$04,$80
- $D3AB DEFB $85,$03,$F7,$FE,$FC,$60,$85,$03
- $D3B3 DEFB $F7,$F9,$FC,$70,$85,$07,$EF,$BF
- $D3BB DEFB $FE,$30,$85,$07,$FC,$FF,$FE,$10
- $D3C3 DEFB $85,$07,$FB,$FD,$FE,$30,$85,$07
- $D3CB DEFB $FF,$FE,$72,$F0,$85,$06,$DC,$FF
- $D3D3 DEFB $DF,$F0,$85,$04,$4F,$3F,$E7,$E0
- $D3DB DEFB $85,$04,$4F,$DF,$F7,$F8,$85,$04
- $D3E3 DEFB $53,$DF,$F7,$C4,$85,$02,$53,$FF
- $D3EB DEFB $FB,$82,$85,$02,$53,$FF,$F4,$02
- $D3F3 DEFB $85,$02,$53,$FF,$E3,$FC,$85,$04
- $D3FB DEFB $51,$FF,$8D,$B0,$85,$1C,$31,$80
- $D403 DEFB $DB,$60,$85,$21,$98,$4D,$B6,$D8
- $D40B DEFB $85,$3E,$67,$DB,$6D,$B0,$00,$2B
- $D413 DEFB $FD,$7E,$02,$77,$2B,$FD,$7E,$01
- $D41B DEFB $1C,$46,$00,$21,$A4,$00,$07,$CA
- $D423 DEFB $18,$38,$CA,$06,$C6,$CA,$19,$01
- $D42B DEFB $CA,$07,$03,$CA,$02,$FD,$CA,$02
- $D433 DEFB $01,$CA,$02,$7D,$CA,$06,$83,$CA
- $D43B DEFB $1F,$77,$CB,$3E,$25,$C0,$CB,$FF
- $D443 DEFB $01,$F0,$CB,$FF,$19,$F8,$CB,$FF
- $D44B DEFB $99,$F8,$84,$01,$F9,$43,$FC,$84
- $D453 DEFB $01,$F7,$BF,$FE,$84,$01,$F7,$C7
- $D45B DEFB $7E,$84,$01,$F1,$E7,$7E,$84,$03
- $D463 DEFB $EE,$FF,$BF,$85,$03,$FF,$7F,$BE
- $D46B DEFB $C0,$85,$03,$FF,$BF,$BF,$F8,$85
- $D473 DEFB $07,$DF,$DE,$B3,$FE,$86,$07,$DF
- $D47B DEFB $ED,$E1,$FF,$C0,$86,$07,$DF,$F6
- $D483 DEFB $E1,$FF,$F0,$86,$07,$DF,$F6,$E1
- $D48B DEFB $FF,$F8,$86,$05,$DF,$F7,$E1,$FF
- $D493 DEFB $FF,$87,$05,$07,$D4,$F1,$FF,$FF
- $D49B DEFB $F0,$87,$09,$07,$18,$11,$FF,$FF
- $D4A3 DEFB $1F,$87,$31,$00,$8C,$11,$1F,$FF
- $D4AB DEFB $01,$87,$40,$DB,$0E,$20,$80,$FE
- $D4B3 DEFB $03,$87,$86,$76,$02,$CC,$DB,$7F
- $D4BB DEFB $C2,$87,$79,$ED,$FC,$73,$B6,$DF
- $D4C3 DEFB $3E,$00,$28,$1B,$FE,$23,$D8,$FE
- $D4CB DEFB $26,$38,$01,$1C,$46,$00,$0C,$CC
- $D4D3 DEFB $00,$07,$E1,$E0,$DA,$03,$18,$DA
- $D4DB DEFB $04,$C4,$DA,$3F,$3C,$DA,$D8,$C4
- $D4E3 DEFB $DA,$09,$1C,$DA,$09,$0E,$DA,$0A
- $D4EB DEFB $82,$DA,$0A,$84,$DA,$04,$0C,$DA
- $D4F3 DEFB $04,$44,$DA,$1E,$38,$DA,$3E,$18
- $D4FB DEFB $DA,$FE,$3E,$D3,$01,$FF,$3E,$D3
- $D503 DEFB $03,$F7,$3F,$D5,$07,$F7,$FF,$00
- $D50B DEFB $70,$D5,$07,$EF,$FF,$00,$98,$D5
- $D513 DEFB $07,$EF,$FF,$C7,$88,$D5,$07,$F7
- $D51B DEFB $FF,$F8,$48,$D5,$03,$DF,$FF,$C0
- $D523 DEFB $F0,$D4,$01,$FF,$FF,$03,$DB,$F9
- $D52B DEFB $FF,$0C,$D4,$01,$F8,$FA,$F0,$D4
- $D533 DEFB $03,$30,$31,$80,$D3,$07,$F0,$10
- $D53B DEFB $D3,$07,$FF,$18,$D3,$07,$FF,$C8
- $D543 DEFB $D3,$07,$FF,$C8,$D3,$07,$FF,$C8
- $D54B DEFB $D3,$03,$FF,$F8,$D3,$01,$F7,$C0
- $D553 DEFB $DA,$9F,$C0,$D3,$01,$BF,$C0,$D3
- $D55B DEFB $01,$7F,$C0,$D3,$01,$FF,$80,$D3
- $D563 DEFB $07,$FF,$80,$D2,$07,$FF,$D2,$19
- $D56B DEFB $3E,$D2,$10,$DA,$D2,$18,$36,$D2
- $D573 DEFB $06,$2E,$D2,$01,$3C,$D2,$01,$FC
- $D57B DEFB $D2,$01,$F8,$D2,$01,$F8,$D5,$01
- $D583 DEFB $FB,$00,$00,$D8,$D5,$01,$B6,$DB
- $D58B DEFB $6D,$B0,$D5,$03,$1D,$B6,$DB,$60
- $D593 DEFB $D4,$05,$0B,$6D,$B0,$D3,$04,$06
- $D59B DEFB $C0,$D2,$07,$FC,$00,$4E,$C3,$12
- $D5A3 DEFB $C3,$13,$50,$CF,$14,$01,$1C,$46
- $D5AB DEFB $00,$10,$06,$01,$07,$81,$F0,$81
- $D5B3 DEFB $98,$81,$84,$81,$83,$82,$C0,$C0
- $D5BB DEFB $82,$38,$38,$86,$04,$1E,$00,$01
- $D5C3 DEFB $F0,$02,$86,$02,$1F,$00,$07,$FE
- $D5CB DEFB $01,$87,$01,$3F,$C0,$1F,$FF,$01
- $D5D3 DEFB $C0,$CE,$FF,$E0,$1F,$FF,$C2,$30
- $D5DB DEFB $CE,$FF,$F0,$1F,$FF,$F7,$08,$CE
- $D5E3 DEFB $3F,$F8,$11,$FE,$F8,$88,$CE,$0F
- $D5EB DEFB $FF,$10,$F9,$F1,$D6,$CE,$07,$FF
- $D5F3 DEFB $F0,$F9,$F0,$32,$CE,$03,$FF,$F1
- $D5FB DEFB $C7,$C0,$D2,$CE,$01,$FF,$C1,$FF
- $D603 DEFB $C6,$D2,$D5,$FF,$C1,$FF,$06,$1E
- $D60B DEFB $D5,$7F,$07,$FE,$10,$D8,$D5,$1F
- $D613 DEFB $05,$FF,$18,$F0,$D4,$0F,$05,$FF
- $D61B DEFB $FF,$D4,$07,$18,$FF,$FF,$D5,$07
- $D623 DEFB $F8,$FF,$FF,$80,$D5,$07,$FA,$FF
- $D62B DEFB $FF,$C0,$D5,$03,$FA,$FF,$FF,$C0
- $D633 DEFB $D5,$03,$F7,$7E,$3F,$E0,$D5,$03
- $D63B DEFB $F7,$70,$3F,$F0,$D5,$01,$FF,$00
- $D643 DEFB $1F,$F8,$D5,$01,$FF,$00,$1F,$F8
- $D64B DEFB $DC,$FF,$00,$07,$CC,$DC,$FF,$00
- $D653 DEFB $07,$C6,$D5,$01,$FF,$00,$01,$A2
- $D65B DEFB $D5,$01,$FF,$00,$00,$11,$D5,$01
- $D663 DEFB $FE,$00,$00,$09,$D5,$01,$FE,$00
- $D66B DEFB $00,$05,$D5,$01,$FE,$00,$00,$05
- $D673 DEFB $DC,$FE,$00,$00,$05,$DC,$FE,$00
- $D67B DEFB $00,$06,$D9,$FE,$D9,$FE,$D9,$FE
- $D683 DEFB $84,$36,$C0,$00,$FC,$86,$6D,$B6
- $D68B DEFB $D0,$FC,$01,$B6,$87,$1B,$6D,$B7
- $D693 DEFB $FC,$1B,$6D,$80,$CE,$DB,$6C,$F5
- $D69B DEFB $B6,$DB,$60,$CE,$36,$DB,$22,$6D
- $D6A3 DEFB $B6,$DB,$D5,$06,$41,$9B,$61,$B6
- $D6AB DEFB $D5,$01,$40,$70,$00,$01,$DA,$FF
- $D6B3 DEFB $C0,$00,$60,$7E,$FE,$2F,$28,$04
- $D6BB DEFB $ED,$A0,$02,$1C,$46,$00,$0C,$D7
- $D6C3 DEFB $00,$07,$CA,$07,$C0,$CA,$18,$20
- $D6CB DEFB $CA,$27,$10,$CA,$78,$F0,$CA,$A1
- $D6D3 DEFB $10,$83,$01,$22,$70,$CA,$26,$38
- $D6DB DEFB $CA,$25,$08,$CA,$15,$10,$CA,$18
- $D6E3 DEFB $30,$CA,$04,$90,$CA,$18,$70,$CA
- $D6EB DEFB $3F,$40,$CA,$FF,$F0,$83,$01,$FF
- $D6F3 DEFB $F8,$83,$03,$FF,$FE,$84,$07,$FF
- $D6FB DEFB $FF,$C0,$85,$07,$FF,$FF,$FE,$04
- $D703 DEFB $85,$07,$FF,$FF,$F8,$1C,$85,$07
- $D70B DEFB $BF,$3F,$F8,$F0,$84,$07,$BF,$DF
- $D713 DEFB $FF,$84,$01,$FF,$F7,$E8,$84,$01
- $D71B DEFB $FF,$F0,$78,$CA,$FF,$F0,$CA,$3F
- $D723 DEFB $F0,$CA,$07,$C0,$CA,$30,$18,$CA
- $D72B DEFB $3F,$18,$CA,$3F,$DC,$CA,$3F,$BC
- $D733 DEFB $CA,$3F,$BC,$CA,$7F,$FE,$CA,$7F
- $D73B DEFB $FF,$CB,$7F,$FF,$80,$CB,$7F,$FF
- $D743 DEFB $80,$CB,$7F,$FF,$C0,$CB,$FF,$BF
- $D74B DEFB $C0,$CB,$FF,$1F,$C0,$84,$01,$FF
- $D753 DEFB $1F,$C0,$84,$03,$FF,$1F,$C0,$84
- $D75B DEFB $03,$FE,$0F,$C0,$84,$07,$FE,$0F
- $D763 DEFB $C0,$84,$0F,$FC,$0F,$C0,$84,$0F
- $D76B DEFB $F8,$0F,$C0,$84,$1F,$F0,$0F,$C0
- $D773 DEFB $84,$3F,$C0,$1F,$C0,$84,$3F,$36
- $D77B DEFB $DF,$C0,$85,$2B,$6D,$BF,$C3,$60
- $D783 DEFB $85,$21,$9B,$66,$36,$D8,$85,$40
- $D78B DEFB $F6,$C8,$0D,$B6,$85,$40,$2C,$38
- $D793 DEFB $02,$6C,$84,$3F,$F0,$0F,$FE,$00
- $D79B DEFB $00,$1A,$09,$00,$07,$E1,$3C,$E1
- $D7A3 DEFB $C4,$DA,$03,$04,$00,$3D,$CD,$EE
- $D7AB DEFB $92,$18,$08,$E3,$CB,$02,$1C,$46
- $D7B3 DEFB $00,$FF,$1E,$00,$07,$C9,$DB,$83
- $D7BB DEFB $0D,$B6,$DB,$84,$1B,$6D,$B6,$D8
- $D7C3 DEFB $85,$36,$DB,$6D,$B6,$D8,$85,$6D
- $D7CB DEFB $B0,$1B,$6D,$B4,$DA,$DB,$6C,$D9
- $D7D3 DEFB $36,$00,$00,$07,$C1,$00,$07,$D9
- $D7DB DEFB $6C,$DA,$1F,$80,$DA,$22,$40,$DA
- $D7E3 DEFB $61,$A0,$DA,$42,$A0,$D3,$01,$ED
- $D7EB DEFB $D0,$D3,$01,$91,$B0,$D3,$7F,$93
- $D7F3 DEFB $70,$CC,$03,$FF,$83,$50,$CC,$0F
- $D7FB DEFB $FF,$E0,$60,$CC,$1F,$FF,$65,$80
- $D803 DEFB $CB,$6F,$FF,$BE,$84,$01,$EF,$FF
- $D80B DEFB $E0,$84,$01,$F7,$EF,$E0,$84,$03
- $D813 DEFB $F3,$EF,$E0,$84,$03,$F9,$F7,$E0
- $D81B DEFB $84,$03,$FD,$FB,$E0,$84,$03,$FC
- $D823 DEFB $FB,$E0,$84,$03,$FF,$8F,$E0,$84
- $D82B DEFB $03,$FF,$C3,$E0,$84,$03,$FF,$E3
- $D833 DEFB $D0,$84,$03,$FD,$F3,$90,$84,$01
- $D83B DEFB $FD,$F1,$08,$84,$01,$FD,$F8,$C4
- $D843 DEFB $84,$01,$FF,$7C,$66,$CB,$7F,$7C
- $D84B DEFB $11,$84,$03,$BF,$7C,$11,$84,$1F
- $D853 DEFB $BF,$BC,$09,$84,$63,$BF,$BC,$12
- $D85B DEFB $84,$47,$EF,$B8,$14,$84,$4B,$7F
- $D863 DEFB $E0,$18,$83,$43,$7F,$80,$82,$47
- $D86B DEFB $FF,$82,$4C,$7F,$82,$48,$7F,$82
- $D873 DEFB $48,$7F,$82,$50,$7F,$82,$60,$7F
- $D87B DEFB $C9,$7E,$C9,$7C,$C9,$FC,$C9,$BC
- $D883 DEFB $C9,$90,$82,$01,$90,$82,$01,$08
- $D88B DEFB $82,$01,$08,$82,$01,$08,$C9,$88
- $D893 DEFB $C9,$84,$C9,$42,$C9,$3E,$00,$94
- $D89B DEFB $32,$5C,$94,$32,$6E,$94,$32,$02
- $D8A3 DEFB $1C,$46,$00,$FF,$23,$00,$07,$CA
- $D8AB DEFB $01,$80,$85,$36,$DB,$6D,$B6,$D0
- $D8B3 DEFB $85,$6D,$B6,$DB,$6D,$B6,$85,$5B
- $D8BB DEFB $6D,$B6,$DB,$6C,$85,$36,$DB,$6D
- $D8C3 DEFB $B6,$D8,$CA,$36,$DB,$CA,$01,$B0
- $D8CB DEFB $00,$00,$02,$77,$00,$07,$CB,$07
- $D8D3 DEFB $FF,$C0,$CB,$1E,$FF,$F0,$CB,$3E
- $D8DB DEFB $FF,$F8,$CB,$3F,$3F,$FC,$CC,$7F
- $D8E3 DEFB $3F,$FE,$40,$CC,$7F,$BF,$FE,$20
- $D8EB DEFB $CC,$F9,$BE,$FF,$F0,$CC,$FE,$BE
- $D8F3 DEFB $3F,$28,$CC,$FF,$3D,$FD,$94,$CC
- $D8FB DEFB $FF,$DD,$F8,$52,$CC,$FF,$DB,$F9
- $D903 DEFB $EA,$CC,$FF,$F7,$F0,$3A,$CC,$3F
- $D90B DEFB $F7,$E0,$12,$CC,$3F,$F9,$D0,$52
- $D913 DEFB $CC,$1F,$F0,$F4,$D4,$CC,$07,$E1
- $D91B DEFB $8E,$F8,$D3,$C3,$C1,$80,$84,$01
- $D923 DEFB $9F,$C7,$E0,$84,$06,$FF,$87,$F0
- $D92B DEFB $84,$19,$1F,$89,$F0,$84,$30,$3F
- $D933 DEFB $0F,$F0,$84,$40,$FF,$1F,$F0,$84
- $D93B DEFB $47,$3F,$1F,$F0,$84,$78,$39,$1F
- $D943 DEFB $C0,$D1,$F0,$00,$1B,$B7,$C9,$47
- $D94B DEFB $F5,$95,$90,$4F,$02,$1C,$46,$00
- $D953 DEFB $FF,$1B,$00,$07,$EA,$6D,$B0,$D5
- $D95B DEFB $03,$6D,$B6,$DB,$68,$D5,$06,$DB
- $D963 DEFB $6D,$B6,$D8,$D5,$01,$B6,$DB,$6D
- $D96B DEFB $A0,$E3,$B6,$C3,$60,$00,$00,$01
- $D973 DEFB $9A,$00,$07,$E9,$01,$EA,$02,$80
- $D97B DEFB $EA,$02,$80,$EA,$02,$80,$EA,$02
- $D983 DEFB $40,$EA,$02,$40,$EA,$04,$40,$EA
- $D98B DEFB $14,$20,$EA,$38,$20,$EA,$FB,$40
- $D993 DEFB $E3,$01,$FD,$80,$E2,$07,$FF,$E2
- $D99B DEFB $FF,$FE,$E2,$9F,$FE,$E2,$9F,$F8
- $D9A3 DEFB $E2,$87,$F0,$E2,$C7,$C0,$E2,$C7
- $D9AB DEFB $F0,$E2,$C1,$FE,$E2,$F1,$FF,$DC
- $D9B3 DEFB $18,$31,$FF,$C0,$D5,$01,$F7,$11
- $D9BB DEFB $FF,$F0,$D5,$02,$B2,$90,$FF,$F0
- $D9C3 DEFB $D5,$02,$A0,$90,$FF,$F8,$D5,$04
- $D9CB DEFB $80,$B0,$FF,$F8,$D5,$05,$41,$F0
- $D9D3 DEFB $BF,$F8,$D5,$05,$31,$F1,$9F,$F8
- $D9DB DEFB $D5,$04,$98,$3E,$EF,$F8,$D5,$02
- $D9E3 DEFB $A0,$FE,$F7,$F8,$D5,$02,$99,$FD
- $D9EB DEFB $F7,$F8,$D5,$01,$45,$FD,$F9,$F8
- $D9F3 DEFB $DC,$FF,$F9,$F9,$F8,$DC,$41,$F7
- $D9FB DEFB $FE,$F8,$DC,$41,$FF,$FF,$30,$DC
- $DA03 DEFB $20,$FF,$FF,$F0,$E3,$3F,$FF,$C0
- $DA0B DEFB $E2,$07,$FE,$00,$CD,$52,$97,$D4
- $DA13 DEFB $07,$97,$E1,$18,$02,$1C,$46,$00
- $DA1B DEFB $FF,$20,$00,$07,$DC,$01,$B0,$00
- $DA23 DEFB $6D,$DC,$1B,$6D,$B6,$DB,$DC,$36
- $DA2B DEFB $DB,$6D,$B6,$DC,$0D,$B6,$DB,$60
- $DA33 DEFB $DC,$1B,$6C,$00,$DB,$DC,$06,$C0
- $DA3B DEFB $01,$B6,$00,$00,$03,$96,$00,$07
- $DA43 DEFB $DA,$01,$C0,$DA,$06,$30,$DA,$18
- $DA4B DEFB $10,$DA,$16,$F0,$DA,$39,$10,$DA
- $DA53 DEFB $D2,$70,$DA,$12,$38,$DA,$15,$08
- $DA5B DEFB $DA,$0D,$10,$DA,$04,$30,$DA,$06
- $DA63 DEFB $10,$DA,$1F,$70,$DB,$1F,$C0,$38
- $DA6B DEFB $DB,$3F,$C0,$48,$DB,$3F,$F0,$88
- $DA73 DEFB $DB,$3F,$F1,$38,$DB,$3F,$FE,$27
- $DA7B DEFB $DC,$3F,$F8,$7F,$C0,$DC,$3F,$F9
- $DA83 DEFB $BF,$C0,$DC,$3D,$FF,$7F,$C0,$DC
- $DA8B DEFB $3E,$F1,$FF,$F0,$DC,$3E,$C0,$1C
- $DA93 DEFB $70,$DC,$3F,$C0,$00,$70,$DC,$3F
- $DA9B DEFB $78,$00,$70,$DC,$1F,$FF,$01,$F8
- $DAA3 DEFB $DC,$1F,$DF,$FF,$F8,$DC,$1F,$DF
- $DAAB DEFB $FB,$FE,$DC,$1F,$9F,$F1,$FB,$DC
- $DAB3 DEFB $1F,$BF,$C1,$FF,$DC,$07,$7F,$C1
- $DABB DEFB $F8,$DC,$06,$FF,$C1,$F8,$DC,$07
- $DAC3 DEFB $FF,$01,$F8,$DC,$01,$FF,$00,$F8
- $DACB DEFB $E3,$FE,$00,$C8,$F1,$A7,$F1,$80
- $DAD3 DEFB $F1,$C0,$F1,$3F,$00,$00,$7E,$FE
- $DADB DEFB $21,$38,$05,$ED,$A0,$01,$1C,$46
- $DAE3 DEFB $00,$0D,$F6,$00,$07,$C9,$F8,$82
- $DAEB DEFB $01,$04,$82,$02,$7E,$82,$05,$BA
- $DAF3 DEFB $82,$06,$C6,$82,$19,$01,$82,$35
- $DAFB DEFB $77,$82,$06,$35,$83,$07,$05,$3F
- $DB03 DEFB $85,$05,$01,$FF,$FC,$7E,$86,$06
- $DB0B DEFB $19,$F7,$F3,$81,$80,$86,$01,$83
- $DB13 DEFB $F9,$E0,$0C,$40,$86,$07,$45,$FF
- $DB1B DEFB $F0,$E8,$40,$86,$0E,$39,$FF,$3F
- $DB23 DEFB $FC,$40,$86,$0F,$05,$FF,$FC,$03
- $DB2B DEFB $80,$85,$1F,$C0,$FF,$DF,$F8,$86
- $DB33 DEFB $1F,$F0,$FF,$DF,$FF,$80,$86,$3F
- $DB3B DEFB $FF,$FF,$DF,$FF,$C0,$86,$3F,$FF
- $DB43 DEFB $FF,$39,$FF,$E0,$86,$3E,$FF,$FF
- $DB4B DEFB $37,$FF,$E0,$86,$3F,$FF,$FE,$1F
- $DB53 DEFB $FF,$F8,$86,$3F,$BF,$FE,$FF,$F9
- $DB5B DEFB $C4,$86,$3E,$87,$FE,$3F,$F7,$C4
- $DB63 DEFB $86,$1F,$C0,$F9,$3F,$1F,$0C,$86
- $DB6B DEFB $1F,$E0,$27,$3E,$18,$F0,$85,$07
- $DB73 DEFB $1E,$1F,$DE,$0F,$84,$07,$01,$9F
- $DB7B DEFB $DC,$84,$01,$C0,$DF,$FC,$CB,$30
- $DB83 DEFB $47,$F8,$CB,$0D,$27,$F8,$CB,$03
- $DB8B DEFB $C7,$F8,$D2,$07,$F8,$D2,$07,$F8
- $DB93 DEFB $D2,$07,$F8,$D2,$07,$F8,$D2,$07
- $DB9B DEFB $F8,$D2,$07,$F8,$D2,$07,$FC,$D2
- $DBA3 DEFB $01,$FC,$D2,$01,$FE,$D2,$01,$FE
- $DBAB DEFB $D2,$01,$FE,$D9,$FE,$84,$36,$00
- $DBB3 DEFB $00,$FE,$84,$2D,$B6,$D8,$32,$86
- $DBBB DEFB $1B,$6D,$B6,$A2,$61,$B0,$86,$06
- $DBC3 DEFB $DB,$6D,$A2,$DB,$6C,$86,$01,$B6
- $DBCB DEFB $DB,$63,$B6,$D8,$CD,$01,$B6,$81
- $DBD3 DEFB $6D,$B0,$D3,$0D,$07,$C0,$D2,$01
- $DBDB DEFB $FC,$00,$81,$97,$21,$00,$00,$23
- $DBE3 DEFB $22,$14,$01,$1C,$46,$00,$0E,$C9
- $DBEB DEFB $00,$07,$C9,$07,$CA,$18,$C0,$CA
- $DBF3 DEFB $27,$20,$CA,$F9,$E0,$83,$03,$46
- $DBFB DEFB $20,$CA,$48,$E0,$CA,$68,$70,$CA
- $DC03 DEFB $36,$10,$CA,$26,$20,$83,$01,$C0
- $DC0B DEFB $60,$83,$07,$E2,$20,$83,$0F,$E1
- $DC13 DEFB $C0,$82,$1F,$F1,$83,$1F,$F9,$80
- $DC1B DEFB $83,$3F,$F9,$C0,$83,$7F,$FF,$E0
- $DC23 DEFB $83,$FF,$7F,$E0,$83,$FF,$7F,$B0
- $DC2B DEFB $83,$FE,$FF,$B0,$83,$FE,$FF,$B8
- $DC33 DEFB $83,$FD,$FF,$B8,$83,$F9,$FF,$F8
- $DC3B DEFB $83,$7F,$FF,$F8,$83,$71,$FE,$6E
- $DC43 DEFB $83,$30,$F9,$21,$84,$10,$40,$E0
- $DC4B DEFB $F0,$84,$18,$39,$38,$10,$84,$1E
- $DC53 DEFB $1D,$B6,$90,$84,$1F,$0D,$B1,$D0
- $DC5B DEFB $84,$1F,$0D,$D8,$60,$83,$1F,$8B
- $DC63 DEFB $D8,$83,$0F,$FD,$FC,$83,$0F,$FF
- $DC6B DEFB $FE,$83,$07,$FE,$FE,$83,$01,$FF
- $DC73 DEFB $FF,$CA,$FF,$7F,$CB,$3F,$FF,$80
- $DC7B DEFB $CB,$27,$7F,$80,$CB,$77,$3F,$80
- $DC83 DEFB $CB,$BF,$1F,$80,$84,$01,$DF,$3F
- $DC8B DEFB $80,$83,$03,$FF,$3F,$83,$07,$FE
- $DC93 DEFB $7F,$83,$07,$FC,$FE,$83,$0F,$F8
- $DC9B DEFB $FE,$83,$6F,$F0,$F8,$84,$D4,$C7
- $DCA3 DEFB $8B,$60,$84,$B8,$3D,$06,$D0,$84
- $DCAB DEFB $70,$0A,$01,$A0,$84,$1F,$F9,$FF
- $DCB3 DEFB $60,$00,$0E,$50,$41,$47,$45,$20
- $DCBB DEFB $30,$30,$01,$1C,$46,$00,$0B,$98
- $DCC3 DEFB $00,$07,$CA,$07,$80,$CA,$08,$40
- $DCCB DEFB $CA,$17,$A0,$CA,$2B,$E0,$CA,$34
- $DCD3 DEFB $20,$CA,$C9,$E0,$83,$01,$28,$E0
- $DCDB DEFB $CA,$2C,$30,$CA,$2A,$10,$CA,$32
- $DCE3 DEFB $60,$CA,$10,$20,$CA,$18,$E0,$CA
- $DCEB DEFB $3E,$80,$C9,$3F,$C9,$7F,$CA,$FF
- $DCF3 DEFB $80,$CA,$FF,$80,$CA,$FF,$C0,$CA
- $DCFB DEFB $FE,$C0,$CA,$FE,$C0,$CA,$BF,$C0
- $DD03 DEFB $CA,$BF,$C0,$CA,$DD,$C0,$CA,$C7
- $DD0B DEFB $C0,$CA,$C3,$C0,$CA,$C3,$C0,$CA
- $DD13 DEFB $61,$C0,$CA,$70,$C0,$CA,$78,$C0
- $DD1B DEFB $CA,$FC,$20,$CA,$FC,$20,$CA,$FC
- $DD23 DEFB $40,$CA,$FE,$40,$CA,$7F,$C0,$CA
- $DD2B DEFB $7F,$C0,$CA,$3F,$C0,$CA,$3F,$C0
- $DD33 DEFB $CA,$1F,$C0,$CA,$1F,$80,$CA,$1F
- $DD3B DEFB $80,$CA,$1F,$80,$C9,$3F,$C9,$3F
- $DD43 DEFB $C9,$3F,$C9,$3F,$C9,$3F,$C9,$3F
- $DD4B DEFB $C9,$3F,$C9,$3E,$CA,$51,$80,$CA
- $DD53 DEFB $50,$60,$CA,$30,$10,$CA,$1F,$F0
- $DD5B DEFB $00,$E5,$D5,$C5,$21,$00,$68,$11
- $DD63 DEFB $37,$01,$1C,$46,$00,$0B,$D0,$00
- $DD6B DEFB $07,$CA,$07,$C0,$CA,$08,$30,$CA
- $DD73 DEFB $10,$E8,$CA,$1F,$18,$CA,$10,$CC
- $DD7B DEFB $CA,$1D,$AA,$CA,$15,$2A,$CA,$10
- $DD83 DEFB $28,$CA,$14,$18,$CA,$16,$18,$CA
- $DD8B DEFB $10,$50,$CA,$3B,$BE,$CA,$78,$3F
- $DD93 DEFB $CB,$F8,$FF,$80,$CB,$F8,$FF,$80
- $DD9B DEFB $84,$01,$F9,$FF,$C0,$84,$07,$FF
- $DDA3 DEFB $FF,$C0,$84,$07,$FF,$EF,$C0,$84
- $DDAB DEFB $F9,$DF,$F7,$C0,$84,$80,$DF,$F7
- $DDB3 DEFB $C0,$84,$88,$DF,$FF,$C0,$84,$CF
- $DDBB DEFB $3F,$F7,$C0,$84,$38,$3F,$C0,$C0
- $DDC3 DEFB $CB,$0C,$01,$C0,$CA,$14,$07,$CA
- $DDCB DEFB $1C,$1A,$CA,$1E,$7E,$CA,$1F,$FF
- $DDD3 DEFB $CA,$1E,$FF,$CB,$3D,$7F,$80,$CB
- $DDDB DEFB $3D,$BF,$80,$CB,$3D,$DF,$C0,$CB
- $DDE3 DEFB $3F,$DF,$C0,$CB,$3F,$FF,$C0,$CB
- $DDEB DEFB $3F,$DF,$E0,$CB,$3F,$1F,$E0,$CB
- $DDF3 DEFB $3F,$0F,$E0,$CB,$3F,$0F,$F0,$CB
- $DDFB DEFB $3F,$07,$F8,$CB,$3F,$03,$F8,$CB
- $DE03 DEFB $3F,$81,$FC,$CB,$3F,$81,$FC,$CB
- $DE0B DEFB $1F,$C0,$FC,$CB,$1F,$C0,$FC,$CB
- $DE13 DEFB $1F,$C0,$62,$CB,$1F,$C0,$62,$CB
- $DE1B DEFB $1F,$C0,$21,$84,$6D,$BF,$CC,$31
- $DE23 DEFB $84,$DB,$64,$DB,$11,$84,$B6,$D8
- $DE2B DEFB $36,$D9,$84,$01,$B0,$2D,$B7,$CB
- $DE33 DEFB $41,$3B,$7B,$CB,$3F,$C0,$06,$00
- $DE3B DEFB $E1,$11,$00,$68,$01,$00,$01,$ED
- $DE43 DEFB $01,$1C,$46,$00,$0F,$AB,$00,$07
- $DE4B DEFB $D1,$78,$D1,$86,$CA,$01,$02,$CA
- $DE53 DEFB $01,$F1,$CB,$01,$0A,$80,$CB,$01
- $DE5B DEFB $A5,$80,$CB,$01,$35,$40,$CA,$01
- $DE63 DEFB $05,$CA,$01,$C3,$CA,$01,$0C,$CA
- $DE6B DEFB $0E,$BE,$CA,$11,$FF,$CB,$10,$FF
- $DE73 DEFB $80,$CB,$18,$7F,$80,$CB,$04,$1F
- $DE7B DEFB $C0,$CB,$06,$07,$C0,$CB,$19,$C3
- $DE83 DEFB $E0,$CB,$FF,$F1,$E0,$84,$01,$FF
- $DE8B DEFB $FF,$E0,$84,$01,$DF,$FF,$40,$84
- $DE93 DEFB $07,$F7,$FF,$80,$84,$07,$F7,$FF
- $DE9B DEFB $C0,$84,$07,$F9,$FF,$C0,$84,$07
- $DEA3 DEFB $F7,$FF,$C0,$84,$0C,$78,$FF,$C0
- $DEAB DEFB $84,$10,$10,$7E,$C0,$84,$10,$10
- $DEB3 DEFB $2D,$C0,$84,$11,$E0,$3F,$C0,$84
- $DEBB DEFB $0E,$00,$3F,$80,$D2,$7F,$80,$D2
- $DEC3 DEFB $7F,$80,$D1,$7F,$D1,$7F,$D1,$FF
- $DECB DEFB $D1,$FF,$D1,$FF,$D1,$FE,$D1,$FE
- $DED3 DEFB $D1,$FE,$D1,$FE,$D1,$FE,$D1,$FE
- $DEDB DEFB $D1,$FE,$CA,$1B,$FE,$83,$0D,$B6
- $DEE3 DEFB $26,$84,$1B,$6C,$C7,$C0,$84,$06
- $DEEB DEFB $DF,$02,$C0,$CA,$04,$01,$CA,$07
- $DEF3 DEFB $FE,$00,$36,$00,$E1,$C9,$21,$00
- $DEFB DEFB $68,$11,$02,$1C,$46,$00,$11,$C5
- $DF03 DEFB $00,$07,$D1,$1E,$D1,$13,$D2,$18
- $DF0B DEFB $80,$D2,$04,$80,$D2,$04,$40,$D2
- $DF13 DEFB $06,$E0,$D2,$01,$F8,$D2,$01,$FC
- $DF1B DEFB $D3,$01,$FE,$1F,$CD,$E0,$00,$FF
- $DF23 DEFB $24,$80,$86,$01,$FE,$00,$FF,$C2
- $DF2B DEFB $40,$86,$07,$FF,$C7,$FF,$01,$40
- $DF33 DEFB $86,$07,$FF,$FF,$FF,$81,$40,$86
- $DF3B DEFB $0F,$FF,$F7,$FF,$81,$C0,$86,$11
- $DF43 DEFB $FF,$F7,$FF,$C0,$E0,$86,$1E,$3F
- $DF4B DEFB $F7,$FF,$E1,$B0,$85,$20,$3F,$FB
- $DF53 DEFB $FF,$FE,$85,$20,$7F,$FB,$FF,$F8
- $DF5B DEFB $85,$21,$9F,$FD,$FF,$F8,$85,$1E
- $DF63 DEFB $07,$FD,$FF,$F8,$CC,$01,$FE,$FF
- $DF6B DEFB $F8,$CC,$01,$FE,$FF,$F8,$CA,$01
- $DF73 DEFB $FF,$CA,$01,$FE,$CA,$01,$FC,$CA
- $DF7B DEFB $03,$F8,$CA,$03,$F8,$CA,$03,$F8
- $DF83 DEFB $CA,$07,$F8,$CA,$07,$F0,$CA,$07
- $DF8B DEFB $F0,$CA,$07,$F0,$CA,$07,$F0,$CA
- $DF93 DEFB $07,$F0,$CA,$07,$E0,$CA,$07,$E0
- $DF9B DEFB $CA,$07,$E0,$CA,$07,$E0,$CA,$07
- $DFA3 DEFB $E0,$CA,$07,$E0,$CA,$07,$E0,$CC
- $DFAB DEFB $07,$C0,$6D,$36,$86,$0D,$B7,$F6
- $DFB3 DEFB $DB,$6D,$80,$85,$1B,$69,$ED,$B6
- $DFBB DEFB $DB,$85,$36,$D0,$DB,$01,$B6,$CA
- $DFC3 DEFB $30,$30,$CA,$1F,$C0,$00,$00,$27
- $DFCB DEFB $29,$00,$07,$DA,$03,$F8,$DA,$07
- $DFD3 DEFB $F0,$DA,$07,$F0,$DA,$07,$E0,$DA
- $DFDB DEFB $06,$E0,$DA,$04,$40,$DA,$04,$40
- $DFE3 DEFB $DA,$04,$40,$DA,$04,$40,$DA,$02
- $DFEB DEFB $20,$DA,$01,$10,$E1,$90,$E1,$B0
- $DFF3 DEFB $E1,$C0,$00,$80,$80,$80,$80,$80
- $DFFB DEFB $80,$80,$80,$01,$1C,$46,$00,$13
- $E003 DEFB $DF,$00,$07,$82,$01,$E0,$82,$06
- $E00B DEFB $30,$82,$CB,$08,$82,$1C,$F8,$84
- $E013 DEFB $11,$08,$01,$C0,$84,$D2,$38,$1E
- $E01B DEFB $3E,$85,$16,$19,$FE,$01,$80,$85
- $E023 DEFB $19,$07,$FF,$00,$70,$85,$19,$0F
- $E02B DEFB $3F,$F0,$78,$85,$08,$1F,$FF,$9E
- $E033 DEFB $7E,$85,$08,$8F,$E9,$FF,$FE,$86
- $E03B DEFB $10,$7F,$F7,$FF,$FF,$80,$86,$18
- $E043 DEFB $1F,$FE,$FF,$F7,$E0,$86,$18,$07
- $E04B DEFB $FF,$7F,$DE,$18,$86,$3F,$03,$FE
- $E053 DEFB $FF,$F8,$08,$86,$3F,$FF,$FE,$7E
- $E05B DEFB $38,$10,$86,$3F,$FF,$FD,$B8,$1F
- $E063 DEFB $F0,$84,$3F,$FF,$DC,$D8,$84,$3E
- $E06B DEFB $FF,$3B,$50,$84,$3F,$7F,$F7,$70
- $E073 DEFB $84,$3F,$C7,$1F,$70,$84,$3F,$C0
- $E07B DEFB $FF,$70,$84,$1F,$C0,$3F,$F0,$84
- $E083 DEFB $1F,$E0,$3F,$F0,$84,$0F,$F0,$1F
- $E08B DEFB $F0,$84,$07,$D0,$1F,$F0,$84,$01
- $E093 DEFB $0C,$1F,$F0,$CB,$83,$9F,$F0,$CB
- $E09B DEFB $40,$5F,$F8,$CB,$31,$8F,$F8,$CB
- $E0A3 DEFB $08,$8F,$F8,$CB,$06,$47,$F8,$CB
- $E0AB DEFB $01,$C7,$F8,$D2,$03,$FC,$D2,$01
- $E0B3 DEFB $FC,$D2,$01,$FE,$D2,$01,$FE,$D2
- $E0BB DEFB $01,$FE,$D2,$01,$FE,$85,$0D,$B6
- $E0C3 DEFB $DB,$EE,$36,$86,$1B,$6D,$B6,$CB
- $E0CB DEFB $6D,$B0,$86,$36,$DB,$6D,$82,$DB
- $E0D3 DEFB $60,$CD,$36,$DA,$05,$B6,$C0,$CD
- $E0DB DEFB $05,$0C,$1F,$6D,$80,$D2,$07,$E0
- $E0E3 DEFB $00,$03,$00,$00,$00,$01,$00,$00
- $E0EB DEFB $00,$02,$1C,$46,$00,$11,$AC,$00
- $E0F3 DEFB $07,$D1,$7F,$D2,$80,$80,$CB,$01
- $E0FB DEFB $F0,$80,$CB,$03,$F1,$80,$CA,$05
- $E103 DEFB $FE,$CA,$1F,$30,$CB,$1F,$C1,$F8
- $E10B DEFB $CB,$3F,$FE,$06,$CB,$3E,$7E,$02
- $E113 DEFB $CB,$7F,$FF,$E6,$CB,$7F,$FF,$18
- $E11B DEFB $CA,$FF,$FE,$CA,$DF,$FE,$CA,$DF
- $E123 DEFB $DF,$84,$01,$3F,$90,$80,$84,$03
- $E12B DEFB $3F,$20,$40,$84,$03,$3F,$20,$40
- $E133 DEFB $84,$07,$BF,$20,$40,$84,$07,$BF
- $E13B DEFB $90,$40,$84,$07,$BF,$D0,$80,$83
- $E143 DEFB $07,$BF,$EB,$83,$07,$CF,$FC,$83
- $E14B DEFB $07,$F1,$FC,$83,$07,$FE,$F8,$83
- $E153 DEFB $0F,$FE,$F8,$82,$0F,$F8,$82,$0F
- $E15B DEFB $F0,$82,$0F,$F0,$82,$1F,$E0,$82
- $E163 DEFB $1F,$E0,$82,$1F,$C0,$82,$1F,$C0
- $E16B DEFB $82,$1F,$80,$82,$1F,$80,$82,$3F
- $E173 DEFB $80,$81,$3F,$81,$3F,$81,$3F,$81
- $E17B DEFB $3F,$81,$3E,$83,$3E,$0D,$80,$84
- $E183 DEFB $3E,$1B,$6D,$80,$84,$3E,$36,$DB
- $E18B DEFB $60,$84,$2B,$6D,$B6,$D8,$84,$4A
- $E193 DEFB $DB,$6D,$B6,$84,$85,$B6,$00,$6C
- $E19B DEFB $82,$FB,$60,$00,$00,$2A,$25,$00
- $E1A3 DEFB $07,$CA,$01,$FC,$D1,$FE,$D1,$FE
- $E1AB DEFB $D1,$3F,$D2,$3F,$80,$D2,$1F,$C0
- $E1B3 DEFB $D2,$1E,$40,$D2,$04,$60,$D2,$06
- $E1BB DEFB $30,$D2,$01,$1C,$D9,$82,$D9,$C2
- $E1C3 DEFB $D9,$32,$D9,$0E,$00,$01,$00,$00
- $E1CB DEFB $FF,$00,$80,$40,$C0,$02,$1C,$46
- $E1D3 DEFB $00,$FF,$1A,$00,$07,$E3,$06,$DB
- $E1DB DEFB $60,$DC,$03,$6D,$B6,$DB,$DC,$06
- $E1E3 DEFB $DB,$6D,$B6,$DC,$01,$B0,$DB,$6C
- $E1EB DEFB $DC,$03,$61,$B6,$C0,$00,$00,$00
- $E1F3 DEFB $96,$00,$07,$DA,$07,$E0,$DA,$04
- $E1FB DEFB $18,$DC,$02,$06,$01,$F8,$DC,$01
- $E203 DEFB $82,$03,$FC,$E3,$42,$07,$FE,$E3
- $E20B DEFB $2E,$07,$FE,$E3,$EE,$0F,$FF,$E3
- $E213 DEFB $FE,$1F,$FF,$E3,$FE,$3F,$FF,$E3
- $E21B DEFB $FE,$3F,$FE,$E3,$FE,$7F,$FD,$E3
- $E223 DEFB $F1,$7F,$FB,$E3,$E0,$FF,$C7,$E3
- $E22B DEFB $20,$3F,$3F,$E3,$20,$07,$DF,$E3
- $E233 DEFB $3E,$00,$FF,$E3,$3F,$00,$DF,$E3
- $E23B DEFB $3F,$C0,$DF,$E3,$1F,$FE,$F7,$E3
- $E243 DEFB $1F,$F9,$F7,$E3,$1F,$F1,$F7,$E3
- $E24B DEFB $0F,$E1,$FB,$E3,$07,$81,$FB,$EA
- $E253 DEFB $01,$FB,$EA,$07,$FF,$EA,$06,$FF
- $E25B DEFB $EA,$06,$FF,$EA,$05,$FF,$EA,$07
- $E263 DEFB $FF,$EA,$07,$FE,$EA,$39,$FE,$EA
- $E26B DEFB $24,$FC,$EA,$60,$60,$EA,$40,$A0
- $E273 DEFB $EA,$82,$A0,$EA,$E3,$28,$EA,$71
- $E27B DEFB $28,$EA,$46,$70,$EA,$79,$A0,$EA
- $E283 DEFB $46,$40,$EA,$21,$80,$E9,$1E,$00
- $E28B DEFB $FD,$03,$83,$43,$C3,$23,$A3,$63
- $E293 DEFB $01,$1C,$46,$00,$0F,$97,$00,$07
- $E29B DEFB $D9,$38,$D9,$C4,$D2,$01,$3A,$D2
- $E2A3 DEFB $01,$DE,$D2,$06,$22,$D2,$1A,$5E
- $E2AB DEFB $D2,$02,$47,$D2,$02,$A1,$D2,$01
- $E2B3 DEFB $A2,$D2,$1E,$06,$D2,$3F,$02,$D2
- $E2BB DEFB $FF,$0E,$CB,$01,$F7,$D0,$CB,$03
- $E2C3 DEFB $DF,$E0,$CB,$07,$FF,$C0,$CB,$0F
- $E2CB DEFB $FF,$C0,$CA,$1E,$FF,$CA,$3F,$3F
- $E2D3 DEFB $CA,$7E,$3A,$CA,$7E,$36,$CA,$B8
- $E2DB DEFB $28,$CA,$98,$30,$83,$01,$D8,$C0
- $E2E3 DEFB $83,$01,$F0,$80,$83,$01,$F1,$80
- $E2EB DEFB $83,$01,$F1,$40,$83,$01,$F1,$40
- $E2F3 DEFB $CA,$F1,$20,$CA,$F9,$20,$C9,$FF
- $E2FB DEFB $C9,$7F,$C9,$7F,$C9,$3F,$C9,$3F
- $E303 DEFB $C9,$3F,$C9,$7F,$C9,$7F,$C9,$FE
- $E30B DEFB $C9,$FE,$C9,$FE,$C9,$FE,$C9,$FE
- $E313 DEFB $C9,$FE,$CB,$FE,$DB,$6C,$CC,$FF
- $E31B DEFB $B6,$DB,$60,$CC,$F2,$6D,$B6,$D0
- $E323 DEFB $85,$01,$41,$80,$0D,$80,$83,$01
- $E32B DEFB $C0,$40,$CA,$3F,$C0,$00,$64,$66
- $E333 DEFB $66,$68,$68,$6A,$6A,$6C,$01,$1C
- $E33B DEFB $46,$00,$0B,$E8,$00,$07,$EA,$07
- $E343 DEFB $80,$EA,$08,$40,$EA,$17,$E0,$EA
- $E34B DEFB $7C,$20,$EA,$A7,$E0,$EA,$A8,$20
- $E353 DEFB $EA,$30,$20,$EA,$36,$E0,$E3,$03
- $E35B DEFB $D4,$60,$E3,$3F,$F0,$20,$E3,$FF
- $E363 DEFB $D3,$40,$E3,$FF,$C1,$40,$DC,$01
- $E36B DEFB $FD,$C8,$80,$DB,$03,$FB,$C7,$DB
- $E373 DEFB $07,$F7,$C6,$DB,$07,$3F,$9F,$DB
- $E37B DEFB $07,$1F,$3F,$DB,$0E,$19,$3F,$CD
- $E383 DEFB $3E,$00,$1E,$1F,$FF,$CD,$C1,$C0
- $E38B DEFB $2E,$1F,$F9,$86,$01,$03,$E0,$37
- $E393 DEFB $1F,$FF,$86,$01,$07,$F0,$79,$1F
- $E39B DEFB $F7,$CD,$FF,$F8,$FC,$0F,$FF,$CD
- $E3A3 DEFB $07,$FD,$FF,$07,$DE,$CD,$03,$FF
- $E3AB DEFB $FF,$87,$2E,$CD,$01,$FF,$FF,$86
- $E3B3 DEFB $22,$D4,$F9,$FF,$C8,$22,$D4,$FF
- $E3BB DEFB $FF,$78,$11,$D4,$7F,$FF,$B0,$11
- $E3C3 DEFB $D5,$3F,$FF,$B0,$10,$C0,$D5,$1F
- $E3CB DEFB $C7,$B0,$0E,$A0,$D5,$07,$07,$F0
- $E3D3 DEFB $04,$60,$DC,$07,$F8,$04,$40,$DC
- $E3DB DEFB $03,$F8,$03,$C0,$DA,$03,$F8,$DA
- $E3E3 DEFB $03,$F8,$DA,$03,$F8,$DA,$07,$F8
- $E3EB DEFB $DA,$07,$F8,$DA,$07,$F8,$DA,$07
- $E3F3 DEFB $F8,$DA,$0F,$F8,$DA,$0F,$F0,$DA
- $E3FB DEFB $1F,$F0,$DA,$1F,$E0,$DA,$1F,$E0
- $E403 DEFB $DB,$1F,$E0,$6C,$CD,$DB,$6D,$9E
- $E40B DEFB $86,$DB,$87,$01,$B6,$DB,$69,$AD
- $E413 DEFB $B6,$C0,$87,$03,$6D,$B6,$C8,$5B
- $E41B DEFB $6D,$80,$D3,$6D,$B0,$76,$D3,$03
- $E423 DEFB $74,$80,$D9,$0F,$00,$5C,$5D,$5E
- $E42B DEFB $5D,$60,$61,$62,$63,$01,$1C,$46
- $E433 DEFB $00,$0C,$E3,$00,$07,$CA,$01,$F0
- $E43B DEFB $CA,$02,$08,$CA,$07,$F8,$CA,$1E
- $E443 DEFB $3C,$CA,$38,$C4,$CA,$09,$1C,$CA
- $E44B DEFB $39,$0E,$CA,$0A,$82,$CA,$0A,$84
- $E453 DEFB $CA,$04,$0C,$CA,$04,$44,$CA,$18
- $E45B DEFB $38,$CA,$3C,$1E,$CA,$7E,$3E,$CA
- $E463 DEFB $FE,$3F,$CA,$FF,$1F,$CB,$FF,$18
- $E46B DEFB $C0,$CB,$F7,$F0,$40,$CB,$FB,$C0
- $E473 DEFB $70,$CB,$FB,$00,$F0,$CB,$FE,$07
- $E47B DEFB $F0,$CB,$FE,$1F,$F8,$CB,$3E,$3F
- $E483 DEFB $F8,$CB,$3E,$3F,$FE,$CB,$16,$FF
- $E48B DEFB $FE,$CB,$19,$FF,$7E,$CB,$17,$FE
- $E493 DEFB $3A,$CB,$10,$F9,$32,$CB,$18,$03
- $E49B DEFB $31,$CB,$1F,$3F,$11,$CC,$1F,$1F
- $E4A3 DEFB $11,$80,$CC,$3E,$5F,$C8,$80,$CC
- $E4AB DEFB $FE,$EF,$E4,$40,$CC,$FE,$EF,$F4
- $E4B3 DEFB $40,$85,$01,$FF,$EF,$FA,$20,$85
- $E4BB DEFB $01,$FF,$FF,$F9,$20,$85,$03,$FF
- $E4C3 DEFB $FF,$F9,$20,$85,$03,$FF,$FF,$FD
- $E4CB DEFB $A0,$85,$07,$FF,$07,$FE,$60,$84
- $E4D3 DEFB $07,$FE,$01,$FE,$84,$0F,$F8,$00
- $E4DB DEFB $FE,$84,$0F,$F0,$00,$FE,$84,$1F
- $E4E3 DEFB $F0,$00,$7F,$84,$1F,$E0,$00,$7F
- $E4EB DEFB $84,$1F,$E1,$B6,$3F,$84,$1F,$DB
- $E4F3 DEFB $6C,$1F,$85,$1F,$F6,$DB,$1F,$C0
- $E4FB DEFB $85,$1F,$AD,$B6,$DE,$70,$85,$31
- $E503 DEFB $9B,$6D,$B8,$1C,$85,$C3,$36,$DB
- $E50B DEFB $68,$02,$85,$81,$60,$00,$DC,$3E
- $E513 DEFB $85,$FE,$00,$00,$07,$C0,$00,$3F
- $E51B DEFB $C0,$84,$7E,$00,$3F,$C0,$84,$01
- $E523 DEFB $1C,$46,$00,$13,$EA,$00,$07,$F1
- $E52B DEFB $1E,$F1,$F3,$EA,$07,$01,$DC,$3F
- $E533 DEFB $C1,$F8,$01,$D5,$07,$C0,$3F,$F8
- $E53B DEFB $1F,$D5,$1F,$00,$3F,$FE,$F0,$86
- $E543 DEFB $1F,$01,$FF,$3C,$7F,$FF,$86,$31
- $E54B DEFB $DF,$FF,$DF,$FF,$FC,$86,$C7,$FF
- $E553 DEFB $FF,$3F,$FF,$FC,$86,$BF,$3F,$FC
- $E55B DEFB $7F,$FF,$C0,$85,$A2,$7F,$F1,$FF
- $E563 DEFB $FC,$85,$C5,$5F,$C3,$FF,$F0,$85
- $E56B DEFB $8B,$1F,$F7,$FF,$80,$84,$88,$6F
- $E573 DEFB $F7,$FF,$84,$D8,$C9,$F7,$1E,$84
- $E57B DEFB $30,$11,$F0,$FC,$84,$18,$0F,$F7
- $E583 DEFB $F8,$84,$1E,$1F,$F1,$F8,$84,$3F
- $E58B DEFB $FF,$E6,$F0,$84,$3F,$FF,$DF,$70
- $E593 DEFB $84,$7F,$FF,$DF,$E0,$84,$7F,$FF
- $E59B DEFB $BF,$E0,$84,$FF,$C7,$7F,$C0,$84
- $E5A3 DEFB $FF,$00,$FF,$C0,$84,$FF,$00,$3F
- $E5AB DEFB $C0,$84,$7E,$00,$3F,$C0,$84,$7E
- $E5B3 DEFB $00,$3F,$C0,$84,$3F,$00,$3F,$C0
- $E5BB DEFB $84,$3F,$00,$3F,$C0,$84,$19,$00
- $E5C3 DEFB $1F,$C0,$84,$09,$00,$1F,$E0,$84
- $E5CB DEFB $08,$80,$1F,$E0,$84,$04,$40,$1F
- $E5D3 DEFB $E0,$84,$02,$30,$07,$E0,$84,$01
- $E5DB DEFB $10,$07,$F0,$CB,$88,$07,$F0,$CB
- $E5E3 DEFB $F8,$07,$F0,$D2,$07,$F0,$D2,$1F
- $E5EB DEFB $F0,$CE,$6D,$B7,$FC,$36,$DB,$60
- $E5F3 DEFB $87,$36,$DB,$64,$FB,$6D,$B6,$D8
- $E5FB DEFB $87,$6D,$B6,$C8,$36,$DB,$6D,$B6
- $E603 DEFB $87,$DB,$6D,$90,$2D,$00,$00,$6C
- $E60B DEFB $CB,$D8,$20,$D8,$D2,$3F,$80,$00
- $E613 DEFB $F0,$CB,$3F,$BB,$F0,$CB,$3F,$FF
- $E61B DEFB $01,$1C,$46,$00,$0D,$E8,$00,$07
- $E623 DEFB $CA,$1F,$80,$CA,$2D,$80,$CA,$52
- $E62B DEFB $40,$CA,$A4,$60,$CA,$A9,$B0,$CA
- $E633 DEFB $C9,$10,$CA,$D8,$30,$CA,$D6,$70
- $E63B DEFB $CA,$B6,$10,$CA,$90,$1C,$CA,$38
- $E643 DEFB $7F,$CB,$FE,$3F,$80,$84,$01,$FF
- $E64B DEFB $1F,$C0,$84,$01,$FF,$1F,$E0,$84
- $E653 DEFB $07,$FF,$DD,$F0,$84,$07,$FF,$DF
- $E65B DEFB $F0,$84,$1F,$DF,$FD,$F8,$84,$1E
- $E663 DEFB $DF,$FD,$FC,$84,$1F,$3F,$FA,$F3
- $E66B DEFB $85,$1F,$FF,$FE,$30,$F8,$85,$1F
- $E673 DEFB $DF,$FE,$38,$06,$85,$1F,$DF,$FE
- $E67B DEFB $07,$02,$85,$0F,$DF,$FE,$00,$E2
- $E683 DEFB $85,$04,$FF,$FE,$00,$24,$85,$04
- $E68B DEFB $F7,$FA,$00,$1C,$83,$04,$79,$F2
- $E693 DEFB $83,$06,$1E,$87,$84,$01,$01,$E7
- $E69B DEFB $80,$CB,$C1,$D3,$C0,$CB,$21,$DB
- $E6A3 DEFB $E0,$CB,$33,$BB,$F0,$CB,$3F,$BB
- $E6AB DEFB $F0,$CB,$3F,$FF,$F8,$CB,$7F,$FF
- $E6B3 DEFB $F8,$CB,$7F,$FF,$FC,$CB,$FF,$FF
- $E6BB DEFB $FE,$CB,$FF,$F7,$FE,$CB,$FF,$E1
- $E6C3 DEFB $FE,$84,$01,$FF,$C0,$FE,$84,$03
- $E6CB DEFB $FF,$81,$7E,$84,$07,$FF,$03,$FE
- $E6D3 DEFB $84,$1F,$FE,$07,$FE,$84,$1F,$FE
- $E6DB DEFB $07,$FC,$84,$3F,$FC,$1F,$F8,$84
- $E6E3 DEFB $DF,$F0,$17,$F0,$84,$9F,$C0,$D7
- $E6EB DEFB $F0,$85,$9F,$0D,$B7,$ED,$80,$85
- $E6F3 DEFB $89,$DB,$71,$DB,$6C,$85,$86,$B6
- $E6FB DEFB $D0,$D6,$DA,$85,$C1,$60,$38,$2D
- $E703 DEFB $B6,$84,$3E,$00,$0F,$D8,$00,$37
- $E70B DEFB $FF,$8C,$FE,$84,$2F,$FF,$5B,$01
- $E713 DEFB $1C,$46,$00,$17,$B3,$00,$07,$82
- $E71B DEFB $01,$F0,$82,$06,$18,$82,$04,$C6
- $E723 DEFB $82,$0F,$BE,$82,$1A,$C2,$82,$3C
- $E72B DEFB $9E,$82,$69,$3B,$82,$09,$01,$82
- $E733 DEFB $04,$82,$82,$07,$86,$82,$06,$11
- $E73B DEFB $83,$01,$0F,$F0,$83,$03,$C1,$FC
- $E743 DEFB $83,$07,$F0,$FE,$83,$07,$F8,$FF
- $E74B DEFB $83,$0F,$F8,$FF,$84,$1F,$FE,$F7
- $E753 DEFB $C0,$84,$1F,$DF,$F7,$40,$84,$1F
- $E75B DEFB $3F,$F6,$20,$84,$1F,$DF,$FA,$10
- $E763 DEFB $84,$1F,$F7,$FC,$8E,$85,$0F,$F7
- $E76B DEFB $FF,$41,$80,$85,$0F,$FB,$FA,$34
- $E773 DEFB $40,$85,$07,$FB,$F6,$0C,$40,$85
- $E77B DEFB $01,$FF,$EF,$03,$80,$CB,$F7,$1F
- $E783 DEFB $C0,$CB,$21,$DF,$E0,$CB,$30,$FF
- $E78B DEFB $F0,$CB,$10,$FF,$F8,$CB,$18,$3F
- $E793 DEFB $F8,$CB,$1E,$1D,$FC,$CB,$1E,$06
- $E79B DEFB $FE,$84,$01,$EF,$06,$5E,$84,$37
- $E7A3 DEFB $FF,$8C,$FE,$84,$2F,$FF,$5B,$FE
- $E7AB DEFB $84,$27,$FF,$F7,$FE,$84,$23,$FF
- $E7B3 DEFB $2F,$FC,$84,$21,$FF,$27,$F0,$84
- $E7BB DEFB $23,$FE,$C3,$DB,$85,$30,$F9,$E0
- $E7C3 DEFB $B6,$C0,$85,$1F,$03,$1F,$CD,$80
- $E7CB DEFB $00,$3F,$20,$84,$9F,$7F,$EF,$FE
- $E7D3 DEFB $87,$01,$1C,$46,$00,$1E,$B3,$00
- $E7DB DEFB $07,$E1,$1E,$E1,$31,$DB,$18,$20
- $E7E3 DEFB $C0,$DB,$06,$C0,$40,$DB,$01,$1F
- $E7EB DEFB $C0,$E2,$F7,$A0,$E2,$C8,$20,$DB
- $E7F3 DEFB $1F,$12,$E0,$DB,$3F,$E6,$60,$DB
- $E7FB DEFB $FF,$80,$20,$DB,$FF,$00,$20,$D4
- $E803 DEFB $01,$FF,$01,$A0,$D4,$03,$FF,$80
- $E80B DEFB $30,$D4,$07,$FF,$88,$70,$D4,$1F
- $E813 DEFB $F7,$C7,$F8,$D4,$1F,$DF,$DF,$F8
- $E81B DEFB $D4,$1F,$9F,$FF,$FE,$D4,$17,$7F
- $E823 DEFB $FF,$FE,$D4,$30,$FF,$FF,$FA,$D5
- $E82B DEFB $F0,$FF,$FF,$F9,$C0,$D5,$F0,$FF
- $E833 DEFB $FE,$38,$20,$CE,$01,$F1,$7F,$F8
- $E83B DEFB $1C,$1C,$CE,$01,$F1,$3F,$F0,$03
- $E843 DEFB $03,$CE,$07,$F1,$C1,$F0,$00,$C1
- $E84B DEFB $CE,$07,$F0,$F6,$30,$00,$31,$CE
- $E853 DEFB $1F,$F8,$C7,$C0,$00,$0F,$CC,$1F
- $E85B DEFB $F8,$2F,$20,$85,$3F,$3F,$FE,$3F
- $E863 DEFB $20,$85,$DF,$FF,$F6,$3F,$20,$84
- $E86B DEFB $9F,$7F,$EF,$FE,$87,$9F,$FF,$DF
- $E873 DEFB $F8,$1B,$6D,$80,$87,$8F,$FF,$3F
- $E87B DEFB $F6,$B6,$DB,$6D,$87,$85,$FE,$FF
- $E883 DEFB $CD,$6D,$B6,$DB,$85,$FF,$FF,$FF
- $E88B DEFB $FB,$C0,$00,$3C,$07,$DC,$3F,$01
- $E893 DEFB $FC,$11,$DC,$01,$1C,$46,$00,$35
- $E89B DEFB $53,$00,$07,$DB,$F8,$1F,$C0,$CD
- $E8A3 DEFB $F0,$3F,$F7,$FF,$38,$86,$01,$1F
- $E8AB DEFB $C7,$DF,$FE,$07,$87,$01,$3C,$3F
- $E8B3 DEFB $39,$F8,$03,$C0,$87,$31,$37,$FF
- $E8BB DEFB $77,$F8,$01,$F0,$87,$DF,$DF,$FF
- $E8C3 DEFB $7F,$FE,$01,$F8,$87,$BF,$FF,$FF
- $E8CB DEFB $9F,$F9,$01,$FE,$87,$BF,$FF,$E0
- $E8D3 DEFB $1F,$F6,$81,$F9,$87,$BF,$FE,$00
- $E8DB DEFB $0F,$F0,$C1,$D0,$87,$9F,$FC,$00
- $E8E3 DEFB $07,$F8,$23,$E2,$87,$E3,$E7,$FF
- $E8EB DEFB $FF,$8F,$FE,$1F,$00,$01,$FC,$E2
- $E8F3 DEFB $01,$FC,$E9,$FC,$E9,$01,$1C,$46
- $E8FB DEFB $00,$06,$CA,$00,$07,$DA,$03,$C0
- $E903 DEFB $DA,$0D,$20,$DA,$19,$78,$DA,$11
- $E90B DEFB $C8,$DA,$12,$0C,$DA,$12,$1A,$DA
- $E913 DEFB $19,$82,$DA,$D8,$04,$DA,$36,$18
- $E91B DEFB $DA,$C1,$08,$DB,$03,$87,$F0,$DB
- $E923 DEFB $07,$C7,$18,$DB,$1F,$DE,$1F,$DC
- $E92B DEFB $1E,$F0,$1E,$F8,$DC,$3F,$00,$3C
- $E933 DEFB $07,$DC,$3F,$01,$FC,$11,$DC,$3F
- $E93B DEFB $07,$FF,$F1,$DC,$3F,$1F,$FF,$0F
- $E943 DEFB $DB,$3F,$FF,$C0,$DB,$1F,$3F,$80
- $E94B DEFB $DA,$1E,$FF,$DA,$07,$FF,$DA,$07
- $E953 DEFB $FF,$DA,$07,$FF,$DA,$07,$FF,$DA
- $E95B DEFB $01,$FE,$DB,$06,$30,$C0,$DB,$07
- $E963 DEFB $C7,$F0,$DB,$03,$F3,$10,$DB,$03
- $E96B DEFB $F8,$D8,$DB,$01,$FF,$F8,$DB,$01
- $E973 DEFB $FF,$F8,$DB,$01,$FF,$F8,$E2,$FF
- $E97B DEFB $F8,$E2,$FF,$FC,$E2,$3F,$FE,$E2
- $E983 DEFB $1F,$FE,$E9,$FE,$E2,$01,$FE,$E2
- $E98B DEFB $01,$FC,$E2,$01,$FC,$E2,$01,$FC
- $E993 DEFB $E2,$01,$FC,$E2,$01,$FC,$E9,$FC
- $E99B DEFB $E9,$FE,$E9,$FE,$E9,$FE,$E9,$3E
- $E9A3 DEFB $E9,$3E,$D4,$01,$B0,$00,$3A,$D4
- $E9AB DEFB $03,$6D,$B6,$11,$DC,$DB,$6D,$91
- $E9B3 DEFB $1B,$DC,$36,$DB,$70,$D6,$DC,$0D
- $E9BB DEFB $B6,$D8,$6C,$E3,$01,$A8,$30,$EA
- $E9C3 DEFB $6E,$10,$EA,$07,$F0,$00,$F8,$31
- $E9CB DEFB $E3,$01,$F8,$18,$E3,$01,$01,$1C
- $E9D3 DEFB $46,$00,$15,$CE,$00,$07,$D1,$1C
- $E9DB DEFB $CB,$01,$F7,$80,$CC,$06,$A1,$40
- $E9E3 DEFB $30,$CC,$05,$60,$40,$D8,$CD,$05
- $E9EB DEFB $40,$5F,$07,$FF,$CE,$05,$00,$BF
- $E9F3 DEFB $07,$00,$C0,$CE,$04,$D9,$07,$1F
- $E9FB DEFB $88,$40,$CE,$05,$28,$01,$1F,$BC
- $EA03 DEFB $20,$CE,$05,$09,$F6,$1B,$C2,$20
- $EA0B DEFB $CE,$02,$1F,$FE,$1F,$01,$C0,$CD
- $EA13 DEFB $19,$1F,$FE,$3E,$F8,$D5,$FF,$28
- $EA1B DEFB $3E,$3F,$C0,$D5,$3F,$F8,$39,$FF
- $EA23 DEFB $F0,$D5,$3F,$F8,$32,$FF,$F8,$D5
- $EA2B DEFB $3F,$F8,$36,$FF,$FE,$D5,$3F,$FE
- $EA33 DEFB $36,$FF,$FE,$D5,$1F,$FF,$DD,$DF
- $EA3B DEFB $FE,$D5,$07,$FE,$DD,$F7,$FE,$DC
- $EA43 DEFB $FF,$FF,$F8,$FF,$E3,$FF,$FC,$7F
- $EA4B DEFB $E3,$FF,$FE,$7F,$E3,$3F,$FE,$7F
- $EA53 DEFB $E3,$01,$FE,$7F,$E3,$01,$FE,$7F
- $EA5B DEFB $EA,$BE,$3F,$EA,$DE,$27,$EA,$BE
- $EA63 DEFB $26,$EA,$BE,$34,$E3,$01,$F8,$32
- $EA6B DEFB $E3,$01,$F8,$22,$E3,$01,$F8,$31
- $EA73 DEFB $E3,$01,$F8,$18,$E3,$01,$F8,$08
- $EA7B DEFB $EA,$F0,$04,$E3,$01,$60,$03,$D4
- $EA83 DEFB $05,$B0,$01,$20,$D4,$03,$6D,$B6
- $EA8B DEFB $20,$DC,$5B,$6E,$36,$D8,$DC,$36
- $EA93 DEFB $DA,$2D,$B6,$DC,$0C,$B6,$28,$6D
- $EA9B DEFB $E3,$01,$28,$1B,$E2,$01,$10,$E2
- $EAA3 DEFB $01,$F0,$00,$B6,$DF,$06,$CE,$6D
- $EAAB DEFB $B6,$DB,$6D,$01,$1C,$46,$00,$22
- $EAB3 DEFB $AF,$00,$07,$E1,$01,$E2,$02,$F0
- $EABB DEFB $E2,$1C,$10,$E2,$E0,$30,$CD,$37
- $EAC3 DEFB $80,$1F,$01,$C0,$CC,$DC,$F0,$FF
- $EACB DEFB $06,$85,$01,$10,$AB,$FF,$D8,$86
- $EAD3 DEFB $01,$54,$0F,$FF,$F0,$F8,$86,$01
- $EADB DEFB $5C,$01,$C7,$01,$FE,$86,$01,$50
- $EAE3 DEFB $00,$FA,$07,$FF,$87,$01,$58,$FF
- $EAEB DEFB $FF,$DF,$FF,$C0,$87,$01,$47,$FF
- $EAF3 DEFB $F8,$3F,$FF,$C0,$87,$01,$49,$F7
- $EAFB DEFB $F0,$39,$FF,$F0,$87,$01,$07,$F9
- $EB03 DEFB $C1,$C7,$FF,$F8,$CE,$F9,$FE,$06
- $EB0B DEFB $3F,$F7,$F8,$CE,$C1,$FF,$05,$BF
- $EB13 DEFB $E1,$F8,$87,$01,$00,$FF,$19,$DF
- $EB1B DEFB $C0,$F4,$87,$01,$00,$FF,$37,$FF
- $EB23 DEFB $F0,$63,$D5,$3F,$F7,$FF,$F0,$20
- $EB2B DEFB $D5,$07,$37,$FF,$F8,$30,$DC,$F7
- $EB33 DEFB $FF,$F8,$1E,$DC,$1F,$FF,$FE,$03
- $EB3B DEFB $DB,$01,$FF,$FF,$E3,$1F,$FF,$C0
- $EB43 DEFB $EA,$FF,$C0,$CE,$DB,$6D,$B6,$00
- $EB4B DEFB $3F,$38,$87,$01,$B6,$DB,$6D,$B6
- $EB53 DEFB $DF,$06,$CE,$6D,$B6,$DB,$6D,$AF
- $EB5B DEFB $01,$DC,$06,$DB,$66,$C0,$F1,$FF
- $EB63 DEFB $00,$E0,$CB,$0F,$F9,$F0,$CB,$1F
- $EB6B DEFB $F1
- $EB6C DEFB $01,$1C,$46,$00,$30,$68,$00,$07 ; {#UDGARRAY2,scale=4,step=2;(#PC)-(#PC+$10)-$10(test-3)
+ $D28F DEFB $05,$82,$11,$CB,$05,$84,$11
+ $D296 DEFB $CB,$02,$0C,$11,$CB,$01,$24,$11 ; {#UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
+ $D29E DEFB $CB,$06,$18,$31,$CB,$1E,$0F,$F9 ;
+ $D2A6 DEFB $CB,$3F,$1F,$FF,$CB,$7F,$1F,$FF ;
+ $D2AE DEFB $CB,$FF,$DF,$FE,$CB,$FF,$CF,$F8 ;
+ $D2B6 DEFB $CB,$FF,$FF,$F0,$CB,$FE,$FF,$E0 ;
+ $D2BE DEFB $CB,$FE,$FF,$C0,$CB,$FE,$FF,$80 ;
+ $D2C6 DEFB $CB,$7F,$7F,$80,$CA,$3F,$BF,$CA ;
+ $D2CE DEFB $3F,$DF,$CA,$1F,$FF,$CA,$17,$F7 ; }
+ $D2D6 DEFB $CA,$19,$C1,$CB,$17,$C0,$C0,$CB
+ $D2DE DEFB $18,$F0,$38,$CB,$3F,$18,$08,$CB
+ $D2E6 DEFB $3E,$1F,$84,$CB,$7E,$F7,$64,$CB
+ $D2EE DEFB $FE,$F7,$98
+ $D2F1 DEFB $CB,$FE,$F7,$80,$84             ; {#UDGARRAY5,scale=4,step=5;(#PC)-(#PC+$F2)-$08(test-3)
+ $D2F6 DEFB $01,$FF,$F7,$C0,$84             ;
+ $D2FB DEFB $01,$FF,$FF,$C0,$84             ;
+ $D300 DEFB $03,$FF,$FF,$E0,$84             ;
+ $D305 DEFB $03,$FF,$FF,$E0,$84             ;
+ $D30A DEFB $07,$FF,$0F,$F0,$84             ;
+ $D30F DEFB $07,$FC,$07,$F0,$84             ;
+ $D314 DEFB $0F,$F8,$03,$F0,$84             ;
+ $D319 DEFB $0F,$F8,$03,$F0,$84             ;
+ $D31E DEFB $0F,$F0,$01,$F0,$84             ;
+ $D323 DEFB $1F,$E0,$01,$F0,$84             ;
+ $D328 DEFB $1F,$C1,$B1,$F8,$84             ;
+ $D32D DEFB $1F,$C3,$6C,$F8,$84             ;
+ $D332 DEFB $1F,$96,$DB,$F8,$84             ;
+ $D337 DEFB $1E,$6D,$B6,$B6,$85             ; }
+ $D33C DEFB $26,$5B,$6D,$A1,$80,$85,$41,$36
+ $D344 DEFB $1A,$80,$60,$85,$81,$60,$01,$40
+ $D34C DEFB $20,$85,$FE,$00,$00,$7F,$C0,$00
+ $D354 DEFB $36,$01,$00,$FD,$36,$02,$00,$E1
+ $D35C DEFB $01,$1C,$46,$00,$1B,$AF,$00,$07
+ $D364 DEFB $D1,$F0,$CA,$03,$08,$CA,$04,$E8
+ $D36C DEFB $CA,$07,$3C,$CA,$38,$C4,$CA,$09
+ $D374 DEFB $1C,$CA,$09,$0E,$CA,$0A,$82,$CA
+ $D37C DEFB $0E,$84,$CA,$02,$0C,$CA,$02,$44
+ $D384 DEFB $CA,$06,$3F,$CB,$1E,$1F,$C0,$CB
+ $D38C DEFB $3F,$1F,$F8,$CB,$7F,$1F,$FE,$CB
+ $D394 DEFB $FF,$3F,$FE,$CB,$FF,$3C,$FF,$84
+ $D39C DEFB $01,$FF,$FF,$FE,$84,$01,$FB,$FF
+ $D3A4 DEFB $39,$85,$03,$FB,$FF,$04,$80,$85
+ $D3AC DEFB $03,$F7,$FE,$FC,$60,$85,$03,$F7
+ $D3B4 DEFB $F9,$FC,$70,$85,$07,$EF,$BF,$FE
+ $D3BC DEFB $30,$85,$07,$FC,$FF,$FE,$10,$85
+ $D3C4 DEFB $07,$FB,$FD,$FE,$30,$85,$07,$FF
+ $D3CC DEFB $FE,$72,$F0,$85,$06,$DC,$FF,$DF
+ $D3D4 DEFB $F0,$85,$04,$4F,$3F,$E7,$E0,$85
+ $D3DC DEFB $04,$4F,$DF,$F7,$F8,$85,$04,$53
+ $D3E4 DEFB $DF,$F7,$C4,$85,$02,$53,$FF,$FB
+ $D3EC DEFB $82,$85,$02,$53,$FF,$F4,$02,$85
+ $D3F4 DEFB $02,$53,$FF,$E3,$FC,$85,$04,$51
+ $D3FC DEFB $FF,$8D,$B0,$85,$1C,$31,$80,$DB
+ $D404 DEFB $60,$85,$21,$98,$4D,$B6,$D8,$85
+ $D40C DEFB $3E,$67,$DB,$6D,$B0,$00,$2B,$FD
+ $D414 DEFB $7E,$02,$77,$2B,$FD,$7E,$01,$1C
+ $D41C DEFB $46,$00,$21,$A4,$00,$07,$CA,$18
+ $D424 DEFB $38,$CA,$06,$C6,$CA,$19,$01,$CA
+ $D42C DEFB $07,$03,$CA,$02,$FD,$CA,$02,$01
+ $D434 DEFB $CA,$02,$7D,$CA,$06,$83,$CA,$1F
+ $D43C DEFB $77,$CB,$3E,$25,$C0,$CB,$FF,$01
+ $D444 DEFB $F0,$CB,$FF,$19,$F8,$CB,$FF,$99
+ $D44C DEFB $F8,$84,$01,$F9,$43,$FC,$84,$01
+ $D454 DEFB $F7,$BF,$FE,$84,$01,$F7,$C7,$7E
+ $D45C DEFB $84,$01,$F1,$E7,$7E,$84,$03,$EE
+ $D464 DEFB $FF,$BF,$85,$03,$FF,$7F,$BE,$C0
+ $D46C DEFB $85,$03,$FF,$BF,$BF,$F8,$85,$07
+ $D474 DEFB $DF,$DE,$B3,$FE,$86,$07,$DF,$ED
+ $D47C DEFB $E1,$FF,$C0,$86,$07,$DF,$F6,$E1
+ $D484 DEFB $FF,$F0,$86,$07,$DF,$F6,$E1,$FF
+ $D48C DEFB $F8,$86,$05,$DF,$F7,$E1,$FF,$FF
+ $D494 DEFB $87,$05,$07,$D4,$F1,$FF,$FF,$F0
+ $D49C DEFB $87,$09,$07,$18,$11,$FF,$FF,$1F
+ $D4A4 DEFB $87,$31,$00,$8C,$11,$1F,$FF,$01
+ $D4AC DEFB $87,$40,$DB,$0E,$20,$80,$FE,$03
+ $D4B4 DEFB $87,$86,$76,$02,$CC,$DB,$7F,$C2
+ $D4BC DEFB $87,$79,$ED,$FC,$73,$B6,$DF,$3E
+ $D4C4 DEFB $00,$28,$1B,$FE,$23,$D8,$FE,$26
+ $D4CC DEFB $38,$01,$1C,$46,$00,$0C,$CC,$00
+ $D4D4 DEFB $07,$E1,$E0,$DA,$03,$18,$DA,$04
+ $D4DC DEFB $C4,$DA,$3F,$3C,$DA,$D8,$C4,$DA
+ $D4E4 DEFB $09,$1C,$DA,$09,$0E,$DA,$0A,$82
+ $D4EC DEFB $DA,$0A,$84,$DA,$04,$0C,$DA,$04
+ $D4F4 DEFB $44,$DA,$1E,$38,$DA,$3E,$18,$DA
+ $D4FC DEFB $FE,$3E,$D3,$01,$FF,$3E,$D3,$03
+ $D504 DEFB $F7,$3F,$D5,$07,$F7,$FF,$00,$70
+ $D50C DEFB $D5,$07,$EF,$FF,$00,$98,$D5,$07
+ $D514 DEFB $EF,$FF,$C7,$88,$D5,$07,$F7,$FF
+ $D51C DEFB $F8,$48,$D5,$03,$DF,$FF,$C0,$F0
+ $D524 DEFB $D4,$01,$FF,$FF,$03,$DB,$F9,$FF
+ $D52C DEFB $0C,$D4,$01,$F8,$FA,$F0,$D4,$03
+ $D534 DEFB $30,$31,$80,$D3,$07,$F0,$10,$D3
+ $D53C DEFB $07,$FF,$18,$D3,$07,$FF,$C8,$D3
+ $D544 DEFB $07,$FF,$C8,$D3,$07,$FF,$C8,$D3
+ $D54C DEFB $03,$FF,$F8,$D3,$01,$F7,$C0,$DA
+ $D554 DEFB $9F,$C0,$D3,$01,$BF,$C0,$D3,$01
+ $D55C DEFB $7F,$C0,$D3,$01,$FF,$80,$D3,$07
+ $D564 DEFB $FF,$80,$D2,$07,$FF,$D2,$19,$3E
+ $D56C DEFB $D2,$10,$DA,$D2,$18,$36,$D2,$06
+ $D574 DEFB $2E,$D2,$01,$3C,$D2,$01,$FC,$D2
+ $D57C DEFB $01,$F8,$D2,$01,$F8,$D5,$01,$FB
+ $D584 DEFB $00,$00,$D8,$D5,$01,$B6,$DB,$6D
+ $D58C DEFB $B0,$D5,$03,$1D,$B6,$DB,$60,$D4
+ $D594 DEFB $05,$0B,$6D,$B0,$D3,$04,$06,$C0
+ $D59C DEFB $D2,$07,$FC,$00,$4E,$C3,$12,$C3
+ $D5A4 DEFB $13,$50,$CF,$14,$01,$1C,$46,$00
+ $D5AC DEFB $10,$06,$01,$07,$81,$F0,$81,$98
+ $D5B4 DEFB $81,$84,$81,$83,$82,$C0,$C0,$82
+ $D5BC DEFB $38,$38,$86,$04,$1E,$00,$01,$F0
+ $D5C4 DEFB $02,$86,$02,$1F,$00,$07,$FE,$01
+ $D5CC DEFB $87,$01,$3F,$C0,$1F,$FF,$01,$C0
+ $D5D4 DEFB $CE,$FF,$E0,$1F,$FF,$C2,$30,$CE
+ $D5DC DEFB $FF,$F0,$1F,$FF,$F7,$08,$CE,$3F
+ $D5E4 DEFB $F8,$11,$FE,$F8,$88,$CE,$0F,$FF
+ $D5EC DEFB $10,$F9,$F1,$D6,$CE,$07,$FF,$F0
+ $D5F4 DEFB $F9,$F0,$32,$CE,$03,$FF,$F1,$C7
+ $D5FC DEFB $C0,$D2,$CE,$01,$FF,$C1,$FF,$C6
+ $D604 DEFB $D2,$D5,$FF,$C1,$FF,$06,$1E,$D5
+ $D60C DEFB $7F,$07,$FE,$10,$D8,$D5,$1F,$05
+ $D614 DEFB $FF,$18,$F0,$D4,$0F,$05,$FF,$FF
+ $D61C DEFB $D4,$07,$18,$FF,$FF,$D5,$07,$F8
+ $D624 DEFB $FF,$FF,$80,$D5,$07,$FA,$FF,$FF
+ $D62C DEFB $C0,$D5,$03,$FA,$FF,$FF,$C0,$D5
+ $D634 DEFB $03,$F7,$7E,$3F,$E0,$D5,$03,$F7
+ $D63C DEFB $70,$3F,$F0,$D5,$01,$FF,$00,$1F
+ $D644 DEFB $F8,$D5,$01,$FF,$00,$1F,$F8,$DC
+ $D64C DEFB $FF,$00,$07,$CC,$DC,$FF,$00,$07
+ $D654 DEFB $C6,$D5,$01,$FF,$00,$01,$A2,$D5
+ $D65C DEFB $01,$FF,$00,$00,$11,$D5,$01,$FE
+ $D664 DEFB $00,$00,$09,$D5,$01,$FE,$00,$00
+ $D66C DEFB $05,$D5,$01,$FE,$00,$00,$05,$DC
+ $D674 DEFB $FE,$00,$00,$05,$DC,$FE,$00,$00
+ $D67C DEFB $06,$D9,$FE,$D9,$FE,$D9,$FE,$84
+ $D684 DEFB $36,$C0,$00,$FC,$86,$6D,$B6,$D0
+ $D68C DEFB $FC,$01,$B6,$87,$1B,$6D,$B7,$FC
+ $D694 DEFB $1B,$6D,$80,$CE,$DB,$6C,$F5,$B6
+ $D69C DEFB $DB,$60,$CE,$36,$DB,$22,$6D,$B6
+ $D6A4 DEFB $DB,$D5,$06,$41,$9B,$61,$B6,$D5
+ $D6AC DEFB $01,$40,$70,$00,$01,$DA,$FF,$C0
+ $D6B4 DEFB $00,$60,$7E,$FE,$2F,$28,$04,$ED
+ $D6BC DEFB $A0,$02,$1C,$46,$00,$0C,$D7,$00
+ $D6C4 DEFB $07,$CA,$07,$C0,$CA,$18,$20,$CA
+ $D6CC DEFB $27,$10,$CA,$78,$F0,$CA,$A1,$10
+ $D6D4 DEFB $83,$01,$22,$70,$CA,$26,$38,$CA
+ $D6DC DEFB $25,$08,$CA,$15,$10,$CA,$18,$30
+ $D6E4 DEFB $CA,$04,$90,$CA,$18,$70,$CA,$3F
+ $D6EC DEFB $40,$CA,$FF,$F0,$83,$01,$FF,$F8
+ $D6F4 DEFB $83,$03,$FF,$FE,$84,$07,$FF,$FF
+ $D6FC DEFB $C0,$85,$07,$FF,$FF,$FE,$04,$85
+ $D704 DEFB $07,$FF,$FF,$F8,$1C,$85,$07,$BF
+ $D70C DEFB $3F,$F8,$F0,$84,$07,$BF,$DF,$FF
+ $D714 DEFB $84,$01,$FF,$F7,$E8,$84,$01,$FF
+ $D71C DEFB $F0,$78,$CA,$FF,$F0,$CA,$3F,$F0
+ $D724 DEFB $CA,$07,$C0,$CA,$30,$18,$CA,$3F
+ $D72C DEFB $18,$CA,$3F,$DC,$CA,$3F,$BC,$CA
+ $D734 DEFB $3F,$BC,$CA,$7F,$FE,$CA,$7F,$FF
+ $D73C DEFB $CB,$7F,$FF,$80,$CB,$7F,$FF,$80
+ $D744 DEFB $CB,$7F,$FF,$C0,$CB,$FF,$BF,$C0
+ $D74C DEFB $CB,$FF,$1F,$C0,$84,$01,$FF,$1F
+ $D754 DEFB $C0,$84,$03,$FF,$1F,$C0,$84,$03
+ $D75C DEFB $FE,$0F,$C0,$84,$07,$FE,$0F,$C0
+ $D764 DEFB $84,$0F,$FC,$0F,$C0,$84,$0F,$F8
+ $D76C DEFB $0F,$C0,$84,$1F,$F0,$0F,$C0,$84
+ $D774 DEFB $3F,$C0,$1F,$C0,$84,$3F,$36,$DF
+ $D77C DEFB $C0,$85,$2B,$6D,$BF,$C3,$60,$85
+ $D784 DEFB $21,$9B,$66,$36,$D8,$85,$40,$F6
+ $D78C DEFB $C8,$0D,$B6,$85,$40,$2C,$38,$02
+ $D794 DEFB $6C,$84,$3F,$F0,$0F,$FE,$00,$00
+ $D79C DEFB $1A,$09,$00,$07,$E1,$3C,$E1,$C4
+ $D7A4 DEFB $DA,$03,$04,$00,$3D,$CD,$EE,$92
+ $D7AC DEFB $18,$08,$E3,$CB,$02,$1C,$46,$00
+ $D7B4 DEFB $FF,$1E,$00,$07,$C9,$DB,$83,$0D
+ $D7BC DEFB $B6,$DB,$84,$1B,$6D,$B6,$D8,$85
+ $D7C4 DEFB $36,$DB,$6D,$B6,$D8,$85,$6D,$B0
+ $D7CC DEFB $1B,$6D,$B4,$DA,$DB,$6C,$D9,$36
+ $D7D4 DEFB $00,$00,$07,$C1,$00,$07,$D9,$6C
+ $D7DC DEFB $DA,$1F,$80,$DA,$22,$40,$DA,$61
+ $D7E4 DEFB $A0,$DA,$42,$A0,$D3,$01,$ED,$D0
+ $D7EC DEFB $D3,$01,$91,$B0,$D3,$7F,$93,$70
+ $D7F4 DEFB $CC,$03,$FF,$83,$50,$CC,$0F,$FF
+ $D7FC DEFB $E0,$60,$CC,$1F,$FF,$65,$80,$CB
+ $D804 DEFB $6F,$FF,$BE,$84,$01,$EF,$FF,$E0
+ $D80C DEFB $84,$01,$F7,$EF,$E0,$84,$03,$F3
+ $D814 DEFB $EF,$E0,$84,$03,$F9,$F7,$E0,$84
+ $D81C DEFB $03,$FD,$FB,$E0,$84,$03,$FC,$FB
+ $D824 DEFB $E0,$84,$03,$FF,$8F,$E0,$84,$03
+ $D82C DEFB $FF,$C3,$E0,$84,$03,$FF,$E3,$D0
+ $D834 DEFB $84,$03,$FD,$F3,$90,$84,$01,$FD
+ $D83C DEFB $F1,$08,$84,$01,$FD,$F8,$C4,$84
+ $D844 DEFB $01,$FF,$7C,$66,$CB,$7F,$7C,$11
+ $D84C DEFB $84,$03,$BF,$7C,$11,$84,$1F,$BF
+ $D854 DEFB $BC,$09,$84,$63,$BF,$BC,$12,$84
+ $D85C DEFB $47,$EF,$B8,$14,$84,$4B,$7F,$E0
+ $D864 DEFB $18,$83,$43,$7F,$80,$82,$47,$FF
+ $D86C DEFB $82,$4C,$7F,$82,$48,$7F,$82,$48
+ $D874 DEFB $7F,$82,$50,$7F,$82,$60,$7F,$C9
+ $D87C DEFB $7E,$C9,$7C,$C9,$FC,$C9,$BC,$C9
+ $D884 DEFB $90,$82,$01,$90,$82,$01,$08,$82
+ $D88C DEFB $01,$08,$82,$01,$08,$C9,$88,$C9
+ $D894 DEFB $84,$C9,$42,$C9,$3E,$00,$94,$32
+ $D89C DEFB $5C,$94,$32,$6E,$94,$32,$02,$1C
+ $D8A4 DEFB $46,$00,$FF,$23,$00,$07,$CA,$01
+ $D8AC DEFB $80,$85,$36,$DB,$6D,$B6,$D0,$85
+ $D8B4 DEFB $6D,$B6,$DB,$6D,$B6,$85,$5B,$6D
+ $D8BC DEFB $B6,$DB,$6C,$85,$36,$DB,$6D,$B6
+ $D8C4 DEFB $D8,$CA,$36,$DB,$CA,$01,$B0,$00
+ $D8CC DEFB $00,$02,$77,$00,$07,$CB,$07,$FF
+ $D8D4 DEFB $C0,$CB,$1E,$FF,$F0,$CB,$3E,$FF
+ $D8DC DEFB $F8,$CB,$3F,$3F,$FC,$CC,$7F,$3F
+ $D8E4 DEFB $FE,$40,$CC,$7F,$BF,$FE,$20,$CC
+ $D8EC DEFB $F9,$BE,$FF,$F0,$CC,$FE,$BE,$3F
+ $D8F4 DEFB $28,$CC,$FF,$3D,$FD,$94,$CC,$FF
+ $D8FC DEFB $DD,$F8,$52,$CC,$FF,$DB,$F9,$EA
+ $D904 DEFB $CC,$FF,$F7,$F0,$3A,$CC,$3F,$F7
+ $D90C DEFB $E0,$12,$CC,$3F,$F9,$D0,$52,$CC
+ $D914 DEFB $1F,$F0,$F4,$D4,$CC,$07,$E1,$8E
+ $D91C DEFB $F8,$D3,$C3,$C1,$80,$84,$01,$9F
+ $D924 DEFB $C7,$E0,$84,$06,$FF,$87,$F0,$84
+ $D92C DEFB $19,$1F,$89,$F0,$84,$30,$3F,$0F
+ $D934 DEFB $F0,$84,$40,$FF,$1F,$F0,$84,$47
+ $D93C DEFB $3F,$1F,$F0,$84,$78,$39,$1F,$C0
+ $D944 DEFB $D1,$F0,$00,$1B,$B7,$C9,$47,$F5
+ $D94C DEFB $95,$90,$4F,$02,$1C,$46,$00,$FF
+ $D954 DEFB $1B,$00,$07,$EA,$6D,$B0,$D5,$03
+ $D95C DEFB $6D,$B6,$DB,$68,$D5,$06,$DB,$6D
+ $D964 DEFB $B6,$D8,$D5,$01,$B6,$DB,$6D,$A0
+ $D96C DEFB $E3,$B6,$C3,$60,$00,$00,$01,$9A
+ $D974 DEFB $00,$07,$E9,$01,$EA,$02,$80,$EA
+ $D97C DEFB $02,$80,$EA,$02,$80,$EA,$02,$40
+ $D984 DEFB $EA,$02,$40,$EA,$04,$40,$EA,$14
+ $D98C DEFB $20,$EA,$38,$20,$EA,$FB,$40,$E3
+ $D994 DEFB $01,$FD,$80,$E2,$07,$FF,$E2,$FF
+ $D99C DEFB $FE,$E2,$9F,$FE,$E2,$9F,$F8,$E2
+ $D9A4 DEFB $87,$F0,$E2,$C7,$C0,$E2,$C7,$F0
+ $D9AC DEFB $E2,$C1,$FE,$E2,$F1,$FF,$DC,$18
+ $D9B4 DEFB $31,$FF,$C0,$D5,$01,$F7,$11,$FF
+ $D9BC DEFB $F0,$D5,$02,$B2,$90,$FF,$F0,$D5
+ $D9C4 DEFB $02,$A0,$90,$FF,$F8,$D5,$04,$80
+ $D9CC DEFB $B0,$FF,$F8,$D5,$05,$41,$F0,$BF
+ $D9D4 DEFB $F8,$D5,$05,$31,$F1,$9F,$F8,$D5
+ $D9DC DEFB $04,$98,$3E,$EF,$F8,$D5,$02,$A0
+ $D9E4 DEFB $FE,$F7,$F8,$D5,$02,$99,$FD,$F7
+ $D9EC DEFB $F8,$D5,$01,$45,$FD,$F9,$F8,$DC
+ $D9F4 DEFB $FF,$F9,$F9,$F8,$DC,$41,$F7,$FE
+ $D9FC DEFB $F8,$DC,$41,$FF,$FF,$30,$DC,$20
+ $DA04 DEFB $FF,$FF,$F0,$E3,$3F,$FF,$C0,$E2
+ $DA0C DEFB $07,$FE,$00,$CD,$52,$97,$D4,$07
+ $DA14 DEFB $97,$E1,$18,$02,$1C,$46,$00,$FF
+ $DA1C DEFB $20,$00,$07,$DC,$01,$B0,$00,$6D
+ $DA24 DEFB $DC,$1B,$6D,$B6,$DB,$DC,$36,$DB
+ $DA2C DEFB $6D,$B6,$DC,$0D,$B6,$DB,$60,$DC
+ $DA34 DEFB $1B,$6C,$00,$DB,$DC,$06,$C0,$01
+ $DA3C DEFB $B6,$00,$00,$03,$96,$00,$07,$DA
+ $DA44 DEFB $01,$C0,$DA,$06,$30,$DA,$18,$10
+ $DA4C DEFB $DA,$16,$F0,$DA,$39,$10,$DA,$D2
+ $DA54 DEFB $70,$DA,$12,$38,$DA,$15,$08,$DA
+ $DA5C DEFB $0D,$10,$DA,$04,$30,$DA,$06,$10
+ $DA64 DEFB $DA,$1F,$70,$DB,$1F,$C0,$38,$DB
+ $DA6C DEFB $3F,$C0,$48,$DB,$3F,$F0,$88,$DB
+ $DA74 DEFB $3F,$F1,$38,$DB,$3F,$FE,$27,$DC
+ $DA7C DEFB $3F,$F8,$7F,$C0,$DC,$3F,$F9,$BF
+ $DA84 DEFB $C0,$DC,$3D,$FF,$7F,$C0,$DC,$3E
+ $DA8C DEFB $F1,$FF,$F0,$DC,$3E,$C0,$1C,$70
+ $DA94 DEFB $DC,$3F,$C0,$00,$70,$DC,$3F,$78
+ $DA9C DEFB $00,$70,$DC,$1F,$FF,$01,$F8,$DC
+ $DAA4 DEFB $1F,$DF,$FF,$F8,$DC,$1F,$DF,$FB
+ $DAAC DEFB $FE,$DC,$1F,$9F,$F1,$FB,$DC,$1F
+ $DAB4 DEFB $BF,$C1,$FF,$DC,$07,$7F,$C1,$F8
+ $DABC DEFB $DC,$06,$FF,$C1,$F8,$DC,$07,$FF
+ $DAC4 DEFB $01,$F8,$DC,$01,$FF,$00,$F8,$E3
+ $DACC DEFB $FE,$00,$C8,$F1,$A7,$F1,$80,$F1
+ $DAD4 DEFB $C0,$F1,$3F,$00,$00,$7E,$FE,$21
+ $DADC DEFB $38,$05,$ED,$A0,$01,$1C,$46,$00
+ $DAE4 DEFB $0D,$F6,$00,$07,$C9,$F8,$82,$01
+ $DAEC DEFB $04,$82,$02,$7E,$82,$05,$BA,$82
+ $DAF4 DEFB $06,$C6,$82,$19,$01,$82,$35,$77
+ $DAFC DEFB $82,$06,$35,$83,$07,$05,$3F,$85
+ $DB04 DEFB $05,$01,$FF,$FC,$7E,$86,$06,$19
+ $DB0C DEFB $F7,$F3,$81,$80,$86,$01,$83,$F9
+ $DB14 DEFB $E0,$0C,$40,$86,$07,$45,$FF,$F0
+ $DB1C DEFB $E8,$40,$86,$0E,$39,$FF,$3F,$FC
+ $DB24 DEFB $40,$86,$0F,$05,$FF,$FC,$03,$80
+ $DB2C DEFB $85,$1F,$C0,$FF,$DF,$F8,$86,$1F
+ $DB34 DEFB $F0,$FF,$DF,$FF,$80,$86,$3F,$FF
+ $DB3C DEFB $FF,$DF,$FF,$C0,$86,$3F,$FF,$FF
+ $DB44 DEFB $39,$FF,$E0,$86,$3E,$FF,$FF,$37
+ $DB4C DEFB $FF,$E0,$86,$3F,$FF,$FE,$1F,$FF
+ $DB54 DEFB $F8,$86,$3F,$BF,$FE,$FF,$F9,$C4
+ $DB5C DEFB $86,$3E,$87,$FE,$3F,$F7,$C4,$86
+ $DB64 DEFB $1F,$C0,$F9,$3F,$1F,$0C,$86,$1F
+ $DB6C DEFB $E0,$27,$3E,$18,$F0,$85,$07,$1E
+ $DB74 DEFB $1F,$DE,$0F,$84,$07,$01,$9F,$DC
+ $DB7C DEFB $84,$01,$C0,$DF,$FC,$CB,$30,$47
+ $DB84 DEFB $F8,$CB,$0D,$27,$F8,$CB,$03,$C7
+ $DB8C DEFB $F8,$D2,$07,$F8,$D2,$07,$F8,$D2
+ $DB94 DEFB $07,$F8,$D2,$07,$F8,$D2,$07,$F8
+ $DB9C DEFB $D2,$07,$F8,$D2,$07,$FC,$D2,$01
+ $DBA4 DEFB $FC,$D2,$01,$FE,$D2,$01,$FE,$D2
+ $DBAC DEFB $01,$FE,$D9,$FE,$84,$36,$00,$00
+ $DBB4 DEFB $FE,$84,$2D,$B6,$D8,$32,$86,$1B
+ $DBBC DEFB $6D,$B6,$A2,$61,$B0,$86,$06,$DB
+ $DBC4 DEFB $6D,$A2,$DB,$6C,$86,$01,$B6,$DB
+ $DBCC DEFB $63,$B6,$D8,$CD,$01,$B6,$81,$6D
+ $DBD4 DEFB $B0,$D3,$0D,$07,$C0,$D2,$01,$FC
+ $DBDC DEFB $00,$81,$97,$21,$00,$00,$23,$22
+ $DBE4 DEFB $14,$01,$1C,$46,$00,$0E,$C9,$00
+ $DBEC DEFB $07,$C9,$07,$CA,$18,$C0,$CA,$27
+ $DBF4 DEFB $20,$CA,$F9,$E0,$83,$03,$46,$20
+ $DBFC DEFB $CA,$48,$E0,$CA,$68,$70,$CA,$36
+ $DC04 DEFB $10,$CA,$26,$20,$83,$01,$C0,$60
+ $DC0C DEFB $83,$07,$E2,$20,$83,$0F,$E1,$C0
+ $DC14 DEFB $82,$1F,$F1,$83,$1F,$F9,$80,$83
+ $DC1C DEFB $3F,$F9,$C0,$83,$7F,$FF,$E0,$83
+ $DC24 DEFB $FF,$7F,$E0,$83,$FF,$7F,$B0,$83
+ $DC2C DEFB $FE,$FF,$B0,$83,$FE,$FF,$B8,$83
+ $DC34 DEFB $FD,$FF,$B8,$83,$F9,$FF,$F8,$83
+ $DC3C DEFB $7F,$FF,$F8,$83,$71,$FE,$6E,$83
+ $DC44 DEFB $30,$F9,$21,$84,$10,$40,$E0,$F0
+ $DC4C DEFB $84,$18,$39,$38,$10,$84,$1E,$1D
+ $DC54 DEFB $B6,$90,$84,$1F,$0D,$B1,$D0,$84
+ $DC5C DEFB $1F,$0D,$D8,$60,$83,$1F,$8B,$D8
+ $DC64 DEFB $83,$0F,$FD,$FC,$83,$0F,$FF,$FE
+ $DC6C DEFB $83,$07,$FE,$FE,$83,$01,$FF,$FF
+ $DC74 DEFB $CA,$FF,$7F,$CB,$3F,$FF,$80,$CB
+ $DC7C DEFB $27,$7F,$80,$CB,$77,$3F,$80,$CB
+ $DC84 DEFB $BF,$1F,$80,$84,$01,$DF,$3F,$80
+ $DC8C DEFB $83,$03,$FF,$3F,$83,$07,$FE,$7F
+ $DC94 DEFB $83,$07,$FC,$FE,$83,$0F,$F8,$FE
+ $DC9C DEFB $83,$6F,$F0,$F8,$84,$D4,$C7,$8B
+ $DCA4 DEFB $60,$84,$B8,$3D,$06,$D0,$84,$70
+ $DCAC DEFB $0A,$01,$A0,$84,$1F,$F9,$FF,$60
+ $DCB4 DEFB $00,$0E,$50,$41,$47,$45,$20,$30
+ $DCBC DEFB $30,$01,$1C,$46,$00,$0B,$98,$00
+ $DCC4 DEFB $07,$CA,$07,$80,$CA,$08,$40,$CA
+ $DCCC DEFB $17,$A0,$CA,$2B,$E0,$CA,$34,$20
+ $DCD4 DEFB $CA,$C9,$E0,$83,$01,$28,$E0,$CA
+ $DCDC DEFB $2C,$30,$CA,$2A,$10,$CA,$32,$60
+ $DCE4 DEFB $CA,$10,$20,$CA,$18,$E0,$CA,$3E
+ $DCEC DEFB $80,$C9,$3F,$C9,$7F,$CA,$FF,$80
+ $DCF4 DEFB $CA,$FF,$80,$CA,$FF,$C0,$CA,$FE
+ $DCFC DEFB $C0,$CA,$FE,$C0,$CA,$BF,$C0,$CA
+ $DD04 DEFB $BF,$C0,$CA,$DD,$C0,$CA,$C7,$C0
+ $DD0C DEFB $CA,$C3,$C0,$CA,$C3,$C0,$CA,$61
+ $DD14 DEFB $C0,$CA,$70,$C0,$CA,$78,$C0,$CA
+ $DD1C DEFB $FC,$20,$CA,$FC,$20,$CA,$FC,$40
+ $DD24 DEFB $CA,$FE,$40,$CA,$7F,$C0,$CA,$7F
+ $DD2C DEFB $C0,$CA,$3F,$C0,$CA,$3F,$C0,$CA
+ $DD34 DEFB $1F,$C0,$CA,$1F,$80,$CA,$1F,$80
+ $DD3C DEFB $CA,$1F,$80,$C9,$3F,$C9,$3F,$C9
+ $DD44 DEFB $3F,$C9,$3F,$C9,$3F,$C9,$3F,$C9
+ $DD4C DEFB $3F,$C9,$3E,$CA,$51,$80,$CA,$50
+ $DD54 DEFB $60,$CA,$30,$10,$CA,$1F,$F0,$00
+ $DD5C DEFB $E5,$D5,$C5,$21,$00,$68,$11,$37
+ $DD64 DEFB $01,$1C,$46,$00,$0B,$D0,$00,$07
+ $DD6C DEFB $CA,$07,$C0,$CA,$08,$30,$CA,$10
+ $DD74 DEFB $E8,$CA,$1F,$18,$CA,$10,$CC,$CA
+ $DD7C DEFB $1D,$AA,$CA,$15,$2A,$CA,$10,$28
+ $DD84 DEFB $CA,$14,$18,$CA,$16,$18,$CA,$10
+ $DD8C DEFB $50,$CA,$3B,$BE,$CA,$78,$3F,$CB
+ $DD94 DEFB $F8,$FF,$80,$CB,$F8,$FF,$80,$84
+ $DD9C DEFB $01,$F9,$FF,$C0,$84,$07,$FF,$FF
+ $DDA4 DEFB $C0,$84,$07,$FF,$EF,$C0,$84,$F9
+ $DDAC DEFB $DF,$F7,$C0,$84,$80,$DF,$F7,$C0
+ $DDB4 DEFB $84,$88,$DF,$FF,$C0,$84,$CF,$3F
+ $DDBC DEFB $F7,$C0,$84,$38,$3F,$C0,$C0,$CB
+ $DDC4 DEFB $0C,$01,$C0,$CA,$14,$07,$CA,$1C
+ $DDCC DEFB $1A,$CA,$1E,$7E,$CA,$1F,$FF,$CA
+ $DDD4 DEFB $1E,$FF,$CB,$3D,$7F,$80,$CB,$3D
+ $DDDC DEFB $BF,$80,$CB,$3D,$DF,$C0,$CB,$3F
+ $DDE4 DEFB $DF,$C0,$CB,$3F,$FF,$C0,$CB,$3F
+ $DDEC DEFB $DF,$E0,$CB,$3F,$1F,$E0,$CB,$3F
+ $DDF4 DEFB $0F,$E0,$CB,$3F,$0F,$F0,$CB,$3F
+ $DDFC DEFB $07,$F8,$CB,$3F,$03,$F8,$CB,$3F
+ $DE04 DEFB $81,$FC,$CB,$3F,$81,$FC,$CB,$1F
+ $DE0C DEFB $C0,$FC,$CB,$1F,$C0,$FC,$CB,$1F
+ $DE14 DEFB $C0,$62,$CB,$1F,$C0,$62,$CB,$1F
+ $DE1C DEFB $C0,$21,$84,$6D,$BF,$CC,$31,$84
+ $DE24 DEFB $DB,$64,$DB,$11,$84,$B6,$D8,$36
+ $DE2C DEFB $D9,$84,$01,$B0,$2D,$B7,$CB,$41
+ $DE34 DEFB $3B,$7B,$CB,$3F,$C0,$06,$00,$E1
+ $DE3C DEFB $11,$00,$68,$01,$00,$01,$ED,$01
+ $DE44 DEFB $1C,$46,$00,$0F,$AB,$00,$07,$D1
+ $DE4C DEFB $78,$D1,$86,$CA,$01,$02,$CA,$01
+ $DE54 DEFB $F1,$CB,$01,$0A,$80,$CB,$01,$A5
+ $DE5C DEFB $80,$CB,$01,$35,$40,$CA,$01,$05
+ $DE64 DEFB $CA,$01,$C3,$CA,$01,$0C,$CA,$0E
+ $DE6C DEFB $BE,$CA,$11,$FF,$CB,$10,$FF,$80
+ $DE74 DEFB $CB,$18,$7F,$80,$CB,$04,$1F,$C0
+ $DE7C DEFB $CB,$06,$07,$C0,$CB,$19,$C3,$E0
+ $DE84 DEFB $CB,$FF,$F1,$E0,$84,$01,$FF,$FF
+ $DE8C DEFB $E0,$84,$01,$DF,$FF,$40,$84,$07
+ $DE94 DEFB $F7,$FF,$80,$84,$07,$F7,$FF,$C0
+ $DE9C DEFB $84,$07,$F9,$FF,$C0,$84,$07,$F7
+ $DEA4 DEFB $FF,$C0,$84,$0C,$78,$FF,$C0,$84
+ $DEAC DEFB $10,$10,$7E,$C0,$84,$10,$10,$2D
+ $DEB4 DEFB $C0,$84,$11,$E0,$3F,$C0,$84,$0E
+ $DEBC DEFB $00,$3F,$80,$D2,$7F,$80,$D2,$7F
+ $DEC4 DEFB $80,$D1,$7F,$D1,$7F,$D1,$FF,$D1
+ $DECC DEFB $FF,$D1,$FF,$D1,$FE,$D1,$FE,$D1
+ $DED4 DEFB $FE,$D1,$FE,$D1,$FE,$D1,$FE,$D1
+ $DEDC DEFB $FE,$CA,$1B,$FE,$83,$0D,$B6,$26
+ $DEE4 DEFB $84,$1B,$6C,$C7,$C0,$84,$06,$DF
+ $DEEC DEFB $02,$C0,$CA,$04,$01,$CA,$07,$FE
+ $DEF4 DEFB $00,$36,$00,$E1,$C9,$21,$00,$68
+ $DEFC DEFB $11,$02,$1C,$46,$00,$11,$C5,$00
+ $DF04 DEFB $07,$D1,$1E,$D1,$13,$D2,$18,$80
+ $DF0C DEFB $D2,$04,$80,$D2,$04,$40,$D2,$06
+ $DF14 DEFB $E0,$D2,$01,$F8,$D2,$01,$FC,$D3
+ $DF1C DEFB $01,$FE,$1F,$CD,$E0,$00,$FF,$24
+ $DF24 DEFB $80,$86,$01,$FE,$00,$FF,$C2,$40
+ $DF2C DEFB $86,$07,$FF,$C7,$FF,$01,$40,$86
+ $DF34 DEFB $07,$FF,$FF,$FF,$81,$40,$86,$0F
+ $DF3C DEFB $FF,$F7,$FF,$81,$C0,$86,$11,$FF
+ $DF44 DEFB $F7,$FF,$C0,$E0,$86,$1E,$3F,$F7
+ $DF4C DEFB $FF,$E1,$B0,$85,$20,$3F,$FB,$FF
+ $DF54 DEFB $FE,$85,$20,$7F,$FB,$FF,$F8,$85
+ $DF5C DEFB $21,$9F,$FD,$FF,$F8,$85,$1E,$07
+ $DF64 DEFB $FD,$FF,$F8,$CC,$01,$FE,$FF,$F8
+ $DF6C DEFB $CC,$01,$FE,$FF,$F8,$CA,$01,$FF
+ $DF74 DEFB $CA,$01,$FE,$CA,$01,$FC,$CA,$03
+ $DF7C DEFB $F8,$CA,$03,$F8,$CA,$03,$F8,$CA
+ $DF84 DEFB $07,$F8,$CA,$07,$F0,$CA,$07,$F0
+ $DF8C DEFB $CA,$07,$F0,$CA,$07,$F0,$CA,$07
+ $DF94 DEFB $F0,$CA,$07,$E0,$CA,$07,$E0,$CA
+ $DF9C DEFB $07,$E0,$CA,$07,$E0,$CA,$07,$E0
+ $DFA4 DEFB $CA,$07,$E0,$CA,$07,$E0,$CC,$07
+ $DFAC DEFB $C0,$6D,$36,$86,$0D,$B7,$F6,$DB
+ $DFB4 DEFB $6D,$80,$85,$1B,$69,$ED,$B6,$DB
+ $DFBC DEFB $85,$36,$D0,$DB,$01,$B6,$CA,$30
+ $DFC4 DEFB $30,$CA,$1F,$C0,$00,$00,$27,$29
+ $DFCC DEFB $00,$07,$DA,$03,$F8,$DA,$07,$F0
+ $DFD4 DEFB $DA,$07,$F0,$DA,$07,$E0,$DA,$06
+ $DFDC DEFB $E0,$DA,$04,$40,$DA,$04,$40,$DA
+ $DFE4 DEFB $04,$40,$DA,$04,$40,$DA,$02,$20
+ $DFEC DEFB $DA,$01,$10,$E1,$90,$E1,$B0,$E1
+ $DFF4 DEFB $C0,$00,$80,$80,$80,$80,$80,$80
+ $DFFC DEFB $80,$80,$01,$1C,$46,$00,$13,$DF
+ $E004 DEFB $00,$07,$82,$01,$E0,$82,$06,$30
+ $E00C DEFB $82,$CB,$08,$82,$1C,$F8,$84,$11
+ $E014 DEFB $08,$01,$C0,$84,$D2,$38,$1E,$3E
+ $E01C DEFB $85,$16,$19,$FE,$01,$80,$85,$19
+ $E024 DEFB $07,$FF,$00,$70,$85,$19,$0F,$3F
+ $E02C DEFB $F0,$78,$85,$08,$1F,$FF,$9E,$7E
+ $E034 DEFB $85,$08,$8F,$E9,$FF,$FE,$86,$10
+ $E03C DEFB $7F,$F7,$FF,$FF,$80,$86,$18,$1F
+ $E044 DEFB $FE,$FF,$F7,$E0,$86,$18,$07,$FF
+ $E04C DEFB $7F,$DE,$18,$86,$3F,$03,$FE,$FF
+ $E054 DEFB $F8,$08,$86,$3F,$FF,$FE,$7E,$38
+ $E05C DEFB $10,$86,$3F,$FF,$FD,$B8,$1F,$F0
+ $E064 DEFB $84,$3F,$FF,$DC,$D8,$84,$3E,$FF
+ $E06C DEFB $3B,$50,$84,$3F,$7F,$F7,$70,$84
+ $E074 DEFB $3F,$C7,$1F,$70,$84,$3F,$C0,$FF
+ $E07C DEFB $70,$84,$1F,$C0,$3F,$F0,$84,$1F
+ $E084 DEFB $E0,$3F,$F0,$84,$0F,$F0,$1F,$F0
+ $E08C DEFB $84,$07,$D0,$1F,$F0,$84,$01,$0C
+ $E094 DEFB $1F,$F0,$CB,$83,$9F,$F0,$CB,$40
+ $E09C DEFB $5F,$F8,$CB,$31,$8F,$F8,$CB,$08
+ $E0A4 DEFB $8F,$F8,$CB,$06,$47,$F8,$CB,$01
+ $E0AC DEFB $C7,$F8,$D2,$03,$FC,$D2,$01,$FC
+ $E0B4 DEFB $D2,$01,$FE,$D2,$01,$FE,$D2,$01
+ $E0BC DEFB $FE,$D2,$01,$FE,$85,$0D,$B6,$DB
+ $E0C4 DEFB $EE,$36,$86,$1B,$6D,$B6,$CB,$6D
+ $E0CC DEFB $B0,$86,$36,$DB,$6D,$82,$DB,$60
+ $E0D4 DEFB $CD,$36,$DA,$05,$B6,$C0,$CD,$05
+ $E0DC DEFB $0C,$1F,$6D,$80,$D2,$07,$E0,$00
+ $E0E4 DEFB $03,$00,$00,$00,$01,$00,$00,$00
+ $E0EC DEFB $02,$1C,$46,$00,$11,$AC,$00,$07
+ $E0F4 DEFB $D1,$7F,$D2,$80,$80,$CB,$01,$F0
+ $E0FC DEFB $80,$CB,$03,$F1,$80,$CA,$05,$FE
+ $E104 DEFB $CA,$1F,$30,$CB,$1F,$C1,$F8,$CB
+ $E10C DEFB $3F,$FE,$06,$CB,$3E,$7E,$02,$CB
+ $E114 DEFB $7F,$FF,$E6,$CB,$7F,$FF,$18,$CA
+ $E11C DEFB $FF,$FE,$CA,$DF,$FE,$CA,$DF,$DF
+ $E124 DEFB $84,$01,$3F,$90,$80,$84,$03,$3F
+ $E12C DEFB $20,$40,$84,$03,$3F,$20,$40,$84
+ $E134 DEFB $07,$BF,$20,$40,$84,$07,$BF,$90
+ $E13C DEFB $40,$84,$07,$BF,$D0,$80,$83,$07
+ $E144 DEFB $BF,$EB,$83,$07,$CF,$FC,$83,$07
+ $E14C DEFB $F1,$FC,$83,$07,$FE,$F8,$83,$0F
+ $E154 DEFB $FE,$F8,$82,$0F,$F8,$82,$0F,$F0
+ $E15C DEFB $82,$0F,$F0,$82,$1F,$E0,$82,$1F
+ $E164 DEFB $E0,$82,$1F,$C0,$82,$1F,$C0,$82
+ $E16C DEFB $1F,$80,$82,$1F,$80,$82,$3F,$80
+ $E174 DEFB $81,$3F,$81,$3F,$81,$3F,$81,$3F
+ $E17C DEFB $81,$3E,$83,$3E,$0D,$80,$84,$3E
+ $E184 DEFB $1B,$6D,$80,$84,$3E,$36,$DB,$60
+ $E18C DEFB $84,$2B,$6D,$B6,$D8,$84,$4A,$DB
+ $E194 DEFB $6D,$B6,$84,$85,$B6,$00,$6C,$82
+ $E19C DEFB $FB,$60,$00,$00,$2A,$25,$00,$07
+ $E1A4 DEFB $CA,$01,$FC,$D1,$FE,$D1,$FE,$D1
+ $E1AC DEFB $3F,$D2,$3F,$80,$D2,$1F,$C0,$D2
+ $E1B4 DEFB $1E,$40,$D2,$04,$60,$D2,$06,$30
+ $E1BC DEFB $D2,$01,$1C,$D9,$82,$D9,$C2,$D9
+ $E1C4 DEFB $32,$D9,$0E,$00,$01,$00,$00,$FF
+ $E1CC DEFB $00,$80,$40,$C0,$02,$1C,$46,$00
+ $E1D4 DEFB $FF,$1A,$00,$07,$E3,$06,$DB,$60
+ $E1DC DEFB $DC,$03,$6D,$B6,$DB,$DC,$06,$DB
+ $E1E4 DEFB $6D,$B6,$DC,$01,$B0,$DB,$6C,$DC
+ $E1EC DEFB $03,$61,$B6,$C0,$00,$00,$00,$96
+ $E1F4 DEFB $00,$07,$DA,$07,$E0,$DA,$04,$18
+ $E1FC DEFB $DC,$02,$06,$01,$F8,$DC,$01,$82
+ $E204 DEFB $03,$FC,$E3,$42,$07,$FE,$E3,$2E
+ $E20C DEFB $07,$FE,$E3,$EE,$0F,$FF,$E3,$FE
+ $E214 DEFB $1F,$FF,$E3,$FE,$3F,$FF,$E3,$FE
+ $E21C DEFB $3F,$FE,$E3,$FE,$7F,$FD,$E3,$F1
+ $E224 DEFB $7F,$FB,$E3,$E0,$FF,$C7,$E3,$20
+ $E22C DEFB $3F,$3F,$E3,$20,$07,$DF,$E3,$3E
+ $E234 DEFB $00,$FF,$E3,$3F,$00,$DF,$E3,$3F
+ $E23C DEFB $C0,$DF,$E3,$1F,$FE,$F7,$E3,$1F
+ $E244 DEFB $F9,$F7,$E3,$1F,$F1,$F7,$E3,$0F
+ $E24C DEFB $E1,$FB,$E3,$07,$81,$FB,$EA,$01
+ $E254 DEFB $FB,$EA,$07,$FF,$EA,$06,$FF,$EA
+ $E25C DEFB $06,$FF,$EA,$05,$FF,$EA,$07,$FF
+ $E264 DEFB $EA,$07,$FE,$EA,$39,$FE,$EA,$24
+ $E26C DEFB $FC,$EA,$60,$60,$EA,$40,$A0,$EA
+ $E274 DEFB $82,$A0,$EA,$E3,$28,$EA,$71,$28
+ $E27C DEFB $EA,$46,$70,$EA,$79,$A0,$EA,$46
+ $E284 DEFB $40,$EA,$21,$80,$E9,$1E,$00,$FD
+ $E28C DEFB $03,$83,$43,$C3,$23,$A3,$63,$01
+ $E294 DEFB $1C,$46,$00,$0F,$97,$00,$07,$D9
+ $E29C DEFB $38,$D9,$C4,$D2,$01,$3A,$D2,$01
+ $E2A4 DEFB $DE,$D2,$06,$22,$D2,$1A,$5E,$D2
+ $E2AC DEFB $02,$47,$D2,$02,$A1,$D2,$01,$A2
+ $E2B4 DEFB $D2,$1E,$06,$D2,$3F,$02,$D2,$FF
+ $E2BC DEFB $0E,$CB,$01,$F7,$D0,$CB,$03,$DF
+ $E2C4 DEFB $E0,$CB,$07,$FF,$C0,$CB,$0F,$FF
+ $E2CC DEFB $C0,$CA,$1E,$FF,$CA,$3F,$3F,$CA
+ $E2D4 DEFB $7E,$3A,$CA,$7E,$36,$CA,$B8,$28
+ $E2DC DEFB $CA,$98,$30,$83,$01,$D8,$C0,$83
+ $E2E4 DEFB $01,$F0,$80,$83,$01,$F1,$80,$83
+ $E2EC DEFB $01,$F1,$40,$83,$01,$F1,$40,$CA
+ $E2F4 DEFB $F1,$20,$CA,$F9,$20,$C9,$FF,$C9
+ $E2FC DEFB $7F,$C9,$7F,$C9,$3F,$C9,$3F,$C9
+ $E304 DEFB $3F,$C9,$7F,$C9,$7F,$C9,$FE,$C9
+ $E30C DEFB $FE,$C9,$FE,$C9,$FE,$C9,$FE,$C9
+ $E314 DEFB $FE,$CB,$FE,$DB,$6C,$CC,$FF,$B6
+ $E31C DEFB $DB,$60,$CC,$F2,$6D,$B6,$D0,$85
+ $E324 DEFB $01,$41,$80,$0D,$80,$83,$01,$C0
+ $E32C DEFB $40,$CA,$3F,$C0,$00,$64,$66,$66
+ $E334 DEFB $68,$68,$6A,$6A,$6C,$01,$1C,$46
+ $E33C DEFB $00,$0B,$E8,$00,$07,$EA,$07,$80
+ $E344 DEFB $EA,$08,$40,$EA,$17,$E0,$EA,$7C
+ $E34C DEFB $20,$EA,$A7,$E0,$EA,$A8,$20,$EA
+ $E354 DEFB $30,$20,$EA,$36,$E0,$E3,$03,$D4
+ $E35C DEFB $60,$E3,$3F,$F0,$20,$E3,$FF,$D3
+ $E364 DEFB $40,$E3,$FF,$C1,$40,$DC,$01,$FD
+ $E36C DEFB $C8,$80,$DB,$03,$FB,$C7,$DB,$07
+ $E374 DEFB $F7,$C6,$DB,$07,$3F,$9F,$DB,$07
+ $E37C DEFB $1F,$3F,$DB,$0E,$19,$3F,$CD,$3E
+ $E384 DEFB $00,$1E,$1F,$FF,$CD,$C1,$C0,$2E
+ $E38C DEFB $1F,$F9,$86,$01,$03,$E0,$37,$1F
+ $E394 DEFB $FF,$86,$01,$07,$F0,$79,$1F,$F7
+ $E39C DEFB $CD,$FF,$F8,$FC,$0F,$FF,$CD,$07
+ $E3A4 DEFB $FD,$FF,$07,$DE,$CD,$03,$FF,$FF
+ $E3AC DEFB $87,$2E,$CD,$01,$FF,$FF,$86,$22
+ $E3B4 DEFB $D4,$F9,$FF,$C8,$22,$D4,$FF,$FF
+ $E3BC DEFB $78,$11,$D4,$7F,$FF,$B0,$11,$D5
+ $E3C4 DEFB $3F,$FF,$B0,$10,$C0,$D5,$1F,$C7
+ $E3CC DEFB $B0,$0E,$A0,$D5,$07,$07,$F0,$04
+ $E3D4 DEFB $60,$DC,$07,$F8,$04,$40,$DC,$03
+ $E3DC DEFB $F8,$03,$C0,$DA,$03,$F8,$DA,$03
+ $E3E4 DEFB $F8,$DA,$03,$F8,$DA,$07,$F8,$DA
+ $E3EC DEFB $07,$F8,$DA,$07,$F8,$DA,$07,$F8
+ $E3F4 DEFB $DA,$0F,$F8,$DA,$0F,$F0,$DA,$1F
+ $E3FC DEFB $F0,$DA,$1F,$E0,$DA,$1F,$E0,$DB
+ $E404 DEFB $1F,$E0,$6C,$CD,$DB,$6D,$9E,$86
+ $E40C DEFB $DB,$87,$01,$B6,$DB,$69,$AD,$B6
+ $E414 DEFB $C0,$87,$03,$6D,$B6,$C8,$5B,$6D
+ $E41C DEFB $80,$D3,$6D,$B0,$76,$D3,$03,$74
+ $E424 DEFB $80,$D9,$0F,$00,$5C,$5D,$5E,$5D
+ $E42C DEFB $60,$61,$62,$63,$01,$1C,$46,$00
+ $E434 DEFB $0C,$E3,$00,$07,$CA,$01,$F0,$CA
+ $E43C DEFB $02,$08,$CA,$07,$F8,$CA,$1E,$3C
+ $E444 DEFB $CA,$38,$C4,$CA,$09,$1C,$CA,$39
+ $E44C DEFB $0E,$CA,$0A,$82,$CA,$0A,$84,$CA
+ $E454 DEFB $04,$0C,$CA,$04,$44,$CA,$18,$38
+ $E45C DEFB $CA,$3C,$1E,$CA,$7E,$3E,$CA,$FE
+ $E464 DEFB $3F,$CA,$FF,$1F,$CB,$FF,$18,$C0
+ $E46C DEFB $CB,$F7,$F0,$40,$CB,$FB,$C0,$70
+ $E474 DEFB $CB,$FB,$00,$F0,$CB,$FE,$07,$F0
+ $E47C DEFB $CB,$FE,$1F,$F8,$CB,$3E,$3F,$F8
+ $E484 DEFB $CB,$3E,$3F,$FE,$CB,$16,$FF,$FE
+ $E48C DEFB $CB,$19,$FF,$7E,$CB,$17,$FE,$3A
+ $E494 DEFB $CB,$10,$F9,$32,$CB,$18,$03,$31
+ $E49C DEFB $CB,$1F,$3F,$11,$CC,$1F,$1F,$11
+ $E4A4 DEFB $80,$CC,$3E,$5F,$C8,$80,$CC,$FE
+ $E4AC DEFB $EF,$E4,$40,$CC,$FE,$EF,$F4,$40
+ $E4B4 DEFB $85,$01,$FF,$EF,$FA,$20,$85,$01
+ $E4BC DEFB $FF,$FF,$F9,$20,$85,$03,$FF,$FF
+ $E4C4 DEFB $F9,$20,$85,$03,$FF,$FF,$FD,$A0
+ $E4CC DEFB $85,$07,$FF,$07,$FE,$60,$84,$07
+ $E4D4 DEFB $FE,$01,$FE,$84,$0F,$F8,$00,$FE
+ $E4DC DEFB $84,$0F,$F0,$00,$FE,$84,$1F,$F0
+ $E4E4 DEFB $00,$7F,$84,$1F,$E0,$00,$7F,$84
+ $E4EC DEFB $1F,$E1,$B6,$3F,$84,$1F,$DB,$6C
+ $E4F4 DEFB $1F,$85,$1F,$F6,$DB,$1F,$C0,$85
+ $E4FC DEFB $1F,$AD,$B6,$DE,$70,$85,$31,$9B
+ $E504 DEFB $6D,$B8,$1C,$85,$C3,$36,$DB,$68
+ $E50C DEFB $02,$85,$81,$60,$00,$DC,$3E,$85
+ $E514 DEFB $FE,$00,$00,$07,$C0,$00,$3F,$C0
+ $E51C DEFB $84,$7E,$00,$3F,$C0,$84,$01,$1C
+ $E524 DEFB $46,$00,$13,$EA,$00,$07,$F1,$1E
+ $E52C DEFB $F1,$F3,$EA,$07,$01,$DC,$3F,$C1
+ $E534 DEFB $F8,$01,$D5,$07,$C0,$3F,$F8,$1F
+ $E53C DEFB $D5,$1F,$00,$3F,$FE,$F0,$86,$1F
+ $E544 DEFB $01,$FF,$3C,$7F,$FF,$86,$31,$DF
+ $E54C DEFB $FF,$DF,$FF,$FC,$86,$C7,$FF,$FF
+ $E554 DEFB $3F,$FF,$FC,$86,$BF,$3F,$FC,$7F
+ $E55C DEFB $FF,$C0,$85,$A2,$7F,$F1,$FF,$FC
+ $E564 DEFB $85,$C5,$5F,$C3,$FF,$F0,$85,$8B
+ $E56C DEFB $1F,$F7,$FF,$80,$84,$88,$6F,$F7
+ $E574 DEFB $FF,$84,$D8,$C9,$F7,$1E,$84,$30
+ $E57C DEFB $11,$F0,$FC,$84,$18,$0F,$F7,$F8
+ $E584 DEFB $84,$1E,$1F,$F1,$F8,$84,$3F,$FF
+ $E58C DEFB $E6,$F0,$84,$3F,$FF,$DF,$70,$84
+ $E594 DEFB $7F,$FF,$DF,$E0,$84,$7F,$FF,$BF
+ $E59C DEFB $E0,$84,$FF,$C7,$7F,$C0,$84,$FF
+ $E5A4 DEFB $00,$FF,$C0,$84,$FF,$00,$3F,$C0
+ $E5AC DEFB $84,$7E,$00,$3F,$C0,$84,$7E,$00
+ $E5B4 DEFB $3F,$C0,$84,$3F,$00,$3F,$C0,$84
+ $E5BC DEFB $3F,$00,$3F,$C0,$84,$19,$00,$1F
+ $E5C4 DEFB $C0,$84,$09,$00,$1F,$E0,$84,$08
+ $E5CC DEFB $80,$1F,$E0,$84,$04,$40,$1F,$E0
+ $E5D4 DEFB $84,$02,$30,$07,$E0,$84,$01,$10
+ $E5DC DEFB $07,$F0,$CB,$88,$07,$F0,$CB,$F8
+ $E5E4 DEFB $07,$F0,$D2,$07,$F0,$D2,$1F,$F0
+ $E5EC DEFB $CE,$6D,$B7,$FC,$36,$DB,$60,$87
+ $E5F4 DEFB $36,$DB,$64,$FB,$6D,$B6,$D8,$87
+ $E5FC DEFB $6D,$B6,$C8,$36,$DB,$6D,$B6,$87
+ $E604 DEFB $DB,$6D,$90,$2D,$00,$00,$6C,$CB
+ $E60C DEFB $D8,$20,$D8,$D2,$3F,$80,$00,$F0
+ $E614 DEFB $CB,$3F,$BB,$F0,$CB,$3F,$FF,$01
+ $E61C DEFB $1C,$46,$00,$0D,$E8,$00,$07,$CA
+ $E624 DEFB $1F,$80,$CA,$2D,$80,$CA,$52,$40
+ $E62C DEFB $CA,$A4,$60,$CA,$A9,$B0,$CA,$C9
+ $E634 DEFB $10,$CA,$D8,$30,$CA,$D6,$70,$CA
+ $E63C DEFB $B6,$10,$CA,$90,$1C,$CA,$38,$7F
+ $E644 DEFB $CB,$FE,$3F,$80,$84,$01,$FF,$1F
+ $E64C DEFB $C0,$84,$01,$FF,$1F,$E0,$84,$07
+ $E654 DEFB $FF,$DD,$F0,$84,$07,$FF,$DF,$F0
+ $E65C DEFB $84,$1F,$DF,$FD,$F8,$84,$1E,$DF
+ $E664 DEFB $FD,$FC,$84,$1F,$3F,$FA,$F3,$85
+ $E66C DEFB $1F,$FF,$FE,$30,$F8,$85,$1F,$DF
+ $E674 DEFB $FE,$38,$06,$85,$1F,$DF,$FE,$07
+ $E67C DEFB $02,$85,$0F,$DF,$FE,$00,$E2,$85
+ $E684 DEFB $04,$FF,$FE,$00,$24,$85,$04,$F7
+ $E68C DEFB $FA,$00,$1C,$83,$04,$79,$F2,$83
+ $E694 DEFB $06,$1E,$87,$84,$01,$01,$E7,$80
+ $E69C DEFB $CB,$C1,$D3,$C0,$CB,$21,$DB,$E0
+ $E6A4 DEFB $CB,$33,$BB,$F0,$CB,$3F,$BB,$F0
+ $E6AC DEFB $CB,$3F,$FF,$F8,$CB,$7F,$FF,$F8
+ $E6B4 DEFB $CB,$7F,$FF,$FC,$CB,$FF,$FF,$FE
+ $E6BC DEFB $CB,$FF,$F7,$FE,$CB,$FF,$E1,$FE
+ $E6C4 DEFB $84,$01,$FF,$C0,$FE,$84,$03,$FF
+ $E6CC DEFB $81,$7E,$84,$07,$FF,$03,$FE,$84
+ $E6D4 DEFB $1F,$FE,$07,$FE,$84,$1F,$FE,$07
+ $E6DC DEFB $FC,$84,$3F,$FC,$1F,$F8,$84,$DF
+ $E6E4 DEFB $F0,$17,$F0,$84,$9F,$C0,$D7,$F0
+ $E6EC DEFB $85,$9F,$0D,$B7,$ED,$80,$85,$89
+ $E6F4 DEFB $DB,$71,$DB,$6C,$85,$86,$B6,$D0
+ $E6FC DEFB $D6,$DA,$85,$C1,$60,$38,$2D,$B6
+ $E704 DEFB $84,$3E,$00,$0F,$D8,$00,$37,$FF
+ $E70C DEFB $8C,$FE,$84,$2F,$FF,$5B,$01,$1C
+ $E714 DEFB $46,$00,$17,$B3,$00,$07,$82,$01
+ $E71C DEFB $F0,$82,$06,$18,$82,$04,$C6,$82
+ $E724 DEFB $0F,$BE,$82,$1A,$C2,$82,$3C,$9E
+ $E72C DEFB $82,$69,$3B,$82,$09,$01,$82,$04
+ $E734 DEFB $82,$82,$07,$86,$82,$06,$11,$83
+ $E73C DEFB $01,$0F,$F0,$83,$03,$C1,$FC,$83
+ $E744 DEFB $07,$F0,$FE,$83,$07,$F8,$FF,$83
+ $E74C DEFB $0F,$F8,$FF,$84,$1F,$FE,$F7,$C0
+ $E754 DEFB $84,$1F,$DF,$F7,$40,$84,$1F,$3F
+ $E75C DEFB $F6,$20,$84,$1F,$DF,$FA,$10,$84
+ $E764 DEFB $1F,$F7,$FC,$8E,$85,$0F,$F7,$FF
+ $E76C DEFB $41,$80,$85,$0F,$FB,$FA,$34,$40
+ $E774 DEFB $85,$07,$FB,$F6,$0C,$40,$85,$01
+ $E77C DEFB $FF,$EF,$03,$80,$CB,$F7,$1F,$C0
+ $E784 DEFB $CB,$21,$DF,$E0,$CB,$30,$FF,$F0
+ $E78C DEFB $CB,$10,$FF,$F8,$CB,$18,$3F,$F8
+ $E794 DEFB $CB,$1E,$1D,$FC,$CB,$1E,$06,$FE
+ $E79C DEFB $84,$01,$EF,$06,$5E,$84,$37,$FF
+ $E7A4 DEFB $8C,$FE,$84,$2F,$FF,$5B,$FE,$84
+ $E7AC DEFB $27,$FF,$F7,$FE,$84,$23,$FF,$2F
+ $E7B4 DEFB $FC,$84,$21,$FF,$27,$F0,$84,$23
+ $E7BC DEFB $FE,$C3,$DB,$85,$30,$F9,$E0,$B6
+ $E7C4 DEFB $C0,$85,$1F,$03,$1F,$CD,$80,$00
+ $E7CC DEFB $3F,$20,$84,$9F,$7F,$EF,$FE,$87
+ $E7D4 DEFB $01,$1C,$46,$00,$1E,$B3,$00,$07
+ $E7DC DEFB $E1,$1E,$E1,$31,$DB,$18,$20,$C0
+ $E7E4 DEFB $DB,$06,$C0,$40,$DB,$01,$1F,$C0
+ $E7EC DEFB $E2,$F7,$A0,$E2,$C8,$20,$DB,$1F
+ $E7F4 DEFB $12,$E0,$DB,$3F,$E6,$60,$DB,$FF
+ $E7FC DEFB $80,$20,$DB,$FF,$00,$20,$D4,$01
+ $E804 DEFB $FF,$01,$A0,$D4,$03,$FF,$80,$30
+ $E80C DEFB $D4,$07,$FF,$88,$70,$D4,$1F,$F7
+ $E814 DEFB $C7,$F8,$D4,$1F,$DF,$DF,$F8,$D4
+ $E81C DEFB $1F,$9F,$FF,$FE,$D4,$17,$7F,$FF
+ $E824 DEFB $FE,$D4,$30,$FF,$FF,$FA,$D5,$F0
+ $E82C DEFB $FF,$FF,$F9,$C0,$D5,$F0,$FF,$FE
+ $E834 DEFB $38,$20,$CE,$01,$F1,$7F,$F8,$1C
+ $E83C DEFB $1C,$CE,$01,$F1,$3F,$F0,$03,$03
+ $E844 DEFB $CE,$07,$F1,$C1,$F0,$00,$C1,$CE
+ $E84C DEFB $07,$F0,$F6,$30,$00,$31,$CE,$1F
+ $E854 DEFB $F8,$C7,$C0,$00,$0F,$CC,$1F,$F8
+ $E85C DEFB $2F,$20,$85,$3F,$3F,$FE,$3F,$20
+ $E864 DEFB $85,$DF,$FF,$F6,$3F,$20,$84,$9F
+ $E86C DEFB $7F,$EF,$FE,$87,$9F,$FF,$DF,$F8
+ $E874 DEFB $1B,$6D,$80,$87,$8F,$FF,$3F,$F6
+ $E87C DEFB $B6,$DB,$6D,$87,$85,$FE,$FF,$CD
+ $E884 DEFB $6D,$B6,$DB,$85,$FF,$FF,$FF,$FB
+ $E88C DEFB $C0,$00,$3C,$07,$DC,$3F,$01,$FC
+ $E894 DEFB $11,$DC,$01,$1C,$46,$00,$35,$53
+ $E89C DEFB $00,$07,$DB,$F8,$1F,$C0,$CD,$F0
+ $E8A4 DEFB $3F,$F7,$FF,$38,$86,$01,$1F,$C7
+ $E8AC DEFB $DF,$FE,$07,$87,$01,$3C,$3F,$39
+ $E8B4 DEFB $F8,$03,$C0,$87,$31,$37,$FF,$77
+ $E8BC DEFB $F8,$01,$F0,$87,$DF,$DF,$FF,$7F
+ $E8C4 DEFB $FE,$01,$F8,$87,$BF,$FF,$FF,$9F
+ $E8CC DEFB $F9,$01,$FE,$87,$BF,$FF,$E0,$1F
+ $E8D4 DEFB $F6,$81,$F9,$87,$BF,$FE,$00,$0F
+ $E8DC DEFB $F0,$C1,$D0,$87,$9F,$FC,$00,$07
+ $E8E4 DEFB $F8,$23,$E2,$87,$E3,$E7,$FF,$FF
+ $E8EC DEFB $8F,$FE,$1F,$00,$01,$FC,$E2,$01
+ $E8F4 DEFB $FC,$E9,$FC,$E9,$01,$1C,$46,$00
+ $E8FC DEFB $06,$CA,$00,$07,$DA,$03,$C0,$DA
+ $E904 DEFB $0D,$20,$DA,$19,$78,$DA,$11,$C8
+ $E90C DEFB $DA,$12,$0C,$DA,$12,$1A,$DA,$19
+ $E914 DEFB $82,$DA,$D8,$04,$DA,$36,$18,$DA
+ $E91C DEFB $C1,$08,$DB,$03,$87,$F0,$DB,$07
+ $E924 DEFB $C7,$18,$DB,$1F,$DE,$1F,$DC,$1E
+ $E92C DEFB $F0,$1E,$F8,$DC,$3F,$00,$3C,$07
+ $E934 DEFB $DC,$3F,$01,$FC,$11,$DC,$3F,$07
+ $E93C DEFB $FF,$F1,$DC,$3F,$1F,$FF,$0F,$DB
+ $E944 DEFB $3F,$FF,$C0,$DB,$1F,$3F,$80,$DA
+ $E94C DEFB $1E,$FF,$DA,$07,$FF,$DA,$07,$FF
+ $E954 DEFB $DA,$07,$FF,$DA,$07,$FF,$DA,$01
+ $E95C DEFB $FE,$DB,$06,$30,$C0,$DB,$07,$C7
+ $E964 DEFB $F0,$DB,$03,$F3,$10,$DB,$03,$F8
+ $E96C DEFB $D8,$DB,$01,$FF,$F8,$DB,$01,$FF
+ $E974 DEFB $F8,$DB,$01,$FF,$F8,$E2,$FF,$F8
+ $E97C DEFB $E2,$FF,$FC,$E2,$3F,$FE,$E2,$1F
+ $E984 DEFB $FE,$E9,$FE,$E2,$01,$FE,$E2,$01
+ $E98C DEFB $FC,$E2,$01,$FC,$E2,$01,$FC,$E2
+ $E994 DEFB $01,$FC,$E2,$01,$FC,$E9,$FC,$E9
+ $E99C DEFB $FE,$E9,$FE,$E9,$FE,$E9,$3E,$E9
+ $E9A4 DEFB $3E,$D4,$01,$B0,$00,$3A,$D4,$03
+ $E9AC DEFB $6D,$B6,$11,$DC,$DB,$6D,$91,$1B
+ $E9B4 DEFB $DC,$36,$DB,$70,$D6,$DC,$0D,$B6
+ $E9BC DEFB $D8,$6C,$E3,$01,$A8,$30,$EA,$6E
+ $E9C4 DEFB $10,$EA,$07,$F0,$00,$F8,$31,$E3
+ $E9CC DEFB $01,$F8,$18,$E3,$01,$01,$1C,$46
+ $E9D4 DEFB $00,$15,$CE,$00,$07,$D1,$1C,$CB
+ $E9DC DEFB $01,$F7,$80,$CC,$06,$A1,$40,$30
+ $E9E4 DEFB $CC,$05,$60,$40,$D8,$CD,$05,$40
+ $E9EC DEFB $5F,$07,$FF,$CE,$05,$00,$BF,$07
+ $E9F4 DEFB $00,$C0,$CE,$04,$D9,$07,$1F,$88
+ $E9FC DEFB $40,$CE,$05,$28,$01,$1F,$BC,$20
+ $EA04 DEFB $CE,$05,$09,$F6,$1B,$C2,$20,$CE
+ $EA0C DEFB $02,$1F,$FE,$1F,$01,$C0,$CD,$19
+ $EA14 DEFB $1F,$FE,$3E,$F8,$D5,$FF,$28,$3E
+ $EA1C DEFB $3F,$C0,$D5,$3F,$F8,$39,$FF,$F0
+ $EA24 DEFB $D5,$3F,$F8,$32,$FF,$F8,$D5,$3F
+ $EA2C DEFB $F8,$36,$FF,$FE,$D5,$3F,$FE,$36
+ $EA34 DEFB $FF,$FE,$D5,$1F,$FF,$DD,$DF,$FE
+ $EA3C DEFB $D5,$07,$FE,$DD,$F7,$FE,$DC,$FF
+ $EA44 DEFB $FF,$F8,$FF,$E3,$FF,$FC,$7F,$E3
+ $EA4C DEFB $FF,$FE,$7F,$E3,$3F,$FE,$7F,$E3
+ $EA54 DEFB $01,$FE,$7F,$E3,$01,$FE,$7F,$EA
+ $EA5C DEFB $BE,$3F,$EA,$DE,$27,$EA,$BE,$26
+ $EA64 DEFB $EA,$BE,$34,$E3,$01,$F8,$32,$E3
+ $EA6C DEFB $01,$F8,$22,$E3,$01,$F8,$31,$E3
+ $EA74 DEFB $01,$F8,$18,$E3,$01,$F8,$08,$EA
+ $EA7C DEFB $F0,$04,$E3,$01,$60,$03,$D4,$05
+ $EA84 DEFB $B0,$01,$20,$D4,$03,$6D,$B6,$20
+ $EA8C DEFB $DC,$5B,$6E,$36,$D8,$DC,$36,$DA
+ $EA94 DEFB $2D,$B6,$DC,$0C,$B6,$28,$6D,$E3
+ $EA9C DEFB $01,$28,$1B,$E2,$01,$10,$E2,$01
+ $EAA4 DEFB $F0,$00,$B6,$DF,$06,$CE,$6D,$B6
+ $EAAC DEFB $DB,$6D,$01,$1C,$46,$00,$22,$AF
+ $EAB4 DEFB $00,$07,$E1,$01,$E2,$02,$F0,$E2
+ $EABC DEFB $1C,$10,$E2,$E0,$30,$CD,$37,$80
+ $EAC4 DEFB $1F,$01,$C0,$CC,$DC,$F0,$FF,$06
+ $EACC DEFB $85,$01,$10,$AB,$FF,$D8,$86,$01
+ $EAD4 DEFB $54,$0F,$FF,$F0,$F8,$86,$01,$5C
+ $EADC DEFB $01,$C7,$01,$FE,$86,$01,$50,$00
+ $EAE4 DEFB $FA,$07,$FF,$87,$01,$58,$FF,$FF
+ $EAEC DEFB $DF,$FF,$C0,$87,$01,$47,$FF,$F8
+ $EAF4 DEFB $3F,$FF,$C0,$87,$01,$49,$F7,$F0
+ $EAFC DEFB $39,$FF,$F0,$87,$01,$07,$F9,$C1
+ $EB04 DEFB $C7,$FF,$F8,$CE,$F9,$FE,$06,$3F
+ $EB0C DEFB $F7,$F8,$CE,$C1,$FF,$05,$BF,$E1
+ $EB14 DEFB $F8,$87,$01,$00,$FF,$19,$DF,$C0
+ $EB1C DEFB $F4,$87,$01,$00,$FF,$37,$FF,$F0
+ $EB24 DEFB $63,$D5,$3F,$F7,$FF,$F0,$20,$D5
+ $EB2C DEFB $07,$37,$FF,$F8,$30,$DC,$F7,$FF
+ $EB34 DEFB $F8,$1E,$DC,$1F,$FF,$FE,$03,$DB
+ $EB3C DEFB $01,$FF,$FF,$E3,$1F,$FF,$C0,$EA
+ $EB44 DEFB $FF,$C0,$CE,$DB,$6D,$B6,$00,$3F
+ $EB4C DEFB $38,$87,$01,$B6,$DB,$6D,$B6,$DF
+ $EB54 DEFB $06,$CE,$6D,$B6,$DB,$6D,$AF,$01
+ $EB5C DEFB $DC,$06,$DB,$66,$C0,$F1,$FF,$00
+ $EB64 DEFB $E0,$CB,$0F,$F9,$F0,$CB,$1F,$F1
+ $EB6C DEFB $01,$1C,$46,$00,$30,$68,$00,$07 ; {#UDGARRAY2,scale=4,step=2;(#PC)-(#PC+$10)-$10(test-4)
  $EB74 DEFB $82,$01,$F0,$82,$02,$AE,$82,$05 ;
  $EB7C DEFB $61,$84,$05,$42,$9F,$F8,$87,$05 ;
  $EB84 DEFB $02,$FF,$C7,$C0,$00,$01,$87,$04 ;

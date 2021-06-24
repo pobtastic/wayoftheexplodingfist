@@ -17,15 +17,15 @@ PageContent=#INCLUDE(Backgrounds)
 
 <h4>Background 1</h4>
 #UDGTABLE
-  { #CALL:background(background_1_large,1,2) }
+  { #BACKGROUND1,2(background_1_large) }
 UDGTABLE#
 
 <h4>Background 2</h4>
 #UDGTABLE
-  { #CALL:background(background_2_large,2,2) }
+  { #BACKGROUND2,2(background_2_large) }
 UDGTABLE#
 
 <h4>Background 3</h4>
 #UDGTABLE
-  { #CALL:background(background_3_large,3,2) }
+  { #BACKGROUND3,2(background_3_large) }
 UDGTABLE#

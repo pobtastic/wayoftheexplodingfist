@@ -15,7 +15,7 @@
 
 from skoolkit.graphics import Frame, Udg as BaseUdg
 from skoolkit.skoolhtml import HtmlWriter
-from skoolkit.skoolmacro import parse_image_macro
+from skoolkit.skoolmacro import parse_image_macro, MacroParsingError
 
 
 class Udg(BaseUdg):
@@ -29,9 +29,13 @@ class WayOfTheExplodingFistHtmlWriter(HtmlWriter):
     def init(self):
         self.font = {c: self.snapshot[0x3C00 + 8 * c:0x3C08 + 8 * c] for c in range(0x20, 0x7A)}
 
-    def background(self, cwd, fname, background=1, scale=2):
-        frame = Frame(lambda: self.get_playarea_udgs(background), scale)
-        return self.handle_image(frame, fname, cwd, path_id='PlayAreaImagePath')
+    def expand_background(self, text, index, cwd):
+        # #BACKGROUNDid[,scale][{X,Y,W,H}](fname)
+        end, crop_rect, fname, frame, alt, (background, scale) = parse_image_macro(text, index, (1,), ('id', 'scale'))
+        if fname is None:
+            raise MacroParsingError('Filename missing: #BACKGROUND{}'.format(text[index:end]))
+        frame = Frame(lambda: self.get_playarea_udgs(background), scale, 0, *crop_rect, name=frame)
+        return end, self.handle_image(frame, fname, cwd, alt, 'PlayAreaImagePath')
 
     def position_data(self, cwd, positioning, tiles, fname, scale=2):
         udgs = []
