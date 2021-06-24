@@ -21,7 +21,7 @@ Prev: <a href="44735.html">AEBF</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#44792">Map</a></td>
 <td class="next">
-Next: <a href="44811.html">AF0B</a>
+Next: <a href="44801.html">AF01</a>
 </td>
 </tr>
 </table>
@@ -37,58 +37,27 @@ Used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.ht
 </td>
 </tr>
 <tr>
+<td class="asm-label">INIT_TIME</td>
 <td class="address-2"><span id="44792"></span>AEF8</td>
 <td class="instruction">LD A,$1E</td>
 <td class="comment-1" rowspan="2">Write $1E (30 seconds) to <a href="40101.html">TIME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44794"></span>AEFA</td>
 <td class="instruction">LD ($9CA5),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44797"></span>AEFD</td>
 <td class="instruction">CALL <a href="40083.html">PRINT_TIME</a></td>
 <td class="comment-1" rowspan="1">Call <a href="40083.html">PRINT_TIME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="44800"></span>AF00</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44801"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routines at <a href="38725.html">GAME_OVER</a>, <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44801"></span>AF01</td>
-<td class="instruction">LD A,($AA03)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44804"></span>AF04</td>
-<td class="instruction">LD HL,$AA43</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44807"></span>AF07</td>
-<td class="instruction">XOR (HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44808"></span>AF08</td>
-<td class="instruction">AND $10</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44810"></span>AF0A</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -98,7 +67,7 @@ Prev: <a href="44735.html">AEBF</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#44792">Map</a></td>
 <td class="next">
-Next: <a href="44811.html">AF0B</a>
+Next: <a href="44801.html">AF01</a>
 </td>
 </tr>
 </table>

@@ -94,13 +94,12 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="38748"></span>975C</td>
 <td class="instruction">LD A,$40</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $40 to <a href="39977.html">9C29</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38750"></span>975E</td>
 <td class="instruction">LD ($9C29),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -124,13 +123,12 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="38760"></span>9768</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $00 to <a href="39977.html">9C29</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38761"></span>9769</td>
 <td class="instruction">LD ($9C29),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -159,7 +157,7 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38774"></span>9776</td>
-<td class="instruction">CALL <a href="44792.html#44801">$AF01</a></td>
+<td class="instruction">CALL <a href="44801.html">$AF01</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -232,13 +230,12 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="38805"></span>9795</td>
 <td class="instruction">LD A,$40</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $40 to <a href="39977.html">9C29</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38807"></span>9797</td>
 <td class="instruction">LD ($9C29),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -322,7 +319,7 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="38842"></span>97BA</td>
 <td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
 <td class="asm-label">GAME_OVER_2</td>
@@ -364,19 +361,17 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <td class="asm-label">GAME_OVER_3</td>
 <td class="address-2"><span id="38859"></span>97CB</td>
 <td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <a href="39980.html">NUM_PLAYERS</a> is not $00 then jump to <a href="38725.html#38951">CHECK_QUIT_GAME</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38862"></span>97CE</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38863"></span>97CF</td>
 <td class="instruction">JP NZ,<a href="38725.html#38951">CHECK_QUIT_GAME</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -388,19 +383,20 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="38868"></span>97D4</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Write $01 to; <ul class="">
+<li><a href="43585.html#43590">AA46</a></li>
+<li><a href="43526.html">IS_DEMO_MODE</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38870"></span>97D6</td>
 <td class="instruction">LD ($AA46),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="38873"></span>97D9</td>
 <td class="instruction">LD ($AA06),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -697,7 +693,9 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="asm-label"></td>
 <td class="address-1"><span id="38965"></span>9835</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Writes $00 to <a href="39980.html">NUM_PLAYERS</a>.</td>
+<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
+<li><a href="39980.html">NUM_PLAYERS</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="asm-label"></td>

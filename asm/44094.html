@@ -277,7 +277,7 @@ fff
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44192"></span>ACA0</td>
-<td class="instruction">CALL <a href="44792.html">$AEF8</a></td>
+<td class="instruction">CALL <a href="44792.html">INIT_TIME</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -610,7 +610,7 @@ fff
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44317"></span>AD1D</td>
-<td class="instruction">CALL <a href="44792.html#44801">$AF01</a></td>
+<td class="instruction">CALL <a href="44801.html">$AF01</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -890,7 +890,7 @@ This entry point is used by the routine at <a href="45819.html">B2FB</a>.
 <tr>
 <td class="asm-label">START_1UP_GAME_14</td>
 <td class="address-2"><span id="44427"></span>AD8B</td>
-<td class="instruction">CALL <a href="44792.html">$AEF8</a></td>
+<td class="instruction">CALL <a href="44792.html">INIT_TIME</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1082,7 +1082,7 @@ This entry point is used by the routine at <a href="44037.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44502"></span>ADD6</td>
-<td class="instruction">CALL <a href="44792.html">$AEF8</a></td>
+<td class="instruction">CALL <a href="44792.html">INIT_TIME</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1459,109 +1459,108 @@ This entry point is used by the routine at <a href="43888.html">DEMO_MODE</a>.
 <td class="asm-label">START_1UP_GAME_26</td>
 <td class="address-2"><span id="44625"></span>AE51</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
+<li><a href="50215.html">C427</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44626"></span>AE52</td>
 <td class="instruction">LD ($C427),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44629"></span>AE55</td>
 <td class="instruction">JR <a href="44094.html#44636">START_1UP_GAME_28</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="44094.html#44636">START_1UP_GAME_28</a>.</td>
 </tr>
 <tr>
 <td class="asm-label">START_1UP_GAME_27</td>
 <td class="address-2"><span id="44631"></span>AE57</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Write $01 to; <ul class="">
+<li><a href="50215.html">C427</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44633"></span>AE59</td>
 <td class="instruction">LD ($C427),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label">START_1UP_GAME_28</td>
 <td class="address-2"><span id="44636"></span>AE5C</td>
 <td class="instruction">LD A,($9C28)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Return if <a href="39976.html">9C28</a> is not zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44639"></span>AE5F</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44640"></span>AE60</td>
 <td class="instruction">RET NZ</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44641"></span>AE61</td>
 <td class="instruction">LD A,($9C2B)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump to <a href="44094.html#44585">START_1UP_GAME_25</a> if <a href="39979.html">9C2B</a> is not zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44644"></span>AE64</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44645"></span>AE65</td>
 <td class="instruction">JR Z,<a href="44094.html#44585">START_1UP_GAME_25</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44647"></span>AE67</td>
 <td class="instruction">LD A,$1C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Write $1C to; <ul class="">
+<li><a href="43526.html#43532">AA0C</a></li>
+<li><a href="43585.html#43596">AA4C</a></li>
+</ul></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44649"></span>AE69</td>
 <td class="instruction">LD ($AA0C),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44652"></span>AE6C</td>
 <td class="instruction">LD ($AA4C),A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44655"></span>AE6F</td>
 <td class="instruction">CALL <a href="44094.html#44272">START_1UP_GAME_6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="44094.html#44272">START_1UP_GAME_6</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44658"></span>AE72</td>
 <td class="instruction">CALL <a href="44826.html">$AF1A</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="44826.html">AF1A</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44661"></span>AE75</td>
 <td class="instruction">CALL <a href="44826.html">$AF1A</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="44826.html">AF1A</a>.</td>
 </tr>
 <tr>
 <td class="asm-label">START_1UP_GAME_29</td>
 <td class="address-2"><span id="44664"></span>AE78</td>
 <td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
