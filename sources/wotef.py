@@ -29,6 +29,14 @@ class WayOfTheExplodingFistHtmlWriter(HtmlWriter):
     def init(self):
         self.font = {c: self.snapshot[0x3C00 + 8 * c:0x3C08 + 8 * c] for c in range(0x20, 0x7A)}
 
+    def expand_shadowbuff(self, text, index, cwd):
+        # #SHADOWBUFFbackground[,scale][{X,Y,W,H}](fname)
+        end, crop_rect, fname, frame, alt, (background, scale) = parse_image_macro(text, index, (1,), ('id', 'scale'))
+        if fname is None:
+            raise MacroParsingError('Filename missing: #SHADOWBUFF{}'.format(text[index:end]))
+        frame = Frame(lambda: self.get_shadow_buffer_udgs(background), scale, 0, *crop_rect, name=frame)
+        return end, self.handle_image(frame, fname, cwd, alt, 'PlayAreaImagePath')
+
     def expand_background(self, text, index, cwd):
         # #BACKGROUNDid[,scale][{X,Y,W,H}](fname)
         end, crop_rect, fname, frame, alt, (background, scale) = parse_image_macro(text, index, (1,), ('id', 'scale'))
@@ -78,6 +86,31 @@ class WayOfTheExplodingFistHtmlWriter(HtmlWriter):
             else:
                 data.append(fetch)
         return data
+
+    def get_shadow_buffer_udgs(self, background):
+        x = y = 0
+        w, h = 0x20, 0x0D
+
+        playarea_udgs = []
+        udgs = []
+
+        background_addresses = 0x602B + (background - 1) * 0x12
+
+        for row in range(background_addresses, background_addresses + 0x10, 4):
+            for udg in self.get_playarea_udg(
+                self.unpack_data(self.snapshot[row + 2] + self.snapshot[row + 3] * 0x100),
+                self.snapshot[row + 0] + self.snapshot[row + 1] * 0x100
+            ):
+                udgs.append(udg)
+
+        pos = 0
+        for row in range(y, y + h):
+            playarea_udgs.append([])
+            for col in range(x, x + w):
+                playarea_udgs[-1].append(Udg(56, udgs[pos], x=x, y=y))
+                pos += 1
+
+        return playarea_udgs
 
     def get_playarea_udgs(self, background):
         x = y = 0

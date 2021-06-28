@@ -1731,11 +1731,16 @@ b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 
 ; Shadow buffer
 ;
-; A copy of $4820-$5020 for.
-;
+; Once a background is unpacked and displayed, $4820-$5020 are copied to this shadow buffer to
+;       allow the background layer to be drawn quickly (without rerunning the unpacking routines at #R$5F80).
 ; .
-;
-; #SCR2,0,0,$20,$08,$8000 (shadow-screen)
+; #UDGTABLE
+; { #SHADOWBUFF1,2{y=$50}(shadow-screen-1) }
+; { #SHADOWBUFF2,2{y=$50}(shadow-screen-2) }
+; { #SHADOWBUFF3,2{y=$50}(shadow-screen-3) }
+; UDGTABLE#
+; .
+; Used by the routine at #R$9200.
 @label=SHADOW_BUFFER
 b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,$00,$00,$80,$80,$40,$40,$20,$3F,$04,$02,$02,$01,$01,$00,$00 ; {Pixels
  $8020 DEFB $FF,$00,$00,$00,$00,$00,$80,$80,$80,$38,$1C,$0E,$07,$03,$01,$01,$00,$87,$87,$87,$87,$87,$87,$C7,$E7,$10,$20,$60,$80,$00,$00,$00 ;

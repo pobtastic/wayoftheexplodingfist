@@ -375,8 +375,14 @@ L $7F39,$08,$0E
 
 b $8000 Shadow buffer
 @ $8000 label=SHADOW_BUFFER
-D $8000 A copy of $4820-$5020 for.
-N $8000 #SCR2,0,0,$20,$08,$8000 (shadow-screen)
+D $8000 Once a background is unpacked and displayed, $4820-$5020 are copied to this shadow buffer to
+.       allow the background layer to be drawn quickly (without rerunning the unpacking routines at #R$5F80).
+D $8000 #UDGTABLE
+. { #SHADOWBUFF1,2{y=$50}(shadow-screen-1) }
+. { #SHADOWBUFF2,2{y=$50}(shadow-screen-2) }
+. { #SHADOWBUFF3,2{y=$50}(shadow-screen-3) }
+. UDGTABLE#
+D $8000 Used by the routine at #R$9200.
 B $8000,$800,$20 Pixels
 
 c $8800
