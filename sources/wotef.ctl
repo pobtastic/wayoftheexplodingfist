@@ -877,7 +877,7 @@ B $9128,$D8,$04
 c $9200
   $9200,$03 Write #REGa to #R$5F00.
   $9203,$03 Call #R$5F22.
-  $9206,$05 Call #R$C203 using $48.
+  $9206,$05 Call #R$C203 using $48. On return #REGhl=$4820.
   $920B,$02 Set a counter of $40.
   $920D,$03 #REGde=#R$8000.
   $9210,$01 Push #REGhl onto the stack.
@@ -1155,6 +1155,37 @@ g $9CA5 Time.
 @ $9CA5 label=TIME
 
 c $9CA6
+  $9CAD,$2B Write $00 to; #LIST
+. { #R$9C2B }
+. { #R$9CA7 }
+. { #R$AA4D }
+. { #R$AA0D }
+. { #R$AA03 }
+. { #R$AA43 }
+. { #R$AA16 }
+. { #R$AA56 }
+. { #R$AA17 }
+. { #R$AA0B }
+. { #R$AA4B }
+. { #R$AA09 }
+. { #R$AA49 }
+. { #R$9C28 }
+. LIST#
+  $9CD8,$05 Write $20 to; #LIST { #R$AA19 } LIST#
+  $9CDD,$05 Write $3C to; #LIST { #R$AA59 } LIST#
+  $9CE2,$08 Write $7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
+  $9CEA,$14 Write $17 to; #LIST
+. { #R$AA0C }
+. { #R$AA4C }
+. { #R$AA05 }
+. { #R$AA45 }
+. { #R$AA04 }
+. { #R$AA44 }
+. LIST#
+  $9CFE,$08 Write $01 to; #LIST { #R$AA0A } { #R$AA4A } LIST#
+  $9D06,$05 Write $01 to; #LIST { #R$AA57 } LIST#
+
+c $9ED2
 
 c $A3FF Random number.
 D $A3FF Semi-random number generator using the refresh register.
@@ -1228,6 +1259,7 @@ c $A697 Check player score against high score.
 
 g $A6B6
 g $A6B7
+g $AA00
 g $AA01 1UP Yin-yang count.
 @ $AA01 label=P1_YIN_YANG
 B $AA01,$01
@@ -1241,25 +1273,33 @@ B $AA06,$01
 
 B $AA08,$01
 @ $AA08 label=P1_POINTS_AWARDED
+B $AA0A,$01
 B $AA0B,$01
 B $AA0D,$01
 B $AA16,$01
 B $AA18,$01
 B $AA3C,$01
 
+g $AA40
 g $AA41
 @ $AA41 label=P2_YIN_YANG
 B $AA41,$01
 
 B $AA42,$01
+B $AA44,$01
+B $AA45,$01
 B $AA46,$01
 B $AA48,$01
 @ $AA48 label=P2_POINTS_AWARDED
+B $AA4A,$01
 B $AA4B,$01
+B $AA4D,$01
 B $AA56,$01
 B $AA58,$01
+B $AA77,$01
 B $AA80,$01
 @ $AA80 label=ALSO_RANK
+B $AA8B,$01
 
 t $AA9C
 T $AA9D,$04 "DEMO" text.
@@ -1270,6 +1310,35 @@ T $AAB7,$03 "DAN" text.
 T $AABA,$08 "JOYSTICK" text.
 T $AAC2,$08 "KEYBOARD" text.
 T $AACC,$0C Whitespace?
+
+c $AADC
+  $AADC,$0B Copies $1A bytes of data from #R$AA00 to #R$A5F1.
+  $AAE7,$0B Copies $1A bytes of data from #R$AA40 to #R$A62B.
+  $AAF2,$01 Return.
+
+  $AAF3,$0B Copies $1A bytes of data from #R$A5F1 to #R$AA00.
+  $AAFE,$0B Copies $1A bytes of data from #R$A62B to #R$AA40.
+  $AB09,$01 Return.
+
+  $AB0A,$0B Copies $12 bytes of data from #R$AA8B to #R$A60B.
+  $AB15,$01 Return.
+
+  $AB16,$0B Copies $12 bytes of data from #R$A60B to #R$AA8B.
+  $AB21,$01 Return.
+
+  $AB22,$0B Copies $1A bytes of data from #R$AA40 to #R$A5F1.
+  $AB2D,$0B Copies $1A bytes of data from #R$AA00 to #R$A62B.
+  $AB38,$01 Return.
+
+  $AB39,$0B Copies $1A bytes of data from #R$A5F1 to #R$AA40.
+  $AB44,$0B Copies $1A bytes of data from #R$A62B to #R$AA00.
+  $AB4F,$01 Return.
+
+  $AB50,$0B Copies $12 bytes of data from #R$AA77 to #R$A60B.
+  $AB5B,$01 Return.
+
+  $AB5C,$0B Copies $12 bytes of data from #R$A60B to #R$AA77.
+  $AB67,$01 Return.
 
 c $AB70 Demo mode.
 @ $AB70 label=DEMO_MODE
@@ -1387,11 +1456,25 @@ c $AF0B Resets score.
   $AF19,$01 Return.
 
 c $AF1A
+
+c $AF27
 B $AF33
 B $AF34
 B $AF35
 
-  $AF36
+c $AF36
+  $AF36,$08 Jump to #R$AF7D if #R$AA08 is zero.
+  $AF3E,$03 #REGhl=#R$B00B
+  $AF41,$06 #REGbc=$AA3F.
+
+  $AF52,$01 fff
+  $AF53,$03 #REGhl=#R$AA02
+  $AF56,$01
+  $AF58,$03 #R$B02C($B02D).
+  $AF5B,$03 Call #R$AFC2.
+  $AF5E,$04 Write $00 to; #LIST { #R$AA08 } LIST#
+  $AF62,$06 Return if #R$9C2C is zero.
+
 N $AF68 Player 1 display score.
   $AF68,$03 Point to #R$B02F.
   $AF6B,$02 Set a counter of $03.

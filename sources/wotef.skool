@@ -3367,7 +3367,7 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
 ; Print String.
 ;
 ; Used by the routines at #R$8C54, #R$8CDB, #R$8D99, #R$909E, #R$932C, #R$9745,
-; #R$A685, #R$AB70, #R$AC05, #R$AC3E, #R$AEBF and #R$AF1A.
+; #R$A685, #R$AB70, #R$AC05, #R$AC3E, #R$AEBF and #R$AF36.
 ;
 ; .
 ;
@@ -4685,40 +4685,42 @@ c$9CA6 DEC C         ;
 ; This entry point is used by the routine at #R$AC3E.
 *$9CA8 LD A,R        ;
  $9CAA LD ($A645),A  ;
- $9CAD XOR A         ;
- $9CAE LD ($9C2B),A  ;
- $9CB1 LD ($9CA7),A  ;
- $9CB4 LD ($AA4D),A  ;
- $9CB7 LD ($AA0D),A  ;
- $9CBA LD ($AA03),A  ;
- $9CBD LD ($AA43),A  ;
- $9CC0 LD ($AA16),A  ;
- $9CC3 LD ($AA56),A  ;
- $9CC6 LD ($AA17),A  ;
- $9CC9 LD ($AA0B),A  ;
- $9CCC LD ($AA4B),A  ;
- $9CCF LD ($AA09),A  ;
- $9CD2 LD ($AA49),A  ;
- $9CD5 LD ($9C28),A  ;
- $9CD8 LD A,$20      ;
- $9CDA LD ($AA19),A  ;
- $9CDD LD A,$3C      ;
- $9CDF LD ($AA59),A  ;
- $9CE2 LD A,$7A      ;
+ $9CAD XOR A         ; {Write $00 to; #LIST
+ $9CAE LD ($9C2B),A  ; { #R$9C2B }
+ $9CB1 LD ($9CA7),A  ; { #R$9CA7 }
+ $9CB4 LD ($AA4D),A  ; { #R$AA4D }
+ $9CB7 LD ($AA0D),A  ; { #R$AA0D }
+ $9CBA LD ($AA03),A  ; { #R$AA03 }
+ $9CBD LD ($AA43),A  ; { #R$AA43 }
+ $9CC0 LD ($AA16),A  ; { #R$AA16 }
+ $9CC3 LD ($AA56),A  ; { #R$AA56 }
+ $9CC6 LD ($AA17),A  ; { #R$AA17 }
+ $9CC9 LD ($AA0B),A  ; { #R$AA0B }
+ $9CCC LD ($AA4B),A  ; { #R$AA4B }
+ $9CCF LD ($AA09),A  ; { #R$AA09 }
+ $9CD2 LD ($AA49),A  ; { #R$AA49 }
+ $9CD5 LD ($9C28),A  ; { #R$9C28 }
+                     ; LIST#}
+ $9CD8 LD A,$20      ; {Write $20 to; #LIST { #R$AA19 } LIST#
+ $9CDA LD ($AA19),A  ; }
+ $9CDD LD A,$3C      ; {Write $3C to; #LIST { #R$AA59 } LIST#
+ $9CDF LD ($AA59),A  ; }
+ $9CE2 LD A,$7A      ; {Write $7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
  $9CE4 LD ($AA18),A  ;
- $9CE7 LD ($AA58),A  ;
- $9CEA LD A,$17      ;
- $9CEC LD ($AA0C),A  ;
- $9CEF LD ($AA4C),A  ;
- $9CF2 LD ($AA05),A  ;
- $9CF5 LD ($AA45),A  ;
- $9CF8 LD ($AA04),A  ;
- $9CFB LD ($AA44),A  ;
- $9CFE LD A,$01      ;
+ $9CE7 LD ($AA58),A  ; }
+ $9CEA LD A,$17      ; {Write $17 to; #LIST
+ $9CEC LD ($AA0C),A  ; { #R$AA0C }
+ $9CEF LD ($AA4C),A  ; { #R$AA4C }
+ $9CF2 LD ($AA05),A  ; { #R$AA05 }
+ $9CF5 LD ($AA45),A  ; { #R$AA45 }
+ $9CF8 LD ($AA04),A  ; { #R$AA04 }
+ $9CFB LD ($AA44),A  ; { #R$AA44 }
+                     ; LIST#}
+ $9CFE LD A,$01      ; {Write $01 to; #LIST { #R$AA0A } { #R$AA4A } LIST#
  $9D00 LD ($AA0A),A  ;
- $9D03 LD ($AA4A),A  ;
- $9D06 LD A,$01      ;
- $9D08 LD ($AA57),A  ;
+ $9D03 LD ($AA4A),A  ; }
+ $9D06 LD A,$01      ; {Write $01 to; #LIST { #R$AA57 } LIST#
+ $9D08 LD ($AA57),A  ; }
  $9D0B CALL $AADC    ;
  $9D0E CALL $AB0A    ;
  $9D11 CALL $A402    ;
@@ -4986,8 +4988,11 @@ c$9CA6 DEC C         ;
  $9ECC AND A         ;
  $9ECD JR Z,$9EBF    ;
  $9ECF JP $9EB9      ;
-; This entry point is used by the routine at #R$9745.
-*$9ED2 LD A,($AA44)  ;
+
+; Routine at 9ED2
+;
+; Used by the routine at #R$9745.
+c$9ED2 LD A,($AA44)  ;
  $9ED5 LD D,A        ;
  $9ED6 LD HL,$A90D   ;
  $9ED9 LD A,D        ;
@@ -5749,7 +5754,7 @@ c$A402 LD A,($A614)  ;
  $A477 LD A,(HL)     ;
  $A478 LD ($A60B),A  ;
  $A47B RET           ;
-; This entry point is used by the routine at #R$9CA6.
+; This entry point is used by the routine at #R$9ED2.
 *$A47C LD B,A        ;
  $A47D LD A,($A62F)  ;
  $A480 CP $0A        ;
@@ -5852,7 +5857,7 @@ c$A402 LD A,($A614)  ;
 *$A54E XOR A         ;
  $A54F LD ($A618),A  ;
  $A552 RET           ;
-; This entry point is used by the routine at #R$9CA6.
+; This entry point is used by the routine at #R$9ED2.
 *$A553 SLA A         ;
  $A555 LD DE,$B3A9   ;
  $A558 ADD A,E       ;
@@ -5878,7 +5883,7 @@ c$A402 LD A,($A614)  ;
 *$A57B LD A,$01      ;
  $A57D LD ($A618),A  ;
  $A580 JP $A49A      ;
-; This entry point is used by the routine at #R$9CA6.
+; This entry point is used by the routine at #R$9ED2.
 *$A583 LD A,($A60A)  ;
  $A586 LD D,A        ;
  $A587 LD A,($A644)  ;
@@ -6226,7 +6231,10 @@ g$A6B7 DEFB $00,$F8,$40,$40,$40,$40,$F0,$0F
  $A9E7 DEFB $00,$00,$00,$00,$00,$D7,$BE,$FF
  $A9EF DEFB $FE,$CB,$FF,$F7,$FE,$CB,$FF,$E1
  $A9F7 DEFB $FE,$84,$01,$FF,$C0,$FE,$84,$03
- $A9FF DEFB $FF,$00
+ $A9FF DEFB $FF
+
+; Game status buffer entry at AA00
+g$AA00 DEFB $00
 
 ; 1UP Yin-yang count.
 @label=P1_YIN_YANG
@@ -6242,7 +6250,8 @@ g$AA06 DEFB $00
  $AA07 DEFB $00
 @label=P1_POINTS_AWARDED
  $AA08 DEFB $00
- $AA09 DEFB $00,$00
+ $AA09 DEFB $00
+ $AA0A DEFB $00
  $AA0B DEFB $00
  $AA0C DEFB $00
  $AA0D DEFB $00
@@ -6256,61 +6265,135 @@ g$AA06 DEFB $00
  $AA31 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $AA39 DEFB $00,$00,$00
  $AA3C DEFB $00
- $AA3D DEFB $00,$00,$00,$00
+ $AA3D DEFB $00,$00,$00
+
+; Game status buffer entry at AA40
+g$AA40 DEFB $00
 
 ; Game status buffer entry at AA41
 @label=P2_YIN_YANG
 g$AA41 DEFB $00
  $AA42 DEFB $00
- $AA43 DEFB $00,$00,$00
+ $AA43 DEFB $00
+ $AA44 DEFB $00
+ $AA45 DEFB $00
  $AA46 DEFB $00
  $AA47 DEFB $00
 @label=P2_POINTS_AWARDED
  $AA48 DEFB $00
- $AA49 DEFB $00,$00
+ $AA49 DEFB $00
+ $AA4A DEFB $00
  $AA4B DEFB $00
- $AA4C DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $AA54 DEFB $00,$00
+ $AA4C DEFB $00
+ $AA4D DEFB $00
+ $AA4E DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $AA56 DEFB $00
  $AA57 DEFB $00
  $AA58 DEFB $00
  $AA59 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $AA61 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $AA69 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $AA71 DEFB $00,$00,$00,$00,$00,$00,$00,$1F
- $AA79 DEFB $7F,$00,$00,$00,$00,$00,$00
+ $AA71 DEFB $00,$00,$00,$00,$00,$00
+ $AA77 DEFB $00
+ $AA78 DEFB $1F,$7F,$00,$00,$00,$00,$00,$00
 @label=ALSO_RANK
  $AA80 DEFB $00
  $AA81 DEFB $00,$00,$00,$00,$00,$00,$00,$00
- $AA89 DEFB $00,$00,$00,$C6,$7F,$00,$00,$00
- $AA91 DEFB $00,$00,$00,$0A,$00,$00,$00,$00
- $AA99 DEFB $00,$00,$00
+ $AA89 DEFB $00,$00
+ $AA8B DEFB $00
+ $AA8C DEFB $C6,$7F,$00,$00,$00,$00,$00,$00
+ $AA94 DEFB $0A,$00,$00,$00,$00,$00,$00,$00
 
 ; Message at AA9C
 t$AA9C DEFM $00
- $AA9D DEFM "DEMO"                                                                                                                                                                                                                                                     ; "DEMO"
-                                                                                                                                                                                                                                                                       ; text.
- $AAA1 DEFM "PLAYER"                                                                                                                                                                                                                                                   ; "PLAYER"
-                                                                                                                                                                                                                                                                       ; text.
- $AAA7 DEFM "NOVICE"                                                                                                                                                                                                                                                   ; "NOVICE"
-                                                                                                                                                                                                                                                                       ; text.
+ $AA9D DEFM "DEMO"         ; "DEMO" text.
+ $AAA1 DEFM "PLAYER"       ; "PLAYER" text.
+ $AAA7 DEFM "NOVICE"       ; "NOVICE" text.
  $AAAD DEFM " "
- $AAAE DEFM "ST"                                                                                                                                                                                                                                                       ; {numeric
- $AAB0 DEFM "ND"                                                                                                                                                                                                                                                       ; suffixes.
- $AAB2 DEFM "RD"                                                                                                                                                                                                                                                       ;
- $AAB4 DEFM "TH"                                                                                                                                                                                                                                                       ; }
+ $AAAE DEFM "ST"           ; {numeric suffixes.
+ $AAB0 DEFM "ND"           ;
+ $AAB2 DEFM "RD"           ;
+ $AAB4 DEFM "TH"           ; }
  $AAB6 DEFM " "
- $AAB7 DEFM "DAN"                                                                                                                                                                                                                                                      ; "DAN"
-                                                                                                                                                                                                                                                                       ; text.
- $AABA DEFM "JOYSTICK"                                                                                                                                                                                                                                                 ; "JOYSTICK"
-                                                                                                                                                                                                                                                                       ; text.
- $AAC2 DEFM "KEYBOARD"                                                                                                                                                                                                                                                 ; "KEYBOARD"
-                                                                                                                                                                                                                                                                       ; text.
+ $AAB7 DEFM "DAN"          ; "DAN" text.
+ $AABA DEFM "JOYSTICK"     ; "JOYSTICK" text.
+ $AAC2 DEFM "KEYBOARD"     ; "KEYBOARD" text.
  $AACA DEFM $01,$00
- $AACC DEFM "            "                                                                                                                                                                                                                                             ; Whitespace?
- $AAD8 DEFM "00",$00,$00,"!",$00,$AA,$11,$F1,$A5,$01,$1A,$00,$ED,$B0,"!@",$AA,$11,"+",$A6,$01,$1A,$00,$ED,$B0,$C9,"!",$F1,$A5,$11,$00,$AA,$01,$1A,$00,$ED,$B0,"!+",$A6,$11,"@",$AA,$01,$1A,$00,$ED,$B0,$C9,"!",$8B,$AA,$11,$0B,$A6,$01,$12,$00,$ED,$B0,$C9,"!",$0B,$A6
- $AB19 DEFM $11,$8B,$AA,$01,$12,$00,$ED,$B0,$C9,"!@",$AA,$11,$F1,$A5,$01,$1A,$00,$ED,$B0,"!",$00,$AA,$11,"+",$A6,$01,$1A,$00,$ED,$B0,$C9,"!",$F1,$A5,$11,"@",$AA,$01,$1A,$00,$ED,$B0,"!+",$A6,$11,$00,$AA,$01,$1A,$00,$ED,$B0,$C9,"!w",$AA,$11,$0B,$A6,$01,$12,$00,$ED
- $AB5A DEFM $B0,$C9,"!",$0B,$A6,$11,"w",$AA,$01,$12,$00,$ED,$B0,$C9,"8 ",$CE,$01,$F1,$7F,$F8,$1C
+ $AACC DEFM "            " ; Whitespace?
+ $AAD8 DEFM "00",$00,$00
+
+; Routine at AADC
+;
+; Used by the routines at #R$9745 and #R$9CA6.
+c$AADC LD HL,$AA00   ; {Copies $1A bytes of data from #R$AA00 to #R$A5F1.
+ $AADF LD DE,$A5F1   ;
+ $AAE2 LD BC,$001A   ;
+ $AAE5 LDIR          ; }
+ $AAE7 LD HL,$AA40   ; {Copies $1A bytes of data from #R$AA40 to #R$A62B.
+ $AAEA LD DE,$A62B   ;
+ $AAED LD BC,$001A   ;
+ $AAF0 LDIR          ; }
+ $AAF2 RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AAF3 LD HL,$A5F1   ; {Copies $1A bytes of data from #R$A5F1 to #R$AA00.
+ $AAF6 LD DE,$AA00   ;
+ $AAF9 LD BC,$001A   ;
+ $AAFC LDIR          ; }
+ $AAFE LD HL,$A62B   ; {Copies $1A bytes of data from #R$A62B to #R$AA40.
+ $AB01 LD DE,$AA40   ;
+ $AB04 LD BC,$001A   ;
+ $AB07 LDIR          ; }
+ $AB09 RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AB0A LD HL,$AA8B   ; {Copies $12 bytes of data from #R$AA8B to #R$A60B.
+ $AB0D LD DE,$A60B   ;
+ $AB10 LD BC,$0012   ;
+ $AB13 LDIR          ; }
+ $AB15 RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AB16 LD HL,$A60B   ; {Copies $12 bytes of data from #R$A60B to #R$AA8B.
+ $AB19 LD DE,$AA8B   ;
+ $AB1C LD BC,$0012   ;
+ $AB1F LDIR          ; }
+ $AB21 RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AB22 LD HL,$AA40   ; {Copies $1A bytes of data from #R$AA40 to #R$A5F1.
+ $AB25 LD DE,$A5F1   ;
+ $AB28 LD BC,$001A   ;
+ $AB2B LDIR          ; }
+ $AB2D LD HL,$AA00   ; {Copies $1A bytes of data from #R$AA00 to #R$A62B.
+ $AB30 LD DE,$A62B   ;
+ $AB33 LD BC,$001A   ;
+ $AB36 LDIR          ; }
+ $AB38 RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AB39 LD HL,$A5F1   ; {Copies $1A bytes of data from #R$A5F1 to #R$AA40.
+ $AB3C LD DE,$AA40   ;
+ $AB3F LD BC,$001A   ;
+ $AB42 LDIR          ; }
+ $AB44 LD HL,$A62B   ; {Copies $1A bytes of data from #R$A62B to #R$AA00.
+ $AB47 LD DE,$AA00   ;
+ $AB4A LD BC,$001A   ;
+ $AB4D LDIR          ; }
+ $AB4F RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AB50 LD HL,$AA77   ; {Copies $12 bytes of data from #R$AA77 to #R$A60B.
+ $AB53 LD DE,$A60B   ;
+ $AB56 LD BC,$0012   ;
+ $AB59 LDIR          ; }
+ $AB5B RET           ; Return.
+; This entry point is used by the routines at #R$9745 and #R$9CA6.
+*$AB5C LD HL,$A60B   ; {Copies $12 bytes of data from #R$A60B to #R$AA77.
+ $AB5F LD DE,$AA77   ;
+ $AB62 LD BC,$0012   ;
+ $AB65 LDIR          ; }
+ $AB67 RET           ; Return.
+ $AB68 JR C,$AB8A    ;
+ $AB6A ADC A,$01     ;
+ $AB6C POP AF        ;
+ $AB6D LD A,A        ;
+ $AB6E RET M         ;
+ $AB6F INC E         ;
 
 ; Demo mode.
 ;
@@ -6787,8 +6870,11 @@ c$AF1A LD BC,$0000   ;
  $AF23 INC B         ;
  $AF24 JR NZ,$AF1D   ;
  $AF26 RET           ;
-; This entry point is used by the routines at #R$AB70 and #R$AC3E.
-*$AF27 LD HL,$AF34   ;
+
+; Routine at AF27
+;
+; Used by the routines at #R$AB70 and #R$AC3E.
+c$AF27 LD HL,$AF34   ;
  $AF2A INC (HL)      ;
  $AF2B LD A,(HL)     ;
  $AF2C CP $04        ;
@@ -6799,14 +6885,17 @@ c$AF1A LD BC,$0000   ;
  $AF33 DEFB $00      ;
  $AF34 DEFB $01      ;
  $AF35 DEFB $00      ;
-; This entry point is used by the routines at #R$AB70 and #R$AC3E.
-*$AF36 LD A,($AA08)  ;
+
+; Routine at AF36
+;
+; Used by the routines at #R$AB70 and #R$AC3E.
+c$AF36 LD A,($AA08)  ; {Jump to #R$AF7D if #R$AA08 is zero.
  $AF39 CP $00        ;
- $AF3B JP Z,$AF7D    ;
- $AF3E LD HL,$B00B   ;
- $AF41 LD A,($AA3F)  ;
+ $AF3B JP Z,$AF7D    ; }
+ $AF3E LD HL,$B00B   ; #REGhl=#R$B00B
+ $AF41 LD A,($AA3F)  ; {#REGbc=$AA3F.
  $AF44 LD C,A        ;
- $AF45 LD B,$00      ;
+ $AF45 LD B,$00      ; }
  $AF47 ADD HL,BC     ;
  $AF48 LD B,(HL)     ;
  $AF49 LD A,($AA08)  ;
@@ -6814,17 +6903,17 @@ c$AF1A LD BC,$0000   ;
  $AF4E JR NZ,$AF52   ;
  $AF50 SRL B         ;
 ; This entry point is used by the routine at #R$AC3E.
-*$AF52 LD A,B        ;
- $AF53 LD HL,$AA02   ;
+*$AF52 LD A,B        ; fff
+ $AF53 LD HL,$AA02   ; #REGhl=#R$AA02
  $AF56 ADD A,(HL)    ;
  $AF57 LD (HL),A     ;
- $AF58 LD DE,$B02D   ;
- $AF5B CALL $AFC2    ;
- $AF5E XOR A         ;
- $AF5F LD ($AA08),A  ;
- $AF62 LD A,($9C2C)  ;
+ $AF58 LD DE,$B02D   ; #R$B02C($B02D).
+ $AF5B CALL $AFC2    ; Call #R$AFC2.
+ $AF5E XOR A         ; {Write $00 to; #LIST { #R$AA08 } LIST#
+ $AF5F LD ($AA08),A  ; }
+ $AF62 LD A,($9C2C)  ; {Return if #R$9C2C is zero.
  $AF65 CP $00        ;
- $AF67 RET Z         ;
+ $AF67 RET Z         ; }
 ; Player 1 display score.
  $AF68 LD HL,$B02F   ; Point to #R$B02F.
  $AF6B LD B,$03      ; Set a counter of $03.
@@ -6891,7 +6980,7 @@ c$AF1A LD BC,$0000   ;
 
 ; Routine at AFDA
 ;
-; Used by the routines at #R$9745, #R$A685, #R$AC3E and #R$AF1A.
+; Used by the routines at #R$9745, #R$A685, #R$AC3E and #R$AF36.
 @label=POPULATE_SCORE_BUFFER
 c$AFDA LD DE,$B024   ; Point to #R$B024.
 @label=SCORE_BUFFER_LOOP
