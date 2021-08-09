@@ -21,7 +21,7 @@ Prev: <a href="44811.html">AF0B</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#44826">Map</a></td>
 <td class="next">
-Next: <a href="45018.html">AFDA</a>
+Next: <a href="44839.html">AF27</a>
 </td>
 </tr>
 </table>
@@ -39,7 +39,7 @@ Used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 <tr>
 <td class="address-2"><span id="44826"></span>AF1A</td>
 <td class="instruction">LD BC,$0000</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -54,568 +54,32 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <tr>
 <td class="address-2"><span id="44829"></span>AF1D</td>
 <td class="instruction">LD A,(IX+$00)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44832"></span>AF20</td>
 <td class="instruction">INC C</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44833"></span>AF21</td>
 <td class="instruction">JR NZ,$AF1D</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44835"></span>AF23</td>
 <td class="instruction">INC B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44836"></span>AF24</td>
 <td class="instruction">JR NZ,$AF1D</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44838"></span>AF26</td>
 <td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44839"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44839"></span>AF27</td>
-<td class="instruction">LD HL,$AF34</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44842"></span>AF2A</td>
-<td class="instruction">INC (HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44843"></span>AF2B</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44844"></span>AF2C</td>
-<td class="instruction">CP $04</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44846"></span>AF2E</td>
-<td class="instruction">RET NZ</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44847"></span>AF2F</td>
-<td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44849"></span>AF31</td>
-<td class="instruction">LD (HL),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44850"></span>AF32</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44851"></span>AF33</td>
-<td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44852"></span>AF34</td>
-<td class="instruction">DEFB $01</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44853"></span>AF35</td>
-<td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44854"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44854"></span>AF36</td>
-<td class="instruction">LD A,($AA08)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44857"></span>AF39</td>
-<td class="instruction">CP $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44859"></span>AF3B</td>
-<td class="instruction">JP Z,$AF7D</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44862"></span>AF3E</td>
-<td class="instruction">LD HL,$B00B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44865"></span>AF41</td>
-<td class="instruction">LD A,($AA3F)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44868"></span>AF44</td>
-<td class="instruction">LD C,A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44869"></span>AF45</td>
-<td class="instruction">LD B,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44871"></span>AF47</td>
-<td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44872"></span>AF48</td>
-<td class="instruction">LD B,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44873"></span>AF49</td>
-<td class="instruction">LD A,($AA08)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44876"></span>AF4C</td>
-<td class="instruction">CP $01</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44878"></span>AF4E</td>
-<td class="instruction">JR NZ,$AF52</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44880"></span>AF50</td>
-<td class="instruction">SRL B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44882"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44882"></span>AF52</td>
-<td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44883"></span>AF53</td>
-<td class="instruction">LD HL,$AA02</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44886"></span>AF56</td>
-<td class="instruction">ADD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44887"></span>AF57</td>
-<td class="instruction">LD (HL),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44888"></span>AF58</td>
-<td class="instruction">LD DE,$B02D</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44891"></span>AF5B</td>
-<td class="instruction">CALL $AFC2</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44894"></span>AF5E</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44895"></span>AF5F</td>
-<td class="instruction">LD ($AA08),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44898"></span>AF62</td>
-<td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44901"></span>AF65</td>
-<td class="instruction">CP $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44903"></span>AF67</td>
-<td class="instruction">RET Z</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44904"></span>
-<div class="comments">
-<div class="paragraph">
-Player 1 display score.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44904"></span>AF68</td>
-<td class="instruction">LD HL,$B02F</td>
-<td class="comment-1" rowspan="1">Point to <a href="45092.html#45103">SCORE_P1</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44907"></span>AF6B</td>
-<td class="instruction">LD B,$03</td>
-<td class="comment-1" rowspan="1">Set a counter of $03.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44909"></span>AF6D</td>
-<td class="instruction">CALL <a href="45018.html">POPULATE_SCORE_BUFFER</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html">POPULATE_SCORE_BUFFER</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44912"></span>AF70</td>
-<td class="instruction">CALL <a href="45018.html#45037">WRITE_00</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">WRITE_00</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44915"></span>AF73</td>
-<td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html">SCORE_BUFFER</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44918"></span>AF76</td>
-<td class="instruction">LD HL,$0100</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44921"></span>AF79</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44924"></span>AF7C</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44925"></span>AF7D</td>
-<td class="instruction">LD A,($AA48)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44928"></span>AF80</td>
-<td class="instruction">CP $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44930"></span>AF82</td>
-<td class="instruction">RET Z</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44931"></span>AF83</td>
-<td class="instruction">LD HL,$B00B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44934"></span>AF86</td>
-<td class="instruction">LD A,($AA3F)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44937"></span>AF89</td>
-<td class="instruction">LD C,A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44938"></span>AF8A</td>
-<td class="instruction">LD B,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44940"></span>AF8C</td>
-<td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44941"></span>AF8D</td>
-<td class="instruction">LD B,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44942"></span>AF8E</td>
-<td class="instruction">LD A,($AA48)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44945"></span>AF91</td>
-<td class="instruction">CP $01</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44947"></span>AF93</td>
-<td class="instruction">JR NZ,$AF97</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44949"></span>AF95</td>
-<td class="instruction">SRL B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44951"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44951"></span>AF97</td>
-<td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44952"></span>AF98</td>
-<td class="instruction">LD HL,$AA42</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44955"></span>AF9B</td>
-<td class="instruction">ADD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44956"></span>AF9C</td>
-<td class="instruction">LD (HL),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44957"></span>AF9D</td>
-<td class="instruction">LD DE,$B030</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44960"></span>AFA0</td>
-<td class="instruction">CALL $AFC2</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44963"></span>AFA3</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44964"></span>AFA4</td>
-<td class="instruction">LD ($AA48),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44967"></span>AFA7</td>
-<td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44970"></span>AFAA</td>
-<td class="instruction">CP $02</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44972"></span>AFAC</td>
-<td class="instruction">RET NZ</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44973"></span>
-<div class="comments">
-<div class="paragraph">
-Player 2 display score.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44973"></span>AFAD</td>
-<td class="instruction">LD HL,$B032</td>
-<td class="comment-1" rowspan="1">Point to <a href="45092.html#45106">SCORE_P2</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44976"></span>AFB0</td>
-<td class="instruction">LD B,$03</td>
-<td class="comment-1" rowspan="1">Set a counter of $03.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44978"></span>AFB2</td>
-<td class="instruction">CALL <a href="45018.html">POPULATE_SCORE_BUFFER</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html">POPULATE_SCORE_BUFFER</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44981"></span>AFB5</td>
-<td class="instruction">CALL <a href="45018.html#45037">WRITE_00</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">WRITE_00</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44984"></span>AFB8</td>
-<td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html">SCORE_BUFFER</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44987"></span>AFBB</td>
-<td class="instruction">LD HL,$1600</td>
-</tr>
-<tr>
-<td class="address-1"><span id="44990"></span>AFBE</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44993"></span>AFC1</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44994"></span>
-<div class="comments">
-<div class="paragraph">
-Calculate score.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="address-2"><span id="44994"></span>AFC2</td>
-<td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44995"></span>AFC3</td>
-<td class="instruction">CP $0A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44997"></span>AFC5</td>
-<td class="instruction">JR NZ,$AFC9</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="44999"></span>AFC7</td>
-<td class="instruction">LD B,$10</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-2"><span id="45001"></span>AFC9</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45002"></span>AFCA</td>
-<td class="instruction">ADD A,B</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45003"></span>AFCB</td>
-<td class="instruction">DAA</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45004"></span>AFCC</td>
-<td class="instruction">LD (DE),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45005"></span>AFCD</td>
-<td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45006"></span>AFCE</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45007"></span>AFCF</td>
-<td class="instruction">ADC A,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45009"></span>AFD1</td>
-<td class="instruction">DAA</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45010"></span>AFD2</td>
-<td class="instruction">LD (DE),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45011"></span>AFD3</td>
-<td class="instruction">INC DE</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45012"></span>AFD4</td>
-<td class="instruction">LD A,(DE)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45013"></span>AFD5</td>
-<td class="instruction">ADC A,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45015"></span>AFD7</td>
-<td class="instruction">DAA</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45016"></span>AFD8</td>
-<td class="instruction">LD (DE),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="address-1"><span id="45017"></span>AFD9</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
+<td class="comment-0" rowspan="1"></td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -625,14 +89,14 @@ Prev: <a href="44811.html">AF0B</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#44826">Map</a></td>
 <td class="next">
-Next: <a href="45018.html">AFDA</a>
+Next: <a href="44839.html">AF27</a>
 </td>
 </tr>
 </table>
 <footer>
 <div class="release"></div>
 <div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.4.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.5.</div>
 </footer>
 </body>
 </html>
