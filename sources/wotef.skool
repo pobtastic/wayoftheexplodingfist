@@ -3208,7 +3208,7 @@ c$90D0 DEFB $1D             ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
 c$9200 LD ($5F00),A  ; Write #REGa to #R$5F00.
  $9203 CALL $5F22    ; Call #R$5F22.
- $9206 LD A,$48      ; {Call #R$C203 using $48.
+ $9206 LD A,$48      ; {Call #R$C203 using $48. On return #REGhl=$4820.
  $9208 CALL $C203    ; }
  $920B LD B,$40      ; Set a counter of $40.
  $920D LD DE,$8000   ; #REGde=#R$8000.

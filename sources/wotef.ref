@@ -3,11 +3,11 @@
 ;
 ; To build the HTML disassembly, run these commands:
 ;   tap2sna.py @wayoftheexplodingfist.t2s
-;   sna2skool.py -H -c wayoftheexplodingfist.ctl wayoftheexplodingfist.z80 > wayoftheexplodingfist.skool
-;   skool2html.py -H wayoftheexplodingfist.skool -T dark
+;   sna2skool.py -H -c sources/wotef.ctl WayOfTheExplodingFistThe.z80 > sources/wotef.skool
+;   skool2html.py -H sources/wotef.skool -T dark
 
 [Config]
-RefFiles=changelog.ref;facts.ref;graphics.ref;pages.ref;pokes.ref
+RefFiles=analytics.ref;bases.ref;changelog.ref;facts.ref;graphics.ref;pages.ref;pokes.ref
 HtmlWriterClass=:wotef.WayOfTheExplodingFistHtmlWriter
 GameDir=wayoftheexplodingfist
 
