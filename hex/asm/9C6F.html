@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 9C6F</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="9C6E.html">9C6E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40047">Map</a></td>
+<td class="next">
+Next: <a href="9C93.html">9C93</a>
+</td>
+</tr>
+</table>
+<div class="description">9C6F: Routine at 9C6F</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="9745.html">GAME_OVER</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40047"></span>9C6F</td>
+<td class="instruction">LD A,($9C2B)</td>
+<td class="comment-1" rowspan="3">Return if <a href="9C2B.html">9C2B</a> is not zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40050"></span>9C72</td>
+<td class="instruction">AND A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40051"></span>9C73</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40052"></span>9C74</td>
+<td class="instruction">LD A,($AA03)</td>
+<td class="comment-1" rowspan="4">Return if <a href="AA01.html#43523">AA03</a> or <a href="AA41.html#43587">AA43</a> is not zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40055"></span>9C77</td>
+<td class="instruction">LD HL,$AA43</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40058"></span>9C7A</td>
+<td class="instruction">OR (HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40059"></span>9C7B</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40060"></span>9C7C</td>
+<td class="instruction">LD A,($AA04)</td>
+<td class="comment-1" rowspan="3">Return if <a href="AA01.html#43524">AA04</a> is $17.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40063"></span>9C7F</td>
+<td class="instruction">CP $17</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40065"></span>9C81</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40066"></span>9C82</td>
+<td class="instruction">LD HL,$9CA6</td>
+<td class="comment-1" rowspan="3">Decrease <a href="9CA6.html">9CA6</a> by one, return if it is not zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40069"></span>9C85</td>
+<td class="instruction">DEC (HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40070"></span>9C86</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40071"></span>9C87</td>
+<td class="instruction">LD (HL),$0D</td>
+<td class="comment-1" rowspan="1">Write $0D to; <ul class="">
+<li><a href="9CA6.html">9CA6</a></li>
+</ul></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40073"></span>9C89</td>
+<td class="instruction">CALL <a href="9CA0.html">TIME_TICK</a></td>
+<td class="comment-1" rowspan="2">Call <a href="9CA0.html">TIME_TICK</a> and jump to <a href="9C93.html">PRINT_TIME</a> if it is not zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40076"></span>9C8C</td>
+<td class="instruction">JR NZ,<a href="9C93.html">PRINT_TIME</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40078"></span>9C8E</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="2">Write $01 to; <ul class="">
+<li><a href="9C2B.html">9C2B</a></li>
+</ul></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40080"></span>9C90</td>
+<td class="instruction">LD ($9C2B),A</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="9C6E.html">9C6E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40047">Map</a></td>
+<td class="next">
+Next: <a href="9C93.html">9C93</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../../dec/asm/40047.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

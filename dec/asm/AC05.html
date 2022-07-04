@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at AC05</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AB70.html">AB70</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44037">Map</a></td>
+<td class="next">
+Next: <a href="AC3E.html">AC3E</a>
+</td>
+</tr>
+</table>
+<div class="description">AC05: Main game loop.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="9C2E.html">GAME_START</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">MAIN_GAME</td>
+<td class="address-2"><span id="44037"></span>AC05</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="2">Writes $00 to <a href="9C2C.html">NUM_PLAYERS</a> - this signifies we're in "demo mode".</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44038"></span>AC06</td>
+<td class="instruction">LD ($9C2C),A</td>
+</tr>
+<tr>
+<td class="asm-label">MAIN_GAME_LOOP</td>
+<td class="address-2"><span id="44041"></span>AC09</td>
+<td class="instruction">LD HL,$0022</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#45152">TEXT_WHITESPACE_9</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44044"></span>AC0C</td>
+<td class="instruction">LD DE,$B060</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44047"></span>AC0F</td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44050"></span>AC12</td>
+<td class="instruction">LD HL,$0019</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#45152">TEXT_WHITESPACE_9</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44053"></span>AC15</td>
+<td class="instruction">LD DE,$B060</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44056"></span>AC18</td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44059"></span>AC1B</td>
+<td class="instruction">LD HL,$0222</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#45113">TEXT_DEMO</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44062"></span>AC1E</td>
+<td class="instruction">LD DE,$B039</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44065"></span>AC21</td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44068"></span>AC24</td>
+<td class="instruction">CALL <a href="AB70.html">DEMO_MODE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AB70.html">DEMO_MODE</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44071"></span>AC27</td>
+<td class="instruction">LD A,($9C2C)</td>
+<td class="comment-1" rowspan="3">If <a href="9C2C.html">NUM_PLAYERS</a> is still zero, loop back round to <a href="AC05.html#44041">MAIN_GAME_LOOP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44074"></span>AC2A</td>
+<td class="instruction">AND A</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44075"></span>AC2B</td>
+<td class="instruction">JR Z,<a href="AC05.html#44041">MAIN_GAME_LOOP</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44077"></span>AC2D</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="2">If <a href="9C2C.html">NUM_PLAYERS</a> is $01, then jump to <a href="AC3E.html">START_1UP_GAME</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44079"></span>AC2F</td>
+<td class="instruction">JR Z,<a href="AC05.html#44086">MAIN_GAME_START_1UP</a></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44081"></span>AC31</td>
+<td class="instruction">CALL <a href="AC3E.html#44444">START_2UP_GAME</a></td>
+<td class="comment-1" rowspan="1">Else, call <a href="AC3E.html#44444">START_2UP_GAME</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44084"></span>AC34</td>
+<td class="instruction">JR <a href="AC05.html#44041">MAIN_GAME_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back round to <a href="AC05.html#44041">MAIN_GAME_LOOP</a>.</td>
+</tr>
+<tr>
+<td class="asm-label">MAIN_GAME_START_1UP</td>
+<td class="address-2"><span id="44086"></span>AC36</td>
+<td class="instruction">CALL <a href="AC3E.html">START_1UP_GAME</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AC3E.html">START_1UP_GAME</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44089"></span>AC39</td>
+<td class="instruction">CALL <a href="A647.html">CHECK_HISCORE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A647.html">CHECK_HISCORE</a>.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="44092"></span>AC3C</td>
+<td class="instruction">JR <a href="AC05.html#44041">MAIN_GAME_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back round to <a href="AC05.html#44041">MAIN_GAME_LOOP</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AB70.html">AB70</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44037">Map</a></td>
+<td class="next">
+Next: <a href="AC3E.html">AC3E</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../../dec/asm/44037.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

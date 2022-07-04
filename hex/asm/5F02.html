@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Game status buffer entry at 5F02</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-g">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Game status buffer</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="5F01.html">5F01</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24322">Map</a></td>
+<td class="next">
+Next: <a href="5F10.html">5F10</a>
+</td>
+</tr>
+</table>
+<div class="description">5F02: Background screen buffer.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">BACKGROUND_SCREEN_ADDRESS</td>
+<td class="address-1"><span id="24322"></span>5F02</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Holds current screen location</td>
+</tr>
+<tr>
+<td class="asm-label">BACKGROUND_CURRENT_UDG</td>
+<td class="address-1"><span id="24324"></span>5F04</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="2">Background UDG reference buffer.</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="24326"></span>5F06</td>
+<td class="instruction">DEFW $0000</td>
+</tr>
+<tr>
+<td class="asm-label">BACKGROUND_UDG_DATA</td>
+<td class="address-1"><span id="24328"></span>5F08</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Holds currently processed UDG data block.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24330"></span>
+<div class="comments">
+<div class="paragraph">
+Used with the indirect jump at <a href="5F22.html#24390">5F46</a>/ <a href="5F22.html#24402">INDIRECT_JUMP</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">COPY_BACKGROUND_1</td>
+<td class="address-1"><span id="24330"></span>5F0A</td>
+<td class="instruction">DEFW <a href="5F22.html#24403">$5F53</a></td>
+<td class="comment-1" rowspan="1">Location of code to copy background 1 reference data.</td>
+</tr>
+<tr>
+<td class="asm-label">COPY_BACKGROUND_2</td>
+<td class="address-1"><span id="24332"></span>5F0C</td>
+<td class="instruction">DEFW <a href="5F22.html#24418">$5F62</a></td>
+<td class="comment-1" rowspan="1">Location of code to copy background 2 reference data.</td>
+</tr>
+<tr>
+<td class="asm-label">COPY_BACKGROUND_3</td>
+<td class="address-1"><span id="24334"></span>5F0E</td>
+<td class="instruction">DEFW <a href="5F22.html#24433">$5F71</a></td>
+<td class="comment-1" rowspan="1">Location of code to copy background 3 reference data.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="5F01.html">5F01</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24322">Map</a></td>
+<td class="next">
+Next: <a href="5F10.html">5F10</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../../dec/asm/24322.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

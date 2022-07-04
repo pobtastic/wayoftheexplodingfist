@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Game status buffer entry at 8C1E</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-g">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Game status buffer</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="8C0C.html">8C0C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#35870">Map</a></td>
+<td class="next">
+Next: <a href="8C30.html">8C30</a>
+</td>
+</tr>
+</table>
+<div class="description">8C1E: Sinclair Joystick #2.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+See <a href="8D99.html#36410">KEY_DATA</a> for key mappings.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="35870"></span>
+<div class="comments">
+<div class="paragraph">
+Note the Sinclair joystick maps directional movements and fire to keys.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="asm-label">SINCLAIR_2</td>
+<td class="address-1"><span id="35870"></span>8C1E</td>
+<td class="instruction">DEFB $08,$F7</td>
+<td class="comment-1" rowspan="9"><table class="default">
+<tr>
+<th colspan="1" rowspan="1">Port Number</th>
+<th colspan="1" rowspan="1">Bit</th>
+<th colspan="1" rowspan="1">Action</th>
+<th colspan="1" rowspan="1">Key</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00001000</td>
+<td class="centre" colspan="1" rowspan="1">Up</td>
+<td class="centre" colspan="1" rowspan="1">"4"</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000000</td>
+<td class="centre" colspan="1" rowspan="1">Up-Right</td>
+<td class="centre" colspan="1" rowspan="1">-</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000010</td>
+<td class="centre" colspan="1" rowspan="1">Right</td>
+<td class="centre" colspan="1" rowspan="1">"2"</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000000</td>
+<td class="centre" colspan="1" rowspan="1">Down-Right</td>
+<td class="centre" colspan="1" rowspan="1">-</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000100</td>
+<td class="centre" colspan="1" rowspan="1">Down</td>
+<td class="centre" colspan="1" rowspan="1">"3"</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000000</td>
+<td class="centre" colspan="1" rowspan="1">Down-Left</td>
+<td class="centre" colspan="1" rowspan="1">-</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000001</td>
+<td class="centre" colspan="1" rowspan="1">Left</td>
+<td class="centre" colspan="1" rowspan="1">"1"</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00000000</td>
+<td class="centre" colspan="1" rowspan="1">Up-Left</td>
+<td class="centre" colspan="1" rowspan="1">-</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">00010000</td>
+<td class="centre" colspan="1" rowspan="1">Fire</td>
+<td class="centre" colspan="1" rowspan="1">"5"</td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35872"></span>8C20</td>
+<td class="instruction">DEFB $00,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35874"></span>8C22</td>
+<td class="instruction">DEFB $02,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35876"></span>8C24</td>
+<td class="instruction">DEFB $00,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35878"></span>8C26</td>
+<td class="instruction">DEFB $04,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35880"></span>8C28</td>
+<td class="instruction">DEFB $00,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35882"></span>8C2A</td>
+<td class="instruction">DEFB $01,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35884"></span>8C2C</td>
+<td class="instruction">DEFB $00,$F7</td>
+</tr>
+<tr>
+<td class="asm-label"></td>
+<td class="address-1"><span id="35886"></span>8C2E</td>
+<td class="instruction">DEFB $10,$F7</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="8C0C.html">8C0C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#35870">Map</a></td>
+<td class="next">
+Next: <a href="8C30.html">8C30</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../../dec/asm/35870.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>
