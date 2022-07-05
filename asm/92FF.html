@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 92FF</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="92E4.html">92E4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#92ff">Map</a></td>
+<td class="next">
+Next: <a href="932C.html">932C</a>
+</td>
+</tr>
+</table>
+<div class="description">92FF: Expand time byte to ASCII.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="92ff"></span>92FF</td>
+<td class="instruction">DEFB $F0,$D8</td>
+<td class="comment-1" rowspan="4">Guessing at the length.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9301"></span>9301</td>
+<td class="instruction">DEFB $18,$FC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9303"></span>9303</td>
+<td class="instruction">DEFB $9C,$FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9305"></span>9305</td>
+<td class="instruction">DEFB $F6,$FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9307"></span>9307</td>
+<td class="instruction">DEFB $FF,$FF</td>
+<td class="comment-1" rowspan="1">Terminator.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="9309"></span>
+<div class="comments">
+<div class="paragraph">
+On entry <span class="register">HL</span> contains the time as the LSB, e.g. for 30s <span class="register">HL</span> will be $001E.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="9309"></span>9309</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="3">Pushes <span class="register">HL</span>, <span class="register">DE</span> and <span class="register">BC</span> onto the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="930a"></span>930A</td>
+<td class="instruction">PUSH DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="930b"></span>930B</td>
+<td class="instruction">PUSH BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="930c"></span>930C</td>
+<td class="instruction">LD DE,$92FF</td>
+<td class="comment-1" rowspan="1">Point to <a href="92FF.html">92FF</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="930f"></span>930F</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="5">Load the next byte pair from the address pointer into <span class="register">BC</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9310"></span>9310</td>
+<td class="instruction">LD C,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9311"></span>9311</td>
+<td class="instruction">INC DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9312"></span>9312</td>
+<td class="instruction">LD A,(DE)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9313"></span>9313</td>
+<td class="instruction">LD B,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9314"></span>9314</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="2">Increase the address pointer by one and stash it on the stack for later.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9315"></span>9315</td>
+<td class="instruction">PUSH DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9316"></span>9316</td>
+<td class="instruction">LD A,$2F</td>
+<td class="comment-1" rowspan="1">Store $2F in <span class="register">A</span>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="9318"></span>
+<div class="comments">
+<div class="paragraph">
+Count "up" from ASCII "0" until the correct representation is reached.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="9318"></span>9318</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">A</span> by one (so on the first pass <span class="register">A</span> will now contain ASCII "0").</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9319"></span>9319</td>
+<td class="instruction">LD D,H</td>
+<td class="comment-1" rowspan="2">Copy the remaining time into <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="931a"></span>931A</td>
+<td class="instruction">LD E,L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="931b"></span>931B</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Adds the remaining time to the 16-bit number held in <span class="register">BC</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="931c"></span>931C</td>
+<td class="instruction">JR C,<a href="92FF.html#9318">$9318</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set loop back to <a href="92FF.html#9318">9318</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="931e"></span>931E</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap <span class="register">DE</span> and <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="931f"></span>931F</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Write the processed ASCII number character to the time print buffer.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9322"></span>9322</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">IX</span> by one to process the next character in the time buffer once looped around.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9324"></span>9324</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore the byte pair address pointer from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9325"></span>9325</td>
+<td class="instruction">INC C</td>
+<td class="comment-1" rowspan="2">Loop back to <a href="92FF.html#930f">930F</a> until the terminator is reached ($FF+$01 will set the zero flag).</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9326"></span>9326</td>
+<td class="instruction">JR NZ,<a href="92FF.html#930f">$930F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="9328"></span>9328</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="3">Restores <span class="register">BC</span>, <span class="register">DE</span> and <span class="register">HL</span> from the stack.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9329"></span>9329</td>
+<td class="instruction">POP DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="932a"></span>932A</td>
+<td class="instruction">POP HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="932b"></span>932B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="92E4.html">92E4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#92ff">Map</a></td>
+<td class="next">
+Next: <a href="932C.html">932C</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../dec/asm/37631.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

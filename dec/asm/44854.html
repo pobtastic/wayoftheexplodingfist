@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 44854</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44839.html">44839</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44854">Map</a></td>
+<td class="next">
+Next: <a href="45018.html">45018</a>
+</td>
+</tr>
+</table>
+<div class="description">44854: Routine at AF36</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="43888.html">43888</a> and <a href="44094.html">44094</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44854"></span>44854</td>
+<td class="instruction">LD A,(43528)</td>
+<td class="comment-1" rowspan="3">Jump to <a href="44854.html#44925">44925</a> if <a href="43526.html#43528">43528</a> is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44857"></span>44857</td>
+<td class="instruction">CP 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44859"></span>44859</td>
+<td class="instruction">JP Z,<a href="44854.html#44925">44925</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44862"></span>44862</td>
+<td class="instruction">LD HL,45067</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="45067.html">45067</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44865"></span>44865</td>
+<td class="instruction">LD A,(43583)</td>
+<td class="comment-1" rowspan="3"><span class="register">BC</span>=$AA3F.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44868"></span>44868</td>
+<td class="instruction">LD C,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44869"></span>44869</td>
+<td class="instruction">LD B,0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44871"></span>44871</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44872"></span>44872</td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44873"></span>44873</td>
+<td class="instruction">LD A,(43528)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44876"></span>44876</td>
+<td class="instruction">CP 1</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44878"></span>44878</td>
+<td class="instruction">JR NZ,<a href="44854.html#44882">44882</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44880"></span>44880</td>
+<td class="instruction">SRL B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44882"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44094.html">44094</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44882"></span>44882</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">fff</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44883"></span>44883</td>
+<td class="instruction">LD HL,43522</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="43521.html#43522">43522</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44886"></span>44886</td>
+<td class="instruction">ADD A,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44887"></span>44887</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44888"></span>44888</td>
+<td class="instruction">LD DE,45101</td>
+<td class="comment-1" rowspan="1"><a href="45092.html#45100">$B02D</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44891"></span>44891</td>
+<td class="instruction">CALL <a href="44854.html#44994">44994</a></td>
+<td class="comment-1" rowspan="1">Call <a href="44854.html#44994">44994</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44894"></span>44894</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
+<li><a href="43526.html#43528">43528</a></li>
+</ul></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44895"></span>44895</td>
+<td class="instruction">LD (43528),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44898"></span>44898</td>
+<td class="instruction">LD A,(39980)</td>
+<td class="comment-1" rowspan="3">Return if <a href="39980.html">39980</a> is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44901"></span>44901</td>
+<td class="instruction">CP 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44903"></span>44903</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44904"></span>
+<div class="comments">
+<div class="paragraph">
+Player 1 display score.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44904"></span>44904</td>
+<td class="instruction">LD HL,45103</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html#45103">45103</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44907"></span>44907</td>
+<td class="instruction">LD B,3</td>
+<td class="comment-1" rowspan="1">Set a counter of $03.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44909"></span>44909</td>
+<td class="instruction">CALL <a href="45018.html">45018</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html">45018</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44912"></span>44912</td>
+<td class="instruction">CALL <a href="45018.html#45037">45037</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">45037</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44915"></span>44915</td>
+<td class="instruction">LD DE,45092</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html">45092</a> and call <a href="37604.html">37604</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44918"></span>44918</td>
+<td class="instruction">LD HL,256</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44921"></span>44921</td>
+<td class="instruction">CALL <a href="37604.html">37604</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44924"></span>44924</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44925"></span>44925</td>
+<td class="instruction">LD A,(43592)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44928"></span>44928</td>
+<td class="instruction">CP 0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44930"></span>44930</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44931"></span>44931</td>
+<td class="instruction">LD HL,45067</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44934"></span>44934</td>
+<td class="instruction">LD A,(43583)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44937"></span>44937</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44938"></span>44938</td>
+<td class="instruction">LD B,0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44940"></span>44940</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44941"></span>44941</td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44942"></span>44942</td>
+<td class="instruction">LD A,(43592)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44945"></span>44945</td>
+<td class="instruction">CP 1</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44947"></span>44947</td>
+<td class="instruction">JR NZ,<a href="44854.html#44951">44951</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44949"></span>44949</td>
+<td class="instruction">SRL B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44951"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44094.html">44094</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44951"></span>44951</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44952"></span>44952</td>
+<td class="instruction">LD HL,43586</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44955"></span>44955</td>
+<td class="instruction">ADD A,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44956"></span>44956</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44957"></span>44957</td>
+<td class="instruction">LD DE,45104</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44960"></span>44960</td>
+<td class="instruction">CALL <a href="44854.html#44994">44994</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44963"></span>44963</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44964"></span>44964</td>
+<td class="instruction">LD (43592),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44967"></span>44967</td>
+<td class="instruction">LD A,(39980)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44970"></span>44970</td>
+<td class="instruction">CP 2</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44972"></span>44972</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44973"></span>
+<div class="comments">
+<div class="paragraph">
+Player 2 display score.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44973"></span>44973</td>
+<td class="instruction">LD HL,45106</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html#45106">45106</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44976"></span>44976</td>
+<td class="instruction">LD B,3</td>
+<td class="comment-1" rowspan="1">Set a counter of $03.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44978"></span>44978</td>
+<td class="instruction">CALL <a href="45018.html">45018</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html">45018</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44981"></span>44981</td>
+<td class="instruction">CALL <a href="45018.html#45037">45037</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">45037</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44984"></span>44984</td>
+<td class="instruction">LD DE,45092</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html">45092</a> and call <a href="37604.html">37604</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44987"></span>44987</td>
+<td class="instruction">LD HL,5632</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44990"></span>44990</td>
+<td class="instruction">CALL <a href="37604.html">37604</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44993"></span>44993</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44994"></span>
+<div class="comments">
+<div class="paragraph">
+Calculate score.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44994"></span>44994</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44995"></span>44995</td>
+<td class="instruction">CP 10</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44997"></span>44997</td>
+<td class="instruction">JR NZ,<a href="44854.html#45001">45001</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44999"></span>44999</td>
+<td class="instruction">LD B,16</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45001"></span>45001</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45002"></span>45002</td>
+<td class="instruction">ADD A,B</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45003"></span>45003</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45004"></span>45004</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45005"></span>45005</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45006"></span>45006</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45007"></span>45007</td>
+<td class="instruction">ADC A,0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45009"></span>45009</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45010"></span>45010</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45011"></span>45011</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45012"></span>45012</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45013"></span>45013</td>
+<td class="instruction">ADC A,0</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45015"></span>45015</td>
+<td class="instruction">DAA</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45016"></span>45016</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45017"></span>45017</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44839.html">44839</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44854">Map</a></td>
+<td class="next">
+Next: <a href="45018.html">45018</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../../asm/AF36.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

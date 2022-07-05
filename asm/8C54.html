@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 8C54</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="8C42.html">8C42</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#8c54">Map</a></td>
+<td class="next">
+Next: <a href="8CDB.html">8CDB</a>
+</td>
+</tr>
+</table>
+<div class="description">8C54: Game Settings.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="9745.html">9745</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8c54"></span>
+<div class="comments">
+<div class="paragraph">
+The main settings page, used for directing to the controls for P1/ P2 and turning the sound on or off.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8c54"></span>8C54</td>
+<td class="instruction">CALL <a href="8E4C.html">$8E4C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="8E4C.html">8E4C</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c57"></span>8C57</td>
+<td class="instruction">LD DE,$8E6B</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html">8E6B</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c5a"></span>8C5A</td>
+<td class="instruction">LD HL,$002D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c5d"></span>8C5D</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c60"></span>8C60</td>
+<td class="instruction">LD DE,$8E8C</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8e8c">8E8C</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c63"></span>8C63</td>
+<td class="instruction">LD HL,$1436</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c66"></span>8C66</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c69"></span>8C69</td>
+<td class="instruction">LD DE,$8E99</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8e99">8E99</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c6c"></span>8C6C</td>
+<td class="instruction">LD HL,$143F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c6f"></span>8C6F</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c72"></span>8C72</td>
+<td class="instruction">LD DE,$8EA6</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ea6">8EA6</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c75"></span>8C75</td>
+<td class="instruction">LD HL,$1448</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c78"></span>8C78</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c7b"></span>8C7B</td>
+<td class="instruction">LD DE,$8EB3</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8eb3">8EB3</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c7e"></span>8C7E</td>
+<td class="instruction">LD HL,$055C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c81"></span>8C81</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c84"></span>8C84</td>
+<td class="instruction">LD DE,$8EC6</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ec6">8EC6</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c87"></span>8C87</td>
+<td class="instruction">LD HL,$0765</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c8a"></span>8C8A</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8c8d"></span>
+<div class="comments">
+<div class="paragraph">
+Does the user want to change Player 1 input method?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8c8d"></span>8C8D</td>
+<td class="instruction">LD A,$24</td>
+<td class="comment-1" rowspan="2">Check if "1" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c8f"></span>8C8F</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c92"></span>8C92</td>
+<td class="instruction">JP C,<a href="8C54.html#8c9e">$8C9E</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8C54.html#8c9e">8C9E</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c95"></span>8C95</td>
+<td class="instruction">LD HL,$8BD2</td>
+<td class="comment-1" rowspan="2">Write <a href="8BD2.html">8BD2</a> to <a href="8E69.html">8E69</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c98"></span>8C98</td>
+<td class="instruction">LD ($8E69),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8c9b"></span>8C9B</td>
+<td class="instruction">JP <a href="8CDB.html">$8CDB</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html">8CDB</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8c9e"></span>
+<div class="comments">
+<div class="paragraph">
+Does the user want to change Player 2 input method?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8c9e"></span>8C9E</td>
+<td class="instruction">LD A,$1C</td>
+<td class="comment-1" rowspan="2">Check if "2" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ca0"></span>8CA0</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ca3"></span>8CA3</td>
+<td class="instruction">JP C,<a href="8C54.html#8caf">$8CAF</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8C54.html#8caf">8CAF</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ca6"></span>8CA6</td>
+<td class="instruction">LD HL,$8BE6</td>
+<td class="comment-1" rowspan="2">Write <a href="8BE6.html">8BE6</a> to <a href="8E69.html">8E69</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ca9"></span>8CA9</td>
+<td class="instruction">LD ($8E69),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cac"></span>8CAC</td>
+<td class="instruction">JP <a href="8CDB.html">$8CDB</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html">8CDB</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8caf"></span>
+<div class="comments">
+<div class="paragraph">
+Does the user want to exit this config screen and go back to the demo mode?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8caf"></span>8CAF</td>
+<td class="instruction">LD A,$15</td>
+<td class="comment-1" rowspan="2">Check if "E" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cb1"></span>8CB1</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cb4"></span>8CB4</td>
+<td class="instruction">JP NC,<a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8cb7"></span>
+<div class="comments">
+<div class="paragraph">
+Does the user want to toggle the sound flag to be "ON".
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cb7"></span>8CB7</td>
+<td class="instruction">LD A,$14</td>
+<td class="comment-1" rowspan="2">Check if "3" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cb9"></span>8CB9</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cbc"></span>8CBC</td>
+<td class="instruction">JP C,<a href="8C54.html#8cc7">$8CC7</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8C54.html#8cc7">8CC7</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cbf"></span>8CBF</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="2">Write $01 to <a href="B2FA.html">B2FA</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cc1"></span>8CC1</td>
+<td class="instruction">LD ($B2FA),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cc4"></span>8CC4</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8cc7"></span>
+<div class="comments">
+<div class="paragraph">
+Does the user want to toggle the sound flag to be "OFF".
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8cc7"></span>8CC7</td>
+<td class="instruction">LD A,$0C</td>
+<td class="comment-1" rowspan="2">Check if "4" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cc9"></span>8CC9</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ccc"></span>8CCC</td>
+<td class="instruction">JP C,<a href="8C54.html#8cd7">$8CD7</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8C54.html#8cd7">8CD7</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ccf"></span>8CCF</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="2">Write $00 to <a href="B2FA.html">B2FA</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cd1"></span>8CD1</td>
+<td class="instruction">LD ($B2FA),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cd4"></span>8CD4</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8cd7"></span>8CD7</td>
+<td class="instruction">JP <a href="8C54.html#8c8d">$8C8D</a></td>
+<td class="comment-1" rowspan="1">Loop back round to <a href="8C54.html#8c8d">8C8D</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8cda"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="8CDB.html">8CDB</a> and <a href="8D99.html">8D99</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8cda"></span>8CDA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="8C42.html">8C42</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#8c54">Map</a></td>
+<td class="next">
+Next: <a href="8CDB.html">8CDB</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../dec/asm/35924.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 24592</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24448.html">24448</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24592">Map</a></td>
+<td class="next">
+Next: <a href="24619.html">24619</a>
+</td>
+</tr>
+</table>
+<div class="description">24592: Unpack background attribute data.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="24448.html">24448</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24592"></span>
+<div class="comments">
+<div class="paragraph">
+Unpacks the attribute data into the buffer. On entry <span class="register">HL</span> will contain one of the following background reference memory locations; <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Background reference</th>
+<th colspan="1" rowspan="1">Background data</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1"><a href="24673.html">24673</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1"><a href="27523.html">27523</a></td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1"><a href="30566.html">30566</a></td>
+</tr>
+</table> The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For example; <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Address</th>
+<th colspan="1" rowspan="1">Value</th>
+<th colspan="1" rowspan="1">Binary</th>
+<th colspan="1" rowspan="1">Value After Reset</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$6061</td>
+<td class="centre" colspan="1" rowspan="1">$232</td>
+<td class="centre" colspan="1" rowspan="1">11101000</td>
+<td class="centre" colspan="1" rowspan="1">$104</td>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$6062</td>
+<td class="centre" colspan="1" rowspan="1">$158</td>
+<td class="centre" colspan="1" rowspan="1"></td>
+<td class="centre" colspan="1" rowspan="1"></td>
+</tr>
+</table> So, in $6061 bit 7 is set - after a reset we take $6062 as a counter and hence copy $104 into the following 158 memory locations.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24592"></span>24592</td>
+<td class="instruction">LD DE,22528</td>
+<td class="comment-1" rowspan="1">Begin at the start of the <a href="16384.html#22528">22528</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24595"></span>24595</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Pick up the attribute data from <span class="register">HL</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24596"></span>24596</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24597"></span>24597</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="2">If the following byte is different to the current attribute byte jump to <a href="24592.html#24602">24602</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24598"></span>24598</td>
+<td class="instruction">JR NZ,<a href="24592.html#24602">24602</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24600"></span>24600</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="2">The data terminates with double zeroes, so if this occurs then return.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24601"></span>24601</td>
+<td class="instruction">RET Z</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24602"></span>
+<div class="comments">
+<div class="paragraph">
+Copy and loop back round to <a href="24592.html#24595">24595</a> until bit 7 in the current attribute data is set.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24602"></span>24602</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="2">Test if d7 is set in current attribute data. Reset bit to zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24604"></span>24604</td>
+<td class="instruction">RES 7,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24606"></span>24606</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1">Write the attribute data to <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24607"></span>24607</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">DE</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24608"></span>24608</td>
+<td class="instruction">JR Z,<a href="24592.html#24595">24595</a></td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">24595</a> unless the bit was set.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="24610"></span>
+<div class="comments">
+<div class="paragraph">
+Using the following attribute data byte as a counter, copy the current byte this number of times.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24610"></span>24610</td>
+<td class="instruction">LD B,(HL)</td>
+<td class="comment-1" rowspan="1">Pick up the attribute data from HL into <span class="register">B</span> to use as a counter.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24611"></span>24611</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24612"></span>24612</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">Decrease the counter by one.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="24613"></span>24613</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1">Write the same attribute data to <span class="register">DE</span>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24614"></span>24614</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Increment <span class="register">DE</span> by one.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24615"></span>24615</td>
+<td class="instruction">DJNZ <a href="24592.html#24613">24613</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24592.html#24613">24613</a> until counter is zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24617"></span>24617</td>
+<td class="instruction">JR <a href="24592.html#24595">24595</a></td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">24595</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24448.html">24448</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24592">Map</a></td>
+<td class="next">
+Next: <a href="24619.html">24619</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../../asm/6010.html">Switch to hexadecimal</a>.</div>
+</footer>
+</body>
+</html>

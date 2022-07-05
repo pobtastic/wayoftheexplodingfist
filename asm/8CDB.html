@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 8CDB</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="8C54.html">8C54</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#8cdb">Map</a></td>
+<td class="next">
+Next: <a href="8D99.html">8D99</a>
+</td>
+</tr>
+</table>
+<div class="description">8CDB: Game Control Settings.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="8C54.html">8C54</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8cdb"></span>
+<div class="comments">
+<div class="paragraph">
+The player controls menu.  Used for either player, references the currently targetted player at <a href="8E69.html">8E69</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8cdb"></span>8CDB</td>
+<td class="instruction">CALL <a href="8E4C.html">$8E4C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="8E4C.html">8E4C</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cde"></span>8CDE</td>
+<td class="instruction">LD DE,$8ED6</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ed6">8ED6</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ce1"></span>8CE1</td>
+<td class="instruction">LD HL,$012D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ce4"></span>8CE4</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ce7"></span>8CE7</td>
+<td class="instruction">LD DE,$8EF4</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ef4">8EF4</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cea"></span>8CEA</td>
+<td class="instruction">LD HL,$0136</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8ced"></span>8CED</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cf0"></span>8CF0</td>
+<td class="instruction">LD DE,$8F0F</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f0f">8F0F</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cf3"></span>8CF3</td>
+<td class="instruction">LD HL,$013F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cf6"></span>8CF6</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cf9"></span>8CF9</td>
+<td class="instruction">LD DE,$8F2A</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f2a">8F2A</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cfc"></span>8CFC</td>
+<td class="instruction">LD HL,$0148</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8cff"></span>8CFF</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d02"></span>8D02</td>
+<td class="instruction">LD DE,$8F41</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f41">8F41</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d05"></span>8D05</td>
+<td class="instruction">LD HL,$0151</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d08"></span>8D08</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d0b"></span>8D0B</td>
+<td class="instruction">LD DE,$8F59</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f59">8F59</a> and call <a href="92E4.html">92E4</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d0e"></span>8D0E</td>
+<td class="instruction">LD HL,$0371</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d11"></span>8D11</td>
+<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d14"></span>8D14</td>
+<td class="instruction">CALL <a href="8E42.html">$8E42</a></td>
+<td class="comment-1" rowspan="2">Adds a delay for keyboard debounce.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d17"></span>8D17</td>
+<td class="instruction">CALL <a href="8E42.html">$8E42</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d1a"></span>
+<div class="comments">
+<div class="paragraph">
+Does the user want to revert to the default control method?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d1a"></span>8D1A</td>
+<td class="instruction">LD A,$24</td>
+<td class="comment-1" rowspan="2">Check if "1" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d1c"></span>8D1C</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d1f"></span>8D1F</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d25">$8D25</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d25">8D25</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d22"></span>8D22</td>
+<td class="instruction">JP <a href="8CDB.html#8d57">$8D57</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d57">8D57</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d25"></span>
+<div class="comments">
+<div class="paragraph">
+Change player to use "Sinclair Joystick #1"?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d25"></span>8D25</td>
+<td class="instruction">LD A,$1C</td>
+<td class="comment-1" rowspan="2">Check if "2" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d27"></span>8D27</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d2a"></span>8D2A</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d30">$8D30</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d30">8D30</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d2d"></span>8D2D</td>
+<td class="instruction">JP <a href="8CDB.html#8d75">$8D75</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d75">8D75</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d30"></span>
+<div class="comments">
+<div class="paragraph">
+Change player to use "Sinclair Joystick #2"?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d30"></span>8D30</td>
+<td class="instruction">LD A,$14</td>
+<td class="comment-1" rowspan="2">Check if "3" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d32"></span>8D32</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d35"></span>8D35</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d3b">$8D3B</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d3b">8D3B</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d38"></span>8D38</td>
+<td class="instruction">JP <a href="8CDB.html#8d81">$8D81</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d81">8D81</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d3b"></span>
+<div class="comments">
+<div class="paragraph">
+Change player to use "Kempston" joystick?
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d3b"></span>8D3B</td>
+<td class="instruction">LD A,$04</td>
+<td class="comment-1" rowspan="2">Check if "5" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d3d"></span>8D3D</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d40"></span>8D40</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d46">$8D46</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d46">8D46</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d43"></span>8D43</td>
+<td class="instruction">JP <a href="8CDB.html#8d8d">$8D8D</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d8d">8D8D</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d46"></span>
+<div class="comments">
+<div class="paragraph">
+Redefine keys for player.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d46"></span>8D46</td>
+<td class="instruction">LD A,$0C</td>
+<td class="comment-1" rowspan="2">Check if "4" key is pressed.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d48"></span>8D48</td>
+<td class="instruction">CALL <a href="9C53.html">$9C53</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d4b"></span>8D4B</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d1a">$8D1A</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, loop back round to <a href="8CDB.html#8d1a">8D1A</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d4e"></span>8D4E</td>
+<td class="instruction">CALL <a href="8E42.html">$8E42</a></td>
+<td class="comment-1" rowspan="2">Adds a delay for keyboard debounce.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d51"></span>8D51</td>
+<td class="instruction">CALL <a href="8E42.html">$8E42</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d54"></span>8D54</td>
+<td class="instruction">JP <a href="8D99.html">$8D99</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8D99.html">8D99</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d57"></span>
+<div class="comments">
+<div class="paragraph">
+Actions setting keyboard controls for player back to defaults.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d57"></span>8D57</td>
+<td class="instruction">LD HL,($8E69)</td>
+<td class="comment-1" rowspan="4">Check if <a href="8E69.html">8E69</a> is equal to <a href="8BD2.html">8BD2</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d5a"></span>8D5A</td>
+<td class="instruction">LD BC,$8BD2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d5d"></span>8D5D</td>
+<td class="instruction">XOR A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d5e"></span>8D5E</td>
+<td class="instruction">SBC HL,BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d60"></span>8D60</td>
+<td class="instruction">JP NZ,<a href="8CDB.html#8d6c">$8D6C</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d6c">8D6C</a> if we are working with player 2.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d63"></span>8D63</td>
+<td class="instruction">LD HL,$8BFA</td>
+<td class="comment-1" rowspan="2">Store <a href="8BFA.html">8BFA</a> at <a href="8BD2.html">8BD2</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d66"></span>8D66</td>
+<td class="instruction">LD ($8BD2),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d69"></span>8D69</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d6c"></span>8D6C</td>
+<td class="instruction">LD HL,$8C0C</td>
+<td class="comment-1" rowspan="2">Store <a href="8C0C.html">8C0C</a> at <a href="8BE6.html">8BE6</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d6f"></span>8D6F</td>
+<td class="instruction">LD ($8BE6),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d72"></span>8D72</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d75"></span>
+<div class="comments">
+<div class="paragraph">
+Actions setting player to use Sinclair Joystick #1.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d75"></span>8D75</td>
+<td class="instruction">LD HL,($8E69)</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">8E69</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d78"></span>8D78</td>
+<td class="instruction">LD DE,$8C30</td>
+<td class="comment-1" rowspan="4">Pushes <a href="8C30.html">8C30</a> for the current player.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d7b"></span>8D7B</td>
+<td class="instruction">LD (HL),E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d7c"></span>8D7C</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d7d"></span>8D7D</td>
+<td class="instruction">LD (HL),D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d7e"></span>8D7E</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d81"></span>
+<div class="comments">
+<div class="paragraph">
+Actions setting player to use Sinclair Joystick #2.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d81"></span>8D81</td>
+<td class="instruction">LD HL,($8E69)</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">8E69</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d84"></span>8D84</td>
+<td class="instruction">LD DE,$8C1E</td>
+<td class="comment-1" rowspan="4">Pushes <a href="8C1E.html">8C1E</a> for the current player.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d87"></span>8D87</td>
+<td class="instruction">LD (HL),E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d88"></span>8D88</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d89"></span>8D89</td>
+<td class="instruction">LD (HL),D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d8a"></span>8D8A</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="8d8d"></span>
+<div class="comments">
+<div class="paragraph">
+Actions setting player to use Kempston Joystick.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="8d8d"></span>8D8D</td>
+<td class="instruction">LD HL,($8E69)</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">8E69</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d90"></span>8D90</td>
+<td class="instruction">LD DE,$8C42</td>
+<td class="comment-1" rowspan="4">Pushes <a href="8C42.html">8C42</a> for the current player.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d93"></span>8D93</td>
+<td class="instruction">LD (HL),E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d94"></span>8D94</td>
+<td class="instruction">INC HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d95"></span>8D95</td>
+<td class="instruction">LD (HL),D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="8d96"></span>8D96</td>
+<td class="instruction">JP <a href="8C54.html#8cda">$8CDA</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">8CDA</a> (just returns).</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="8C54.html">8C54</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#8cdb">Map</a></td>
+<td class="next">
+Next: <a href="8D99.html">8D99</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../dec/asm/36059.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

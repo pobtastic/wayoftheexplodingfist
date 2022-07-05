@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at 9C2E</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="9C2D.html">9C2D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#9c2e">Map</a></td>
+<td class="next">
+Next: <a href="9C53.html">9C53</a>
+</td>
+</tr>
+</table>
+<div class="description">9C2E: Game Entry Point.</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="8800.html">8800</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="9c2e"></span>9C2E</td>
+<td class="instruction">DI</td>
+<td class="comment-1" rowspan="1">Disable interrupts.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c2f"></span>9C2F</td>
+<td class="instruction">LD A,$05</td>
+<td class="comment-1" rowspan="2">Set border colour to cyan. <table class="default">
+<tr>
+<th colspan="1" rowspan="1">Value</th>
+<th colspan="1" rowspan="1">Ink</th>
+<th colspan="1" rowspan="1">Paper</th>
+<th colspan="1" rowspan="1">Bright</th>
+</tr>
+<tr>
+<td class="centre" colspan="1" rowspan="1">$05</td>
+<td class="centre" colspan="1" rowspan="1">$05</td>
+<td class="centre" colspan="1" rowspan="1">$00</td>
+<td class="centre" colspan="1" rowspan="1">$00</td>
+</tr>
+</table></td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c31"></span>9C31</td>
+<td class="instruction">OUT ($FE),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c33"></span>9C33</td>
+<td class="instruction">LD HL,$5BFF</td>
+<td class="comment-1" rowspan="2">Set the stack pointer to $5BFF.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c36"></span>9C36</td>
+<td class="instruction">LD SP,HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c37"></span>9C37</td>
+<td class="instruction">CALL <a href="B138.html">$B138</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B138.html">B138</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c3a"></span>9C3A</td>
+<td class="instruction">LD DE,$5F00</td>
+<td class="comment-1" rowspan="4">Copies a large chunk of code from $6000 to $5F00. See the .t2s file.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c3d"></span>9C3D</td>
+<td class="instruction">LD HL,$6000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c40"></span>9C40</td>
+<td class="instruction">LD BC,$2100</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c43"></span>9C43</td>
+<td class="instruction">LDIR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c45"></span>9C45</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="5">Write $0000 to; <ul class="">
+<li><a href="C423.html">C423</a></li>
+<li><a href="C425.html">C425</a></li>
+</ul></td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c47"></span>9C47</td>
+<td class="instruction">LD L,A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c48"></span>9C48</td>
+<td class="instruction">LD H,$00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c4a"></span>9C4A</td>
+<td class="instruction">LD ($C423),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c4d"></span>9C4D</td>
+<td class="instruction">LD ($C425),HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="9c50"></span>9C50</td>
+<td class="instruction">JP <a href="AC05.html">$AC05</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="AC05.html">AC05</a>.</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="9C2D.html">9C2D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#9c2e">Map</a></td>
+<td class="next">
+Next: <a href="9C53.html">9C53</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div><a href="../dec/asm/39982.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>
