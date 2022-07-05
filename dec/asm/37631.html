@@ -41,23 +41,28 @@ Next: <a href="37676.html">37676</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label">TIME_COUNTER</td>
 <td class="address-2"><span id="37631"></span>37631</td>
 <td class="instruction">DEFB 240,216</td>
 <td class="comment-1" rowspan="4">Guessing at the length.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37633"></span>37633</td>
 <td class="instruction">DEFB 24,252</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37635"></span>37635</td>
 <td class="instruction">DEFB 156,255</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37637"></span>37637</td>
 <td class="instruction">DEFB 246,255</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37639"></span>37639</td>
 <td class="instruction">DEFB 255,255</td>
 <td class="comment-1" rowspan="1">Terminator.</td>
@@ -73,54 +78,66 @@ On entry <span class="register">HL</span> contains the time as the LSB, e.g. for
 </td>
 </tr>
 <tr>
+<td class="asm-label">PROCESS_TIME</td>
 <td class="address-2"><span id="37641"></span>37641</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="3">Pushes <span class="register">HL</span>, <span class="register">DE</span> and <span class="register">BC</span> onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37642"></span>37642</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37643"></span>37643</td>
 <td class="instruction">PUSH BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37644"></span>37644</td>
 <td class="instruction">LD DE,37631</td>
-<td class="comment-1" rowspan="1">Point to <a href="37631.html">37631</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="37631.html">TIME_COUNTER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">PROCESS_TIME_LOOP</td>
 <td class="address-2"><span id="37647"></span>37647</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="5">Load the next byte pair from the address pointer into <span class="register">BC</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37648"></span>37648</td>
 <td class="instruction">LD C,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37649"></span>37649</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37650"></span>37650</td>
 <td class="instruction">LD A,(DE)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37651"></span>37651</td>
 <td class="instruction">LD B,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37652"></span>37652</td>
 <td class="instruction">INC DE</td>
 <td class="comment-1" rowspan="2">Increase the address pointer by one and stash it on the stack for later.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37653"></span>37653</td>
 <td class="instruction">PUSH DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37654"></span>37654</td>
 <td class="instruction">LD A,47</td>
 <td class="comment-1" rowspan="1">Store $2F in <span class="register">A</span>.</td>
@@ -136,72 +153,87 @@ Count "up" from ASCII "0" until the correct representation is reached.
 </td>
 </tr>
 <tr>
+<td class="asm-label">PROCESS_TIME_CHAR</td>
 <td class="address-2"><span id="37656"></span>37656</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">A</span> by one (so on the first pass <span class="register">A</span> will now contain ASCII "0").</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37657"></span>37657</td>
 <td class="instruction">LD D,H</td>
 <td class="comment-1" rowspan="2">Copy the remaining time into <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37658"></span>37658</td>
 <td class="instruction">LD E,L</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37659"></span>37659</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1">Adds the remaining time to the 16-bit number held in <span class="register">BC</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37660"></span>37660</td>
-<td class="instruction">JR C,<a href="37631.html#37656">37656</a></td>
-<td class="comment-1" rowspan="1">If the carry flag is set loop back to <a href="37631.html#37656">37656</a>.</td>
+<td class="instruction">JR C,<a href="37631.html#37656">PROCESS_TIME_CHAR</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set loop back to <a href="37631.html#37656">PROCESS_TIME_CHAR</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37662"></span>37662</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Swap <span class="register">DE</span> and <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37663"></span>37663</td>
 <td class="instruction">LD (IX+0),A</td>
 <td class="comment-1" rowspan="1">Write the processed ASCII number character to the time print buffer.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37666"></span>37666</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">IX</span> by one to process the next character in the time buffer once looped around.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37668"></span>37668</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="1">Restore the byte pair address pointer from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37669"></span>37669</td>
 <td class="instruction">INC C</td>
-<td class="comment-1" rowspan="2">Loop back to <a href="37631.html#37647">37647</a> until the terminator is reached ($FF+$01 will set the zero flag).</td>
+<td class="comment-1" rowspan="2">Loop back to <a href="37631.html#37647">PROCESS_TIME_LOOP</a> until the terminator is reached ($FF+$01 will set the zero flag).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37670"></span>37670</td>
-<td class="instruction">JR NZ,<a href="37631.html#37647">37647</a></td>
+<td class="instruction">JR NZ,<a href="37631.html#37647">PROCESS_TIME_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37672"></span>37672</td>
 <td class="instruction">POP BC</td>
 <td class="comment-1" rowspan="3">Restores <span class="register">BC</span>, <span class="register">DE</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37673"></span>37673</td>
 <td class="instruction">POP DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37674"></span>37674</td>
 <td class="instruction">POP HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37675"></span>37675</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

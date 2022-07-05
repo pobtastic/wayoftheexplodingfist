@@ -41,6 +41,7 @@ Next: <a href="37376.html">37376</a>
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-2"><span id="37072"></span>37072</td>
 <td class="instruction">DEFB 29</td>
 <td class="comment-1" rowspan="1"></td>
@@ -50,171 +51,204 @@ Next: <a href="37376.html">37376</a>
 <span id="37073"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44094.html">44094</a>.
+This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC</td>
 <td class="address-2"><span id="37073"></span>37073</td>
 <td class="instruction">DI</td>
 <td class="comment-1" rowspan="1">Disable interrupts.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37074"></span>37074</td>
 <td class="instruction">LD A,(45818)</td>
-<td class="comment-1" rowspan="3">If <a href="45818.html">45818</a> is zero then return.</td>
+<td class="comment-1" rowspan="3">If <a href="45818.html">FLAG_SOUND</a> is zero then return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37077"></span>37077</td>
 <td class="instruction">AND A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37078"></span>37078</td>
 <td class="instruction">RET Z</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37079"></span>37079</td>
 <td class="instruction">LD A,(37072)</td>
 <td class="comment-1" rowspan="1"><a href="37072.html">37072</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37082"></span>37082</td>
 <td class="instruction">AND 31</td>
 <td class="comment-1" rowspan="1">Check bits 0-4.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37084"></span>37084</td>
 <td class="instruction">LD H,A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37085"></span>37085</td>
 <td class="instruction">AND 7</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37087"></span>37087</td>
 <td class="instruction">LD L,A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37088"></span>37088</td>
 <td class="instruction">LD IX,37160</td>
-<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="37072.html#37160">37160</a></td>
+<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="37072.html#37160">INTRO_MUSIC_DATA</a></td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC_LOOP</td>
 <td class="address-2"><span id="37092"></span>37092</td>
 <td class="instruction">LD C,(IX+0)</td>
 <td class="comment-1" rowspan="1"><span class="register">C</span>=the next note byte from <span class="register">IX</span>+$00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37095"></span>37095</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="3">If the current note is $00 then return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37096"></span>37096</td>
 <td class="instruction">OR C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37097"></span>37097</td>
 <td class="instruction">RET Z</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37098"></span>37098</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1">Move the index onto the next note.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37100"></span>37100</td>
 <td class="instruction">LD B,(IX+0)</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=the next note byte from <span class="register">IX</span>+$00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37103"></span>37103</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1">Move the index onto the next note.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37105"></span>37105</td>
 <td class="instruction">LD E,(IX+0)</td>
 <td class="comment-1" rowspan="1"><span class="register">E</span>=the next note byte from <span class="register">IX</span>+$00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37108"></span>37108</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1">Move the index onto the next note.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37110"></span>37110</td>
 <td class="instruction">LD D,(IX+0)</td>
 <td class="comment-1" rowspan="1"><span class="register">D</span>=the next note byte from <span class="register">IX</span>+$00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37113"></span>37113</td>
 <td class="instruction">INC IX</td>
 <td class="comment-1" rowspan="1">Move the index onto the next note.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37115"></span>37115</td>
 <td class="instruction">LD A,B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37116"></span>37116</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37117"></span>37117</td>
-<td class="instruction">JR NZ,<a href="37072.html#37133">37133</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37133">INTRO_MUSIC_PLAY</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37119"></span>37119</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37120"></span>37120</td>
 <td class="instruction">CP C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37121"></span>37121</td>
-<td class="instruction">JR NZ,<a href="37072.html#37133">37133</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37133">INTRO_MUSIC_PLAY</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37123"></span>37123</td>
 <td class="instruction">LD BC,2804</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC_DELAY_1</td>
 <td class="address-2"><span id="37126"></span>37126</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37127"></span>37127</td>
 <td class="instruction">LD A,B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37128"></span>37128</td>
 <td class="instruction">OR C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37129"></span>37129</td>
-<td class="instruction">JR NZ,<a href="37072.html#37126">37126</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37126">INTRO_MUSIC_DELAY_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37131"></span>37131</td>
-<td class="instruction">JR <a href="37072.html#37092">37092</a></td>
-<td class="comment-1" rowspan="1">Loop back to <a href="37072.html#37092">37092</a>.</td>
+<td class="instruction">JR <a href="37072.html#37092">INTRO_MUSIC_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back to <a href="37072.html#37092">INTRO_MUSIC_LOOP</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -227,376 +261,451 @@ Process the note data and create the sounds.
 </td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC_PLAY</td>
 <td class="address-2"><span id="37133"></span>37133</td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37134"></span>37134</td>
 <td class="instruction">LD A,H</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37135"></span>37135</td>
 <td class="instruction">OUT (254),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC_DELAY_2</td>
 <td class="address-2"><span id="37137"></span>37137</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37138"></span>37138</td>
 <td class="instruction">LD A,B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37139"></span>37139</td>
 <td class="instruction">OR C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37140"></span>37140</td>
-<td class="instruction">JR NZ,<a href="37072.html#37137">37137</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37137">INTRO_MUSIC_DELAY_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37142"></span>37142</td>
 <td class="instruction">LD A,L</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37143"></span>37143</td>
 <td class="instruction">OUT (254),A</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37145"></span>37145</td>
 <td class="instruction">POP BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37146"></span>37146</td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC_DELAY_3</td>
 <td class="address-2"><span id="37147"></span>37147</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37148"></span>37148</td>
 <td class="instruction">LD A,B</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37149"></span>37149</td>
 <td class="instruction">OR C</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37150"></span>37150</td>
-<td class="instruction">JR NZ,<a href="37072.html#37147">37147</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37147">INTRO_MUSIC_DELAY_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37152"></span>37152</td>
 <td class="instruction">POP BC</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37153"></span>37153</td>
 <td class="instruction">DEC DE</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37154"></span>37154</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37155"></span>37155</td>
 <td class="instruction">OR E</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37156"></span>37156</td>
-<td class="instruction">JR NZ,<a href="37072.html#37133">37133</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37133">INTRO_MUSIC_PLAY</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37158"></span>37158</td>
-<td class="instruction">JR <a href="37072.html#37092">37092</a></td>
+<td class="instruction">JR <a href="37072.html#37092">INTRO_MUSIC_LOOP</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">INTRO_MUSIC_DATA</td>
 <td class="address-1"><span id="37160"></span>37160</td>
 <td class="instruction">DEFB 109,0,140,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37164"></span>37164</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37168"></span>37168</td>
 <td class="instruction">DEFB 109,0,140,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37172"></span>37172</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37176"></span>37176</td>
 <td class="instruction">DEFB 129,0,118,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37180"></span>37180</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37184"></span>37184</td>
 <td class="instruction">DEFB 129,0,118,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37188"></span>37188</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37192"></span>37192</td>
 <td class="instruction">DEFB 144,0,105,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37196"></span>37196</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37200"></span>37200</td>
 <td class="instruction">DEFB 144,0,105,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37204"></span>37204</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37208"></span>37208</td>
 <td class="instruction">DEFB 129,0,118,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37212"></span>37212</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37216"></span>37216</td>
 <td class="instruction">DEFB 129,0,118,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37220"></span>37220</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37224"></span>37224</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37228"></span>37228</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37232"></span>37232</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37236"></span>37236</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37240"></span>37240</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37244"></span>37244</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37248"></span>37248</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37252"></span>37252</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37256"></span>37256</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37260"></span>37260</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37264"></span>37264</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37268"></span>37268</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37272"></span>37272</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37276"></span>37276</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37280"></span>37280</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37284"></span>37284</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37288"></span>37288</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37292"></span>37292</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37296"></span>37296</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37300"></span>37300</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37304"></span>37304</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37308"></span>37308</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37312"></span>37312</td>
 <td class="instruction">DEFB 109,0,38,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37316"></span>37316</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37320"></span>37320</td>
 <td class="instruction">DEFB 109,0,37,1</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37324"></span>37324</td>
 <td class="instruction">DEFB 1,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37328"></span>37328</td>
 <td class="instruction">DEFB 0,31,1,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37332"></span>37332</td>
 <td class="instruction">DEFB 0,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37336"></span>37336</td>
 <td class="instruction">DEFB 0,255,240,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37340"></span>37340</td>
 <td class="instruction">DEFB 0,0,0,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37344"></span>37344</td>
 <td class="instruction">DEFB 0,255,0,1</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37348"></span>37348</td>
 <td class="instruction">DEFB 3,6,13,27</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37352"></span>37352</td>
 <td class="instruction">DEFB 0,0,0,182</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37356"></span>37356</td>
 <td class="instruction">DEFB 109,219,182,109</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37360"></span>37360</td>
 <td class="instruction">DEFB 219,54,0,192</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37364"></span>37364</td>
 <td class="instruction">DEFB 182,109,219,182</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37368"></span>37368</td>
 <td class="instruction">DEFB 109,219,1,0</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37372"></span>37372</td>
 <td class="instruction">DEFB 216,182,109,219</td>
 <td class="comment-1" rowspan="1"></td>

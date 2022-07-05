@@ -38,110 +38,132 @@ Next: <a href="AC3E.html">AC3E</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="9C2E.html">9C2E</a>.
+Used by the routine at <a href="9C2E.html">GAME_START</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">MAIN_GAME</td>
 <td class="address-2"><span id="ac05"></span>AC05</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Writes $00 to <a href="9C2C.html">9C2C</a> - this signifies we're in "demo mode".</td>
+<td class="comment-1" rowspan="2">Writes $00 to <a href="9C2C.html">NUM_PLAYERS</a> - this signifies we're in "demo mode".</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac06"></span>AC06</td>
 <td class="instruction">LD ($9C2C),A</td>
 </tr>
 <tr>
+<td class="asm-label">MAIN_GAME_LOOP</td>
 <td class="address-2"><span id="ac09"></span>AC09</td>
 <td class="instruction">LD HL,$0022</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b060">B060</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#b060">TEXT_WHITESPACE_9</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac0c"></span>AC0C</td>
 <td class="instruction">LD DE,$B060</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac0f"></span>AC0F</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac12"></span>AC12</td>
 <td class="instruction">LD HL,$0019</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b060">B060</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#b060">TEXT_WHITESPACE_9</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac15"></span>AC15</td>
 <td class="instruction">LD DE,$B060</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac18"></span>AC18</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac1b"></span>AC1B</td>
 <td class="instruction">LD HL,$0222</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b039">B039</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#b039">TEXT_DEMO</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac1e"></span>AC1E</td>
 <td class="instruction">LD DE,$B039</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac21"></span>AC21</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac24"></span>AC24</td>
-<td class="instruction">CALL <a href="AB70.html">$AB70</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AB70.html">AB70</a>.</td>
+<td class="instruction">CALL <a href="AB70.html">DEMO_MODE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AB70.html">DEMO_MODE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac27"></span>AC27</td>
 <td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="3">If <a href="9C2C.html">9C2C</a> is still zero, loop back round to <a href="AC05.html#ac09">AC09</a>.</td>
+<td class="comment-1" rowspan="3">If <a href="9C2C.html">NUM_PLAYERS</a> is still zero, loop back round to <a href="AC05.html#ac09">MAIN_GAME_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac2a"></span>AC2A</td>
 <td class="instruction">AND A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac2b"></span>AC2B</td>
-<td class="instruction">JR Z,<a href="AC05.html#ac09">$AC09</a></td>
+<td class="instruction">JR Z,<a href="AC05.html#ac09">MAIN_GAME_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac2d"></span>AC2D</td>
 <td class="instruction">CP $01</td>
-<td class="comment-1" rowspan="2">If <a href="9C2C.html">9C2C</a> is $01, then jump to <a href="AC3E.html">AC3E</a>.</td>
+<td class="comment-1" rowspan="2">If <a href="9C2C.html">NUM_PLAYERS</a> is $01, then jump to <a href="AC3E.html">START_1UP_GAME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac2f"></span>AC2F</td>
-<td class="instruction">JR Z,<a href="AC05.html#ac36">$AC36</a></td>
+<td class="instruction">JR Z,<a href="AC05.html#ac36">MAIN_GAME_START_1UP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac31"></span>AC31</td>
-<td class="instruction">CALL <a href="AC3E.html#ad9c">$AD9C</a></td>
-<td class="comment-1" rowspan="1">Else, call <a href="AC3E.html#ad9c">AD9C</a>.</td>
+<td class="instruction">CALL <a href="AC3E.html#ad9c">START_2UP_GAME</a></td>
+<td class="comment-1" rowspan="1">Else, call <a href="AC3E.html#ad9c">START_2UP_GAME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac34"></span>AC34</td>
-<td class="instruction">JR <a href="AC05.html#ac09">$AC09</a></td>
-<td class="comment-1" rowspan="1">Loop back round to <a href="AC05.html#ac09">AC09</a>.</td>
+<td class="instruction">JR <a href="AC05.html#ac09">MAIN_GAME_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back round to <a href="AC05.html#ac09">MAIN_GAME_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">MAIN_GAME_START_1UP</td>
 <td class="address-2"><span id="ac36"></span>AC36</td>
-<td class="instruction">CALL <a href="AC3E.html">$AC3E</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AC3E.html">AC3E</a>.</td>
+<td class="instruction">CALL <a href="AC3E.html">START_1UP_GAME</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AC3E.html">START_1UP_GAME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac39"></span>AC39</td>
-<td class="instruction">CALL <a href="A647.html">$A647</a></td>
-<td class="comment-1" rowspan="1">Call <a href="A647.html">A647</a>.</td>
+<td class="instruction">CALL <a href="A647.html">CHECK_HISCORE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A647.html">CHECK_HISCORE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="ac3c"></span>AC3C</td>
-<td class="instruction">JR <a href="AC05.html#ac09">$AC09</a></td>
-<td class="comment-1" rowspan="1">Loop back round to <a href="AC05.html#ac09">AC09</a>.</td>
+<td class="instruction">JR <a href="AC05.html#ac09">MAIN_GAME_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back round to <a href="AC05.html#ac09">MAIN_GAME_LOOP</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

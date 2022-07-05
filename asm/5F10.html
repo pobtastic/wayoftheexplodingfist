@@ -40,20 +40,20 @@ Next: <a href="5F22.html">5F22</a>
 <div class="paragraph">
 Buffer that holds the currently processed background data depending on the background reference value. <table class="default">
 <tr>
-<th colspan="1" rowspan="1"><a href="5F00.html">5F00</a></th>
+<th colspan="1" rowspan="1"><a href="5F00.html">BACKGROUND_REFERENCE</a></th>
 <th colspan="1" rowspan="1">Background Data</th>
 </tr>
 <tr>
 <td class="centre" colspan="1" rowspan="1">$01</td>
-<td class="centre" colspan="1" rowspan="1"><a href="602B.html">602B</a></td>
+<td class="centre" colspan="1" rowspan="1"><a href="602B.html">BACKGROUND_1_ADDRESSES</a></td>
 </tr>
 <tr>
 <td class="centre" colspan="1" rowspan="1">$02</td>
-<td class="centre" colspan="1" rowspan="1"><a href="603D.html">603D</a></td>
+<td class="centre" colspan="1" rowspan="1"><a href="603D.html">BACKGROUND_2_ADDRESSES</a></td>
 </tr>
 <tr>
 <td class="centre" colspan="1" rowspan="1">$03</td>
-<td class="centre" colspan="1" rowspan="1"><a href="604F.html">604F</a></td>
+<td class="centre" colspan="1" rowspan="1"><a href="604F.html">BACKGROUND_3_ADDRESSES</a></td>
 </tr>
 </table> Populated from one of <a href="5F22.html#5f53">5F53</a>, <a href="5F22.html#5f62">5F62</a> or <a href="5F22.html#5f71">5F71</a>.
 </div>
@@ -61,42 +61,51 @@ Buffer that holds the currently processed background data depending on the backg
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_DATA_BUFFER</td>
 <td class="address-1"><span id="5f10"></span>5F10</td>
 <td class="instruction">DEFW $0000</td>
 <td class="comment-1" rowspan="2">Block 1.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f12"></span>5F12</td>
 <td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f14"></span>5F14</td>
 <td class="instruction">DEFW $0000</td>
 <td class="comment-1" rowspan="2">Block 2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f16"></span>5F16</td>
 <td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f18"></span>5F18</td>
 <td class="instruction">DEFW $0000</td>
 <td class="comment-1" rowspan="2">Block 3.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f1a"></span>5F1A</td>
 <td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f1c"></span>5F1C</td>
 <td class="instruction">DEFW $0000</td>
 <td class="comment-1" rowspan="2">Block 4.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f1e"></span>5F1E</td>
 <td class="instruction">DEFW $0000</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f20"></span>5F20</td>
 <td class="instruction">DEFW $0000</td>
 <td class="comment-1" rowspan="1">Attribute data.</td>

@@ -44,11 +44,13 @@ Used by the routine at <a href="34816.html">34816</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_START</td>
 <td class="address-2"><span id="39982"></span>39982</td>
 <td class="instruction">DI</td>
 <td class="comment-1" rowspan="1">Disable interrupts.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39983"></span>39983</td>
 <td class="instruction">LD A,5</td>
 <td class="comment-1" rowspan="2">Set border colour to cyan. <table class="default">
@@ -67,41 +69,50 @@ Used by the routine at <a href="34816.html">34816</a>.
 </table></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39985"></span>39985</td>
 <td class="instruction">OUT (254),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39987"></span>39987</td>
 <td class="instruction">LD HL,23551</td>
 <td class="comment-1" rowspan="2">Set the stack pointer to $5BFF.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39990"></span>39990</td>
 <td class="instruction">LD SP,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39991"></span>39991</td>
-<td class="instruction">CALL <a href="45368.html">45368</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45368.html">45368</a>.</td>
+<td class="instruction">CALL <a href="45368.html">GAME_INIT</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45368.html">GAME_INIT</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39994"></span>39994</td>
 <td class="instruction">LD DE,24320</td>
 <td class="comment-1" rowspan="4">Copies a large chunk of code from $6000 to $5F00. See the .t2s file.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="39997"></span>39997</td>
 <td class="instruction">LD HL,24576</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40000"></span>40000</td>
 <td class="instruction">LD BC,8448</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40003"></span>40003</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40005"></span>40005</td>
 <td class="instruction">LD A,0</td>
 <td class="comment-1" rowspan="5">Write $0000 to; <ul class="">
@@ -110,25 +121,30 @@ Used by the routine at <a href="34816.html">34816</a>.
 </ul></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40007"></span>40007</td>
 <td class="instruction">LD L,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40008"></span>40008</td>
 <td class="instruction">LD H,0</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40010"></span>40010</td>
 <td class="instruction">LD (50211),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40013"></span>40013</td>
 <td class="instruction">LD (50213),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="40016"></span>40016</td>
-<td class="instruction">JP <a href="44037.html">44037</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="44037.html">44037</a>.</td>
+<td class="instruction">JP <a href="44037.html">MAIN_GAME</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="44037.html">MAIN_GAME</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">

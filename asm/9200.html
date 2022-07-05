@@ -38,7 +38,7 @@ Next: <a href="9229.html">9229</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3E</a>.
+Used by the routines at <a href="AB70.html">DEMO_MODE</a> and <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -46,21 +46,21 @@ Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3
 <tr>
 <td class="address-2"><span id="9200"></span>9200</td>
 <td class="instruction">LD ($5F00),A</td>
-<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="5F00.html">5F00</a>.</td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="5F00.html">BACKGROUND_REFERENCE</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9203"></span>9203</td>
-<td class="instruction">CALL <a href="5F22.html">$5F22</a></td>
-<td class="comment-1" rowspan="1">Call <a href="5F22.html">5F22</a>.</td>
+<td class="instruction">CALL <a href="5F22.html">CHANGE_BACKGROUND</a></td>
+<td class="comment-1" rowspan="1">Call <a href="5F22.html">CHANGE_BACKGROUND</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9206"></span>9206</td>
 <td class="instruction">LD A,$48</td>
-<td class="comment-1" rowspan="2">Call <a href="C203.html">C203</a> using $48. On return <span class="register">HL</span>=$4820.</td>
+<td class="comment-1" rowspan="2">Call <a href="C203.html">SCREEN_CALC</a> using $48. On return <span class="register">HL</span>=$4820.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9208"></span>9208</td>
-<td class="instruction">CALL <a href="C203.html">$C203</a></td>
+<td class="instruction">CALL <a href="C203.html">SCREEN_CALC</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="920b"></span>920B</td>
@@ -70,7 +70,7 @@ Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3
 <tr>
 <td class="address-1"><span id="920d"></span>920D</td>
 <td class="instruction">LD DE,$8000</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="8000.html">8000</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="8000.html">SHADOW_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="9210"></span>9210</td>

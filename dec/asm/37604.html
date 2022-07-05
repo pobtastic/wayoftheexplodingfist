@@ -38,7 +38,7 @@ Next: <a href="37631.html">37631</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="35924.html">35924</a>, <a href="36059.html">36059</a>, <a href="36249.html">36249</a>, <a href="37022.html">37022</a>, <a href="37676.html">37676</a>, <a href="38725.html">38725</a>, <a href="42629.html">42629</a>, <a href="43888.html">43888</a>, <a href="44037.html">44037</a>, <a href="44094.html">44094</a>, <a href="44735.html">44735</a> and <a href="44854.html">44854</a>.
+Used by the routines at <a href="35924.html">GAME_CONFIGS_MAIN</a>, <a href="36059.html">GAME_CONFIGS_CONTROLS</a>, <a href="36249.html">GAME_CONFIGS_KEYS</a>, <a href="37022.html">NEW_ROUND</a>, <a href="37676.html">TIME_BUFFER</a>, <a href="38725.html">GAME_OVER</a>, <a href="42629.html">PRINT_HISCORE</a>, <a href="43888.html">DEMO_MODE</a>, <a href="44037.html">MAIN_GAME</a>, <a href="44094.html">START_1UP_GAME</a>, <a href="44735.html">SHOW_RANK</a> and <a href="44854.html">44854</a>.
 </div>
 </div>
 </td>
@@ -63,103 +63,123 @@ Used by the routines at <a href="35924.html">35924</a>, <a href="36059.html">360
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_STRING</td>
 <td class="address-2"><span id="37604"></span>37604</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37605"></span>37605</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37606"></span>37606</td>
 <td class="instruction">LD A,L</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37607"></span>37607</td>
-<td class="instruction">CALL <a href="49667.html">49667</a></td>
+<td class="instruction">CALL <a href="49667.html">SCREEN_CALC</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37610"></span>37610</td>
 <td class="instruction">POP DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37611"></span>37611</td>
 <td class="instruction">LD E,D</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37612"></span>37612</td>
 <td class="instruction">LD D,0</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37614"></span>37614</td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37615"></span>37615</td>
 <td class="instruction">POP DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_STRING_LOOP</td>
 <td class="address-2"><span id="37616"></span>37616</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37617"></span>37617</td>
 <td class="instruction">AND A</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37618"></span>37618</td>
 <td class="instruction">RET Z</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37619"></span>37619</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37620"></span>37620</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37621"></span>37621</td>
 <td class="instruction">CALL <a href="37434.html">37434</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37624"></span>37624</td>
 <td class="instruction">POP DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37625"></span>37625</td>
 <td class="instruction">POP HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37626"></span>37626</td>
 <td class="instruction">INC HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37627"></span>37627</td>
 <td class="instruction">INC DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37628"></span>37628</td>
-<td class="instruction">JP <a href="37604.html#37616">37616</a></td>
+<td class="instruction">JP <a href="37604.html#37616">PRINT_STRING_LOOP</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 </table>

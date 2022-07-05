@@ -38,34 +38,40 @@ Next: <a href="8E4C.html">8E4C</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="8CDB.html">8CDB</a> and <a href="8D99.html">8D99</a>.
+Used by the routines at <a href="8CDB.html">GAME_CONFIGS_CONTROLS</a> and <a href="8D99.html">GAME_CONFIGS_KEYS</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">CONFIGS_DELAY</td>
 <td class="address-2"><span id="8e42"></span>8E42</td>
 <td class="instruction">LD BC,$EA60</td>
 <td class="comment-1" rowspan="1">Set <span class="register">BC</span>=$EA60</td>
 </tr>
 <tr>
+<td class="asm-label">CONFIGS_DELAY_LOOP</td>
 <td class="address-2"><span id="8e45"></span>8E45</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="4">Countdown <span class="register">BC</span> until #0000.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8e46"></span>8E46</td>
 <td class="instruction">LD A,B</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8e47"></span>8E47</td>
 <td class="instruction">OR C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8e48"></span>8E48</td>
-<td class="instruction">JP NZ,<a href="8E42.html#8e45">$8E45</a></td>
+<td class="instruction">JP NZ,<a href="8E42.html#8e45">CONFIGS_DELAY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="8e4b"></span>8E4B</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

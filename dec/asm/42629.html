@@ -38,40 +38,47 @@ Next: <a href="42647.html">42647</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="43888.html">43888</a> and <a href="44094.html">44094</a>.
+Used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_HISCORE</td>
 <td class="address-2"><span id="42629"></span>42629</td>
 <td class="instruction">LD B,3</td>
 <td class="comment-1" rowspan="1">Set a counter = $03 digits.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42631"></span>42631</td>
-<td class="instruction">CALL <a href="45018.html">45018</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html">45018</a>.</td>
+<td class="instruction">CALL <a href="45018.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42634"></span>42634</td>
-<td class="instruction">CALL <a href="45018.html#45037">45037</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">45037</a>.</td>
+<td class="instruction">CALL <a href="45018.html#45037">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">WRITE_00</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42637"></span>42637</td>
 <td class="instruction">LD DE,45092</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html">45092</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html">SCORE_BUFFER</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42640"></span>42640</td>
 <td class="instruction">LD HL,2585</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42643"></span>42643</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="42646"></span>42646</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

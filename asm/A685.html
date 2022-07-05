@@ -38,40 +38,47 @@ Next: <a href="A697.html">A697</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3E</a>.
+Used by the routines at <a href="AB70.html">DEMO_MODE</a> and <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_HISCORE</td>
 <td class="address-2"><span id="a685"></span>A685</td>
 <td class="instruction">LD B,$03</td>
 <td class="comment-1" rowspan="1">Set a counter = $03 digits.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a687"></span>A687</td>
-<td class="instruction">CALL <a href="AFDA.html">$AFDA</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html">AFDA</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a68a"></span>A68A</td>
-<td class="instruction">CALL <a href="AFDA.html#afed">$AFED</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html#afed">AFED</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html#afed">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html#afed">WRITE_00</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a68d"></span>A68D</td>
 <td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html">B024</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html">SCORE_BUFFER</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a690"></span>A690</td>
 <td class="instruction">LD HL,$0A19</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a693"></span>A693</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a696"></span>A696</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

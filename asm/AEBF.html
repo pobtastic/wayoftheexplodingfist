@@ -38,7 +38,7 @@ Next: <a href="AEF8.html">AEF8</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="AC3E.html">AC3E</a>.
+Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -54,34 +54,41 @@ Should this be a Dan, or just "novice"?
 </td>
 </tr>
 <tr>
+<td class="asm-label">SHOW_RANK</td>
 <td class="address-2"><span id="aebf"></span>AEBF</td>
 <td class="instruction">LD HL,$0122</td>
-<td class="comment-1" rowspan="2">Grab <a href="B024.html#b05f">B05F</a>.</td>
+<td class="comment-1" rowspan="2">Grab <a href="B024.html#b05f">CURRENT_RANK</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aec2"></span>AEC2</td>
 <td class="instruction">LD A,($B05F)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aec5"></span>AEC5</td>
 <td class="instruction">AND $1F</td>
 <td class="comment-1" rowspan="1">Mask bits d0-d4.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aec7"></span>AEC7</td>
-<td class="instruction">JR NZ,<a href="AEBF.html#aed0">$AED0</a></td>
-<td class="comment-1" rowspan="1">If the rank is higher than zero jump to <a href="AEBF.html#aed0">AED0</a>.</td>
+<td class="instruction">JR NZ,<a href="AEBF.html#aed0">RANK_IS_DAN</a></td>
+<td class="comment-1" rowspan="1">If the rank is higher than zero jump to <a href="AEBF.html#aed0">RANK_IS_DAN</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aec9"></span>AEC9</td>
 <td class="instruction">LD DE,$B045</td>
-<td class="comment-1" rowspan="2">Point to <a href="B024.html#b045">B045</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="B024.html#b045">TEXT_NOVICE</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aecc"></span>AECC</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aecf"></span>AECF</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -97,17 +104,20 @@ Handle "ST" suffix.
 </td>
 </tr>
 <tr>
+<td class="asm-label">RANK_IS_DAN</td>
 <td class="address-2"><span id="aed0"></span>AED0</td>
 <td class="instruction">LD DE,$B04D</td>
-<td class="comment-1" rowspan="3">Use <a href="B024.html#b04d">B04D</a> if this is the "1st" Dan.</td>
+<td class="comment-1" rowspan="3">Use <a href="B024.html#b04d">TEXT_ST_SUFFIX</a> if this is the "1st" Dan.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aed3"></span>AED3</td>
 <td class="instruction">CP $01</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aed5"></span>AED5</td>
-<td class="instruction">JR Z,<a href="AEBF.html#aee8">$AEE8</a></td>
+<td class="instruction">JR Z,<a href="AEBF.html#aee8">PRINT_RANK</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -120,17 +130,20 @@ Handle "ND" suffix.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aed7"></span>AED7</td>
 <td class="instruction">LD DE,$B050</td>
-<td class="comment-1" rowspan="3">Use <a href="B024.html#b050">B050</a> if this is the "2nd" Dan.</td>
+<td class="comment-1" rowspan="3">Use <a href="B024.html#b050">TEXT_ND_SUFFIX</a> if this is the "2nd" Dan.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aeda"></span>AEDA</td>
 <td class="instruction">CP $02</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aedc"></span>AEDC</td>
-<td class="instruction">JR Z,<a href="AEBF.html#aee8">$AEE8</a></td>
+<td class="instruction">JR Z,<a href="AEBF.html#aee8">PRINT_RANK</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -143,17 +156,20 @@ Handle "RD" suffix.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aede"></span>AEDE</td>
 <td class="instruction">LD DE,$B053</td>
-<td class="comment-1" rowspan="3">Use <a href="B024.html#b053">B053</a> if this is the "3rd" Dan.</td>
+<td class="comment-1" rowspan="3">Use <a href="B024.html#b053">TEXT_RD_SUFFIX</a> if this is the "3rd" Dan.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aee1"></span>AEE1</td>
 <td class="instruction">CP $03</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aee3"></span>AEE3</td>
-<td class="instruction">JR Z,<a href="AEBF.html#aee8">$AEE8</a></td>
+<td class="instruction">JR Z,<a href="AEBF.html#aee8">PRINT_RANK</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -166,9 +182,10 @@ Handle "TH" suffix.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aee5"></span>AEE5</td>
 <td class="instruction">LD DE,$B056</td>
-<td class="comment-1" rowspan="1">Else use <a href="B024.html#b056">B056</a> for every"th"ing else.</td>
+<td class="comment-1" rowspan="1">Else use <a href="B024.html#b056">TEXT_TH_SUFFIX</a> for every"th"ing else.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -181,28 +198,34 @@ Print the result to screen.
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_RANK</td>
 <td class="address-2"><span id="aee8"></span>AEE8</td>
 <td class="instruction">LD HL,$0222</td>
-<td class="comment-1" rowspan="2">Call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="2">Call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aeeb"></span>AEEB</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aeee"></span>AEEE</td>
 <td class="instruction">LD HL,$0422</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b059">B059</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#b059">TEXT_DAN</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aef1"></span>AEF1</td>
 <td class="instruction">LD DE,$B059</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aef4"></span>AEF4</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aef7"></span>AEF7</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

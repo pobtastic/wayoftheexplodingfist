@@ -38,35 +38,41 @@ Next: <a href="9CA0.html">9CA0</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="9C6F.html">9C6F</a>, <a href="AC3E.html">AC3E</a> and <a href="AEF8.html">AEF8</a>.
+Used by the routines at <a href="9C6F.html">9C6F</a>, <a href="AC3E.html">START_1UP_GAME</a> and <a href="AEF8.html">INIT_TIME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_TIME</td>
 <td class="address-2"><span id="9c93"></span>9C93</td>
 <td class="instruction">LD A,($9CA5)</td>
-<td class="comment-1" rowspan="3">Stores <a href="9CA5.html">9CA5</a> as the LSB in <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="3">Stores <a href="9CA5.html">TIME</a> as the LSB in <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9c96"></span>9C96</td>
 <td class="instruction">LD H,$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9c98"></span>9C98</td>
 <td class="instruction">LD L,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9c99"></span>9C99</td>
 <td class="instruction">LD DE,$0B00</td>
 <td class="comment-1" rowspan="1">Store $0B00 in <span class="register">DE</span> for the screen position.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9c9c"></span>9C9C</td>
-<td class="instruction">CALL <a href="932C.html#9336">$9336</a></td>
-<td class="comment-1" rowspan="1">Call <a href="932C.html#9336">9336</a>.</td>
+<td class="instruction">CALL <a href="932C.html#9336">PROCESS_PRINT_TIME</a></td>
+<td class="comment-1" rowspan="1">Call <a href="932C.html#9336">PROCESS_PRINT_TIME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="9c9f"></span>9C9F</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

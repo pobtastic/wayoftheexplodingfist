@@ -38,100 +38,120 @@ Next: <a href="A6B6.html">A6B6</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="A647.html">A647</a>.
+Used by the routine at <a href="A647.html">CHECK_HISCORE</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">IS_HIGH_SCORE</td>
 <td class="address-2"><span id="a697"></span>A697</td>
 <td class="instruction">LD A,$00</td>
 <td class="comment-1" rowspan="2">Write $00 to <a href="A6B7.html">A6B7</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a699"></span>A699</td>
 <td class="instruction">LD ($A6B7),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a69c"></span>A69C</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="2">Stash the high score and player score positions on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a69d"></span>A69D</td>
 <td class="instruction">PUSH HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a69e"></span>A69E</td>
 <td class="instruction">LD B,$03</td>
 <td class="comment-1" rowspan="1">Set the counter to $03 for the three score digits.</td>
 </tr>
 <tr>
+<td class="asm-label">IS_HS_LOOP</td>
 <td class="address-2"><span id="a6a0"></span>A6A0</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="1">Fetch the score digit.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6a1"></span>A6A1</td>
 <td class="instruction">CP (HL)</td>
 <td class="comment-1" rowspan="1">Compare the score digit against the high score.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6a2"></span>A6A2</td>
-<td class="instruction">JR C,<a href="A697.html#a6b3">$A6B3</a></td>
-<td class="comment-1" rowspan="1">If the the high score is higher, jump to <a href="A697.html#a6b3">A6B3</a>.</td>
+<td class="instruction">JR C,<a href="A697.html#a6b3">IS_HS_RETURN</a></td>
+<td class="comment-1" rowspan="1">If the the high score is higher, jump to <a href="A697.html#a6b3">IS_HS_RETURN</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6a4"></span>A6A4</td>
-<td class="instruction">JR NZ,<a href="A697.html#a6ad">$A6AD</a></td>
-<td class="comment-1" rowspan="1">If the high score is lower skip ahead to <a href="A697.html#a6ad">A6AD</a>.</td>
+<td class="instruction">JR NZ,<a href="A697.html#a6ad">IS_HS_SKIP</a></td>
+<td class="comment-1" rowspan="1">If the high score is lower skip ahead to <a href="A697.html#a6ad">IS_HS_SKIP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6a6"></span>A6A6</td>
 <td class="instruction">LD A,($A6B7)</td>
 <td class="comment-1" rowspan="3">Increase <a href="A6B7.html">A6B7</a> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6a9"></span>A6A9</td>
 <td class="instruction">INC A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6aa"></span>A6AA</td>
 <td class="instruction">LD ($A6B7),A</td>
 </tr>
 <tr>
+<td class="asm-label">IS_HS_SKIP</td>
 <td class="address-2"><span id="a6ad"></span>A6AD</td>
 <td class="instruction">DEC DE</td>
 <td class="comment-1" rowspan="2">Move onto the next digits for both the player score and high score.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6ae"></span>A6AE</td>
 <td class="instruction">DEC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6af"></span>A6AF</td>
-<td class="instruction">DJNZ <a href="A697.html#a6a0">$A6A0</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="A697.html#a6a0">A6A0</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="A697.html#a6a0">IS_HS_LOOP</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="A697.html#a6a0">IS_HS_LOOP</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6b1"></span>A6B1</td>
 <td class="instruction">SCF</td>
 <td class="comment-1" rowspan="2">Sets then clears the carry flag.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6b2"></span>A6B2</td>
 <td class="instruction">CCF</td>
 </tr>
 <tr>
+<td class="asm-label">IS_HS_RETURN</td>
 <td class="address-2"><span id="a6b3"></span>A6B3</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="2">Restore high score and player score positions from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6b4"></span>A6B4</td>
 <td class="instruction">POP DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a6b5"></span>A6B5</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

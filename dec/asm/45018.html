@@ -38,64 +38,76 @@ Next: <a href="45067.html">45067</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="38725.html">38725</a>, <a href="42629.html">42629</a>, <a href="44094.html">44094</a> and <a href="44854.html">44854</a>.
+Used by the routines at <a href="38725.html">GAME_OVER</a>, <a href="42629.html">PRINT_HISCORE</a>, <a href="44094.html">START_1UP_GAME</a> and <a href="44854.html">44854</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">POPULATE_SCORE_BUFFER</td>
 <td class="address-2"><span id="45018"></span>45018</td>
 <td class="instruction">LD DE,45092</td>
-<td class="comment-1" rowspan="1">Point to <a href="45092.html">45092</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html">SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">SCORE_BUFFER_LOOP</td>
 <td class="address-2"><span id="45021"></span>45021</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Stores the contents of <span class="register">HL</span> in the accumulator.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45022"></span>45022</td>
 <td class="instruction">RRCA</td>
 <td class="comment-1" rowspan="4">Move bits 4 and 5 into bits 0 and 1.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45023"></span>45023</td>
 <td class="instruction">RRCA</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45024"></span>45024</td>
 <td class="instruction">RRCA</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45025"></span>45025</td>
 <td class="instruction">RRCA</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45026"></span>45026</td>
-<td class="instruction">CALL <a href="45018.html#45060">45060</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45060">45060</a>.</td>
+<td class="instruction">CALL <a href="45018.html#45060">CONVERT_ASCII</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45060">CONVERT_ASCII</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45029"></span>45029</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Stores the contents of <span class="register">HL</span> in the accumulator.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45030"></span>45030</td>
-<td class="instruction">CALL <a href="45018.html#45060">45060</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45060">45060</a>.</td>
+<td class="instruction">CALL <a href="45018.html#45060">CONVERT_ASCII</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45060">CONVERT_ASCII</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45033"></span>45033</td>
 <td class="instruction">DEC HL</td>
 <td class="comment-1" rowspan="1">Decrease <span class="register">HL</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45034"></span>45034</td>
-<td class="instruction">DJNZ <a href="45018.html#45021">45021</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="45018.html#45021">45021</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="45018.html#45021">SCORE_BUFFER_LOOP</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="45018.html#45021">SCORE_BUFFER_LOOP</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45036"></span>45036</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -111,24 +123,29 @@ Writes "00" to the end of the score.
 </td>
 </tr>
 <tr>
+<td class="asm-label">WRITE_00</td>
 <td class="address-2"><span id="45037"></span>45037</td>
 <td class="instruction">LD A,48</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>="0" (ASCII zero for display).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45039"></span>45039</td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-1" rowspan="4">Write "0" to <span class="register">DE</span>, increment <span class="register">DE</span> by 1, write "0" to <span class="register">DE</span>, increment <span class="register">DE</span> by 1.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45040"></span>45040</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45041"></span>45041</td>
 <td class="instruction">LD (DE),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45042"></span>45042</td>
 <td class="instruction">INC DE</td>
 </tr>
@@ -137,60 +154,71 @@ Writes "00" to the end of the score.
 <span id="45043"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="38725.html">38725</a> and <a href="44094.html">44094</a>.
+This entry point is used by the routines at <a href="38725.html">GAME_OVER</a> and <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">ZERO_TO_SPACE</td>
 <td class="address-2"><span id="45043"></span>45043</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="2">Writes $00 to <span class="register">DE</span> (used as a terminator).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45044"></span>45044</td>
 <td class="instruction">LD (DE),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45045"></span>45045</td>
 <td class="instruction">LD HL,45092</td>
-<td class="comment-1" rowspan="1">Point to <a href="45092.html">45092</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html">SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45048"></span>45048</td>
 <td class="instruction">LD B,7</td>
 <td class="comment-1" rowspan="1">Set a counter of $07.</td>
 </tr>
 <tr>
+<td class="asm-label">ZERO</td>
 <td class="address-2"><span id="45050"></span>45050</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Fetch the score character.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45051"></span>45051</td>
 <td class="instruction">CP 48</td>
 <td class="comment-1" rowspan="2">If it is not ASCII "0" then return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45053"></span>45053</td>
 <td class="instruction">RET NZ</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45054"></span>45054</td>
 <td class="instruction">LD (HL),32</td>
 <td class="comment-1" rowspan="1">Overwrite the character with $20 (ASCII space for display).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45056"></span>45056</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Move onto next character.</td>
 </tr>
 <tr>
+<td class="asm-label">ZERO_LOOP</td>
 <td class="address-1"><span id="45057"></span>45057</td>
-<td class="instruction">DJNZ <a href="45018.html#45050">45050</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="45018.html#45050">45050</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="45018.html#45050">ZERO</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="45018.html#45050">ZERO</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45059"></span>45059</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -206,24 +234,29 @@ Convert a single number into ASCII ready for printing to the screen.
 </td>
 </tr>
 <tr>
+<td class="asm-label">CONVERT_ASCII</td>
 <td class="address-2"><span id="45060"></span>45060</td>
 <td class="instruction">AND 15</td>
 <td class="comment-1" rowspan="3">Store the ASCII representation of the number at <span class="register">DE</span> (it adds ASCII "0") so for example 1 ends up being 1 + $30 = $31 (e.g. "1" in ASCII).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45062"></span>45062</td>
 <td class="instruction">ADD A,48</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45064"></span>45064</td>
 <td class="instruction">LD (DE),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45065"></span>45065</td>
 <td class="instruction">INC DE</td>
 <td class="comment-1" rowspan="1">Then increase <span class="register">DE</span> by one for the next digit.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="45066"></span>45066</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

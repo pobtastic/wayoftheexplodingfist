@@ -38,62 +38,75 @@ Next: <a href="36457.html">36457</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="35924.html">35924</a>, <a href="36059.html">36059</a> and <a href="36249.html">36249</a>.
+Used by the routines at <a href="35924.html">GAME_CONFIGS_MAIN</a>, <a href="36059.html">GAME_CONFIGS_CONTROLS</a> and <a href="36249.html">GAME_CONFIGS_KEYS</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">CLEAR_SCREEN</td>
 <td class="address-2"><span id="36428"></span>36428</td>
 <td class="instruction">LD DE,16385</td>
 <td class="comment-1" rowspan="6">Clears the screen buffer by writing $00 to 6143 memory locations.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36431"></span>36431</td>
 <td class="instruction">LD HL,16384</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36434"></span>36434</td>
 <td class="instruction">LD A,0</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36436"></span>36436</td>
 <td class="instruction">LD (HL),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36437"></span>36437</td>
 <td class="instruction">LD BC,6143</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36440"></span>36440</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36442"></span>36442</td>
 <td class="instruction">LD HL,22528</td>
 <td class="comment-1" rowspan="6">Clears the attribute buffer by writing $0D to 767 memory locations.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36445"></span>36445</td>
 <td class="instruction">LD DE,22529</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36448"></span>36448</td>
 <td class="instruction">LD A,13</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36450"></span>36450</td>
 <td class="instruction">LD (HL),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36451"></span>36451</td>
 <td class="instruction">LD BC,767</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36454"></span>36454</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36456"></span>36456</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

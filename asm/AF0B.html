@@ -38,37 +38,44 @@ Next: <a href="AF1A.html">AF1A</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="AC3E.html">AC3E</a>.
+Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">RESET_SCORE</td>
 <td class="address-2"><span id="af0b"></span>AF0B</td>
 <td class="instruction">LD HL,$B02D</td>
 <td class="comment-1" rowspan="6">Writes $00 to the memory locations between $B02D-$B032 (blanks current $B02D).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af0e"></span>AF0E</td>
 <td class="instruction">LD (HL),$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af10"></span>AF10</td>
 <td class="instruction">LD DE,$B02D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af13"></span>AF13</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af14"></span>AF14</td>
 <td class="instruction">LD BC,$0005</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af17"></span>AF17</td>
 <td class="instruction">LDIR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af19"></span>AF19</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

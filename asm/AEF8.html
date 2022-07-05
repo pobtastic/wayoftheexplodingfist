@@ -38,26 +38,30 @@ Next: <a href="AF01.html">AF01</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3E</a>.
+Used by the routines at <a href="AB70.html">DEMO_MODE</a> and <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">INIT_TIME</td>
 <td class="address-2"><span id="aef8"></span>AEF8</td>
 <td class="instruction">LD A,$1E</td>
-<td class="comment-1" rowspan="2">Write $1E (30 seconds) to <a href="9CA5.html">9CA5</a>.</td>
+<td class="comment-1" rowspan="2">Write $1E (30 seconds) to <a href="9CA5.html">TIME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aefa"></span>AEFA</td>
 <td class="instruction">LD ($9CA5),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="aefd"></span>AEFD</td>
-<td class="instruction">CALL <a href="9C93.html">$9C93</a></td>
-<td class="comment-1" rowspan="1">Call <a href="9C93.html">9C93</a>.</td>
+<td class="instruction">CALL <a href="9C93.html">PRINT_TIME</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9C93.html">PRINT_TIME</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="af00"></span>AF00</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

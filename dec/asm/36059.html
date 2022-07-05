@@ -38,7 +38,7 @@ Next: <a href="36249.html">36249</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="35924.html">35924</a>.
+Used by the routine at <a href="35924.html">GAME_CONFIGS_MAIN</a>.
 </div>
 </div>
 </td>
@@ -48,102 +48,123 @@ Used by the routine at <a href="35924.html">35924</a>.
 <span id="36059"></span>
 <div class="comments">
 <div class="paragraph">
-The player controls menu.  Used for either player, references the currently targetted player at <a href="36457.html">36457</a>.
+The player controls menu.  Used for either player, references the currently targetted player at <a href="36457.html">TEMP_PLAYER</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_CONTROLS</td>
 <td class="address-2"><span id="36059"></span>36059</td>
-<td class="instruction">CALL <a href="36428.html">36428</a></td>
-<td class="comment-1" rowspan="1">Call <a href="36428.html">36428</a>.</td>
+<td class="instruction">CALL <a href="36428.html">CLEAR_SCREEN</a></td>
+<td class="comment-1" rowspan="1">Call <a href="36428.html">CLEAR_SCREEN</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36062"></span>36062</td>
 <td class="instruction">LD DE,36566</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36566">36566</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36566">TEXT_DEFAULT_LAYOUT</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36065"></span>36065</td>
 <td class="instruction">LD HL,301</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36068"></span>36068</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36071"></span>36071</td>
 <td class="instruction">LD DE,36596</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36596">36596</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36596">TEXT_SINCLAIR_P1</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36074"></span>36074</td>
 <td class="instruction">LD HL,310</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36077"></span>36077</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36080"></span>36080</td>
 <td class="instruction">LD DE,36623</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36623">36623</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36623">TEXT_SINCLAIR_P2</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36083"></span>36083</td>
 <td class="instruction">LD HL,319</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36086"></span>36086</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36089"></span>36089</td>
 <td class="instruction">LD DE,36650</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36650">36650</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36650">TEXT_KEYBOARD_RECONFIG</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36092"></span>36092</td>
 <td class="instruction">LD HL,328</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36095"></span>36095</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36098"></span>36098</td>
 <td class="instruction">LD DE,36673</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36673">36673</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36673">TEXT_KEMPSTON</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36101"></span>36101</td>
 <td class="instruction">LD HL,337</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36104"></span>36104</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36107"></span>36107</td>
 <td class="instruction">LD DE,36697</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36697">36697</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36697">TEXT_TYPE_2</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36110"></span>36110</td>
 <td class="instruction">LD HL,881</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36113"></span>36113</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36116"></span>36116</td>
-<td class="instruction">CALL <a href="36418.html">36418</a></td>
+<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
 <td class="comment-1" rowspan="2">Adds a delay for keyboard debounce.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36119"></span>36119</td>
-<td class="instruction">CALL <a href="36418.html">36418</a></td>
+<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -156,23 +177,27 @@ Does the user want to revert to the default control method?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_DEFAULTS</td>
 <td class="address-2"><span id="36122"></span>36122</td>
 <td class="instruction">LD A,36</td>
 <td class="comment-1" rowspan="2">Check if "1" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36124"></span>36124</td>
-<td class="instruction">CALL <a href="40019.html">40019</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36127"></span>36127</td>
-<td class="instruction">JP C,<a href="36059.html#36133">36133</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36133">36133</a>.</td>
+<td class="instruction">JP C,<a href="36059.html#36133">GAME_CONTROLS_SINCLAIR_1</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36133">GAME_CONTROLS_SINCLAIR_1</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36130"></span>36130</td>
-<td class="instruction">JP <a href="36059.html#36183">36183</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36183">36183</a>.</td>
+<td class="instruction">JP <a href="36059.html#36183">GAME_CONTROLS_SET_DEFAULT</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36183">GAME_CONTROLS_SET_DEFAULT</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -185,23 +210,27 @@ Change player to use "Sinclair Joystick #1"?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SINCLAIR_1</td>
 <td class="address-2"><span id="36133"></span>36133</td>
 <td class="instruction">LD A,28</td>
 <td class="comment-1" rowspan="2">Check if "2" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36135"></span>36135</td>
-<td class="instruction">CALL <a href="40019.html">40019</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36138"></span>36138</td>
-<td class="instruction">JP C,<a href="36059.html#36144">36144</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36144">36144</a>.</td>
+<td class="instruction">JP C,<a href="36059.html#36144">GAME_CONTROLS_SINCLAIR_2</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36144">GAME_CONTROLS_SINCLAIR_2</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36141"></span>36141</td>
-<td class="instruction">JP <a href="36059.html#36213">36213</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36213">36213</a>.</td>
+<td class="instruction">JP <a href="36059.html#36213">GAME_CONTROLS_SET_SINCLAIR_1</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36213">GAME_CONTROLS_SET_SINCLAIR_1</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -214,23 +243,27 @@ Change player to use "Sinclair Joystick #2"?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SINCLAIR_2</td>
 <td class="address-2"><span id="36144"></span>36144</td>
 <td class="instruction">LD A,20</td>
 <td class="comment-1" rowspan="2">Check if "3" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36146"></span>36146</td>
-<td class="instruction">CALL <a href="40019.html">40019</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36149"></span>36149</td>
-<td class="instruction">JP C,<a href="36059.html#36155">36155</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36155">36155</a>.</td>
+<td class="instruction">JP C,<a href="36059.html#36155">GAME_CONTROLS_KEMPSTON</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36155">GAME_CONTROLS_KEMPSTON</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36152"></span>36152</td>
-<td class="instruction">JP <a href="36059.html#36225">36225</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36225">36225</a>.</td>
+<td class="instruction">JP <a href="36059.html#36225">GAME_CONTROLS_SET_SINCLAIR_2</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36225">GAME_CONTROLS_SET_SINCLAIR_2</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -243,23 +276,27 @@ Change player to use "Kempston" joystick?
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_KEMPSTON</td>
 <td class="address-2"><span id="36155"></span>36155</td>
 <td class="instruction">LD A,4</td>
 <td class="comment-1" rowspan="2">Check if "5" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36157"></span>36157</td>
-<td class="instruction">CALL <a href="40019.html">40019</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36160"></span>36160</td>
-<td class="instruction">JP C,<a href="36059.html#36166">36166</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36166">36166</a>.</td>
+<td class="instruction">JP C,<a href="36059.html#36166">GAME_CONTROLS_KEYBOARD</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="36059.html#36166">GAME_CONTROLS_KEYBOARD</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36163"></span>36163</td>
-<td class="instruction">JP <a href="36059.html#36237">36237</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36237">36237</a>.</td>
+<td class="instruction">JP <a href="36059.html#36237">GAME_CONTROLS_SET_KEMPSTON</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36237">GAME_CONTROLS_SET_KEMPSTON</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -272,32 +309,38 @@ Redefine keys for player.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_KEYBOARD</td>
 <td class="address-2"><span id="36166"></span>36166</td>
 <td class="instruction">LD A,12</td>
 <td class="comment-1" rowspan="2">Check if "4" key is pressed.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36168"></span>36168</td>
-<td class="instruction">CALL <a href="40019.html">40019</a></td>
+<td class="instruction">CALL <a href="40019.html">KEYBOARD_TEST</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36171"></span>36171</td>
-<td class="instruction">JP C,<a href="36059.html#36122">36122</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, loop back round to <a href="36059.html#36122">36122</a>.</td>
+<td class="instruction">JP C,<a href="36059.html#36122">GAME_CONTROLS_DEFAULTS</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, loop back round to <a href="36059.html#36122">GAME_CONTROLS_DEFAULTS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36174"></span>36174</td>
-<td class="instruction">CALL <a href="36418.html">36418</a></td>
+<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
 <td class="comment-1" rowspan="2">Adds a delay for keyboard debounce.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36177"></span>36177</td>
-<td class="instruction">CALL <a href="36418.html">36418</a></td>
+<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36180"></span>36180</td>
-<td class="instruction">JP <a href="36249.html">36249</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36249.html">36249</a>.</td>
+<td class="instruction">JP <a href="36249.html">GAME_CONFIGS_KEYS</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36249.html">GAME_CONFIGS_KEYS</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -310,54 +353,65 @@ Actions setting keyboard controls for player back to defaults.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SET_DEFAULT</td>
 <td class="address-2"><span id="36183"></span>36183</td>
 <td class="instruction">LD HL,(36457)</td>
-<td class="comment-1" rowspan="4">Check if <a href="36457.html">36457</a> is equal to <a href="35794.html">35794</a>.</td>
+<td class="comment-1" rowspan="4">Check if <a href="36457.html">TEMP_PLAYER</a> is equal to <a href="35794.html">PLAYER_1_CONTROLS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36186"></span>36186</td>
 <td class="instruction">LD BC,35794</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36189"></span>36189</td>
 <td class="instruction">XOR A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36190"></span>36190</td>
 <td class="instruction">SBC HL,BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36192"></span>36192</td>
-<td class="instruction">JP NZ,<a href="36059.html#36204">36204</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36204">36204</a> if we are working with player 2.</td>
+<td class="instruction">JP NZ,<a href="36059.html#36204">GAME_CONTROLS_SET_DEFAULT_P2</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36059.html#36204">GAME_CONTROLS_SET_DEFAULT_P2</a> if we are working with player 2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36195"></span>36195</td>
 <td class="instruction">LD HL,35834</td>
-<td class="comment-1" rowspan="2">Store <a href="35834.html">35834</a> at <a href="35794.html">35794</a>.</td>
+<td class="comment-1" rowspan="2">Store <a href="35834.html">P1_DEFAULT_KEYS</a> at <a href="35794.html">PLAYER_1_CONTROLS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36198"></span>36198</td>
 <td class="instruction">LD (35794),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36201"></span>36201</td>
-<td class="instruction">JP <a href="35924.html#36058">36058</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">36058</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SET_DEFAULT_P2</td>
 <td class="address-2"><span id="36204"></span>36204</td>
 <td class="instruction">LD HL,35852</td>
-<td class="comment-1" rowspan="2">Store <a href="35852.html">35852</a> at <a href="35814.html">35814</a>.</td>
+<td class="comment-1" rowspan="2">Store <a href="35852.html">P2_DEFAULT_KEYS</a> at <a href="35814.html">PLAYER_2_CONTROLS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36207"></span>36207</td>
 <td class="instruction">LD (35814),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36210"></span>36210</td>
-<td class="instruction">JP <a href="35924.html#36058">36058</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">36058</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -370,31 +424,37 @@ Actions setting player to use Sinclair Joystick #1.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SET_SINCLAIR_1</td>
 <td class="address-2"><span id="36213"></span>36213</td>
 <td class="instruction">LD HL,(36457)</td>
-<td class="comment-1" rowspan="1">Fetch the current player from <a href="36457.html">36457</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="36457.html">TEMP_PLAYER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36216"></span>36216</td>
 <td class="instruction">LD DE,35888</td>
-<td class="comment-1" rowspan="4">Pushes <a href="35888.html">35888</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="35888.html">SINCLAIR_1</a> for the current player.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36219"></span>36219</td>
 <td class="instruction">LD (HL),E</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36220"></span>36220</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36221"></span>36221</td>
 <td class="instruction">LD (HL),D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36222"></span>36222</td>
-<td class="instruction">JP <a href="35924.html#36058">36058</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">36058</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -407,31 +467,37 @@ Actions setting player to use Sinclair Joystick #2.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SET_SINCLAIR_2</td>
 <td class="address-2"><span id="36225"></span>36225</td>
 <td class="instruction">LD HL,(36457)</td>
-<td class="comment-1" rowspan="1">Fetch the current player from <a href="36457.html">36457</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="36457.html">TEMP_PLAYER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36228"></span>36228</td>
 <td class="instruction">LD DE,35870</td>
-<td class="comment-1" rowspan="4">Pushes <a href="35870.html">35870</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="35870.html">SINCLAIR_2</a> for the current player.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36231"></span>36231</td>
 <td class="instruction">LD (HL),E</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36232"></span>36232</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36233"></span>36233</td>
 <td class="instruction">LD (HL),D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36234"></span>36234</td>
-<td class="instruction">JP <a href="35924.html#36058">36058</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">36058</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -444,31 +510,37 @@ Actions setting player to use Kempston Joystick.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONTROLS_SET_KEMPSTON</td>
 <td class="address-2"><span id="36237"></span>36237</td>
 <td class="instruction">LD HL,(36457)</td>
-<td class="comment-1" rowspan="1">Fetch the current player from <a href="36457.html">36457</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="36457.html">TEMP_PLAYER</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36240"></span>36240</td>
 <td class="instruction">LD DE,35906</td>
-<td class="comment-1" rowspan="4">Pushes <a href="35906.html">35906</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="35906.html">KEMPSTON</a> for the current player.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36243"></span>36243</td>
 <td class="instruction">LD (HL),E</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36244"></span>36244</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36245"></span>36245</td>
 <td class="instruction">LD (HL),D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36246"></span>36246</td>
-<td class="instruction">JP <a href="35924.html#36058">36058</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">36058</a> (just returns).</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a> (just returns).</td>
 </tr>
 </table>
 <table class="asm-navigation">

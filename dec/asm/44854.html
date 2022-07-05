@@ -38,7 +38,7 @@ Next: <a href="45018.html">45018</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="43888.html">43888</a> and <a href="44094.html">44094</a>.
+Used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -46,7 +46,7 @@ Used by the routines at <a href="43888.html">43888</a> and <a href="44094.html">
 <tr>
 <td class="address-2"><span id="44854"></span>44854</td>
 <td class="instruction">LD A,(43528)</td>
-<td class="comment-1" rowspan="3">Jump to <a href="44854.html#44925">44925</a> if <a href="43526.html#43528">43528</a> is zero.</td>
+<td class="comment-1" rowspan="3">Jump to <a href="44854.html#44925">44925</a> if <a href="43526.html#43528">P1_POINTS_AWARDED</a> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44857"></span>44857</td>
@@ -109,7 +109,7 @@ Used by the routines at <a href="43888.html">43888</a> and <a href="44094.html">
 <span id="44882"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44094.html">44094</a>.
+This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -148,7 +148,7 @@ This entry point is used by the routine at <a href="44094.html">44094</a>.
 <td class="address-1"><span id="44894"></span>44894</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="2">Write $00 to; <ul class="">
-<li><a href="43526.html#43528">43528</a></li>
+<li><a href="43526.html#43528">P1_POINTS_AWARDED</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -158,7 +158,7 @@ This entry point is used by the routine at <a href="44094.html">44094</a>.
 <tr>
 <td class="address-1"><span id="44898"></span>44898</td>
 <td class="instruction">LD A,(39980)</td>
-<td class="comment-1" rowspan="3">Return if <a href="39980.html">39980</a> is zero.</td>
+<td class="comment-1" rowspan="3">Return if <a href="39980.html">NUM_PLAYERS</a> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44901"></span>44901</td>
@@ -181,7 +181,7 @@ Player 1 display score.
 <tr>
 <td class="address-1"><span id="44904"></span>44904</td>
 <td class="instruction">LD HL,45103</td>
-<td class="comment-1" rowspan="1">Point to <a href="45092.html#45103">45103</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html#45103">SCORE_P1</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44907"></span>44907</td>
@@ -190,18 +190,18 @@ Player 1 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="44909"></span>44909</td>
-<td class="instruction">CALL <a href="45018.html">45018</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html">45018</a>.</td>
+<td class="instruction">CALL <a href="45018.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44912"></span>44912</td>
-<td class="instruction">CALL <a href="45018.html#45037">45037</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">45037</a>.</td>
+<td class="instruction">CALL <a href="45018.html#45037">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">WRITE_00</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44915"></span>44915</td>
 <td class="instruction">LD DE,45092</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html">45092</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html">SCORE_BUFFER</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44918"></span>44918</td>
@@ -209,7 +209,7 @@ Player 1 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="44921"></span>44921</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44924"></span>44924</td>
@@ -286,7 +286,7 @@ Player 1 display score.
 <span id="44951"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44094.html">44094</a>.
+This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -359,7 +359,7 @@ Player 2 display score.
 <tr>
 <td class="address-1"><span id="44973"></span>44973</td>
 <td class="instruction">LD HL,45106</td>
-<td class="comment-1" rowspan="1">Point to <a href="45092.html#45106">45106</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="45092.html#45106">SCORE_P2</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44976"></span>44976</td>
@@ -368,18 +368,18 @@ Player 2 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="44978"></span>44978</td>
-<td class="instruction">CALL <a href="45018.html">45018</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html">45018</a>.</td>
+<td class="instruction">CALL <a href="45018.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44981"></span>44981</td>
-<td class="instruction">CALL <a href="45018.html#45037">45037</a></td>
-<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">45037</a>.</td>
+<td class="instruction">CALL <a href="45018.html#45037">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45018.html#45037">WRITE_00</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44984"></span>44984</td>
 <td class="instruction">LD DE,45092</td>
-<td class="comment-1" rowspan="3">Point to <a href="45092.html">45092</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="45092.html">SCORE_BUFFER</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="44987"></span>44987</td>
@@ -387,7 +387,7 @@ Player 2 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="44990"></span>44990</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="44993"></span>44993</td>

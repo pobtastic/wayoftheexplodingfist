@@ -38,7 +38,7 @@ Next: <a href="6010.html">6010</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="5F22.html">5F22</a>.
+Used by the routine at <a href="5F22.html">CHANGE_BACKGROUND</a>.
 </div>
 </div>
 </td>
@@ -48,7 +48,7 @@ Used by the routine at <a href="5F22.html">5F22</a>.
 <span id="5f80"></span>
 <div class="comments">
 <div class="paragraph">
-Each background uses 4 sets of data "pairs" and a single reference for attribute data (handled separately at <a href="6010.html">6010</a>). For example, <a href="602B.html">background 1</a> uses; <table class="default">
+Each background uses 4 sets of data "pairs" and a single reference for attribute data (handled separately at <a href="6010.html">BACKGROUND_ATTRIBUTES</a>). For example, <a href="602B.html">background 1</a> uses; <table class="default">
 <tr>
 <th colspan="1" rowspan="1">Block</th>
 <th colspan="1" rowspan="1">UDGs</th>
@@ -84,15 +84,18 @@ Each background uses 4 sets of data "pairs" and a single reference for attribute
 </td>
 </tr>
 <tr>
+<td class="asm-label">CREATE_BACKGROUND</td>
 <td class="address-2"><span id="5f80"></span>5F80</td>
 <td class="instruction">LD HL,$4080</td>
-<td class="comment-1" rowspan="2">The first screen address is $4080 which allows space for the "header". This is the top of character block 4. This is then stored in the buffer at <a href="5F02.html">5F02</a>.</td>
+<td class="comment-1" rowspan="2">The first screen address is $4080 which allows space for the "header". This is the top of character block 4. This is then stored in the buffer at <a href="5F02.html">BACKGROUND_SCREEN_ADDRESS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f83"></span>5F83</td>
 <td class="instruction">LD ($5F02),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f86"></span>5F86</td>
 <td class="instruction">LD HL,$5F10</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="5F10.html">Background address data buffer</a>.</td>
@@ -108,6 +111,7 @@ Each background has 4 "sets" of data, so set a counter of 4.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f89"></span>5F89</td>
 <td class="instruction">LD B,$04</td>
 <td class="comment-1" rowspan="1"><span class="register">B</span>=Initialise block counter.</td>
@@ -123,6 +127,7 @@ The block processing loop.
 </td>
 </tr>
 <tr>
+<td class="asm-label">CREATE_BACKGROUND_LOOP</td>
 <td class="address-2"><span id="5f8b"></span>5F8B</td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-1" rowspan="1">Push the counter onto the stack.</td>
@@ -138,44 +143,54 @@ Each block contains two address references, one is for UDG data, and one is for 
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f8c"></span>5F8C</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-1" rowspan="5">Pick up the next background UDG data block and store it at <a href="5F02.html#5f08">5F08</a>.</td>
+<td class="comment-1" rowspan="5">Pick up the next background UDG data block and store it at <a href="5F02.html#5f08">BACKGROUND_UDG_DATA</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f8d"></span>5F8D</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f8e"></span>5F8E</td>
 <td class="instruction">LD D,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f8f"></span>5F8F</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f90"></span>5F90</td>
 <td class="instruction">LD ($5F08),DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f94"></span>5F94</td>
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-1" rowspan="4">Fetch the address of the next positioning data block and store it in <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f95"></span>5F95</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f96"></span>5F96</td>
 <td class="instruction">LD D,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f97"></span>5F97</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f98"></span>5F98</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="1">Push the position of the address data buffer (pointing to the start of the next block) onto the stack.</td>
@@ -191,19 +206,22 @@ Set up the current screen position, the positioning data and the UDG data block.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f99"></span>5F99</td>
 <td class="instruction">LD HL,($5F02)</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=The current screen address from <a href="5F02.html">5F02</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=The current screen address from <a href="5F02.html">BACKGROUND_SCREEN_ADDRESS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f9c"></span>5F9C</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="1">Switch <span class="register">DE</span> and <span class="register">HL</span> so <span class="register">DE</span> now holds the screen address and <span class="register">HL</span> holds the start of the positioning data block.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5f9d"></span>5F9D</td>
-<td class="instruction">CALL <a href="5F80.html#5fbe">$5FBE</a></td>
-<td class="comment-1" rowspan="1">Call <a href="5F80.html#5fbe">5FBE</a>.</td>
+<td class="instruction">CALL <a href="5F80.html#5fbe">BACKGROUND_FETCH_NEXT</a></td>
+<td class="comment-1" rowspan="1">Call <a href="5F80.html#5fbe">BACKGROUND_FETCH_NEXT</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -216,59 +234,71 @@ fgg
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fa0"></span>5FA0</td>
 <td class="instruction">LD HL,($5F02)</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=The current screen address from <a href="5F02.html">5F02</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=The current screen address from <a href="5F02.html">BACKGROUND_SCREEN_ADDRESS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fa3"></span>5FA3</td>
 <td class="instruction">LD BC,$0080</td>
 <td class="comment-1" rowspan="2">Add $0080 to <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fa6"></span>5FA6</td>
 <td class="instruction">ADD HL,BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fa7"></span>5FA7</td>
 <td class="instruction">BIT 0,H</td>
-<td class="comment-1" rowspan="2">Set the zero flag if we're at a screen section boundary. Skip forward to <a href="5F80.html#5faf">5FAF</a> if not.</td>
+<td class="comment-1" rowspan="2">Set the zero flag if we're at a screen section boundary. Skip forward to <a href="5F80.html#5faf">BACKGROUND_NO_BOUNDARY</a> if not.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fa9"></span>5FA9</td>
-<td class="instruction">JR Z,<a href="5F80.html#5faf">$5FAF</a></td>
+<td class="instruction">JR Z,<a href="5F80.html#5faf">BACKGROUND_NO_BOUNDARY</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fab"></span>5FAB</td>
 <td class="instruction">LD A,$07</td>
 <td class="comment-1" rowspan="3">Add $07 to the MSB of <span class="register">HL</span> to handle moving between screen sections.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fad"></span>5FAD</td>
 <td class="instruction">ADD A,H</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fae"></span>5FAE</td>
 <td class="instruction">LD H,A</td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_NO_BOUNDARY</td>
 <td class="address-2"><span id="5faf"></span>5FAF</td>
 <td class="instruction">LD ($5F02),HL</td>
-<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> at <a href="5F02.html">5F02</a>.</td>
+<td class="comment-1" rowspan="1">Stash <span class="register">HL</span> at <a href="5F02.html">BACKGROUND_SCREEN_ADDRESS</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb2"></span>5FB2</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="2">Restores <span class="register">HL</span> and the counter from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb3"></span>5FB3</td>
 <td class="instruction">POP BC</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb4"></span>5FB4</td>
-<td class="instruction">DJNZ <a href="5F80.html#5f8b">$5F8B</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="5F80.html#5f8b">5F8B</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="5F80.html#5f8b">CREATE_BACKGROUND_LOOP</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="5F80.html#5f8b">CREATE_BACKGROUND_LOOP</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -281,27 +311,33 @@ Finally, now write the attributes and return.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb6"></span>5FB6</td>
 <td class="instruction">LD E,(HL)</td>
-<td class="comment-1" rowspan="5">Fetch the last address from the <a href="5F10.html">Background address data buffer</a> which is the attributes data and call <a href="6010.html">6010</a> to process and display in the attributes buffer.</td>
+<td class="comment-1" rowspan="5">Fetch the last address from the <a href="5F10.html">Background address data buffer</a> which is the attributes data and call <a href="6010.html">BACKGROUND_ATTRIBUTES</a> to process and display in the attributes buffer.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb7"></span>5FB7</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb8"></span>5FB8</td>
 <td class="instruction">LD D,(HL)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fb9"></span>5FB9</td>
 <td class="instruction">EX DE,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fba"></span>5FBA</td>
-<td class="instruction">CALL <a href="6010.html">$6010</a></td>
+<td class="instruction">CALL <a href="6010.html">BACKGROUND_ATTRIBUTES</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fbd"></span>5FBD</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -317,33 +353,39 @@ Fetch the next positioning data and check for the terminator.
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_FETCH_NEXT</td>
 <td class="address-2"><span id="5fbe"></span>5FBE</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Fetch the next positioning data byte.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fbf"></span>5FBF</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increase <span class="register">HL</span> by one to point to the next byte.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fc0"></span>5FC0</td>
 <td class="instruction">CP (HL)</td>
 <td class="comment-1" rowspan="1">Check if this byte is the same as the previous positioning data byte value.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fc1"></span>5FC1</td>
-<td class="instruction">JR NZ,<a href="5F80.html#5fc6">$5FC6</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="5F80.html#5fc6">5FC6</a> if the values are different.</td>
+<td class="instruction">JR NZ,<a href="5F80.html#5fc6">BACKGROUND_PROCESS</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="5F80.html#5fc6">BACKGROUND_PROCESS</a> if the values are different.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fc3"></span>5FC3</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="2">Double zero is the terminator, so jump to <a href="5F80.html#5ff3">5FF3</a> to return if this is detected.</td>
+<td class="comment-1" rowspan="2">Double zero is the terminator, so jump to <a href="5F80.html#5ff3">BACKGROUND_RETURN</a> to return if this is detected.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fc4"></span>5FC4</td>
-<td class="instruction">JR Z,<a href="5F80.html#5ff3">$5FF3</a></td>
+<td class="instruction">JR Z,<a href="5F80.html#5ff3">BACKGROUND_RETURN</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -356,20 +398,24 @@ Process the UDG data.
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_PROCESS</td>
 <td class="address-2"><span id="5fc6"></span>5FC6</td>
 <td class="instruction">BIT 7,A</td>
 <td class="comment-1" rowspan="2">Check if d7 is set, reset it regardless.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fc8"></span>5FC8</td>
 <td class="instruction">RES 7,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fca"></span>5FCA</td>
 <td class="instruction">PUSH AF</td>
 <td class="comment-1" rowspan="1">Push the new positioning data value onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fcb"></span>5FCB</td>
 <td class="instruction">EXX</td>
 <td class="comment-1" rowspan="1">Exchange the registers.</td>
@@ -385,64 +431,77 @@ Point <span class="register">HL</span> to the base address of the currently refe
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fcc"></span>5FCC</td>
 <td class="instruction">LD C,A</td>
 <td class="comment-1" rowspan="2">Set the LSB of <span class="register">BC</span> to <span class="register">A</span>, and the MSB to $00.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fcd"></span>5FCD</td>
 <td class="instruction">LD B,$00</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fcf"></span>5FCF</td>
 <td class="instruction">LD L,C</td>
 <td class="comment-1" rowspan="2">Copy the same value into <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd0"></span>5FD0</td>
 <td class="instruction">LD H,B</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd1"></span>5FD1</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="3">* 8.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd2"></span>5FD2</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd3"></span>5FD3</td>
 <td class="instruction">ADD HL,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd4"></span>5FD4</td>
 <td class="instruction">LD BC,($5F08)</td>
-<td class="comment-1" rowspan="1"><span class="register">BC</span>=Fetch the address of the start of the UDG data block from <a href="5F02.html#5f08">5F08</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=Fetch the address of the start of the UDG data block from <a href="5F02.html#5f08">BACKGROUND_UDG_DATA</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd8"></span>5FD8</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="2">Choose the referenced UDG and store this at <a href="5F02.html#5f04">5F04</a>.</td>
+<td class="comment-1" rowspan="2">Choose the referenced UDG and store this at <a href="5F02.html#5f04">BACKGROUND_CURRENT_UDG</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fd9"></span>5FD9</td>
 <td class="instruction">LD ($5F04),HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fdc"></span>5FDC</td>
 <td class="instruction">EXX</td>
 <td class="comment-1" rowspan="1">Restore the registers.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fdd"></span>5FDD</td>
-<td class="instruction">CALL <a href="5F80.html#5ff4">$5FF4</a></td>
-<td class="comment-1" rowspan="1">Call <a href="5F80.html#5ff4">5FF4</a>.</td>
+<td class="instruction">CALL <a href="5F80.html#5ff4">COPY_UDG</a></td>
+<td class="comment-1" rowspan="1">Call <a href="5F80.html#5ff4">COPY_UDG</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fe0"></span>5FE0</td>
-<td class="instruction">CALL <a href="5F80.html#6007">$6007</a></td>
-<td class="comment-1" rowspan="1">Call <a href="5F80.html#6007">6007</a>.</td>
+<td class="instruction">CALL <a href="5F80.html#6007">BKG_NEXT_SCREEN_BLOCK</a></td>
+<td class="comment-1" rowspan="1">Call <a href="5F80.html#6007">BKG_NEXT_SCREEN_BLOCK</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -455,14 +514,16 @@ Check if the flag for repetition is set, if so - action it. If not, jump and wor
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fe3"></span>5FE3</td>
 <td class="instruction">POP AF</td>
 <td class="comment-1" rowspan="1">Fetch the position data off the stack, as this is <span class="register">AF</span> this also restores the d7 check flag.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fe4"></span>5FE4</td>
-<td class="instruction">JR Z,<a href="5F80.html#5fbe">$5FBE</a></td>
-<td class="comment-1" rowspan="1">Jump back to <a href="5F80.html#5fbe">5FBE</a> unless the bit was set.</td>
+<td class="instruction">JR Z,<a href="5F80.html#5fbe">BACKGROUND_FETCH_NEXT</a></td>
+<td class="comment-1" rowspan="1">Jump back to <a href="5F80.html#5fbe">BACKGROUND_FETCH_NEXT</a> unless the bit was set.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -475,39 +536,46 @@ Using the following position data byte as a counter, copy the current byte this 
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fe6"></span>5FE6</td>
 <td class="instruction">LD B,(HL)</td>
 <td class="comment-1" rowspan="1">Pick up the position data from <span class="register">HL</span> and store it in <span class="register">B</span> to use as a counter.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fe7"></span>5FE7</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> to point to the next item of position data.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fe8"></span>5FE8</td>
 <td class="instruction">DEC B</td>
 <td class="comment-1" rowspan="1">Decrease the counter by one.</td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_REPEAT_COPY</td>
 <td class="address-2"><span id="5fe9"></span>5FE9</td>
-<td class="instruction">CALL <a href="5F80.html#5ff4">$5FF4</a></td>
-<td class="comment-1" rowspan="1">Call <a href="5F80.html#5ff4">5FF4</a>.</td>
+<td class="instruction">CALL <a href="5F80.html#5ff4">COPY_UDG</a></td>
+<td class="comment-1" rowspan="1">Call <a href="5F80.html#5ff4">COPY_UDG</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fec"></span>5FEC</td>
-<td class="instruction">CALL <a href="5F80.html#6007">$6007</a></td>
-<td class="comment-1" rowspan="1">Call <a href="5F80.html#6007">6007</a>.</td>
+<td class="instruction">CALL <a href="5F80.html#6007">BKG_NEXT_SCREEN_BLOCK</a></td>
+<td class="comment-1" rowspan="1">Call <a href="5F80.html#6007">BKG_NEXT_SCREEN_BLOCK</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fef"></span>5FEF</td>
-<td class="instruction">DJNZ <a href="5F80.html#5fe9">$5FE9</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="5F80.html#5fe9">5FE9</a> until the counter is zero.</td>
+<td class="instruction">DJNZ <a href="5F80.html#5fe9">BACKGROUND_REPEAT_COPY</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="5F80.html#5fe9">BACKGROUND_REPEAT_COPY</a> until the counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ff1"></span>5FF1</td>
-<td class="instruction">JR <a href="5F80.html#5fbe">$5FBE</a></td>
-<td class="comment-1" rowspan="1">Jump back round to <a href="5F80.html#5fbe">5FBE</a>.</td>
+<td class="instruction">JR <a href="5F80.html#5fbe">BACKGROUND_FETCH_NEXT</a></td>
+<td class="comment-1" rowspan="1">Jump back round to <a href="5F80.html#5fbe">BACKGROUND_FETCH_NEXT</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -520,6 +588,7 @@ Used to "just return" after flag checking operations.
 </td>
 </tr>
 <tr>
+<td class="asm-label">BACKGROUND_RETURN</td>
 <td class="address-2"><span id="5ff3"></span>5FF3</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -535,73 +604,88 @@ Copy a single UDG 8x8 block to the screen.
 </td>
 </tr>
 <tr>
+<td class="asm-label">COPY_UDG</td>
 <td class="address-2"><span id="5ff4"></span>5FF4</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="2">Push <span class="register">DE</span> (current screen location) and <span class="register">HL</span> (next position data location) onto the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ff5"></span>5FF5</td>
 <td class="instruction">PUSH HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ff6"></span>5FF6</td>
 <td class="instruction">LD A,$08</td>
 <td class="comment-1" rowspan="1">Set a counter of $08 for the number of lines in a character block.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ff8"></span>5FF8</td>
 <td class="instruction">LD HL,($5F04)</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="5F02.html#5f04">the currently targeted UDG address</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">COPY_UDG_LOOP</td>
 <td class="address-2"><span id="5ffb"></span>5FFB</td>
 <td class="instruction">EX AF,AF'</td>
 <td class="comment-1" rowspan="1">Stash the counter for later.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ffc"></span>5FFC</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="2">Copy the UDG data held by <span class="register">HL</span> into the screen buffer currently pointed to by <span class="register">DE</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ffd"></span>5FFD</td>
 <td class="instruction">LD (DE),A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5ffe"></span>5FFE</td>
 <td class="instruction">INC HL</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">HL</span> by one to point to the next line of the UDG data.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="5fff"></span>5FFF</td>
 <td class="instruction">INC D</td>
 <td class="comment-1" rowspan="1">Increment the MSB of <span class="register">DE</span> by one to point to the line directly below in the screen buffer.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6000"></span>6000</td>
 <td class="instruction">EX AF,AF'</td>
 <td class="comment-1" rowspan="1">Restore the counter.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6001"></span>6001</td>
 <td class="instruction">DEC A</td>
 <td class="comment-1" rowspan="1">Decrease the counter by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6002"></span>6002</td>
-<td class="instruction">JR NZ,<a href="5F80.html#5ffb">$5FFB</a></td>
-<td class="comment-1" rowspan="1">Loop back to <a href="5F80.html#5ffb">5FFB</a> until the counter is zero.</td>
+<td class="instruction">JR NZ,<a href="5F80.html#5ffb">COPY_UDG_LOOP</a></td>
+<td class="comment-1" rowspan="1">Loop back to <a href="5F80.html#5ffb">COPY_UDG_LOOP</a> until the counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6004"></span>6004</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="2">Restore the original <span class="register">HL</span> and <span class="register">DE</span> values for screen location and position data from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6005"></span>6005</td>
 <td class="instruction">POP DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6006"></span>6006</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -617,33 +701,40 @@ Handles moving from one screen location block to the next.
 </td>
 </tr>
 <tr>
+<td class="asm-label">BKG_NEXT_SCREEN_BLOCK</td>
 <td class="address-2"><span id="6007"></span>6007</td>
 <td class="instruction">INC DE</td>
 <td class="comment-1" rowspan="1">Increase <span class="register">DE</span> by 1.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="6008"></span>6008</td>
 <td class="instruction">BIT 0,D</td>
 <td class="comment-1" rowspan="2">Return if d0 is not set on the MSB of <span class="register">DE</span>. This checks to see if we're at a screen boundary.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="600a"></span>600A</td>
 <td class="instruction">RET Z</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="600b"></span>600B</td>
 <td class="instruction">LD A,$07</td>
 <td class="comment-1" rowspan="3">Add $07 to <span class="register">D</span>, so that <span class="register">DE</span> points to the next block down.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="600d"></span>600D</td>
 <td class="instruction">ADD A,D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="600e"></span>600E</td>
 <td class="instruction">LD D,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="600f"></span>600F</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

@@ -38,7 +38,7 @@ Next: <a href="AFDA.html">AFDA</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3E</a>.
+Used by the routines at <a href="AB70.html">DEMO_MODE</a> and <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -46,7 +46,7 @@ Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3
 <tr>
 <td class="address-2"><span id="af36"></span>AF36</td>
 <td class="instruction">LD A,($AA08)</td>
-<td class="comment-1" rowspan="3">Jump to <a href="AF36.html#af7d">AF7D</a> if <a href="AA06.html#aa08">AA08</a> is zero.</td>
+<td class="comment-1" rowspan="3">Jump to <a href="AF36.html#af7d">AF7D</a> if <a href="AA06.html#aa08">P1_POINTS_AWARDED</a> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="af39"></span>AF39</td>
@@ -109,7 +109,7 @@ Used by the routines at <a href="AB70.html">AB70</a> and <a href="AC3E.html">AC3
 <span id="af52"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="AC3E.html">AC3E</a>.
+This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -148,7 +148,7 @@ This entry point is used by the routine at <a href="AC3E.html">AC3E</a>.
 <td class="address-1"><span id="af5e"></span>AF5E</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="2">Write $00 to; <ul class="">
-<li><a href="AA06.html#aa08">AA08</a></li>
+<li><a href="AA06.html#aa08">P1_POINTS_AWARDED</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -158,7 +158,7 @@ This entry point is used by the routine at <a href="AC3E.html">AC3E</a>.
 <tr>
 <td class="address-1"><span id="af62"></span>AF62</td>
 <td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="3">Return if <a href="9C2C.html">9C2C</a> is zero.</td>
+<td class="comment-1" rowspan="3">Return if <a href="9C2C.html">NUM_PLAYERS</a> is zero.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="af65"></span>AF65</td>
@@ -181,7 +181,7 @@ Player 1 display score.
 <tr>
 <td class="address-1"><span id="af68"></span>AF68</td>
 <td class="instruction">LD HL,$B02F</td>
-<td class="comment-1" rowspan="1">Point to <a href="B024.html#b02f">B02F</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="B024.html#b02f">SCORE_P1</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="af6b"></span>AF6B</td>
@@ -190,18 +190,18 @@ Player 1 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="af6d"></span>AF6D</td>
-<td class="instruction">CALL <a href="AFDA.html">$AFDA</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html">AFDA</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="af70"></span>AF70</td>
-<td class="instruction">CALL <a href="AFDA.html#afed">$AFED</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html#afed">AFED</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html#afed">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html#afed">WRITE_00</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="af73"></span>AF73</td>
 <td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html">B024</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html">SCORE_BUFFER</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="af76"></span>AF76</td>
@@ -209,7 +209,7 @@ Player 1 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="af79"></span>AF79</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="af7c"></span>AF7C</td>
@@ -286,7 +286,7 @@ Player 1 display score.
 <span id="af97"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="AC3E.html">AC3E</a>.
+This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -359,7 +359,7 @@ Player 2 display score.
 <tr>
 <td class="address-1"><span id="afad"></span>AFAD</td>
 <td class="instruction">LD HL,$B032</td>
-<td class="comment-1" rowspan="1">Point to <a href="B024.html#b032">B032</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="B024.html#b032">SCORE_P2</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="afb0"></span>AFB0</td>
@@ -368,18 +368,18 @@ Player 2 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="afb2"></span>AFB2</td>
-<td class="instruction">CALL <a href="AFDA.html">$AFDA</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html">AFDA</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html">POPULATE_SCORE_BUFFER</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html">POPULATE_SCORE_BUFFER</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="afb5"></span>AFB5</td>
-<td class="instruction">CALL <a href="AFDA.html#afed">$AFED</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html#afed">AFED</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html#afed">WRITE_00</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html#afed">WRITE_00</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="afb8"></span>AFB8</td>
 <td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html">B024</a> and call <a href="92E4.html">92E4</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html">SCORE_BUFFER</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="afbb"></span>AFBB</td>
@@ -387,7 +387,7 @@ Player 2 display score.
 </tr>
 <tr>
 <td class="address-1"><span id="afbe"></span>AFBE</td>
-<td class="instruction">CALL <a href="92E4.html">$92E4</a></td>
+<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="afc1"></span>AFC1</td>

@@ -38,7 +38,7 @@ Next: <a href="92FF.html">92FF</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="8C54.html">8C54</a>, <a href="8CDB.html">8CDB</a>, <a href="8D99.html">8D99</a>, <a href="909E.html">909E</a>, <a href="932C.html">932C</a>, <a href="9745.html">9745</a>, <a href="A685.html">A685</a>, <a href="AB70.html">AB70</a>, <a href="AC05.html">AC05</a>, <a href="AC3E.html">AC3E</a>, <a href="AEBF.html">AEBF</a> and <a href="AF36.html">AF36</a>.
+Used by the routines at <a href="8C54.html">GAME_CONFIGS_MAIN</a>, <a href="8CDB.html">GAME_CONFIGS_CONTROLS</a>, <a href="8D99.html">GAME_CONFIGS_KEYS</a>, <a href="909E.html">NEW_ROUND</a>, <a href="932C.html">TIME_BUFFER</a>, <a href="9745.html">GAME_OVER</a>, <a href="A685.html">PRINT_HISCORE</a>, <a href="AB70.html">DEMO_MODE</a>, <a href="AC05.html">MAIN_GAME</a>, <a href="AC3E.html">START_1UP_GAME</a>, <a href="AEBF.html">SHOW_RANK</a> and <a href="AF36.html">AF36</a>.
 </div>
 </div>
 </td>
@@ -63,103 +63,123 @@ Used by the routines at <a href="8C54.html">8C54</a>, <a href="8CDB.html">8CDB</
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_STRING</td>
 <td class="address-2"><span id="92e4"></span>92E4</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92e5"></span>92E5</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92e6"></span>92E6</td>
 <td class="instruction">LD A,L</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92e7"></span>92E7</td>
-<td class="instruction">CALL <a href="C203.html">$C203</a></td>
+<td class="instruction">CALL <a href="C203.html">SCREEN_CALC</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92ea"></span>92EA</td>
 <td class="instruction">POP DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92eb"></span>92EB</td>
 <td class="instruction">LD E,D</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92ec"></span>92EC</td>
 <td class="instruction">LD D,$00</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92ee"></span>92EE</td>
 <td class="instruction">ADD HL,DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92ef"></span>92EF</td>
 <td class="instruction">POP DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_STRING_LOOP</td>
 <td class="address-2"><span id="92f0"></span>92F0</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f1"></span>92F1</td>
 <td class="instruction">AND A</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f2"></span>92F2</td>
 <td class="instruction">RET Z</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f3"></span>92F3</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f4"></span>92F4</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f5"></span>92F5</td>
 <td class="instruction">CALL <a href="923A.html">$923A</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f8"></span>92F8</td>
 <td class="instruction">POP DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92f9"></span>92F9</td>
 <td class="instruction">POP HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92fa"></span>92FA</td>
 <td class="instruction">INC HL</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92fb"></span>92FB</td>
 <td class="instruction">INC DE</td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="92fc"></span>92FC</td>
-<td class="instruction">JP <a href="92E4.html#92f0">$92F0</a></td>
+<td class="instruction">JP <a href="92E4.html#92f0">PRINT_STRING_LOOP</a></td>
 <td class="comment-0" rowspan="1"></td>
 </tr>
 </table>

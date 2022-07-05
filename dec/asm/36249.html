@@ -38,15 +38,16 @@ Next: <a href="36418.html">36418</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="36059.html">36059</a>.
+Used by the routine at <a href="36059.html">GAME_CONFIGS_CONTROLS</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">GAME_CONFIGS_KEYS</td>
 <td class="address-2"><span id="36249"></span>36249</td>
-<td class="instruction">CALL <a href="36428.html">36428</a></td>
-<td class="comment-1" rowspan="1">Call <a href="36428.html">36428</a>.</td>
+<td class="instruction">CALL <a href="36428.html">CLEAR_SCREEN</a></td>
+<td class="comment-1" rowspan="1">Call <a href="36428.html">CLEAR_SCREEN</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -59,43 +60,52 @@ Displays the "for each direction ... press key" banner.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36252"></span>36252</td>
 <td class="instruction">LD DE,36715</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36715">36715</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36715">TEXT_CHANGE_1</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36255"></span>36255</td>
 <td class="instruction">LD HL,301</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36258"></span>36258</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36261"></span>36261</td>
 <td class="instruction">LD DE,36745</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36745">36745</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36745">TEXT_CHANGE_2</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36264"></span>36264</td>
 <td class="instruction">LD HL,310</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36267"></span>36267</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36270"></span>36270</td>
 <td class="instruction">LD DE,36775</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36775">36775</a> and call <a href="37604.html">37604</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36775">TEXT_CHANGE_3</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36273"></span>36273</td>
 <td class="instruction">LD HL,319</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36276"></span>36276</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -108,33 +118,40 @@ Set that this player should use the "redefined keys" for their input.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36279"></span>36279</td>
 <td class="instruction">LD HL,(36457)</td>
-<td class="comment-1" rowspan="2">Fetch the current player from <a href="36457.html">36457</a>, and set it in both <span class="register">DE</span> and <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="2">Fetch the current player from <a href="36457.html">TEMP_PLAYER</a>, and set it in both <span class="register">DE</span> and <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36282"></span>36282</td>
 <td class="instruction">LD DE,(36457)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36286"></span>36286</td>
 <td class="instruction">INC DE</td>
 <td class="comment-1" rowspan="2">Increase <span class="register">DE</span> by two to point to the beginning of that players redefined keys map.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36287"></span>36287</td>
 <td class="instruction">INC DE</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36288"></span>36288</td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-1" rowspan="3">Stores either <a href="35796.html">35796</a> or <a href="35816.html">35816</a> at the address for the player control method.</td>
+<td class="comment-1" rowspan="3">Stores either <a href="35796.html">PLAYER_1_UP</a> or <a href="35816.html">PLAYER_2_UP</a> at the address for the player control method.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36289"></span>36289</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36290"></span>36290</td>
 <td class="instruction">LD (HL),D</td>
 </tr>
@@ -149,90 +166,109 @@ Go through each key and process.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36291"></span>36291</td>
 <td class="instruction">LD HL,36795</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36795">36795</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36795">TEXT_UP</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36294"></span>36294</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36297"></span>36297</td>
 <td class="instruction">LD HL,36798</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36798">36798</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36798">TEXT_UP_RIGHT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36300"></span>36300</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36303"></span>36303</td>
 <td class="instruction">LD HL,36807</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36807">36807</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36807">TEXT_RIGHT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36306"></span>36306</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36309"></span>36309</td>
 <td class="instruction">LD HL,36813</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36813">36813</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36813">TEXT_DOWN_RIGHT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36312"></span>36312</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36315"></span>36315</td>
 <td class="instruction">LD HL,36824</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36824">36824</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36824">TEXT_DOWN</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36318"></span>36318</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36321"></span>36321</td>
 <td class="instruction">LD HL,36829</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36829">36829</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36829">TEXT_DOWN_LEFT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36324"></span>36324</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36327"></span>36327</td>
 <td class="instruction">LD HL,36839</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36839">36839</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36839">TEXT_LEFT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36330"></span>36330</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36333"></span>36333</td>
 <td class="instruction">LD HL,36844</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36844">36844</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36844">TEXT_UP_LEFT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36336"></span>36336</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36339"></span>36339</td>
 <td class="instruction">LD HL,36852</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36852">36852</a> and call <a href="36249.html#36348">36348</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36852">TEXT_FIRE</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36342"></span>36342</td>
-<td class="instruction">CALL <a href="36249.html#36348">36348</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36345"></span>36345</td>
-<td class="instruction">JP <a href="35924.html#36058">36058</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">36058</a>.</td>
+<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -245,101 +281,123 @@ Print the message, get the key and write it to the mapping buffer for this playe
 </td>
 </tr>
 <tr>
+<td class="asm-label">PRINT_KEY_LOOP</td>
 <td class="address-2"><span id="36348"></span>36348</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="1">Stash the current key mapping address on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36349"></span>36349</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="3">Use <a href="37604.html">37604</a> to show the message for which key to press.</td>
+<td class="comment-1" rowspan="3">Use <a href="37604.html">PRINT_STRING</a> to show the message for which key to press.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36350"></span>36350</td>
 <td class="instruction">LD HL,1372</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36353"></span>36353</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36356"></span>36356</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="1">Fetch the current key mapping address from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36357"></span>36357</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="1">Stash it again for later.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36358"></span>36358</td>
-<td class="instruction">CALL <a href="36249.html#36386">36386</a></td>
-<td class="comment-1" rowspan="1">Call <a href="36249.html#36386">36386</a>.</td>
+<td class="instruction">CALL <a href="36249.html#36386">GET_KEY</a></td>
+<td class="comment-1" rowspan="1">Call <a href="36249.html#36386">GET_KEY</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36361"></span>36361</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="1">Fetch the current key mapping address from the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36362"></span>36362</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="6">Writes the port number and key byte to the current key mapping address.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36363"></span>36363</td>
 <td class="instruction">LD (HL),E</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36364"></span>36364</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36365"></span>36365</td>
 <td class="instruction">LD (HL),D</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36366"></span>36366</td>
 <td class="instruction">INC HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36367"></span>36367</td>
 <td class="instruction">EX DE,HL</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36368"></span>36368</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="1">Stash the next key mapping address on the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36369"></span>36369</td>
 <td class="instruction">LD DE,36864</td>
 <td class="comment-1" rowspan="3">Blank out the "press key" message with whitespace.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36372"></span>36372</td>
 <td class="instruction">LD HL,1372</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36375"></span>36375</td>
-<td class="instruction">CALL <a href="37604.html">37604</a></td>
+<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36378"></span>36378</td>
-<td class="instruction">CALL <a href="36418.html">36418</a></td>
-<td class="comment-1" rowspan="2">Delay (for debounce) twice <a href="36418.html">36418</a>.</td>
+<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
+<td class="comment-1" rowspan="2">Delay (for debounce) twice <a href="36418.html">CONFIGS_DELAY</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36381"></span>36381</td>
-<td class="instruction">CALL <a href="36418.html">36418</a></td>
+<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36384"></span>36384</td>
 <td class="instruction">POP DE</td>
 <td class="comment-1" rowspan="1">Restores the current key location off the stack.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36385"></span>36385</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -355,52 +413,62 @@ Detect the key press.
 </td>
 </tr>
 <tr>
+<td class="asm-label">GET_KEY</td>
 <td class="address-2"><span id="36386"></span>36386</td>
 <td class="instruction">LD DE,36410</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="36249.html#36410">36410</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="36249.html#36410">KEY_DATA</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36389"></span>36389</td>
 <td class="instruction">LD B,8</td>
 <td class="comment-1" rowspan="1">Set a counter <span class="register">B</span>=$08.</td>
 </tr>
 <tr>
+<td class="asm-label">GET_KEY_LOOP</td>
 <td class="address-2"><span id="36391"></span>36391</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="2">Using the current port, read the keyboard.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36392"></span>36392</td>
 <td class="instruction">IN A,(254)</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36394"></span>36394</td>
 <td class="instruction">CPL</td>
 <td class="comment-1" rowspan="2">Is a key being pressed?</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36395"></span>36395</td>
 <td class="instruction">AND 31</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36397"></span>36397</td>
-<td class="instruction">JP NZ,<a href="36249.html#36406">36406</a></td>
-<td class="comment-1" rowspan="1">Yes - jump to <a href="36249.html#36406">36406</a>.</td>
+<td class="instruction">JP NZ,<a href="36249.html#36406">STORE_KEY</a></td>
+<td class="comment-1" rowspan="1">Yes - jump to <a href="36249.html#36406">STORE_KEY</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36400"></span>36400</td>
 <td class="instruction">INC DE</td>
 <td class="comment-1" rowspan="1">Increase <span class="register">DE</span> by one.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36401"></span>36401</td>
-<td class="instruction">DJNZ <a href="36249.html#36391">36391</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="36249.html#36391">36391</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="36249.html#36391">GET_KEY_LOOP</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="36249.html#36391">GET_KEY_LOOP</a> until counter is zero.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36403"></span>36403</td>
-<td class="instruction">JP <a href="36249.html#36386">36386</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36249.html#36386">36386</a>.</td>
+<td class="instruction">JP <a href="36249.html#36386">GET_KEY</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36249.html#36386">GET_KEY</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -413,20 +481,24 @@ Stores the port number as the MSB of <span class="register">HL</span>, and the k
 </td>
 </tr>
 <tr>
+<td class="asm-label">STORE_KEY</td>
 <td class="address-2"><span id="36406"></span>36406</td>
 <td class="instruction">LD L,A</td>
 <td class="comment-1" rowspan="1">Store the key byte as the LSB of <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36407"></span>36407</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="2">Store the port number from <span class="register">DE</span> as the MSB of <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36408"></span>36408</td>
 <td class="instruction">LD H,A</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="36409"></span>36409</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -518,6 +590,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 </td>
 </tr>
 <tr>
+<td class="asm-label">KEY_DATA</td>
 <td class="address-1"><span id="36410"></span>36410</td>
 <td class="instruction">DEFB 254,253,251,247,239,223,191,127</td>
 <td class="comment-1" rowspan="1">Key Data</td>

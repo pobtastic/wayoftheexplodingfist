@@ -38,7 +38,7 @@ Next: <a href="49716.html">49716</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="37376.html">37376</a>, <a href="37461.html">37461</a>, <a href="37604.html">37604</a>, <a href="48915.html">48915</a> and <a href="49409.html">49409</a>.
+Used by the routines at <a href="37376.html">37376</a>, <a href="37461.html">YIN_YANG_COPY</a>, <a href="37604.html">PRINT_STRING</a>, <a href="48915.html">48915</a> and <a href="49409.html">49409</a>.
 </div>
 </div>
 </td>
@@ -54,49 +54,59 @@ This routine works out which area of the screen we are in. Here are a few exampl
 </td>
 </tr>
 <tr>
+<td class="asm-label">SCREEN_CALC</td>
 <td class="address-2"><span id="49667"></span>49667</td>
 <td class="instruction">LD E,A</td>
 <td class="comment-1" rowspan="1">Stash the accumulator in <span class="register">E</span> for later.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49668"></span>49668</td>
 <td class="instruction">AND 192</td>
 <td class="comment-1" rowspan="1">Mask off low bits d6-d7.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49670"></span>49670</td>
-<td class="instruction">JP Z,<a href="49667.html#49690">49690</a></td>
-<td class="comment-1" rowspan="1">If the result is now zero, jump to <a href="49667.html#49690">49690</a>.</td>
+<td class="instruction">JP Z,<a href="49667.html#49690">SCREEN_TOP</a></td>
+<td class="comment-1" rowspan="1">If the result is now zero, jump to <a href="49667.html#49690">SCREEN_TOP</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49673"></span>49673</td>
 <td class="instruction">CP 64</td>
-<td class="comment-1" rowspan="2">If <span class="register">A</span> is $40 then jump to <a href="49667.html#49684">49684</a>.</td>
+<td class="comment-1" rowspan="2">If <span class="register">A</span> is $40 then jump to <a href="49667.html#49684">SCREEN_MIDDLE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49675"></span>49675</td>
-<td class="instruction">JP Z,<a href="49667.html#49684">49684</a></td>
+<td class="instruction">JP Z,<a href="49667.html#49684">SCREEN_MIDDLE</a></td>
 </tr>
 <tr>
+<td class="asm-label">SCREEN_BOTTOM</td>
 <td class="address-1"><span id="49678"></span>49678</td>
 <td class="instruction">LD HL,20480</td>
-<td class="comment-1" rowspan="2">Sets <span class="register">HL</span> to $5000 (the bottom of the screen buffer) and jump to <a href="49667.html#49693">49693</a>.</td>
+<td class="comment-1" rowspan="2">Sets <span class="register">HL</span> to $5000 (the bottom of the screen buffer) and jump to <a href="49667.html#49693">SCREEN_CALC_MINOR</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49681"></span>49681</td>
-<td class="instruction">JP <a href="49667.html#49693">49693</a></td>
+<td class="instruction">JP <a href="49667.html#49693">SCREEN_CALC_MINOR</a></td>
 </tr>
 <tr>
+<td class="asm-label">SCREEN_MIDDLE</td>
 <td class="address-2"><span id="49684"></span>49684</td>
 <td class="instruction">LD HL,18432</td>
-<td class="comment-1" rowspan="1">Sets <span class="register">HL</span> to $4800 (the middle of the screen buffer) and jump to <a href="49667.html#49693">49693</a>.</td>
+<td class="comment-1" rowspan="1">Sets <span class="register">HL</span> to $4800 (the middle of the screen buffer) and jump to <a href="49667.html#49693">SCREEN_CALC_MINOR</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49687"></span>49687</td>
-<td class="instruction">JP <a href="49667.html#49693">49693</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="49667.html#49693">49693</a>.</td>
+<td class="instruction">JP <a href="49667.html#49693">SCREEN_CALC_MINOR</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="49667.html#49693">SCREEN_CALC_MINOR</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">SCREEN_TOP</td>
 <td class="address-2"><span id="49690"></span>49690</td>
 <td class="instruction">LD HL,16384</td>
 <td class="comment-1" rowspan="1">Sets <span class="register">HL</span> to $4000 (the top of the screen buffer) and continue on...</td>
@@ -112,71 +122,86 @@ Now we have the base screen address; work out the exact address to return.
 </td>
 </tr>
 <tr>
+<td class="asm-label">SCREEN_CALC_MINOR</td>
 <td class="address-2"><span id="49693"></span>49693</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1">Restore the accumulator from <span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49694"></span>49694</td>
 <td class="instruction">AND 7</td>
 <td class="comment-1" rowspan="1">Mask bits d0-d2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49696"></span>49696</td>
 <td class="instruction">LD B,A</td>
 <td class="comment-1" rowspan="2">Push the accumulator into <span class="register">BC</span> as the high-order byte (low is $00).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49697"></span>49697</td>
 <td class="instruction">LD C,0</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49699"></span>49699</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1">Adds <span class="register">BC</span> to <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49700"></span>49700</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1">Again, restore the accumulator from <span class="register">E</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49701"></span>49701</td>
 <td class="instruction">AND 56</td>
 <td class="comment-1" rowspan="1">Mask bits d3-d5.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49703"></span>49703</td>
 <td class="instruction">LD C,A</td>
 <td class="comment-1" rowspan="2">Push the accumulator into <span class="register">BC</span> as the low-order byte (high is $00).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49704"></span>49704</td>
 <td class="instruction">LD B,0</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49706"></span>49706</td>
 <td class="instruction">SLA C</td>
 <td class="comment-1" rowspan="4">* 2 * 2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49708"></span>49708</td>
 <td class="instruction">RL B</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49710"></span>49710</td>
 <td class="instruction">SLA C</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49712"></span>49712</td>
 <td class="instruction">RL B</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49714"></span>49714</td>
 <td class="instruction">ADD HL,BC</td>
 <td class="comment-1" rowspan="1">Adds <span class="register">BC</span> to <span class="register">HL</span>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="49715"></span>49715</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>

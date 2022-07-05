@@ -38,7 +38,7 @@ Next: <a href="A685.html">A685</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="AC05.html">AC05</a> and <a href="AC3E.html">AC3E</a>.
+Used by the routines at <a href="AC05.html">MAIN_GAME</a> and <a href="AC3E.html">START_1UP_GAME</a>.
 </div>
 </div>
 </td>
@@ -54,11 +54,13 @@ Check if either player has broken the high score.
 </td>
 </tr>
 <tr>
+<td class="asm-label">CHECK_HISCORE</td>
 <td class="address-2"><span id="a647"></span>A647</td>
 <td class="instruction">LD HL,$B035</td>
 <td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="B024.html#b035">high score</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a64a"></span>A64A</td>
 <td class="instruction">LD DE,$B02F</td>
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="B024.html#b02f">1UP score</a></td>
@@ -68,36 +70,40 @@ Check if either player has broken the high score.
 <span id="a64d"></span>
 <div class="comments">
 <div class="paragraph">
-If this is not a two player game then we skip forward to <a href="A647.html#a679">A679</a> to only test for the 1UP score.
+If this is not a two player game then we skip forward to <a href="A647.html#a679">CHECK_HISCORE_1UP</a> to only test for the 1UP score.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a64d"></span>A64D</td>
 <td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="2">Check <a href="9C2C.html">9C2C</a>; is this a 2 player game?</td>
+<td class="comment-1" rowspan="2">Check <a href="9C2C.html">NUM_PLAYERS</a>; is this a 2 player game?</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a650"></span>A650</td>
 <td class="instruction">CP $02</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a652"></span>A652</td>
-<td class="instruction">JR NZ,<a href="A647.html#a679">$A679</a></td>
-<td class="comment-1" rowspan="1">If not, jump to <a href="A647.html#a679">A679</a>.</td>
+<td class="instruction">JR NZ,<a href="A647.html#a679">CHECK_HISCORE_1UP</a></td>
+<td class="comment-1" rowspan="1">If not, jump to <a href="A647.html#a679">CHECK_HISCORE_1UP</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
 <span id="a654"></span>
 <div class="comments">
 <div class="paragraph">
-<a href="A6B6.html">A6B6</a> mirrors <a href="9C2C.html">9C2C</a> here. todo: why?
+<a href="A6B6.html">A6B6</a> mirrors <a href="9C2C.html">NUM_PLAYERS</a> here. todo: why?
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a654"></span>A654</td>
 <td class="instruction">LD ($A6B6),A</td>
 <td class="comment-1" rowspan="1">Store $02 at <a href="A6B6.html">A6B6</a>.</td>
@@ -113,18 +119,21 @@ Check 2UP score.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a657"></span>A657</td>
 <td class="instruction">LD HL,$B032</td>
-<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="B024.html#b032">B032</a> and call <a href="A697.html">A697</a>.</td>
+<td class="comment-1" rowspan="2"><span class="register">HL</span>=<a href="B024.html#b032">SCORE_P2</a> and call <a href="A697.html">IS_HIGH_SCORE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a65a"></span>A65A</td>
-<td class="instruction">CALL <a href="A697.html">$A697</a></td>
+<td class="instruction">CALL <a href="A697.html">IS_HIGH_SCORE</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a65d"></span>A65D</td>
-<td class="instruction">JR NC,<a href="A647.html#a669">$A669</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="A647.html#a669">A669</a> if this is not a new high score.</td>
+<td class="instruction">JR NC,<a href="A647.html#a669">CHECK_HS_CHANGES</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="A647.html#a669">CHECK_HS_CHANGES</a> if this is not a new high score.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -137,23 +146,27 @@ Overwrite the high score with the 2UP score.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a65f"></span>A65F</td>
 <td class="instruction">LD BC,$0003</td>
-<td class="comment-1" rowspan="2">Copy the 2UP score over the current <a href="B024.html#b035">B035</a>.</td>
+<td class="comment-1" rowspan="2">Copy the 2UP score over the current <a href="B024.html#b035">HISCORE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a662"></span>A662</td>
 <td class="instruction">LDDR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a664"></span>A664</td>
 <td class="instruction">LD DE,$B02F</td>
 <td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="B024.html#b02f">2UP score</a></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a667"></span>A667</td>
-<td class="instruction">JR <a href="A647.html#a676">$A676</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="A647.html#a676">A676</a>.</td>
+<td class="instruction">JR <a href="A647.html#a676">CHECK_HS_RESTORE</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="A647.html#a676">CHECK_HS_RESTORE</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -166,22 +179,26 @@ Checks if all three digits changed. todo: why?
 </td>
 </tr>
 <tr>
+<td class="asm-label">CHECK_HS_CHANGES</td>
 <td class="address-2"><span id="a669"></span>A669</td>
 <td class="instruction">LD A,($A6B7)</td>
 <td class="comment-1" rowspan="2">Check <a href="A6B7.html">A6B7</a>; are there three digit changes?</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a66c"></span>A66C</td>
 <td class="instruction">CP $03</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a66e"></span>A66E</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="1">Store $01 at <a href="A6B6.html">A6B6</a> (skips forward to <a href="A647.html#a673">A673</a>).</td>
+<td class="comment-1" rowspan="1">Store $01 at <a href="A6B6.html">A6B6</a> (skips forward to <a href="A647.html#a673">HS_WRITE_A6B6</a>).</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a670"></span>A670</td>
-<td class="instruction">JR NZ,<a href="A647.html#a673">$A673</a></td>
+<td class="instruction">JR NZ,<a href="A647.html#a673">HS_WRITE_A6B6</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -195,11 +212,13 @@ Else reset <a href="A6B6.html">A6B6</a>.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a672"></span>A672</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="2">Write $00 to <a href="A6B6.html">A6B6</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">HS_WRITE_A6B6</td>
 <td class="address-2"><span id="a673"></span>A673</td>
 <td class="instruction">LD ($A6B6),A</td>
 </tr>
@@ -214,16 +233,19 @@ Resets <span class="register">HL</span> with <a href="B024.html#b038">B038</a> s
 </td>
 </tr>
 <tr>
+<td class="asm-label">CHECK_HS_RESTORE</td>
 <td class="address-2"><span id="a676"></span>A676</td>
 <td class="instruction">LD HL,$B038</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="B024.html#b038">B038</a> and call <a href="A697.html">A697</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="B024.html#b038">B038</a> and call <a href="A697.html">IS_HIGH_SCORE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label">CHECK_HISCORE_1UP</td>
 <td class="address-2"><span id="a679"></span>A679</td>
-<td class="instruction">CALL <a href="A697.html">$A697</a></td>
-<td class="comment-1" rowspan="1">Call <a href="A697.html">A697</a>.</td>
+<td class="instruction">CALL <a href="A697.html">IS_HIGH_SCORE</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A697.html">IS_HIGH_SCORE</a>.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a67c"></span>A67C</td>
 <td class="instruction">RET C</td>
 <td class="comment-1" rowspan="1">Return if this is not a new high score.</td>
@@ -239,24 +261,29 @@ Overwrite the high score with the 1UP score.
 </td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a67d"></span>A67D</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="1">Stash the high score memory address temporarily.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a67e"></span>A67E</td>
 <td class="instruction">EX DE,HL</td>
 <td class="comment-1" rowspan="3">Overwrite the high score.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a67f"></span>A67F</td>
 <td class="instruction">LD BC,$0003</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a682"></span>A682</td>
 <td class="instruction">LDDR</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="a684"></span>A684</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="1">Restore the high score memory address to <span class="register">HL</span>.</td>
