@@ -7,7 +7,7 @@
 ;   skool2html.py -H sources/wotef.skool -T dark
 
 [Config]
-RefFiles=analytics.ref;bases.ref;changelog.ref;facts.ref;graphics.ref;pages.ref;pokes.ref
+RefFiles=bases.ref;analytics.ref;changelog.ref;facts.ref;graphics.ref;pages.ref;pokes.ref
 HtmlWriterClass=:wotef.WayOfTheExplodingFistHtmlWriter
 GameDir=wayoftheexplodingfist
 
@@ -15,6 +15,8 @@ GameDir=wayoftheexplodingfist
 Game=The Way Of The Exploding Fist
 Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
 Copyright=&copy; 1985 Melbourne House
+LinkInternalOperands=1
+AddressAnchor={address#IF({base}==16)(:04x)}
 StyleSheet=skoolkit.css;skoolkit-dark.css
 
 [Links]
@@ -24,7 +26,7 @@ Backgrounds=Backgrounds
 Backgrounds=Backgrounds
 
 [PageHeaders]
-GameIndex=The complete<>RAM disassembly (work in progress)
+GameIndex=The complete <> RAM disassembly (work in progress)
 
 [Paths]
 PlayAreaImagePath={ImagePath}/play_area
