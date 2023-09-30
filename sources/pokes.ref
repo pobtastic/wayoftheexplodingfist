@@ -99,6 +99,8 @@ POKE #R$AD4D(#N$AD4E),#N$10
   </tbody>
 </table>
 
+TBC.
+
 [Poke:Combat without time]
 
 <div>POKE #R$AD82,#N$AF</div>

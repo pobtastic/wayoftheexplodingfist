@@ -319,7 +319,7 @@ c$5F22 LD HL,$5800   ; {Writes #N$3F to all #N$300 locations of the attributes b
                      ; { #N$02 | #R$5F0C($5F0C) }
                      ; { #N$03 | #R$5F0E($5F0E) }
                      ; TABLE#}
- $5F4D EX DE,HL      ; Swap #REGde and #REGhl.
+ $5F4D EX DE,HL      ; Swap the #REGde and #REGhl registers.
  $5F4E CALL $5F52    ; Call #R$5F52.
  $5F51 RET           ; Return.
 ; Indirect jump to copy-to-buffer routine.
@@ -636,7 +636,7 @@ b$6061 DEFB $E8,$9E,$6B,$6C,$E8,$1A,$EB,$04
  $60F9 DEFB $10,$F0,$10,$A0,$10,$F0,$E8
  $6100 DEFB $00,$00                         ; Terminator.
 
-; Background 1 positioning data.
+; Background 1 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$6102 DEFB $80,$1E,$01,$02,$83,$06,$04,$05 ; {#CALL:position_data(#PC, $626A,
@@ -652,7 +652,7 @@ b$6102 DEFB $80,$1E,$01,$02,$83,$06,$04,$05 ; {#CALL:position_data(#PC, $626A,
  $6152 DEFB $41,$42,$43                     ; }
  $6155 DEFB $00,$00                         ; Terminator.
 
-; Background 1 positioning data.
+; Background 1 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$6157 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $648A,
@@ -673,7 +673,7 @@ b$6157 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $648A,
  $61CF DEFB $73,$62,$74,$75,$76,$77,$78,$79 ; }
  $61D7 DEFB $00,$00                         ; Terminator.
 
-; Background 1 positioning data.
+; Background 1 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$61D9 DEFB $80,$02,$01,$02,$03,$00,$04,$05 ; {#CALL:position_data(#PC, $685A,
@@ -693,7 +693,7 @@ b$61D9 DEFB $80,$02,$01,$02,$03,$00,$04,$05 ; {#CALL:position_data(#PC, $685A,
  $6249 DEFB $80,$06                         ; }
  $624B DEFB $00,$00                         ; Terminator.
 
-; Background 1 positioning data.
+; Background 1 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$624D DEFB $80,$03,$01,$02,$03,$04,$05,$06 ; {#CALL:position_data(#PC, $6AE2,
@@ -702,7 +702,7 @@ b$624D DEFB $80,$03,$01,$02,$03,$04,$05,$06 ; {#CALL:position_data(#PC, $6AE2,
  $6265 DEFB $13,$80,$66                     ; }
  $6268 DEFB $00,$00                         ; Terminator.
 
-; Background 1 tile data.
+; Background 1 Tile Data
 b$626A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6272 DEFB $00,$38,$C4,$38,$E0,$D9,$85,$B8 ; #UDG(#PC,attr=56)
  $627A DEFB $00,$00,$38,$47,$30,$C8,$30,$8C ; #UDG(#PC,attr=56)
@@ -772,7 +772,7 @@ b$626A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $647A DEFB $FD,$37,$EE,$75,$8F,$7D,$F7,$EA ; #UDG(#PC,attr=56)
  $6482 DEFB $F0,$AC,$50,$F0,$8F,$B4,$8F,$4C ; #UDG(#PC,attr=56)
 
-; Background 1 tile data.
+; Background 1 Tile Data
 b$648A DEFB $24,$24,$24,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
  $6492 DEFB $48,$44,$44,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
  $649A DEFB $92,$89,$89,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
@@ -896,7 +896,7 @@ b$648A DEFB $24,$24,$24,$FF,$FF,$FF,$FF,$FF ; #UDG(#PC,attr=56)
  $684A DEFB $60,$FF,$00,$00,$FF,$01,$01,$01 ; #UDG(#PC,attr=56)
  $6852 DEFB $93,$AB,$AB,$8B,$8A,$12,$12,$12 ; #UDG(#PC,attr=56)
 
-; Background 1 tile data.
+; Background 1 Tile Data
 b$685A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6862 DEFB $01,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $686A DEFB $F0,$00,$01,$03,$02,$02,$03,$02 ; #UDG(#PC,attr=56)
@@ -979,7 +979,7 @@ b$685A DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6AD2 DEFB $DB,$B6,$ED,$DB,$B6,$ED,$DB,$B6 ; #UDG(#PC,attr=56)
  $6ADA DEFB $00,$80,$80,$00,$80,$80,$00,$80 ; #UDG(#PC,attr=56)
 
-; Background 1 tile data.
+; Background 1 Tile Data
 b$6AE2 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6AEA DEFB $0F,$11,$11,$1F,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6AF2 DEFB $C0,$FF,$B6,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
@@ -1004,7 +1004,7 @@ b$6AE2 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 ; Unused
 u$6B82 DEFB $00
 
-; Background 2 attribute data.
+; Background 2 Attribute Data
 ;
 ; See #R$6010 for usage.
 b$6B83 DEFB $E8,$A4,$6A,$E8,$18,$EC,$03,$E8
@@ -1034,7 +1034,7 @@ b$6B83 DEFB $E8,$A4,$6A,$E8,$18,$EC,$03,$E8
  $6C43 DEFB $F0,$06,$B8,$03,$F0,$E4
  $6C49 DEFB $00,$00                         ; Terminator.
 
-; Background 2 positioning data.
+; Background 2 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$6C4B DEFB $80,$24,$01,$80,$19,$02,$80,$05 ; {#CALL:position_data(#PC, $6DAE,
@@ -1045,7 +1045,7 @@ b$6C4B DEFB $80,$24,$01,$80,$19,$02,$80,$05 ; {#CALL:position_data(#PC, $6DAE,
  $6C73 DEFB $19,$1A,$1B,$1C                 ; }
  $6C77 DEFB $00,$00                         ; Terminator.
 
-; Background 2 positioning data.
+; Background 2 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$6C79 DEFB $80,$03,$01,$02,$03,$80,$04,$04 ; {#CALL:position_data(#PC, $6E96,
@@ -1066,7 +1066,7 @@ b$6C79 DEFB $80,$03,$01,$02,$03,$80,$04,$04 ; {#CALL:position_data(#PC, $6E96,
  $6CF1 DEFB $6B,$6C,$6D,$6E                 ; }
  $6CF5 DEFB $00,$00                         ; Terminator.
 
-; Background 2 positioning data.
+; Background 2 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$6CF7 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $720E,
@@ -1087,7 +1087,7 @@ b$6CF7 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $720E,
  $6D6F DEFB $77,$78,$79,$7A,$7B,$7C,$7D,$7E ; }
  $6D77 DEFB $00,$00                         ; Terminator.
 
-; Background 2 positioning data.
+; Background 2 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$6D79 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $7606,
@@ -1099,7 +1099,7 @@ b$6D79 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $7606,
  $6DA9 DEFB $2B,$96,$4F                     ; }
  $6DAC DEFB $00,$00                         ; Terminator.
 
-; Background 2 tile data.
+; Background 2 Tile Data
 b$6DAE DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6DB6 DEFB $00,$00,$00,$18,$18,$3C,$18,$3C ; #UDG(#PC,attr=56)
  $6DBE DEFB $00,$00,$00,$00,$00,$00,$00,$30 ; #UDG(#PC,attr=56)
@@ -1130,7 +1130,7 @@ b$6DAE DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6E86 DEFB $06,$01,$7C,$FF,$81,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6E8E DEFB $00,$80,$C0,$C7,$EE,$7C,$1E,$07 ; #UDG(#PC,attr=56)
 
-; Background 2 tile data.
+; Background 2 Tile Data
 b$6E96 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $6E9E DEFB $5F,$5F,$58,$DF,$9F,$B7,$B6,$B6 ; #UDG(#PC,attr=56)
  $6EA6 DEFB $FF,$FF,$00,$DE,$DE,$58,$58,$50 ; #UDG(#PC,attr=56)
@@ -1243,7 +1243,7 @@ b$6E96 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $71FE DEFB $73,$C1,$80,$00,$00,$00,$00,$06 ; #UDG(#PC,attr=56)
  $7206 DEFB $30,$D8,$6C,$36,$1B,$0C,$06,$06 ; #UDG(#PC,attr=56)
 
-; Background 2 tile data.
+; Background 2 Tile Data
 b$720E DEFB $04,$03,$00,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
  $7216 DEFB $C0,$2E,$3F,$07,$01,$00,$00,$80 ; #UDG(#PC,attr=56)
  $721E DEFB $00,$00,$00,$C0,$F0,$38,$7C,$3E ; #UDG(#PC,attr=56)
@@ -1372,7 +1372,7 @@ b$720E DEFB $04,$03,$00,$00,$00,$00,$00,$01 ; #UDG(#PC,attr=56)
  $75F6 DEFB $00,$00,$80,$FC,$00,$00,$00,$3F ; #UDG(#PC,attr=56)
  $75FE DEFB $FF,$03,$00,$00,$00,$00,$00,$FF ; #UDG(#PC,attr=56)
 
-; Background 2 tile data.
+; Background 2 Tile Data
 b$7606 DEFB $70,$66,$6C,$DB,$F6,$ED,$DB,$06 ; #UDG(#PC,attr=56)
  $760E DEFB $05,$1B,$36,$7C,$D5,$B5,$75,$D2 ; #UDG(#PC,attr=56)
  $7616 DEFB $B6,$6D,$DB,$B6,$ED,$5B,$56,$40 ; #UDG(#PC,attr=56)
@@ -1418,7 +1418,7 @@ b$7606 DEFB $70,$66,$6C,$DB,$F6,$ED,$DB,$06 ; #UDG(#PC,attr=56)
  $7756 DEFB $6D,$B0,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $775E DEFB $B0,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 
-; Background 3 attribute data.
+; Background 3 Attribute Data
 ;
 ; See #R$6010 for usage.
 b$7766 DEFB $D0,$C0,$DA,$02,$97,$1B,$10,$DA
@@ -1452,7 +1452,7 @@ b$7766 DEFB $D0,$C0,$DA,$02,$97,$1B,$10,$DA
  $7846 DEFB $03,$F0,$03,$18,$F0,$FF,$70
  $784D DEFB $00,$00                         ; Terminator.
 
-; Background 3 positioning data.
+; Background 3 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$784F DEFB $80,$40,$01,$02,$03,$04,$05,$06 ; {#CALL:position_data(#PC, $79B1,
@@ -1466,7 +1466,7 @@ b$784F DEFB $80,$40,$01,$02,$03,$04,$05,$06 ; {#CALL:position_data(#PC, $79B1,
  $788F DEFB $3E,$3F                         ; }
  $7891 DEFB $00,$00                         ; Terminator.
 
-; Background 3 positioning data.
+; Background 3 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$7893 DEFB $00,$01,$02,$83,$07,$04,$05,$06 ; {#CALL:position_data(#PC, $7BB1,
@@ -1487,7 +1487,7 @@ b$7893 DEFB $00,$01,$02,$83,$07,$04,$05,$06 ; {#CALL:position_data(#PC, $7BB1,
  $790B DEFB $1A,$2A,$0C                     ; }
  $790E DEFB $00,$00                         ; Terminator.
 
-; Background 3 positioning data.
+; Background 3 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$7910 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $7D09,
@@ -1508,7 +1508,7 @@ b$7910 DEFB $00,$01,$02,$03,$04,$05,$06,$07 ; {#CALL:position_data(#PC, $7D09,
  $7988 DEFB $41,$25,$42,$43,$08,$44,$45     ; }
  $798F DEFB $00,$00                         ; Terminator.
 
-; Background 3 positioning data.
+; Background 3 Positioning Data
 ;
 ; See #R$5F80 for usage.
 b$7991 DEFB $00,$81,$03,$02,$03,$04,$05,$06 ; {#CALL:position_data(#PC, $7F39,
@@ -1517,7 +1517,7 @@ b$7991 DEFB $00,$81,$03,$02,$03,$04,$05,$06 ; {#CALL:position_data(#PC, $7F39,
  $79A9 DEFB $09,$81,$02,$0D,$81,$60         ; }
  $79AF DEFB $00,$00                         ; Terminator.
 
-; Background 3 tile data.
+; Background 3 Tile Data
 b$79B1 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $79B9 DEFB $FF,$FF,$FF,$FC,$E0,$00,$00,$00 ; #UDG(#PC,attr=56)
  $79C1 DEFB $FE,$F0,$80,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
@@ -1583,7 +1583,7 @@ b$79B1 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7BA1 DEFB $F8,$8F,$80,$80,$80,$80,$80,$80 ; #UDG(#PC,attr=56)
  $7BA9 DEFB $07,$87,$87,$87,$87,$87,$87,$87 ; #UDG(#PC,attr=56)
 
-; Background 3 tile data.
+; Background 3 Tile Data
 b$7BB1 DEFB $6C,$82,$83,$01,$01,$00,$00,$7C ; #UDG(#PC,attr=56)
  $7BB9 DEFB $01,$01,$01,$01,$81,$41,$61,$11 ; #UDG(#PC,attr=56)
  $7BC1 DEFB $FF,$00,$7F,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
@@ -1628,7 +1628,7 @@ b$7BB1 DEFB $6C,$82,$83,$01,$01,$00,$00,$7C ; #UDG(#PC,attr=56)
  $7CF9 DEFB $80,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7D01 DEFB $9A,$9A,$9A,$9A,$9A,$9A,$9A,$9A ; #UDG(#PC,attr=56)
 
-; Background 3 tile data.
+; Background 3 Tile Data
 b$7D09 DEFB $11,$69,$89,$69,$69,$69,$69,$69 ; #UDG(#PC,attr=56)
  $7D11 DEFB $E9,$E9,$E9,$E9,$E9,$E9,$E9,$E9 ; #UDG(#PC,attr=56)
  $7D19 DEFB $40,$40,$40,$40,$40,$40,$40,$40 ; #UDG(#PC,attr=56)
@@ -1700,7 +1700,7 @@ b$7D09 DEFB $11,$69,$89,$69,$69,$69,$69,$69 ; #UDG(#PC,attr=56)
  $7F29 DEFB $38,$1C,$0E,$07,$03,$01,$01,$00 ; #UDG(#PC,attr=56)
  $7F31 DEFB $87,$87,$87,$87,$87,$87,$C7,$E7 ; #UDG(#PC,attr=56)
 
-; Background 3 tile data.
+; Background 3 Tile Data
 b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7F41 DEFB $00,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7F49 DEFB $07,$00,$00,$00,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
@@ -1727,7 +1727,7 @@ b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
  $7FF1 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $7FF9 DEFB $00,$00,$00,$00,$00,$00,$00
 
-; Shadow buffer
+; Shadow Buffer
 ;
 ; Once a background is unpacked and displayed, #N$4820-#N$5020 are copied to this shadow buffer to
 ;       allow the background layer to be drawn quickly (without rerunning the unpacking routines at #R$5F80).
@@ -2428,13 +2428,13 @@ c$8AD1 PUSH AF       ;
  $8BD0 POP HL        ;
  $8BD1 RET           ;
 
-; Player 1 controls.
+; Player 1 Controls
 ;
 ; Points to the address containing the player 1 control address mappings.
 @label=Player_1_Controls
 g$8BD2 DEFW $8BFA    ; Player 2 control address mappings.
 
-; Player 1 redefined keys.
+; Player 1 Redefined Keys
 ;
 ; When player 1 is using the keyboard, these byte pairs will be populated with
 ; the corresponding keys.
@@ -2462,13 +2462,13 @@ g$8BD4 DEFB $00,$00  ; Player 1 - "up" key.
 @label=Player_1_Fire
  $8BE4 DEFB $00,$00  ; Player 1 - "fire" key.
 
-; Player 2 controls.
+; Player 2 Controls
 ;
 ; Points to the address containing the player 2 control address mappings.
 @label=Player_2_Controls
 g$8BE6 DEFW $8C0C    ; Player 2 control address mappings.
 
-; Player 2 redefined keys.
+; Player 2 Redefined Keys
 ;
 ; When player 2 is using the keyboard, these byte pairs will be populated with
 ; the corresponding keys.
@@ -2496,7 +2496,7 @@ g$8BE8 DEFB $00,$00  ; Player 2 - "up" key.
 @label=Player_2_Fire
  $8BF8 DEFB $00,$00  ; Player 2 - "fire" key.
 
-; Player 1 default keys.
+; Player 1 Default Keys
 ;
 ; See #R$8E3A for key mappings.
 @label=P1_Default_Keys
@@ -2513,11 +2513,11 @@ g$8BFA DEFB $02,$FB  ; {#TABLE(default,centre,centre,centre,centre)
                      ; { #N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C0B), #PEEK($8C0A))" }
                      ; TABLE#}
 
-; Player 2 default keys.
+; Player 2 Default Keys
 ;
 ; See #R$8E3A for key mappings.
 @label=P2_Default_Keys
-g$8C0C DEFB $08,$DF  ; { #TABLE(default,centre,centre,centre,centre)
+g$8C0C DEFB $08,$DF  ; {#TABLE(default,centre,centre,centre,centre)
  $8C0E DEFB $04,$DF  ; { =h Port Number | =h Bit | =h Action | =h Key }
  $8C10 DEFB $04,$BF  ; { #N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),$02,$08) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
  $8C12 DEFB $04,$7F  ; { #N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),$02,$08) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
@@ -2530,7 +2530,7 @@ g$8C0C DEFB $08,$DF  ; { #TABLE(default,centre,centre,centre,centre)
                      ; { #N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C1D), #PEEK($8C1C))" }
                      ; TABLE#}
 
-; Sinclair Joystick #2.
+; Sinclair Joystick #2
 ;
 ; See #R$8E3A for key mappings.
 ;
@@ -2551,7 +2551,7 @@ g$8C1E DEFB $08,$F7  ; { #TABLE(default,centre,centre,centre,centre)
                      ; { #N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C2F), #PEEK($8C2E))" }
                      ; TABLE#}
 
-; Sinclair Joystick #1.
+; Sinclair Joystick #1
 ;
 ; See #R$8E3A for key mappings.
 ;
@@ -2572,7 +2572,7 @@ g$8C30 DEFB $02,$EF  ; { #TABLE(default,centre,centre,centre,centre)
                      ; { #N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C41), #PEEK($8C40))" }
                      ; TABLE#}
 
-; Kempston Joystick.
+; Kempston Joystick
 @label=Kempston
 g$8C42 DEFB $08,$00  ; { #TABLE(default,centre,centre,centre,centre)
  $8C44 DEFB $00,$00  ; { =h Port Number | =h Bit | =h Action | =h Joystick }
@@ -2587,7 +2587,7 @@ g$8C42 DEFB $08,$00  ; { #TABLE(default,centre,centre,centre,centre)
                      ; { #N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),$02,$08) | Fire | "#CALL:get_kempston(#PEEK($8C53), #PEEK($8C52))" }
                      ; TABLE#}
 
-; Game Settings.
+; Game Settings
 ;
 ; Used by the routine at #R$9745.
 ;
@@ -2658,7 +2658,7 @@ c$8C54 CALL $8E4C    ; Call #R$8E4C.
 @label=Game_Configs_Return
 *$8CDA RET           ; Return.
 
-; Game Control Settings.
+; Game Control Settings
 ;
 ; Used by the routine at #R$8C54.
 ;
@@ -2759,7 +2759,7 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8D95 LD (HL),D     ; }
  $8D96 JP $8CDA      ; Jump to #R$8CDA (just returns).
 
-; Game Settings - Redefine Keys.
+; Game Settings - Redefine Keys
 ;
 ; Used by the routine at #R$8CDB.
 @label=Game_Configs_Keys
@@ -2872,7 +2872,7 @@ c$8D99 CALL $8E4C                           ; Call #R$8E4C.
 @label=Key_Data
  $8E3A DEFB $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F ; Key Data
 
-; Short delay.
+; Short Delay
 ;
 ; Used by the routines at #R$8CDB and #R$8D99.
 @label=Configs_Delay
@@ -2884,7 +2884,7 @@ c$8E42 LD BC,$EA60   ; Set #REGbc=#N$EA60
  $8E48 JP NZ,$8E45   ; }
  $8E4B RET           ; Return.
 
-; Blank the screen buffer.
+; Clear Screen Buffer
 ;
 ; Used by the routines at #R$8C54, #R$8CDB and #R$8D99.
 @label=Clear_Screen
@@ -2902,7 +2902,7 @@ c$8E4C LD DE,$4001   ; {Clears the screen buffer by writing #N$00 to 6143
  $8E66 LDIR          ; }
  $8E68 RET           ; Return.
 
-; Holds which player is currently being altered.
+; Current Player Being Altered
 ;
 ; Will hold either;
 ; #TABLE(default,centre,centre)
@@ -2912,64 +2912,109 @@ c$8E4C LD DE,$4001   ; {Clears the screen buffer by writing #N$00 to 6143
 @label=Temp_Player
 w$8E69 DEFW $0000
 
-; Message at 8E6B
+; Messaging: "Player 1 Controls"
 @label=Text_P1_Controls
-t$8E6B DEFM "CHANGE CONTROLS FOR PLAYER 1 (1)",$00 ; P1 controls text.
+t$8E6B DEFM "CHANGE CONTROLS FOR PLAYER 1 (1)",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Player 2 Controls"
 @label=Text_P2_Controls
- $8E8C DEFM "PLAYER 2 (2)",$00                     ; P2 text.
+t$8E8C DEFM "PLAYER 2 (2)",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Sound On"
 @label=Text_Sound_On
- $8E99 DEFM "SOUND ON (3)",$00                     ; Sound on text.
+t$8E99 DEFM "SOUND ON (3)",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Sound Off"
 @label=Text_Sound_Off
- $8EA6 DEFM "SOUND OFF(4)",$00                     ; Sound off text.
+t$8EA6 DEFM "SOUND OFF(4)",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Options Type"
 @label=Text_Type_1
- $8EB3 DEFM "(TYPE 1,2,3 OR 4.)",$00               ; "Type" message.
+t$8EB3 DEFM "(TYPE 1,2,3 OR 4.)",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Exit"
 @label=Text_Exit
- $8EC6 DEFM "TYPE E TO EXIT.",$00                  ; "Exit" message.
+t$8EC6 DEFM "TYPE E TO EXIT.",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Default Keyboard"
 @label=Text_Default_Layout
- $8ED6 DEFM "1:USE DEFAULT KEYBOARD LAYOUT",$00    ; "Default" layout text.
+t$8ED6 DEFM "1:USE DEFAULT KEYBOARD LAYOUT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Port 1 Sinclair"
 @label=Text_Sinclair_P1
- $8EF4 DEFM "2:USE SINCLAIR JOYSTICK #1",$00       ; P1 "Sinclair" text.
+t$8EF4 DEFM "2:USE SINCLAIR JOYSTICK #1",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Port 2 Sinclair"
 @label=Text_Sinclair_P2
- $8F0F DEFM "3:USE SINCLAIR JOYSTICK #2",$00       ; P2 "Sinclair" text.
+t$8F0F DEFM "3:USE SINCLAIR JOYSTICK #2",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Reconfigure Keyboard"
 @label=Text_Keyboard_Reconfig
- $8F2A DEFM "4:RECONFIGURE KEYBOARD",$00           ; Reconfigure keyboard text.
+t$8F2A DEFM "4:RECONFIGURE KEYBOARD",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Kempston"
 @label=Text_Kempston
- $8F41 DEFM "5:USE KEMPSTON JOYSTICK",$00          ; "Kempston" text.
+t$8F41 DEFM "5:USE KEMPSTON JOYSTICK",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Choose Control Type"
 @label=Text_Type_2
- $8F59 DEFM "TYPE 1,2,3,4 OR 5",$00                ; "Type" message.
+t$8F59 DEFM "TYPE 1,2,3,4 OR 5",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Change Keys" Line 1
 @label=Text_Change_1
- $8F6B DEFM "FOR EACH DIRECTION INDICATED,",$00    ; "Change keys line 1"
-                                                   ; message.
+t$8F6B DEFM "FOR EACH DIRECTION INDICATED,",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Change Keys" Line 2
 @label=Text_Change_2
- $8F89 DEFM "PRESS THE KEY YOU WISH TO USE",$00    ; "Change keys line 2"
-                                                   ; message.
+t$8F89 DEFM "PRESS THE KEY YOU WISH TO USE",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Change Keys" Line 3
 @label=Text_Change_3
- $8FA7 DEFM "FOR THAT DIRECTION.",$00              ; "Change keys line 3"
-                                                   ; message.
+t$8FA7 DEFM "FOR THAT DIRECTION.",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Up"
 @label=Text_Up
- $8FBB DEFM "UP",$00                               ; "Up" text.
+t$8FBB DEFM "UP",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Up-Right"
 @label=Text_Up_Right
- $8FBE DEFM "UP-RIGHT",$00                         ; "Up-Right" text.
+t$8FBE DEFM "UP-RIGHT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Right
 @label=Text_Right
- $8FC7 DEFM "RIGHT",$00                            ; "Right" text.
+t$8FC7 DEFM "RIGHT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Down-Right"
 @label=Text_Down_Right
- $8FCD DEFM "DOWN-RIGHT",$00                       ; "Down-Right" text.
+t$8FCD DEFM "DOWN-RIGHT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Down"
 @label=Text_Down
- $8FD8 DEFM "DOWN",$00                             ; "Down" text.
+t$8FD8 DEFM "DOWN",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Down-Left"
 @label=Text_Down_Left
- $8FDD DEFM "DOWN-LEFT",$00                        ; "Down-Left" text.
+t$8FDD DEFM "DOWN-LEFT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Left"
 @label=Text_Left
- $8FE7 DEFM "LEFT",$00                             ; "Left" text.
+t$8FE7 DEFM "LEFT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Up-Left"
 @label=Text_Up_Left
- $8FEC DEFM "UP-LEFT",$00                          ; "Up-Left" text.
+t$8FEC DEFM "UP-LEFT",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Fire"
 @label=Text_Fire
- $8FF4 DEFM "FIRE-BUTTON",$00                      ; "Fire" text.
+t$8FF4 DEFM "FIRE-BUTTON",$00 ; "#STR(#PC)" text.
+
+; Messaging: "Blank" Text
 @label=Text_Whitespace_12
- $9000 DEFM "            ",$00                     ; Blank text.
+t$9000 DEFM "            ",$00 ; "#STR(#PC)" text.
 
 i$900D
 
-; Yin-yang controller.
+; Yin-yang Controller
 ;
 ; Used by the routines at #R$9745, #R$AB70 and #R$AC3E.
 ;
@@ -3058,7 +3103,7 @@ c$900E LD A,($AA08)  ; {If #R$AA08 is #N$00 then no point was awarded for 1UP.
  $909A CALL $9255    ; }
  $909D RET           ; Return.
 
-; New round.
+; New Round
 ;
 ; Used by the routines at #R$9745, #R$AB70 and #R$AC3E.
 @label=New_Round
@@ -3081,7 +3126,7 @@ c$909E XOR A         ; {Write #N$00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02
  $90CC CALL $92E4    ; }
  $90CF RET           ; Return.
 
-; Intro music.
+; Intro Music
 c$90D0 DEFB $1D             ;
 ; This entry point is used by the routine at #R$AC3E.
 @label=Intro_Music
@@ -3267,7 +3312,7 @@ c$923A PUSH HL       ;
  $9252 DJNZ $924A    ;
  $9254 RET           ; Return.
 
-; Copy yin-yang to screen.
+; Print Yin-Yang To Screen
 ;
 ; Used by the routine at #R$900E.
 ;
@@ -3362,7 +3407,7 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
                                             ; zero.
  $92E3 RET                                  ; Return.
 
-; Print String.
+; Print String
 ;
 ; Used by the routines at #R$8C54, #R$8CDB, #R$8D99, #R$909E, #R$932C, #R$9745,
 ; #R$A685, #R$AB70, #R$AC05, #R$AC3E, #R$AEBF and #R$AF36.
@@ -3396,7 +3441,7 @@ c$92E4 PUSH DE       ;
  $92FB INC DE        ;
  $92FC JP $92F0      ;
 
-; Expand time byte to ASCII.
+; Expand Time Byte To ASCII
 @label=Time_Counter
 c$92FF DEFB $F0,$D8  ; {Guessing at the length.
  $9301 DEFB $18,$FC  ;
@@ -3428,7 +3473,7 @@ c$92FF DEFB $F0,$D8  ; {Guessing at the length.
  $931B ADD HL,BC     ; Adds the remaining time to the 16-bit number held in
                      ; #REGbc.
  $931C JR C,$9318    ; If the carry flag is set loop back to #R$9318.
- $931E EX DE,HL      ; Swap #REGde and #REGhl.
+ $931E EX DE,HL      ; Swap the #REGde and #REGhl registers.
  $931F LD (IX+$00),A ; Write the processed ASCII number character to the time
                      ; print buffer.
  $9322 INC IX        ; Increment #REGix by one to process the next character in
@@ -3441,7 +3486,7 @@ c$92FF DEFB $F0,$D8  ; {Guessing at the length.
  $932A POP HL        ; }
  $932B RET           ; Return.
 
-; Processes the remaining time string.
+; Processes The Remaining Time String
 ;
 ; .
 ;
@@ -3471,15 +3516,15 @@ c$932C DEFM "   30",$00 ; Guessing at the length.
 *$9348 LD A,(DE)        ; Grab the next character from the time buffer.
  $9349 CP $30           ; {If it is not ASCII "0" then jump to #R$9355.
  $934B JP NZ,$9355      ; }
- $934E LD A,$20         ; {Write ASCII "space" ($20) to the time buffer
+ $934E LD A,$20         ; {Write ASCII "space" (#N$20) to the time buffer
  $9350 LD (DE),A        ; location.}
  $9351 INC DE           ; Move onto the next character.
  $9352 JP $9348         ; Jump back to #R$9348.
 ; If time has run out, show at least an ASCII "0".
 @label=Time_Check_Last
 *$9355 LD DE,$9330      ; Point to the last digit of the time buffer
-                        ; #R$932C($9330).
- $9358 LD A,(DE)        ; {If it is not an ASCII "space" ($20) then jump to
+                        ; #R$932C(#N$9330).
+ $9358 LD A,(DE)        ; {If it is not an ASCII "space" (#N$20) then jump to
  $9359 CP $20           ; #R$9361.
  $935B JP NZ,$9361      ; }
  $935E LD A,$30         ; {Time has run out, so write ASCII "0" to this last
@@ -4576,7 +4621,7 @@ g$9C2C DEFB $00
 ; Game status buffer entry at 9C2D
 g$9C2D DEFB $00
 
-; Game Entry Point.
+; Game Entry Point
 ;
 ; Used by the routine at #R$8800.
 @label=Game_Start
@@ -4600,7 +4645,7 @@ c$9C2E DI            ; Disable interrupts.
  $9C4D LD ($C425),HL ; }
  $9C50 JP $AC05      ; Jump to #R$AC05.
 
-; Read Key Input.
+; Read Key Input
 ;
 ; Used by the routines at #R$8C54, #R$8CDB and #R$9745.
 ;
@@ -4612,10 +4657,10 @@ c$9C53 LD C,A        ; Key to test in #REGc.
  $9C54 AND $07       ; Mask bits d0-d2 for row.
  $9C56 INC A         ; In range 1-8.
  $9C57 LD B,A        ; Place in #REGb.
- $9C58 SRL C         ; {Divide #REGc by 8 to find position within row.
+ $9C58 SRL C         ; {Divide #REGc by #N$08 to find position within row.
  $9C5A SRL C         ;
  $9C5C SRL C         ; }
- $9C5E LD A,$05      ; Only 5 keys per row.
+ $9C5E LD A,$05      ; Only #N$05 keys per row.
  $9C60 SUB C         ; Subtract position.
  $9C61 LD C,A        ; Put into #REGc.
  $9C62 LD A,$FE      ; High byte of port to read.
@@ -4654,7 +4699,7 @@ c$9C6F LD A,($9C2B)  ; {Return if #R$9C2B is not zero.
  $9C8E LD A,$01      ; {Write #N$01 to; #LIST { #R$9C2B } LIST#
  $9C90 LD ($9C2B),A  ; }
 
-; Print remaining time to the screen.
+; Print Remaining Time
 ;
 ; Used by the routines at #R$9C6F, #R$AC3E and #R$AEF8.
 @label=Print_Time
@@ -4665,7 +4710,7 @@ c$9C93 LD A,($9CA5)  ; {Stores #R$9CA5 as the LSB in #REGhl.
  $9C9C CALL $9336    ; Call #R$9336.
  $9C9F RET           ; Return.
 
-; Countdown time by one unit.
+; Countdown Time
 ;
 ; Used by the routines at #R$9C6F and #R$AC3E.
 @label=Time_Tick
@@ -4673,7 +4718,7 @@ c$9CA0 LD HL,$9CA5   ; {Decrease #R$9CA5 by 1 and return.
  $9CA3 DEC (HL)      ;
  $9CA4 RET           ; }
 
-; Time.
+; Time
 @label=Time
 g$9CA5 DEFB $00
 
@@ -5676,7 +5721,7 @@ c$9ED2 LD A,($AA44)  ;
  $A3F9 LD ($A5F6),A  ;
  $A3FC LD ($A5F1),A  ;
 
-; Random number.
+; Random Number
 ;
 ; Semi-random number generator using the refresh register.
 @label=Random_Number
@@ -6030,7 +6075,7 @@ c$A402 LD A,($A614)  ;
  $A645 LD A,(HL)     ;
  $A646 NOP           ;
 
-; New high score?
+; New High Score?
 ;
 ; Used by the routines at #R$AC05 and #R$AC3E.
 ;
@@ -6079,7 +6124,7 @@ c$A647 LD HL,$B035   ; #REGhl=#R$B035(high score).
  $A682 LDDR          ; }
  $A684 POP HL        ; Restore the high score memory address to #REGhl.
 
-; Print Hi-Score.
+; Print Hi-Score
 ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
 @label=Print_HighScore
@@ -6091,7 +6136,7 @@ c$A685 LD B,$03      ; Set a counter = #N$03 digits.
  $A693 CALL $92E4    ; }
  $A696 RET           ; Return.
 
-; Check player score against high score.
+; Check Player Score Against High Score
 ;
 ; Used by the routine at #R$A647.
 @label=Is_HighScore
@@ -6242,7 +6287,7 @@ g$AA01 DEFB $00
  $AA04 DEFB $00
  $AA05 DEFB $00
 
-; Is this demo mode?
+; Demo Mode
 @label=Is_Demo_Mode
 g$AA06 DEFB $00
  $AA07 DEFB $00
@@ -6393,7 +6438,7 @@ c$AADC LD HL,$AA00   ; {Copies #N$1A bytes of data from #R$AA00 to #R$A5F1.
  $AB6E RET M         ;
  $AB6F INC E         ;
 
-; Demo mode.
+; Demo Mode
 ;
 ; Used by the routine at #R$AC05.
 @label=Demo_Mode
@@ -6465,7 +6510,7 @@ c$AB70 XOR A         ; #REGa=#N$00
  $AC03 XOR A         ;
  $AC04 RET           ;
 
-; Main game loop.
+; Main Game Loop
 ;
 ; Used by the routine at #R$9C2E.
 @label=Main_Game
@@ -6788,7 +6833,7 @@ c$AC3E XOR A         ; {Write #N$00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06
  $AEBC JR Z,$AEB2    ;
  $AEBE RET           ;
 
-; Print the current Dan (or "NOVICE") message.
+; Print The Current Dan (or "NOVICE") Message
 ;
 ; Used by the routine at #R$AC3E.
 ;
@@ -6827,7 +6872,7 @@ c$AEBF LD HL,$0122   ; {Grab #R$B05F.
  $AEF4 CALL $92E4    ; }
  $AEF7 RET           ; Return.
 
-; Initialise time counter.
+; Initialise Time Counter
 ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
 @label=Init_Time
@@ -7360,7 +7405,7 @@ c$B15A AND A         ;
  $B2F7 JR NZ,$B2F4   ;
  $B2F9 RET           ;
 
-; Sound flag.
+; Sound Flag
 @label=Flag_Sound
 g$B2FA DEFB $01
 
@@ -8985,7 +9030,7 @@ c$C1F6 PUSH DE       ;
 *$C201 POP DE        ;
  $C202 RET           ;
 
-; Screen Calculation.
+; Screen Calculation
 ;
 ; Used by the routines at #R$9200, #R$9255, #R$92E4, #R$BF13 and #R$C101.
 ;
@@ -9342,7 +9387,7 @@ c$C3E4 LD A,($C409)  ;
 ; Data block at C407
 b$C407 DEFB $00,$00
 
-; Player 1 screen position.
+; Player 1 Screen Position
 @label=Position_P1
 g$C409 DEFW $0000    ; The position in the screen buffer for Player 1.
 

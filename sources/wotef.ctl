@@ -81,7 +81,7 @@ N $5F3C Fetch the background reference from #R$5F00 and use it to calculate the 
 . { #N$02 | #R$5F0C($5F0C) }
 . { #N$03 | #R$5F0E($5F0E) }
 . TABLE#
-  $5F4D,$01 Swap #REGde and #REGhl.
+  $5F4D,$01 Swap the #REGde and #REGhl registers.
   $5F4E,$03 Call #R$5F52.
   $5F51,$01 Return.
 N $5F52 Indirect jump to copy-to-buffer routine.
@@ -287,125 +287,125 @@ b $6061 Background 1 Attribute Data
 D $6061 See #R$6010 for usage.
   $6100,$02 Terminator.
 
-b $6102 Background 1 positioning data.
+b $6102 Background 1 Positioning Data
 D $6102 See #R$5F80 for usage.
   $6102 #CALL:position_data(#PC, $626A, position_1_1, 1)
   $6155,$02 Terminator.
 
-b $6157 Background 1 positioning data.
+b $6157 Background 1 Positioning Data
 D $6157 See #R$5F80 for usage.
   $6157 #CALL:position_data(#PC, $648A, position_1_2, 1)
   $61D7,$02 Terminator.
 
-b $61D9 Background 1 positioning data.
+b $61D9 Background 1 Positioning Data
 D $61D9 See #R$5F80 for usage.
   $61D9 #CALL:position_data(#PC, $685A, position_1_3, 1)
   $624B,$02 Terminator.
 
-b $624D Background 1 positioning data.
+b $624D Background 1 Positioning Data
 D $624D See #R$5F80 for usage.
   $624D #CALL:position_data(#PC, $6AE2, position_1_4, 1)
   $6268,$02 Terminator.
 
-b $626A Background 1 tile data.
+b $626A Background 1 Tile Data
   $626A,$08 #UDG(#PC,attr=56)
 L $626A,$08,$44
 
-b $648A Background 1 tile data.
+b $648A Background 1 Tile Data
   $648A,$08 #UDG(#PC,attr=56)
 L $648A,$08,$7A
 
-b $685A Background 1 tile data.
+b $685A Background 1 Tile Data
   $685A,$08 #UDG(#PC,attr=56)
 L $685A,$08,$51
 
-b $6AE2 Background 1 tile data.
+b $6AE2 Background 1 Tile Data
   $6AE2,$08 #UDG(#PC,attr=56)
 L $6AE2,$08,$14
 
 u $6B82
 
-b $6B83 Background 2 attribute data.
+b $6B83 Background 2 Attribute Data
 D $6B83 See #R$6010 for usage.
   $6C49,$02 Terminator.
 
-b $6C4B Background 2 positioning data.
+b $6C4B Background 2 Positioning Data
 D $6C4B See #R$5F80 for usage.
   $6C4B #CALL:position_data(#PC, $6DAE, position_2_1, 1)
   $6C77,$02 Terminator.
 
-b $6C79 Background 2 positioning data.
+b $6C79 Background 2 Positioning Data
 D $6C79 See #R$5F80 for usage.
   $6C79 #CALL:position_data(#PC, $6E96, position_2_2, 1)
   $6CF5,$02 Terminator.
 
-b $6CF7 Background 2 positioning data.
+b $6CF7 Background 2 Positioning Data
 D $6CF7 See #R$5F80 for usage.
   $6CF7 #CALL:position_data(#PC, $720E, position_2_3, 1)
   $6D77,$02 Terminator.
 
-b $6D79 Background 2 positioning data.
+b $6D79 Background 2 Positioning Data
 D $6D79 See #R$5F80 for usage.
   $6D79 #CALL:position_data(#PC, $7606, position_2_4, 1)
   $6DAC,$02 Terminator.
 
-b $6DAE Background 2 tile data.
+b $6DAE Background 2 Tile Data
   $6DAE,$08 #UDG(#PC,attr=56)
 L $6DAE,$08,$1D
 
-b $6E96 Background 2 tile data.
+b $6E96 Background 2 Tile Data
   $6E96,$08 #UDG(#PC,attr=56)
 L $6E96,$08,$6F
 
-b $720E Background 2 tile data.
+b $720E Background 2 Tile Data
   $720E,$08 #UDG(#PC,attr=56)
 L $720E,$08,$7F
 
-b $7606 Background 2 tile data.
+b $7606 Background 2 Tile Data
   $7606,$08 #UDG(#PC,attr=56)
 L $7606,$08,$2C
 
-b $7766 Background 3 attribute data.
+b $7766 Background 3 Attribute Data
 D $7766 See #R$6010 for usage.
   $784D,$02 Terminator.
 
-b $784F Background 3 positioning data.
+b $784F Background 3 Positioning Data
 D $784F See #R$5F80 for usage.
   $784F #CALL:position_data(#PC, $79B1, position_3_1, 1)
   $7891,$02 Terminator.
 
-b $7893 Background 3 positioning data.
+b $7893 Background 3 Positioning Data
 D $7893 See #R$5F80 for usage.
   $7893 #CALL:position_data(#PC, $7BB1, position_3_2, 1)
   $790E,$02 Terminator.
 
-b $7910 Background 3 positioning data.
+b $7910 Background 3 Positioning Data
 D $7910 See #R$5F80 for usage.
   $7910 #CALL:position_data(#PC, $7D09, position_3_3, 1)
   $798F,$02 Terminator.
 
-b $7991 Background 3 positioning data.
+b $7991 Background 3 Positioning Data
 D $7991 See #R$5F80 for usage.
   $7991 #CALL:position_data(#PC, $7F39, position_3_4, 1)
   $79AF,$02 Terminator.
 
-b $79B1 Background 3 tile data.
+b $79B1 Background 3 Tile Data
   $79B1,$08 #UDG(#PC,attr=56)
 L $79B1,$08,$40
 
-b $7BB1 Background 3 tile data.
+b $7BB1 Background 3 Tile Data
   $7BB1,$08 #UDG(#PC,attr=56)
 L $7BB1,$08,$2B
 
-b $7D09 Background 3 tile data.
+b $7D09 Background 3 Tile Data
   $7D09,$08 #UDG(#PC,attr=56)
 L $7D09,$08,$46
 
-b $7F39 Background 3 tile data.
+b $7F39 Background 3 Tile Data
   $7F39,$08 #UDG(#PC,attr=56)
 L $7F39,$08,$0E
 
-b $8000 Shadow buffer
+b $8000 Shadow Buffer
 @ $8000 label=Shadow_Buffer
 D $8000 Once a background is unpacked and displayed, #N$4820-#N$5020 are copied to this shadow buffer to
 .       allow the background layer to be drawn quickly (without rerunning the unpacking routines at #R$5F80).
@@ -418,23 +418,24 @@ D $8000 Used by the routine at #R$9200.
   $8000,$800,$20 Pixels
 
 c $8800
+
 c $8833
 
 c $8898
   $889C
 
 c $8A30
-C $8AA2,$03 Jump to #R$8833.
+  $8AA2,$03 Jump to #R$8833.
 
 c $8AD1
-C $8AE8,$01 Return.
+  $8AE8,$01 Return.
 
-g $8BD2 Player 1 controls.
+g $8BD2 Player 1 Controls
 D $8BD2 Points to the address containing the player 1 control address mappings.
 W $8BD2 Player 2 control address mappings.
 @ $8BD2 label=Player_1_Controls
 
-g $8BD4 Player 1 redefined keys.
+g $8BD4 Player 1 Redefined Keys
 D $8BD4 When player 1 is using the keyboard, these byte pairs will be populated with the corresponding keys.
 N $8BD4 #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
 .       See #R$8E3A.
@@ -457,12 +458,12 @@ B $8BE2,$02 Player 1 - "up/ left" key.
 B $8BE4,$02 Player 1 - "fire" key.
 @ $8BE4 label=Player_1_Fire
 
-g $8BE6 Player 2 controls.
+g $8BE6 Player 2 Controls
 D $8BE6 Points to the address containing the player 2 control address mappings.
 W $8BE6 Player 2 control address mappings.
 @ $8BE6 label=Player_2_Controls
 
-g $8BE8 Player 2 redefined keys.
+g $8BE8 Player 2 Redefined Keys
 D $8BE8 When player 2 is using the keyboard, these byte pairs will be populated with the corresponding keys.
 N $8BE8 #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
 .       See #R$8E3A.
@@ -485,7 +486,7 @@ B $8BF6,$02 Player 2 - "up/ left" key.
 B $8BF8,$02 Player 2 - "fire" key.
 @ $8BF8 label=Player_2_Fire
 
-g $8BFA Player 1 default keys.
+g $8BFA Player 1 Default Keys
 D $8BFA See #R$8E3A for key mappings.
 B $8BFA,$12,$02 #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Key }
@@ -501,9 +502,9 @@ B $8BFA,$12,$02 #TABLE(default,centre,centre,centre,centre)
 . TABLE#
 @ $8BFA label=P1_Default_Keys
 
-g $8C0C Player 2 default keys.
+g $8C0C Player 2 Default Keys
 D $8C0C See #R$8E3A for key mappings.
-B $8C0C,$12,$02  #TABLE(default,centre,centre,centre,centre)
+B $8C0C,$12,$02 #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Key }
 . { #N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),$02,$08) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
 . { #N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),$02,$08) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
@@ -517,7 +518,7 @@ B $8C0C,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . TABLE#
 @ $8C0C label=P2_Default_Keys
 
-g $8C1E Sinclair Joystick #2.
+g $8C1E Sinclair Joystick #2
 D $8C1E See #R$8E3A for key mappings.
 N $8C1E Note the Sinclair joystick maps directional movements and fire to keys.
 B $8C1E,$12,$02  #TABLE(default,centre,centre,centre,centre)
@@ -534,7 +535,7 @@ B $8C1E,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . TABLE#
 @ $8C1E label=Sinclair_2
 
-g $8C30 Sinclair Joystick #1.
+g $8C30 Sinclair Joystick #1
 D $8C30 See #R$8E3A for key mappings.
 N $8C30 Note the Sinclair joystick maps directional movements and fire to keys.
 B $8C30,$12,$02  #TABLE(default,centre,centre,centre,centre)
@@ -551,7 +552,7 @@ B $8C30,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . TABLE#
 @ $8C30 label=Sinclair_1
 
-g $8C42 Kempston Joystick.
+g $8C42 Kempston Joystick
 B $8C42,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Joystick }
 . { #N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),$02,$08) | Up | "#CALL:get_kempston(#PEEK($8C43), #PEEK($8C42))" }
@@ -566,7 +567,7 @@ B $8C42,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . TABLE#
 @ $8C42 label=Kempston
 
-c $8C54 Game Settings.
+c $8C54 Game Settings
 N $8C54 The main settings page, used for directing to the controls for P1/ P2 and turning the sound on or off.
 @ $8C54 label=Game_Configs_Main
   $8C54,$03 Call #R$8E4C.
@@ -609,7 +610,7 @@ N $8CC7 Does the user want to toggle the sound flag to be "OFF".
   $8CDA,$01 Return.
 @ $8CDA label=Game_Configs_Return
 
-c $8CDB Game Control Settings.
+c $8CDB Game Control Settings
 N $8CDB The player controls menu.  Used for either player, references the currently targetted player at #R$8E69.
 @ $8CDB label=Game_Configs_Controls
   $8CDB,$03 Call #R$8E4C.
@@ -674,7 +675,7 @@ N $8D8D Actions setting player to use Kempston Joystick.
   $8D90,$06 Pushes #R$8C42 for the current player.
   $8D96,$03 Jump to #R$8CDA (just returns).
 
-c $8D99 Game Settings - Redefine Keys.
+c $8D99 Game Settings - Redefine Keys
 @ $8D99 label=Game_Configs_Keys
   $8D99,$03 Call #R$8E4C.
 N $8D9C Displays the "for each direction ... press key" banner.
@@ -743,20 +744,20 @@ N $8E3A The keyboard is split into 8 sections - 4 'half rows' on each side, and 
 B $8E3A,$08 Key Data
 @ $8E3A label=Key_Data
 
-c $8E42 Short delay.
+c $8E42 Short Delay
 @ $8E42 label=Configs_Delay
   $8E42,$03 Set #REGbc=#N$EA60
 @ $8E45 label=Configs_Delay_Loop
   $8E45,$06 Countdown #REGbc until #0000.
   $8E4B,$01 Return.
 
-c $8E4C Blank the screen buffer.
+c $8E4C Clear Screen Buffer
 @ $8E4C label=Clear_Screen
   $8E4C,$0E Clears the screen buffer by writing #N$00 to 6143 memory locations.
   $8E5A,$0E Clears the attribute buffer by writing #N$0D to 767 memory locations.
   $8E68,$01 Return.
 
-w $8E69 Holds which player is currently being altered.
+w $8E69 Current Player Being Altered
 D $8E69 Will hold either;
 . #TABLE(default,centre,centre)
 . { =h #R$8BD2 | #N$8BD2 }
@@ -764,61 +765,109 @@ D $8E69 Will hold either;
 . TABLE#
 @ $8E69 label=Temp_Player
 
-t $8E6B
-T $8E6B,$21,$20:1 P1 controls text.
+t $8E6B Messaging: "Player 1 Controls"
 @ $8E6B label=Text_P1_Controls
-T $8E8C,$0D,$0C:1 P2 text.
+  $8E6B,$21,$20:$01 "#STR(#PC)" text.
+
+t $8E8C Messaging: "Player 2 Controls"
 @ $8E8C label=Text_P2_Controls
-T $8E99,$0D,$0C:1 Sound on text.
+  $8E8C,$0D,$0C:$01 "#STR(#PC)" text.
+
+t $8E99 Messaging: "Sound On"
 @ $8E99 label=Text_Sound_On
-T $8EA6,$0D,$0C:1 Sound off text.
+  $8E99,$0D,$0C:$01 "#STR(#PC)" text.
+
+t $8EA6 Messaging: "Sound Off"
 @ $8EA6 label=Text_Sound_Off
-T $8EB3,$13,$12:1 "Type" message.
+  $8EA6,$0D,$0C:$01 "#STR(#PC)" text.
+
+t $8EB3 Messaging: "Options Type"
 @ $8EB3 label=Text_Type_1
-T $8EC6,$10,$0F:1 "Exit" message.
+  $8EB3,$13,$12:$01 "#STR(#PC)" text.
+
+t $8EC6 Messaging: "Exit"
 @ $8EC6 label=Text_Exit
-T $8ED6,$1E,$1D:1 "Default" layout text.
+  $8EC6,$10,$0F:$01 "#STR(#PC)" text.
+
+t $8ED6 Messaging: "Default Keyboard"
 @ $8ED6 label=Text_Default_Layout
-T $8EF4,$1B,$1A:1 P1 "Sinclair" text.
+  $8ED6,$1E,$1D:$01 "#STR(#PC)" text.
+
+t $8EF4 Messaging: "Port 1 Sinclair"
 @ $8EF4 label=Text_Sinclair_P1
-T $8F0F,$1B,$1A:1 P2 "Sinclair" text.
+  $8EF4,$1B,$1A:$01 "#STR(#PC)" text.
+
+t $8F0F Messaging: "Port 2 Sinclair"
 @ $8F0F label=Text_Sinclair_P2
-T $8F2A,$17,$16:1 Reconfigure keyboard text.
+  $8F0F,$1B,$1A:$01 "#STR(#PC)" text.
+
+t $8F2A Messaging: "Reconfigure Keyboard"
 @ $8F2A label=Text_Keyboard_Reconfig
-T $8F41,$18,$17:1 "Kempston" text.
+  $8F2A,$17,$16:$01 "#STR(#PC)" text.
+
+t $8F41 Messaging: "Kempston"
 @ $8F41 label=Text_Kempston
-T $8F59,$12,$11:1 "Type" message.
+  $8F41,$18,$17:$01 "#STR(#PC)" text.
+
+t $8F59 Messaging: "Choose Control Type"
 @ $8F59 label=Text_Type_2
-T $8F6B,$1E,$1D:1 "Change keys line 1" message.
+  $8F59,$12,$11:$01 "#STR(#PC)" text.
+
+t $8F6B Messaging: "Change Keys" Line 1
 @ $8F6B label=Text_Change_1
-T $8F89,$1E,$1D:1 "Change keys line 2" message.
+  $8F6B,$1E,$1D:$01 "#STR(#PC)" text.
+
+t $8F89 Messaging: "Change Keys" Line 2
 @ $8F89 label=Text_Change_2
-T $8FA7,$14,$13:1 "Change keys line 3" message.
+  $8F89,$1E,$1D:$01 "#STR(#PC)" text.
+
+t $8FA7 Messaging: "Change Keys" Line 3
 @ $8FA7 label=Text_Change_3
-T $8FBB,$03,$02:1 "Up" text.
+  $8FA7,$14,$13:$01 "#STR(#PC)" text.
+
+t $8FBB Messaging: "Up"
 @ $8FBB label=Text_Up
-T $8FBE,$09,$08:1 "Up-Right" text.
+  $8FBB,$03,$02:$01 "#STR(#PC)" text.
+
+t $8FBE Messaging: "Up-Right"
 @ $8FBE label=Text_Up_Right
-T $8FC7,$06,$05:1 "Right" text.
+  $8FBE,$09,$08:$01 "#STR(#PC)" text.
+
+t $8FC7 Messaging: "Right
 @ $8FC7 label=Text_Right
-T $8FCD,$0B,$0A:1 "Down-Right" text.
+  $8FC7,$06,$05:$01 "#STR(#PC)" text.
+
+t $8FCD Messaging: "Down-Right"
 @ $8FCD label=Text_Down_Right
-T $8FD8,$05,$04:1 "Down" text.
+  $8FCD,$0B,$0A:$01 "#STR(#PC)" text.
+
+t $8FD8 Messaging: "Down"
 @ $8FD8 label=Text_Down
-T $8FDD,$0A,$09:1 "Down-Left" text.
+  $8FD8,$05,$04:$01 "#STR(#PC)" text.
+
+t $8FDD Messaging: "Down-Left"
 @ $8FDD label=Text_Down_Left
-T $8FE7,$05,$04:1 "Left" text.
+  $8FDD,$0A,$09:$01 "#STR(#PC)" text.
+
+t $8FE7 Messaging: "Left"
 @ $8FE7 label=Text_Left
-T $8FEC,$08,$07:1 "Up-Left" text.
+  $8FE7,$05,$04:$01 "#STR(#PC)" text.
+
+t $8FEC Messaging: "Up-Left"
 @ $8FEC label=Text_Up_Left
-T $8FF4,$0C,$0B:1 "Fire" text.
+  $8FEC,$08,$07:$01 "#STR(#PC)" text.
+
+t $8FF4 Messaging: "Fire"
 @ $8FF4 label=Text_Fire
-T $9000,$0D,$0C:1 Blank text.
+  $8FF4,$0C,$0B:$01 "#STR(#PC)" text.
+
+t $9000 Messaging: "Blank" Text
 @ $9000 label=Text_Whitespace_12
+  $9000,$0D,$0C:$01 "#STR(#PC)" text.
 
 i $900D
 
-c $900E Yin-yang controller.
+c $900E Yin-yang Controller
 N $900E Player 1 yin-yang functionality.
 @ $900E label=Yin_Yang_1UP
   $900E,$07 If #R$AA08 is #N$00 then no point was awarded for 1UP. Jump forward to #R$9057.
@@ -868,7 +917,7 @@ N $9094 2UP yin-yang total is #N$04.
   $9094,$09 Call #R$9255 using #R$928A.
   $909D,$01 Return.
 
-c $909E New round.
+c $909E New Round
 @ $909E label=New_Round
   $909E,$0D Write #N$00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02 } { #R$AA42 } LIST#
   $90AB,$09 Point to #R$B060($B064) and call #R$92E4.
@@ -877,7 +926,7 @@ c $909E New round.
   $90C6,$09 Point to #R$B060($B064) and call #R$92E4.
   $90CF,$01 Return.
 
-c $90D0 Intro music.
+c $90D0 Intro Music
 B $90D0,$01
 @ $90D1 label=Intro_Music
   $90D1,$01 Disable interrupts.
@@ -931,7 +980,7 @@ c $9229
 c $923A
   $9254,$01 Return.
 
-c $9255 Copy yin-yang to screen.
+c $9255 Print Yin-Yang To Screen
 N $9255 On entry #REGde points to a yin-yang UDG and #REGhl to screen coordinates;
 . #TABLE(default,centre,centre,centre)
 . { =h #REGde | =h,c2 Yin-yang UDG }
@@ -975,7 +1024,7 @@ N $92CA fff
   $92E1,$02 Decrease counter by one and loop back to #R$92D9 until counter is zero.
   $92E3,$01 Return.
 
-c $92E4 Print String.
+c $92E4 Print String
 @ $92E4 label=Print_String
 N $92E4 #TABLE(default,centre,centre)
 .       { =h REGde | =h REGhl }
@@ -983,7 +1032,7 @@ N $92E4 #TABLE(default,centre,centre)
 .       TABLE#
 @ $92F0 label=Print_String_Loop
 
-c $92FF Expand time byte to ASCII.
+c $92FF Expand Time Byte To ASCII
 @ $92FF label=Time_Counter
 B $92FF,$08,$02 Guessing at the length.
 B $9307,$02 Terminator.
@@ -1001,7 +1050,7 @@ N $9318 Count "up" from ASCII "0" until the correct representation is reached.
   $9319,$02 Copy the remaining time into #REGde.
   $931B,$01 Adds the remaining time to the 16-bit number held in #REGbc.
   $931C,$02 If the carry flag is set loop back to #R$9318.
-  $931E,$01 Swap #REGde and #REGhl.
+  $931E,$01 Swap the #REGde and #REGhl registers.
   $931F,$03 Write the processed ASCII number character to the time print buffer.
   $9322,$02 Increment #REGix by one to process the next character in the time buffer once looped around.
   $9324,$01 Restore the byte pair address pointer from the stack.
@@ -1009,10 +1058,10 @@ N $9318 Count "up" from ASCII "0" until the correct representation is reached.
   $9328,$03 Restores #REGbc, #REGde and #REGhl from the stack.
   $932B,$01 Return.
 
-c $932C Processes the remaining time string.
+c $932C Processes The Remaining Time String
 N $932C Buffer for processing text output.
 @ $932C label=Time_Buffer
-T $932C,$06,$05:1 Guessing at the length.
+T $932C,$06,$05:$01 Guessing at the length.
 S $9332,$04 Maybe unused?
   $9336,$01 Push #REGde containing the screen position for printing onto the stack for later.
 @ $9336 label=Process_Print_Time
@@ -1025,13 +1074,13 @@ N $9345 The time isn't printed as "00005" so this routine replaces the zeroes wi
 @ $9348 label=Time_Zero_To_Spaces
   $9348,$01 Grab the next character from the time buffer.
   $9349,$05 If it is not ASCII "0" then jump to #R$9355.
-  $934E,$03 Write ASCII "space" ($20) to the time buffer location.
+  $934E,$03 Write ASCII "space" (#N$20) to the time buffer location.
   $9351,$01 Move onto the next character.
   $9352,$03 Jump back to #R$9348.
 N $9355 If time has run out, show at least an ASCII "0".
 @ $9355 label=Time_Check_Last
-  $9355,$03 Point to the last digit of the time buffer #R$932C($9330).
-  $9358,$06 If it is not an ASCII "space" ($20) then jump to #R$9361.
+  $9355,$03 Point to the last digit of the time buffer #R$932C(#N$9330).
+  $9358,$06 If it is not an ASCII "space" (#N$20) then jump to #R$9361.
   $935E,$03 Time has run out, so write ASCII "0" to this last character.
 N $9361 Send the time buffer to #R$92E4.
 @ $9361 label=Print_Time_Screen
@@ -1039,7 +1088,7 @@ N $9361 Send the time buffer to #R$92E4.
   $9367,$01 Return.
 
 b $9368
-B $9413
+  $9413
 
 c $95D4
   $95D4,$06 Call #R$95E1 using #R$AA16.
@@ -1120,15 +1169,19 @@ N $9827 Checks if "G" and "H" are being held to quit a game.
   $98DC,$01 Return.
 
 g $9C28
+
 g $9C29
+
 g $9C2A
+
 g $9C2B
+
 g $9C2C Number of players.
 @ $9C2C label=Num_Players
 
 g $9C2D
 
-c $9C2E Game Entry Point.
+c $9C2E Game Entry Point
 @ $9C2E label=Game_Start
   $9C2E,$01 Disable interrupts.
   $9C2F,$04 Set border colour to cyan.
@@ -1143,15 +1196,15 @@ c $9C2E Game Entry Point.
   $9C45,$0B Write #N($0000,$04,$04) to; #LIST { #R$C423 } { #R$C425 } LIST#
   $9C50,$03 Jump to #R$AC05.
 
-c $9C53 Read Key Input.
+c $9C53 Read Key Input
 N $9C53 Annotated by Stephen Jones; Spectrum Discovery Club.
 @ $9C53 label=Keyboard_Test
   $9C53,$01 Key to test in #REGc.
   $9C54,$02 Mask bits d0-d2 for row.
   $9C56,$01 In range 1-8.
   $9C57,$01 Place in #REGb.
-  $9C58,$06 Divide #REGc by 8 to find position within row.
-  $9C5E,$02 Only 5 keys per row.
+  $9C58,$06 Divide #REGc by #N$08 to find position within row.
+  $9C5E,$02 Only #N$05 keys per row.
   $9C60,$01 Subtract position.
   $9C61,$01 Put into #REGc.
   $9C62,$02 High byte of port to read.
@@ -1176,18 +1229,18 @@ c $9C6F
   $9C89,$05 Call #R$9CA0 and jump to #R$9C93 if it is not zero.
   $9C8E,$05 Write #N$01 to; #LIST { #R$9C2B } LIST#
 
-c $9C93 Print remaining time to the screen.
+c $9C93 Print Remaining Time
 @ $9C93 label=Print_Time
   $9C93,$06 Stores #R$9CA5 as the LSB in #REGhl.
   $9C99,$03 Store #N$0B00 in #REGde for the screen position.
   $9C9C,$03 Call #R$9336.
   $9C9F,$01 Return.
 
-c $9CA0 Countdown time by one unit.
+c $9CA0 Countdown Time
 @ $9CA0 label=Time_Tick
-C $9CA0,$05 Decrease #R$9CA5 by 1 and return.
+  $9CA0,$05 Decrease #R$9CA5 by 1 and return.
 
-g $9CA5 Time.
+g $9CA5 Time
 @ $9CA5 label=Time
 
 c $9CA6
@@ -1223,7 +1276,7 @@ c $9CA6
 
 c $9ED2
 
-c $A3FF Random number.
+c $A3FF Random Number
 D $A3FF Semi-random number generator using the refresh register.
 @ $A3FF label=Random_Number
   $A3FF #REGa=0-127 (the contents of the refresh register).
@@ -1231,7 +1284,7 @@ D $A3FF Semi-random number generator using the refresh register.
 
 c $A402
 
-c $A647 New high score?
+c $A647 New High Score?
 N $A647 Check if either player has broken the high score.
 @ $A647 label=Check_HighScore
   $A647,$03 #REGhl=#R$B035(high score).
@@ -1266,7 +1319,7 @@ N $A67D Overwrite the high score with the 1UP score.
   $A67E,$06 Overwrite the high score.
   $A684,$01 Restore the high score memory address to #REGhl.
 
-c $A685 Print Hi-Score.
+c $A685 Print Hi-Score
 @ $A685 label=Print_HighScore
   $A685,$02 Set a counter = #N$03 digits.
   $A687,$03 Call #R$AFDA.
@@ -1274,7 +1327,7 @@ c $A685 Print Hi-Score.
   $A68D,$09 Point to #R$B024 and call #R$92E4.
   $A696,$01 Return.
 
-c $A697 Check player score against high score.
+c $A697 Check Player Score Against High Score
 @ $A697 label=Is_HighScore
   $A697,$05 Write #N$00 to #R$A6B7.
   $A69C,$02 Stash the high score and player score positions on the stack.
@@ -1295,7 +1348,9 @@ c $A697 Check player score against high score.
 
 g $A6B6
 g $A6B7
+
 g $AA00
+
 g $AA01 1UP Yin-yang count.
 @ $AA01 label=P1_Yin_Yang
 B $AA01,$01
@@ -1303,7 +1358,7 @@ B $AA02,$01
 
 B $AA04,$01
 
-g $AA06 Is this demo mode?
+g $AA06 Demo Mode
 B $AA06,$01
 @ $AA06 label=Is_Demo_Mode
 
@@ -1317,6 +1372,7 @@ B $AA18,$01
 B $AA3C,$01
 
 g $AA40
+
 g $AA41
 @ $AA41 label=P2_Yin_Yang
 B $AA41,$01
@@ -1376,7 +1432,7 @@ c $AADC
   $AB5C,$0B Copies #N$12 bytes of data from #R$A60B to #R$AA77.
   $AB67,$01 Return.
 
-c $AB70 Demo mode.
+c $AB70 Demo Mode
 @ $AB70 label=Demo_Mode
   $AB70,$01 #REGa=#N$00
   $AB71,$06 Write #N$00 to; #LIST { #R$B05F } { #R$9C2C } LIST#
@@ -1398,7 +1454,7 @@ c $AB70 Demo mode.
   $ABC2,$05 If this value is not #N$04 then jump to #R$AB97.
   $ABC7,$01 Else, return.
 
-c $AC05 Main game loop.
+c $AC05 Main Game Loop
 @ $AC05 label=Main_Game
   $AC05,$04 Writes #N$00 to #R$9C2C - this signifies we're in "demo mode".
 @ $AC09 label=Main_Game_Loop
@@ -1462,7 +1518,7 @@ N $AC3E fff
   $AE75,$03 Call #R$AF1A.
   $AE78,$01 Return.
 
-c $AEBF Print the current Dan (or "NOVICE") message.
+c $AEBF Print The Current Dan (or "NOVICE") Message
 @ $AEBF label=Show_Rank
 N $AEBF Should this be a Dan, or just "novice"?
   $AEBF,$06 Grab #R$B05F.
@@ -1485,7 +1541,7 @@ N $AEE8 Print the result to screen.
   $AEEE,$09 Point to #R$B059 and call #R$92E4.
   $AEF7,$01 Return.
 
-c $AEF8 Initialise time counter.
+c $AEF8 Initialise Time Counter
 @ $AEF8 label=Init_Time
   $AEF8,$05 Write #N$1E (30 seconds) to #R$9CA5.
   $AEFD,$03 Call #R$9C93.
@@ -1588,25 +1644,25 @@ B $B032,$03 Score Player 2
 @ $B032 label=Score_P2
 B $B035,$03 Hi-Score (defaults to 1000).
 @ $B035 label=Hi_Score
-T $B039,$05,$04:1 "DEMO" text.
+T $B039,$05,$04:$01 "DEMO" text.
 @ $B039 label=Text_Demo
-T $B03E,$07,$06:1 "PLAYER" text.
+T $B03E,$07,$06:$01 "PLAYER" text.
 @ $B03E label=Text_Player
-T $B045,$08,$07:1 "NOVICE" text.
+T $B045,$08,$07:$01 "NOVICE" text.
 @ $B045 label=Text_Novice
-T $B04D,$03,$02:1 "ST" numeric suffix.
+T $B04D,$03,$02:$01 "ST" numeric suffix.
 @ $B04D label=Text_ST_Suffix
-T $B050,$03,$02:1 "ND" numeric suffix.
+T $B050,$03,$02:$01 "ND" numeric suffix.
 @ $B050 label=Text_ND_Suffix
-T $B053,$03,$02:1 "RD" numeric suffix.
+T $B053,$03,$02:$01 "RD" numeric suffix.
 @ $B053 label=Text_RD_Suffix
-T $B056,$03,$02:1 "TH" numeric suffix.
+T $B056,$03,$02:$01 "TH" numeric suffix.
 @ $B056 label=Text_TH_Suffix
-T $B059,$05,$04:1 "DAN" text.
+T $B059,$05,$04:$01 "DAN" text.
 @ $B059 label=Text_Dan
 B $B05F,$01 Current rank (0=novice, 1 or more=Dan rank).
 @ $B05F label=Current_Rank
-T $B060,$0A,$09:1 Whitespace?
+T $B060,$0A,$09:$01 Whitespace?
 @ $B060 label=Text_Whitespace_9
 
 b $B06A
@@ -1624,7 +1680,7 @@ B $B154
 
 c $B15A
 
-g $B2FA Sound flag.
+g $B2FA Sound Flag
 @ $B2FA label=Flag_Sound
 
 c $B2FB
@@ -1644,7 +1700,7 @@ c $C1CC
 
 c $C1F6
 
-c $C203 Screen Calculation.
+c $C203 Screen Calculation
 N $C203 This routine works out which area of the screen we are in.
 .       Here are a few examples of usage;
 .       #REGa=#N$22
@@ -1708,7 +1764,7 @@ c $C3E4
 
 b $C407
 
-g $C409 Player 1 screen position.
+g $C409 Player 1 Screen Position
 @ $C409 label=Position_P1
 W $C409 The position in the screen buffer for Player 1.
 g $C40B
