@@ -23,14 +23,14 @@ gtag('config', 'G-75RERFCHBG');
 </tr>
 </table>
 <ul class="contents">
-<li><a href="#extraTime">Extra time</a></li>
-<li><a href="#pointsToWinP1">Points to win (P1)</a></li>
-<li><a href="#pointsToWinP2">Points to win (P2)</a></li>
-<li><a href="#cpuNonScoring">CPU doesn't score</a></li>
-<li><a href="#winOnDraw">Win on draw</a></li>
-<li><a href="#disableTime">Combat without time</a></li>
+<li><a href="#extra_time">Extra time</a></li>
+<li><a href="#points_to_win__p1_">Points to win (P1)</a></li>
+<li><a href="#points_to_win__p2_">Points to win (P2)</a></li>
+<li><a href="#cpu_doesn't_score">CPU doesn't score</a></li>
+<li><a href="#win_on_draw">Win on draw</a></li>
+<li><a href="#combat_without_time">Combat without time</a></li>
 </ul>
-<div><span id="extraTime"></span></div>
+<div><span id="extra_time"></span></div>
 <div class="box box-1">
 <div class="box-title">Extra time</div>
 <div class="paragraph">
@@ -39,42 +39,160 @@ To give the fighters 255 seconds of time:
 <div class="paragraph">
 POKE <a href="../asm/44792.html">44793</a>,255
 </div>
+<div class="paragraph">
+This changes the value which is written to <a href="../asm/40101.html">Time</a> when a game begins.
 </div>
-<div><span id="pointsToWinP1"></span></div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/44792.html">44792</a></td>
+<td class="instruction">LD <span class="register">A</span>,30</td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/44792.html#44794">44794</a></td>
+<td class="instruction">LD (<a href="../asm/40101.html">40101</a>),<span class="register">A</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div><span id="points_to_win__p1_"></span></div>
 <div class="box box-2">
 <div class="box-title">Points to win (P1)</div>
 <div class="paragraph">
-POKE <a href="../asm/44094.html#44331">44332</a>,255
+POKE <a href="../asm/44094.html#44331">44332</a>,<em>nn</em>
+</div>
+<div class="paragraph">
+This alters the check ("compare") for how many points 1UP has when a round finishes to determine whether the match is
+over.
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/44094.html#44331">44331</a></td>
+<td class="instruction">CP 4</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div><span id="pointsToWinP2"></span></div>
+<div><span id="points_to_win__p2_"></span></div>
 <div class="box box-1">
 <div class="box-title">Points to win (P2)</div>
 <div class="paragraph">
-POKE <a href="../asm/44094.html#44338">44339</a>,255
+POKE <a href="../asm/44094.html#44338">44339</a>,<em>nn</em>
+</div>
+<div class="paragraph">
+This alters the check ("compare") for how many points 2UP has when a round finishes to determine whether the match is
+over.
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/44094.html#44338">44338</a></td>
+<td class="instruction">CP 4</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div><span id="cpuNonScoring"></span></div>
+<div><span id="cpu_doesn't_score"></span></div>
 <div class="box box-2">
 <div class="box-title">CPU doesn't score</div>
 <div class="paragraph">
 POKE <a href="../asm/36878.html#36951">36951</a>,201
 </div>
+<div class="paragraph">
+This changes the block of code which handles CPU scoring from:
 </div>
-<div><span id="winOnDraw"></span></div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/36878.html#36951">36951</a></td>
+<td class="instruction">LD <span class="register">A</span>,(<a href="../asm/43585.html#43592">43592</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/36878.html#36954">36954</a></td>
+<td class="instruction">AND <span class="register">A</span></td>
+</tr>
+<tr>
+<td class="address-1"><a href="../asm/36878.html#36955">36955</a></td>
+<td class="instruction">RET Z</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+To simply just return.
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/36878.html#36951">36951</a></td>
+<td class="instruction">RET</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div><span id="win_on_draw"></span></div>
 <div class="box box-1">
 <div class="box-title">Win on draw</div>
 <div class="paragraph">
 POKE <a href="../asm/44094.html#44365">44366</a>,16
 </div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/44094.html#44365">44365</a></td>
+<td class="instruction">JR Z,<a href="../asm/44094.html#44369">44369</a></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div><span id="disableTime"></span></div>
+</div>
+<div><span id="combat_without_time"></span></div>
 <div class="box box-2">
 <div class="box-title">Combat without time</div>
 <div class="paragraph">
 <div>POKE <a href="../asm/44094.html#44418">44418</a>,175</div>
 <div>POKE <a href="../asm/40102.html#40181">40181</a>,182</div>
 <div>POKE <a href="../asm/40096.html#40099">40099</a>,182</div>
+</div>
+<div class="paragraph">
+This changes:
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/44094.html#44418">44418</a></td>
+<td class="instruction">AND <span class="register">A</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+To:
+</div>
+<div class="paragraph">
+<table>
+<tbody>
+<tr>
+<td class="address-1"><a href="../asm/44094.html#44418">44418</a></td>
+<td class="instruction">XOR <span class="register">A</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph">
+TBC.
 </div>
 </div>
 <footer>

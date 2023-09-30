@@ -101,7 +101,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="9213"></span>9213</td>
 <td class="instruction">LD BC,$0020</td>
-<td class="comment-1" rowspan="2">Copy <span class="register">HL</span> to <span class="register">DE</span> 20 times.</td>
+<td class="comment-1" rowspan="2">Copy 20 bytes of data from <span class="register">HL</span> to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9216"></span>9216</td>
@@ -110,22 +110,20 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="9218"></span>9218</td>
 <td class="instruction">POP BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Restore <span class="register">BC</span>, <span class="register">DE</span> and <span class="register">HL</span> from the stack.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9219"></span>9219</td>
 <td class="instruction">POP DE</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="921a"></span>921A</td>
 <td class="instruction">POP HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="921b"></span>921B</td>
 <td class="instruction">CALL <a href="9229.html">$9229</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="9229.html">9229</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="921e"></span>921E</td>
@@ -135,22 +133,20 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="921f"></span>921F</td>
 <td class="instruction">LD BC,$0020</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0020.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9222"></span>9222</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">DE</span>+=<span class="register">BC</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="9223"></span>9223</td>
 <td class="instruction">ADD HL,BC</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="9224"></span>9224</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="9225"></span>9225</td>

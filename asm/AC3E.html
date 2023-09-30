@@ -139,67 +139,65 @@ fff
 <td class="asm-label">Start_1UP_Game_0</td>
 <td class="address-2"><span id="ac5f"></span>AC5F</td>
 <td class="instruction">LD A,($AF35)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <a href="AF27.html#af35">AF35</a> is zero, jump to <a href="AC3E.html#ac9d">Start_1UP_Game_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac62"></span>AC62</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac63"></span>AC63</td>
 <td class="instruction">JR Z,<a href="AC3E.html#ac9d">Start_1UP_Game_1</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac65"></span>AC65</td>
 <td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac66"></span>AC66</td>
 <td class="instruction">LD ($AF35),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="AF27.html#af35">AF35</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac69"></span>AC69</td>
 <td class="instruction">CALL <a href="90D0.html#90d1">Intro_Music</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="90D0.html#90d1">Intro_Music</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac6c"></span>AC6C</td>
 <td class="instruction">LD A,($AF34)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="AF27.html#af34">AF34</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac6f"></span>AC6F</td>
 <td class="instruction">CALL <a href="9200.html">$9200</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="9200.html">9200</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac72"></span>AC72</td>
 <td class="instruction">LD B,$00</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=00.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac74"></span>AC74</td>
 <td class="instruction">CALL <a href="AF36.html#af52">$AF52</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="AF36.html#af52">AF52</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ac77"></span>AC77</td>
 <td class="instruction">CALL <a href="9745.html#98bf">Game_Over_13</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="9745.html#98bf">Game_Over_13</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>

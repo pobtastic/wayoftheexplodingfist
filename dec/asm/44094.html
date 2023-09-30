@@ -139,67 +139,65 @@ fff
 <td class="asm-label">Start_1UP_Game_0</td>
 <td class="address-2"><span id="44127"></span>44127</td>
 <td class="instruction">LD A,(44853)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">If <a href="44839.html#44853">44853</a> is zero, jump to <a href="44094.html#44189">Start_1UP_Game_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44130"></span>44130</td>
 <td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44131"></span>44131</td>
 <td class="instruction">JR Z,<a href="44094.html#44189">Start_1UP_Game_1</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44133"></span>44133</td>
 <td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">A</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44134"></span>44134</td>
 <td class="instruction">LD (44853),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="44839.html#44853">44853</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44137"></span>44137</td>
 <td class="instruction">CALL <a href="37072.html#37073">Intro_Music</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="37072.html#37073">Intro_Music</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44140"></span>44140</td>
 <td class="instruction">LD A,(44852)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="44839.html#44852">44852</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44143"></span>44143</td>
 <td class="instruction">CALL <a href="37376.html">37376</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="37376.html">37376</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44146"></span>44146</td>
 <td class="instruction">LD B,0</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=0.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44148"></span>44148</td>
 <td class="instruction">CALL <a href="44854.html#44882">44882</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="44854.html#44882">44882</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44151"></span>44151</td>
 <td class="instruction">CALL <a href="38725.html#39103">Game_Over_13</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="38725.html#39103">Game_Over_13</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
