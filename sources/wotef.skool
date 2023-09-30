@@ -6,10 +6,9 @@
 ; Loading screen
 ;
 ; #UDGTABLE
-; { #SCR(loading) | The Way Of The Exploding Fist Loading Screen. }
-; TABLE#
-@label=LOADING
-@label=SCREEN_BUFFER
+; { #SCR2(loading) | The Way Of The Exploding Fist Loading Screen. }
+; UDGTABLE#
+@label=Loading
 b$4000 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00 ; {Pixels
  $4020 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$03,$80,$3C,$00,$00,$00,$00,$FF,$FF,$FF,$FF,$FF,$00,$00,$E0,$00,$00,$00,$00,$00,$00,$00,$00 ;
  $4040 DEFB $00,$00,$00,$00,$00,$00,$00,$80,$00,$30,$38,$C0,$00,$0F,$80,$00,$03,$00,$00,$0F,$FC,$F0,$00,$0C,$D8,$60,$00,$00,$00,$00,$00,$00 ;
@@ -202,7 +201,6 @@ b$4000 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,
  $57A0 DEFB $00,$03,$3F,$00,$00,$30,$00,$00,$00,$00,$00,$00,$00,$00,$00,$C0,$01,$00,$00,$E7,$E7,$66,$66,$78,$13,$00,$CC,$03,$2B,$83,$0F,$00 ;
  $57C0 DEFB $00,$38,$01,$00,$0F,$80,$00,$00,$00,$00,$00,$00,$0F,$00,$00,$00,$00,$00,$00,$66,$66,$66,$66,$78,$10,$0C,$CC,$00,$FD,$1B,$7F,$00 ;
  $57E0 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$66,$66,$66,$66,$70,$00,$CC,$CC,$00,$0A,$30,$00,$00 ; }
-@label=ATTRIBUTE_BUFFER
  $5800 DEFB $68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68,$68 ; {Attributes
  $5820 DEFB $68,$68,$68,$68,$68,$68,$68,$6A,$6A,$6A,$6A,$6A,$6A,$50,$50,$50,$50,$50,$50,$50,$50,$6A,$6A,$6A,$6A,$6A,$68,$68,$68,$68,$68,$68 ;
  $5840 DEFB $68,$68,$68,$68,$68,$68,$6A,$55,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$50,$6A,$68,$68,$68,$68,$68 ;
@@ -231,43 +229,43 @@ b$4000 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,
 ; Unused
 s$5B00 DEFS $0400
 
-; Background Reference.
+; Background Reference
 ;
-; Used by the routine at #R$5F3C. Can be either; #LIST { $01 } { $02 } { $03 } LIST#
+; Used by the routine at #R$5F3C. Can be either; #LIST { #N$01 } { #N$02 } { #N$03 } LIST#
 ; This represents which background is shown.
-@label=BACKGROUND_REFERENCE
+@label=Background_Reference
 g$5F00 DEFB $00
 
 ; Unused.
 g$5F01 DEFS $01
 
-; Background screen buffer.
-@label=BACKGROUND_SCREEN_ADDRESS
+; Background screen buffer
+@label=Background_Screen_Address
 g$5F02 DEFW $0000    ; Holds current screen location
-@label=BACKGROUND_CURRENT_UDG
+@label=Background_Current_UDG
  $5F04 DEFW $0000    ; {Background UDG reference buffer.
  $5F06 DEFW $0000    ; }
-@label=BACKGROUND_UDG_DATA
+@label=Background_UDG_Data
  $5F08 DEFW $0000    ; Holds currently processed UDG data block.
 ; Used with the indirect jump at #R$5F46/ #R$5F52.
-@label=COPY_BACKGROUND_1
+@label=Copy_Background_1
  $5F0A DEFW $5F53    ; Location of code to copy background 1 reference data.
-@label=COPY_BACKGROUND_2
+@label=Copy_Background_2
  $5F0C DEFW $5F62    ; Location of code to copy background 2 reference data.
-@label=COPY_BACKGROUND_3
+@label=Copy_Background_3
  $5F0E DEFW $5F71    ; Location of code to copy background 3 reference data.
 
-; Background address buffer.
+; Background address buffer
 ;
 ; Buffer that holds the currently processed background data depending on the background reference value.
 ; #TABLE(default,centre,centre)
 ; { =h #R$5F00 | =h Background Data }
-; { $01 | #R$602B }
-; { $02 | #R$603D }
-; { $03 | #R$604F }
+; { #N$01 | #R$602B }
+; { #N$02 | #R$603D }
+; { #N$03 | #R$604F }
 ; TABLE#
-;       Populated from one of #R$5F53, #R$5F62 or #R$5F71.
-@label=BACKGROUND_DATA_BUFFER
+; Populated from one of #R$5F53, #R$5F62 or #R$5F71.
+@label=Background_Data_Buffer
 g$5F10 DEFW $0000    ; {Block 1.
  $5F12 DEFW $0000    ; }
  $5F14 DEFW $0000    ; {Block 2.
@@ -287,16 +285,16 @@ g$5F10 DEFW $0000    ; {Block 1.
 ; .
 ;
 ; Blanks the screen.
-@label=CHANGE_BACKGROUND
-c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes buffer.
+@label=Change_Background
+c$5F22 LD HL,$5800   ; {Writes #N$3F to all #N$300 locations of the attributes buffer.
  $5F25 LD E,L        ; #TABLE(default,centre,centre,centre,centre)
  $5F26 LD D,H        ; { =h Value | =h Ink | =h Paper | =h Bright }
- $5F27 INC DE        ; { $3F | $07 | $07 | $00 }
+ $5F27 INC DE        ; { #N$3F | #N$07 | #N$07 | #N$00 }
  $5F28 LD (HL),$3F   ; TABLE#
  $5F2A LD BC,$02FF   ; This is white ink on white paper.
  $5F2D LDIR          ; }
- $5F2F LD HL,$4000   ; {Writes $00 to all $1800 locations of the screen buffer.
- $5F32 LD E,L        ;
+ $5F2F LD HL,$4000   ; {Writes #N$00 to all #N$1800 locations of the screen
+ $5F32 LD E,L        ; buffer.
  $5F33 LD D,H        ;
  $5F34 INC DE        ;
  $5F35 LD BC,$17FF   ;
@@ -308,47 +306,47 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes buffe
  $5F3F LD A,(HL)     ; }
  $5F40 DEC A         ; {Decrease it by one, then double it.
  $5F41 ADD A,A       ; }
- $5F42 LD C,A        ; {Store it as the LSB of #REGbc (MSB is $00).
+ $5F42 LD C,A        ; {Store it as the LSB of #REGbc (MSB is #N$00).
  $5F43 LD B,$00      ; }
- $5F45 LD (HL),B     ; Write $00 to #R$5F00.
+ $5F45 LD (HL),B     ; Write #N$00 to #R$5F00.
  $5F46 LD HL,$5F0A   ; #REGhl=The beginning of three address references for the copy routines which populate #R$5F10 at
                      ;           #R$5F0A($5F0A).
  $5F49 ADD HL,BC     ; Add #REGbc to #REGhl.
  $5F4A LD E,(HL)     ; {#REGde=One of the three background address references;
  $5F4B INC HL        ; #TABLE(default,centre,centre)
  $5F4C LD D,(HL)     ; { =h #R$5F00 | =h Address Reference }
-                     ; { $01 | #R$5F0A($5F0A) }
-                     ; { $02 | #R$5F0C($5F0C) }
-                     ; { $03 | #R$5F0E($5F0E) }
+                     ; { #N$01 | #R$5F0A($5F0A) }
+                     ; { #N$02 | #R$5F0C($5F0C) }
+                     ; { #N$03 | #R$5F0E($5F0E) }
                      ; TABLE#}
  $5F4D EX DE,HL      ; Swap #REGde and #REGhl.
  $5F4E CALL $5F52    ; Call #R$5F52.
  $5F51 RET           ; Return.
 ; Indirect jump to copy-to-buffer routine.
-@label=INDIRECT_JUMP
+@label=Indirect_Jump
 *$5F52 JP (HL)       ; Indirect jump to address held by #REGhl.
                      ; #TABLE(default,centre,centre)
                      ; { =h #R$5F00 | =h Jumps To... }
-                     ; { $01 | #R$5F53 }
-                     ; { $02 | #R$5F62 }
-                     ; { $03 | #R$5F71 }
+                     ; { #N$01 | #R$5F53 }
+                     ; { #N$02 | #R$5F62 }
+                     ; { #N$03 | #R$5F71 }
                      ; TABLE#
 ; Set up background 1.
- $5F53 LD HL,$602B   ; {Copies $12 bytes of data from #R$602B to #R$5F10.
+ $5F53 LD HL,$602B   ; {Copies #N$12 bytes of data from #R$602B to #R$5F10.
  $5F56 LD DE,$5F10   ;
  $5F59 LD BC,$0012   ;
  $5F5C LDIR          ; }
  $5F5E CALL $5F80    ; Call #R$5F80.
  $5F61 RET           ; Return.
 ; Set up background 2.
- $5F62 LD HL,$603D   ; {Copies $12 bytes of data from #R$603D to #R$5F10.
+ $5F62 LD HL,$603D   ; {Copies #N$12 bytes of data from #R$603D to #R$5F10.
  $5F65 LD DE,$5F10   ;
  $5F68 LD BC,$0012   ;
  $5F6B LDIR          ; }
  $5F6D CALL $5F80    ; Call #R$5F80.
  $5F70 RET           ; Return.
 ; Set up background 3.
- $5F71 LD HL,$604F   ; {Copies $12 bytes of data from #R$604F to #R$5F10.
+ $5F71 LD HL,$604F   ; {Copies #N$12 bytes of data from #R$604F to #R$5F10.
  $5F74 LD DE,$5F10   ;
  $5F77 LD BC,$0012   ;
  $5F7A LDIR          ; }
@@ -365,20 +363,20 @@ c$5F22 LD HL,$5800   ; {Writes $3F to all $300 locations of the attributes buffe
 ; #R$6010). For example, #R$602B(background 1) uses;
 ; #TABLE(default,centre,centre,centre)
 ; { =h Block | =h UDGs | =h Data }
-; { 1 | #R$626A | #R$6102 }
-; { 2 | #R$648A | #R$6157 }
-; { 3 | #R$685A | #R$61D9 }
-; { 4 | #R$6AE2 | #R$624D }
+; { #N$01 | #R$626A | #R$6102 }
+; { #N$02 | #R$648A | #R$6157 }
+; { #N$03 | #R$685A | #R$61D9 }
+; { #N$04 | #R$6AE2 | #R$624D }
 ; { =h,c2 Attribute Data | #R$6061 }
 ; TABLE#
-@label=CREATE_BACKGROUND
-c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for the "header". This is the top of character block 4.
+@label=Create_Background
+c$5F80 LD HL,$4080   ; {The first screen address is #N$4080 which allows space for the "header". This is the top of character block 4.
  $5F83 LD ($5F02),HL ; This is then stored in the buffer at #R$5F02.}
  $5F86 LD HL,$5F10   ; #REGhl=#R$5F10(Background address data buffer).
 ; Each background has 4 "sets" of data, so set a counter of 4.
  $5F89 LD B,$04      ; #REGb=Initialise block counter.
 ; The block processing loop.
-@label=CREATE_BACKGROUND_LOOP
+@label=Create_Background_Loop
 *$5F8B PUSH BC       ; Push the counter onto the stack.
 ; Each block contains two address references, one is for UDG data, and one is
 ; for positioning data.
@@ -401,14 +399,14 @@ c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for
  $5F9D CALL $5FBE    ; Call #R$5FBE.
 ; fgg
  $5FA0 LD HL,($5F02) ; #REGhl=The current screen address from #R$5F02.
- $5FA3 LD BC,$0080   ; {Add $0080 to #REGhl.
+ $5FA3 LD BC,$0080   ; {Add #N$0080 to #REGhl.
  $5FA6 ADD HL,BC     ; }
  $5FA7 BIT 0,H       ; {Set the zero flag if we're at a screen section
  $5FA9 JR Z,$5FAF    ; boundary. Skip forward to #R$5FAF if not.}
- $5FAB LD A,$07      ; {Add $07 to the MSB of #REGhl to handle moving between
+ $5FAB LD A,$07      ; {Add #N$07 to the MSB of #REGhl to handle moving between
  $5FAD ADD A,H       ; screen sections.
  $5FAE LD H,A        ; }
-@label=BACKGROUND_NO_BOUNDARY
+@label=Background_No_Boundary
 *$5FAF LD ($5F02),HL ; Stash #REGhl at #R$5F02.
  $5FB2 POP HL        ; {Restores #REGhl and the counter from the stack.
  $5FB3 POP BC        ; }
@@ -422,7 +420,7 @@ c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for
  $5FBA CALL $6010    ; }
  $5FBD RET           ; Return.
 ; Fetch the next positioning data and check for the terminator.
-@label=BACKGROUND_FETCH_NEXT
+@label=Background_Fetch_Next
 *$5FBE LD A,(HL)     ; Fetch the next positioning data byte.
  $5FBF INC HL        ; Increase #REGhl by one to point to the next byte.
  $5FC0 CP (HL)       ; Check if this byte is the same as the previous
@@ -431,13 +429,13 @@ c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for
  $5FC3 AND A         ; {Double zero is the terminator, so jump to #R$5FF3 to
  $5FC4 JR Z,$5FF3    ; return if this is detected.}
 ; Process the UDG data.
-@label=BACKGROUND_PROCESS
+@label=Background_Process
 *$5FC6 BIT 7,A       ; {Check if d7 is set, reset it regardless.
  $5FC8 RES 7,A       ; }
  $5FCA PUSH AF       ; Push the new positioning data value onto the stack.
  $5FCB EXX           ; Exchange the registers.
 ; Point #REGhl to the base address of the currently referenced UDG.
- $5FCC LD C,A        ; {Set the LSB of #REGbc to #REGa, and the MSB to $00.
+ $5FCC LD C,A        ; {Set the LSB of #REGbc to #REGa, and the MSB to #N$00.
  $5FCD LD B,$00      ; }
  $5FCF LD L,C        ; {Copy the same value into #REGhl.
  $5FD0 LD H,B        ; }
@@ -463,23 +461,23 @@ c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for
  $5FE7 INC HL        ; Increment #REGhl to point to the next item of position
                      ; data.
  $5FE8 DEC B         ; Decrease the counter by one.
-@label=BACKGROUND_REPEAT_COPY
+@label=Background_Repeat_Copy
 *$5FE9 CALL $5FF4    ; Call #R$5FF4.
  $5FEC CALL $6007    ; Call #R$6007.
  $5FEF DJNZ $5FE9    ; Decrease counter by one and loop back to #R$5FE9 until
                      ; the counter is zero.
  $5FF1 JR $5FBE      ; Jump back round to #R$5FBE.
 ; Used to "just return" after flag checking operations.
-@label=BACKGROUND_RETURN
+@label=Background_Return
 *$5FF3 RET           ; Return.
 ; Copy a single UDG 8x8 block to the screen.
-@label=COPY_UDG
+@label=Copy_UDG
 *$5FF4 PUSH DE       ; {Push #REGde (current screen location) and #REGhl (next
  $5FF5 PUSH HL       ; position data location) onto the stack.}
- $5FF6 LD A,$08      ; Set a counter of $08 for the number of lines in a
+ $5FF6 LD A,$08      ; Set a counter of #N$08 for the number of lines in a
                      ; character block.
  $5FF8 LD HL,($5F04) ; #REGhl=#R$5F04(the currently targeted UDG address).
-@label=COPY_UDG_LOOP
+@label=Copy_UDG_Loop
 *$5FFB EX AF,AF'     ; Stash the counter for later.
  $5FFC LD A,(HL)     ; {Copy the UDG data held by #REGhl into the screen buffer
  $5FFD LD (DE),A     ; currently pointed to by #REGde.}
@@ -494,11 +492,11 @@ c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for
  $6005 POP DE        ; screen location and position data from the stack.}
  $6006 RET           ; Return.
 ; Handles moving from one screen location block to the next.
-@label=BKG_NEXT_SCREEN_BLOCK
+@label=Background_Next_Screen_Block
 *$6007 INC DE        ; Increase #REGde by 1.
  $6008 BIT 0,D       ; {Return if d0 is not set on the MSB of #REGde. This
  $600A RET Z         ; checks to see if we're at a screen boundary.}
- $600B LD A,$07      ; {Add $07 to #REGd, so that #REGde points to the next
+ $600B LD A,$07      ; {Add #N$07 to #REGd, so that #REGde points to the next
  $600D ADD A,D       ; block down.
  $600E LD D,A        ; }
  $600F RET           ; Return.
@@ -513,22 +511,22 @@ c$5F80 LD HL,$4080   ; {The first screen address is $4080 which allows space for
 ; reference memory locations;
 ; #TABLE(default,centre,centre)
 ; { =h Background reference | =h Background data }
-; { $01 | #R$6061 }
-; { $02 | #R$6B83 }
-; { $03 | #R$7766 }
+; { #N$01 | #R$6061 }
+; { #N$02 | #R$6B83 }
+; { #N$03 | #R$7766 }
 ; TABLE#
 ; The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For
 ; example;
 ; #TABLE(default,centre,centre,centre,centre)
 ; { =h Address | =h Value | =h Binary | =h Value After Reset }
-; { $6061 | $#N(#PEEK($6061)) | #EVAL(#PEEK($6061),2,8) | $#N(#EVAL(#PEEK$6061-128)) }
-; { $6062 | $#N(#PEEK($6062)) |  |  }
+; { #N$6061 | #N(#PEEK($6061)) | #EVAL(#PEEK($6061),$02,$08) | #N(#EVAL(#PEEK$6061-128)) }
+; { #N$6062 | #N(#PEEK($6062)) |  |  }
 ; TABLE#
-; So, in $6061 bit 7 is set - after a reset we take $6062 as a counter and hence copy $#N(#EVAL(#PEEK$6061-128)) into
+; So, in #N$6061 bit 7 is set - after a reset we take #N$6062 as a counter and hence copy #N(#EVAL(#PEEK$6061-128)) into
 ; the following #PEEK($6062) memory locations.
-@label=BACKGROUND_ATTRIBUTES
+@label=Background_Attributes
 c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
-@label=BACKGROUND_ATTR_LOOP
+@label=Background_Attributes_Loop
 *$6013 LD A,(HL)     ; Pick up the attribute data from #REGhl.
  $6014 INC HL        ; Increase #REGhl by one.
  $6015 CP (HL)       ; {If the following byte is different to the current
@@ -537,7 +535,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
  $6019 RET Z         ; occurs then return.}
 ; Copy and loop back round to #R$6013 until bit 7 in the current attribute data
 ; is set.
-@label=BKG_ATTR_REPEAT_COPY
+@label=Background_Attributes_Repeat_Copy
 *$601A BIT 7,A       ; {Test if d7 is set in current attribute data. Reset bit
  $601C RES 7,A       ; to zero.}
  $601E LD (DE),A     ; Write the attribute data to #REGde.
@@ -549,7 +547,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
                      ; a counter.
  $6023 INC HL        ; Increase #REGhl by one.
  $6024 DEC B         ; Decrease the counter by one.
-@label=BACKGROUND_COPY_ATTR_REPEAT
+@label=Background_Copy_Attribute_Repeat
 *$6025 LD (DE),A     ; Write the same attribute data to #REGde.
  $6026 INC DE        ; Increment #REGde by one.
  $6027 DJNZ $6025    ; Decrease counter by one and loop back to #R$6025 until
@@ -562,17 +560,17 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 ;
 ; .
 ;
-; #BACKGROUND1,1(background_1)
-@label=BACKGROUND_1_ADDRESSES
-b$602B DEFW $626A    ; {Block 1.
+; #BACKGROUND1,$01(background_1)
+@label=Background_1_Addresses
+b$602B DEFW $626A    ; {Block #N$01.
  $602D DEFW $6102    ; }
- $602F DEFW $648A    ; {Block 2.
+ $602F DEFW $648A    ; {Block #N$02.
  $6031 DEFW $6157    ; }
- $6033 DEFW $685A    ; {Block 3.
+ $6033 DEFW $685A    ; {Block #N$03.
  $6035 DEFW $61D9    ; }
- $6037 DEFW $6AE2    ; {Block 4.
+ $6037 DEFW $6AE2    ; {Block #N$04.
  $6039 DEFW $624D    ; }
-@label=BACKGROUND_1_ATTRIBUTE_DATA
+@label=Background_1_Attribute_Data
  $603B DEFW $6061    ; Attribute data.
 
 ; Background 2 Address references.
@@ -581,17 +579,17 @@ b$602B DEFW $626A    ; {Block 1.
 ;
 ; .
 ;
-; #BACKGROUND2,1(background_2)
-@label=BACKGROUND_2_ADDRESSES
-b$603D DEFW $6DAE    ; {Block 1.
+; #BACKGROUND2,$01(background_2)
+@label=Background_2_Addresses
+b$603D DEFW $6DAE    ; {Block #N$01.
  $603F DEFW $6C4B    ; }
- $6041 DEFW $6E96    ; {Block 2.
+ $6041 DEFW $6E96    ; {Block #N$02.
  $6043 DEFW $6C79    ; }
- $6045 DEFW $720E    ; {Block 3.
+ $6045 DEFW $720E    ; {Block #N$03.
  $6047 DEFW $6CF7    ; }
- $6049 DEFW $7606    ; {Block 4.
+ $6049 DEFW $7606    ; {Block #N$04.
  $604B DEFW $6D79    ; }
-@label=BACKGROUND_2_ATTRIBUTE_DATA
+@label=Background_2_Attribute_Data
  $604D DEFW $6B83    ; Attribute data.
 
 ; Background 3 Address references.
@@ -600,17 +598,17 @@ b$603D DEFW $6DAE    ; {Block 1.
 ;
 ; .
 ;
-; #BACKGROUND3,1(background_3)
-@label=BACKGROUND_3_ADDRESSES
-b$604F DEFW $79B1    ; {Block 1.
+; #BACKGROUND3,$01(background_3)
+@label=Background_3_Addresses
+b$604F DEFW $79B1    ; {Block #N$01.
  $6051 DEFW $784F    ; }
- $6053 DEFW $7BB1    ; {Block 2.
+ $6053 DEFW $7BB1    ; {Block #N$02.
  $6055 DEFW $7893    ; }
- $6057 DEFW $7D09    ; {Block 3.
+ $6057 DEFW $7D09    ; {Block #N$03.
  $6059 DEFW $7910    ; }
- $605B DEFW $7F39    ; {Block 4.
+ $605B DEFW $7F39    ; {Block #N$04.
  $605D DEFW $7991    ; }
-@label=BACKGROUND_3_ATTRIBUTE_DATA
+@label=Background_3_Attribute_Data
  $605F DEFW $7766    ; Attribute data.
 
 ; Background 1 attribute data.
@@ -1731,17 +1729,17 @@ b$7F39 DEFB $10,$20,$60,$80,$00,$00,$00,$00 ; #UDG(#PC,attr=56)
 
 ; Shadow buffer
 ;
-; Once a background is unpacked and displayed, $4820-$5020 are copied to this shadow buffer to
+; Once a background is unpacked and displayed, #N$4820-#N$5020 are copied to this shadow buffer to
 ;       allow the background layer to be drawn quickly (without rerunning the unpacking routines at #R$5F80).
 ; .
 ; #UDGTABLE
-; { #SHADOWBUFF1,2{y=$50}(shadow-screen-1) }
-; { #SHADOWBUFF2,2{y=$50}(shadow-screen-2) }
-; { #SHADOWBUFF3,2{y=$50}(shadow-screen-3) }
+; { #SHADOWBUFF1,$02{y=$50}(shadow-screen-1) }
+; { #SHADOWBUFF2,$02{y=$50}(shadow-screen-2) }
+; { #SHADOWBUFF3,$02{y=$50}(shadow-screen-3) }
 ; UDGTABLE#
 ; .
 ; Used by the routine at #R$9200.
-@label=SHADOW_BUFFER
+@label=Shadow_Buffer
 b$8000 DEFB $FF,$02,$02,$01,$01,$00,$00,$00,$FF,$01,$01,$00,$00,$80,$80,$40,$C0,$00,$00,$80,$80,$40,$40,$20,$3F,$04,$02,$02,$01,$01,$00,$00 ; {Pixels
  $8020 DEFB $FF,$00,$00,$00,$00,$00,$80,$80,$80,$38,$1C,$0E,$07,$03,$01,$01,$00,$87,$87,$87,$87,$87,$87,$C7,$E7,$10,$20,$60,$80,$00,$00,$00 ;
  $8040 DEFB $00,$00,$00,$00,$00,$00,$00,$00,$00,$07,$00,$00,$00,$00,$00,$00,$00,$83,$FC,$00,$00,$00,$00,$00,$00,$FC,$00,$00,$00,$00,$00,$00 ;
@@ -2433,7 +2431,7 @@ c$8AD1 PUSH AF       ;
 ; Player 1 controls.
 ;
 ; Points to the address containing the player 1 control address mappings.
-@label=PLAYER_1_CONTROLS
+@label=Player_1_Controls
 g$8BD2 DEFW $8BFA    ; Player 2 control address mappings.
 
 ; Player 1 redefined keys.
@@ -2445,29 +2443,29 @@ g$8BD2 DEFW $8BFA    ; Player 2 control address mappings.
 ;
 ; #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
 ;       See #R$8E3A.
-@label=PLAYER_1_UP
+@label=Player_1_Up
 g$8BD4 DEFB $00,$00  ; Player 1 - "up" key.
-@label=PLAYER_1_UP_RIGHT
+@label=Player_1_Up_Right
  $8BD6 DEFB $00,$00  ; Player 1 - "up/ right" key.
-@label=PLAYER_1_RIGHT
+@label=Player_1_Right
  $8BD8 DEFB $00,$00  ; Player 1 - "right" key.
-@label=PLAYER_1_DOWN_RIGHT
+@label=Player_1_Down_Right
  $8BDA DEFB $00,$00  ; Player 1 - "down/ right" key.
-@label=PLAYER_1_DOWN
+@label=Player_1_Down
  $8BDC DEFB $00,$00  ; Player 1 - "down" key.
-@label=PLAYER_1_DOWN_LEFT
+@label=Player_1_Down_Left
  $8BDE DEFB $00,$00  ; Player 1 - "down/ left" key.
-@label=PLAYER_1_LEFT
+@label=Player_1_Left
  $8BE0 DEFB $00,$00  ; Player 1 - "left" key.
-@label=PLAYER_1_UP_LEFT
+@label=Player_1_Up_Left
  $8BE2 DEFB $00,$00  ; Player 1 - "up/ left" key.
-@label=PLAYER_1_FIRE
+@label=Player_1_Fire
  $8BE4 DEFB $00,$00  ; Player 1 - "fire" key.
 
 ; Player 2 controls.
 ;
 ; Points to the address containing the player 2 control address mappings.
-@label=PLAYER_2_CONTROLS
+@label=Player_2_Controls
 g$8BE6 DEFW $8C0C    ; Player 2 control address mappings.
 
 ; Player 2 redefined keys.
@@ -2479,57 +2477,57 @@ g$8BE6 DEFW $8C0C    ; Player 2 control address mappings.
 ;
 ; #TABLE(default,centre,centre) { =h MSB | =h LSB } { Port | Bits } TABLE#
 ;       See #R$8E3A.
-@label=PLAYER_2_UP
+@label=Player_2_Up
 g$8BE8 DEFB $00,$00  ; Player 2 - "up" key.
-@label=PLAYER_2_UP_RIGHT
+@label=Player_2_Up_Right
  $8BEA DEFB $00,$00  ; Player 2 - "up/ right" key.
-@label=PLAYER_2_RIGHT
+@label=Player_2_Right
  $8BEC DEFB $00,$00  ; Player 2 - "right" key.
-@label=PLAYER_2_DOWN_RIGHT
+@label=Player_2_Down_Right
  $8BEE DEFB $00,$00  ; Player 2 - "down/ right" key.
-@label=PLAYER_2_DOWN
+@label=Player_2_Down
  $8BF0 DEFB $00,$00  ; Player 2 - "down" key.
-@label=PLAYER_2_DOWN_LEFT
+@label=Player_2_Down_Left
  $8BF2 DEFB $00,$00  ; Player 2 - "down/ left" key.
-@label=PLAYER_2_LEFT
+@label=Player_2_Left
  $8BF4 DEFB $00,$00  ; Player 2 - "left" key.
-@label=PLAYER_2_UP_LEFT
+@label=Player_2_Up_Left
  $8BF6 DEFB $00,$00  ; Player 2 - "up/ left" key.
-@label=PLAYER_2_FIRE
+@label=Player_2_Fire
  $8BF8 DEFB $00,$00  ; Player 2 - "fire" key.
 
 ; Player 1 default keys.
 ;
 ; See #R$8E3A for key mappings.
-@label=P1_DEFAULT_KEYS
+@label=P1_Default_Keys
 g$8BFA DEFB $02,$FB  ; {#TABLE(default,centre,centre,centre,centre)
  $8BFC DEFB $04,$FB  ; { =h Port Number | =h Bit | =h Action | =h Key }
- $8BFE DEFB $04,$FD  ; { $#N(#PEEK($8BFB)) | #EVAL(#PEEK($8BFA),2,8) | Up | "#CALL:get_key(#PEEK($8BFB), #PEEK($8BFA))" }
- $8C00 DEFB $08,$FE  ; { $#N(#PEEK($8BFD)) | #EVAL(#PEEK($8BFC),2,8) | Up-Right | "#CALL:get_key(#PEEK($8BFD), #PEEK($8BFC))" }
- $8C02 DEFB $04,$FE  ; { $#N(#PEEK($8BFF)) | #EVAL(#PEEK($8BFE),2,8) | Right | "#CALL:get_key(#PEEK($8BFF), #PEEK($8BFE))" }
- $8C04 DEFB $02,$FE  ; { $#N(#PEEK($8C01)) | #EVAL(#PEEK($8C00),2,8) | Down-Right | "#CALL:get_key(#PEEK($8C01), #PEEK($8C00))" }
- $8C06 DEFB $01,$FD  ; { $#N(#PEEK($8C03)) | #EVAL(#PEEK($8C02),2,8) | Down | "#CALL:get_key(#PEEK($8C03), #PEEK($8C02))" }
- $8C08 DEFB $01,$FB  ; { $#N(#PEEK($8C05)) | #EVAL(#PEEK($8C04),2,8) | Down-Left | "#CALL:get_key(#PEEK($8C05), #PEEK($8C04))" }
- $8C0A DEFB $01,$F7  ; { $#N(#PEEK($8C07)) | #EVAL(#PEEK($8C06),2,8) | Left | "#CALL:get_key(#PEEK($8C07), #PEEK($8C06))" }
-                     ; { $#N(#PEEK($8C09)) | #EVAL(#PEEK($8C08),2,8) | Up-Left | "#CALL:get_key(#PEEK($8C09), #PEEK($8C08))" }
-                     ; { $#N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),2,8) | Fire | "#CALL:get_key(#PEEK($8C0B), #PEEK($8C0A))" }
+ $8BFE DEFB $04,$FD  ; { #N(#PEEK($8BFB)) | #EVAL(#PEEK($8BFA),$02,$08) | Up | "#CALL:get_key(#PEEK($8BFB), #PEEK($8BFA))" }
+ $8C00 DEFB $08,$FE  ; { #N(#PEEK($8BFD)) | #EVAL(#PEEK($8BFC),$02,$08) | Up-Right | "#CALL:get_key(#PEEK($8BFD), #PEEK($8BFC))" }
+ $8C02 DEFB $04,$FE  ; { #N(#PEEK($8BFF)) | #EVAL(#PEEK($8BFE),$02,$08) | Right | "#CALL:get_key(#PEEK($8BFF), #PEEK($8BFE))" }
+ $8C04 DEFB $02,$FE  ; { #N(#PEEK($8C01)) | #EVAL(#PEEK($8C00),$02,$08) | Down-Right | "#CALL:get_key(#PEEK($8C01), #PEEK($8C00))" }
+ $8C06 DEFB $01,$FD  ; { #N(#PEEK($8C03)) | #EVAL(#PEEK($8C02),$02,$08) | Down | "#CALL:get_key(#PEEK($8C03), #PEEK($8C02))" }
+ $8C08 DEFB $01,$FB  ; { #N(#PEEK($8C05)) | #EVAL(#PEEK($8C04),$02,$08) | Down-Left | "#CALL:get_key(#PEEK($8C05), #PEEK($8C04))" }
+ $8C0A DEFB $01,$F7  ; { #N(#PEEK($8C07)) | #EVAL(#PEEK($8C06),$02,$08) | Left | "#CALL:get_key(#PEEK($8C07), #PEEK($8C06))" }
+                     ; { #N(#PEEK($8C09)) | #EVAL(#PEEK($8C08),$02,$08) | Up-Left | "#CALL:get_key(#PEEK($8C09), #PEEK($8C08))" }
+                     ; { #N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C0B), #PEEK($8C0A))" }
                      ; TABLE#}
 
 ; Player 2 default keys.
 ;
 ; See #R$8E3A for key mappings.
-@label=P2_DEFAULT_KEYS
+@label=P2_Default_Keys
 g$8C0C DEFB $08,$DF  ; { #TABLE(default,centre,centre,centre,centre)
  $8C0E DEFB $04,$DF  ; { =h Port Number | =h Bit | =h Action | =h Key }
- $8C10 DEFB $04,$BF  ; { $#N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),2,8) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
- $8C12 DEFB $04,$7F  ; { $#N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),2,8) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
- $8C14 DEFB $08,$7F  ; { $#N(#PEEK($8C11)) | #EVAL(#PEEK($8C10),2,8) | Right | "#CALL:get_key(#PEEK($8C11), #PEEK($8C10))" }
- $8C16 DEFB $10,$7F  ; { $#N(#PEEK($8C13)) | #EVAL(#PEEK($8C12),2,8) | Down-Right | "#CALL:get_key(#PEEK($8C13), #PEEK($8C12))" }
- $8C18 DEFB $10,$BF  ; { $#N(#PEEK($8C15)) | #EVAL(#PEEK($8C14),2,8) | Down | "#CALL:get_key(#PEEK($8C15), #PEEK($8C14))" }
- $8C1A DEFB $10,$DF  ; { $#N(#PEEK($8C17)) | #EVAL(#PEEK($8C16),2,8) | Down-Left | "#CALL:get_key(#PEEK($8C17), #PEEK($8C16))" }
- $8C1C DEFB $01,$7F  ; { $#N(#PEEK($8C19)) | #EVAL(#PEEK($8C18),2,8) | Left | "#CALL:get_key(#PEEK($8C19), #PEEK($8C18))" }
-                     ; { $#N(#PEEK($8C1B)) | #EVAL(#PEEK($8C1A),2,8) | Up-Left | "#CALL:get_key(#PEEK($8C1B), #PEEK($8C1A))" }
-                     ; { $#N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),2,8) | Fire | "#CALL:get_key(#PEEK($8C1D), #PEEK($8C1C))" }
+ $8C10 DEFB $04,$BF  ; { #N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),$02,$08) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
+ $8C12 DEFB $04,$7F  ; { #N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),$02,$08) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
+ $8C14 DEFB $08,$7F  ; { #N(#PEEK($8C11)) | #EVAL(#PEEK($8C10),$02,$08) | Right | "#CALL:get_key(#PEEK($8C11), #PEEK($8C10))" }
+ $8C16 DEFB $10,$7F  ; { #N(#PEEK($8C13)) | #EVAL(#PEEK($8C12),$02,$08) | Down-Right | "#CALL:get_key(#PEEK($8C13), #PEEK($8C12))" }
+ $8C18 DEFB $10,$BF  ; { #N(#PEEK($8C15)) | #EVAL(#PEEK($8C14),$02,$08) | Down | "#CALL:get_key(#PEEK($8C15), #PEEK($8C14))" }
+ $8C1A DEFB $10,$DF  ; { #N(#PEEK($8C17)) | #EVAL(#PEEK($8C16),$02,$08) | Down-Left | "#CALL:get_key(#PEEK($8C17), #PEEK($8C16))" }
+ $8C1C DEFB $01,$7F  ; { #N(#PEEK($8C19)) | #EVAL(#PEEK($8C18),$02,$08) | Left | "#CALL:get_key(#PEEK($8C19), #PEEK($8C18))" }
+                     ; { #N(#PEEK($8C1B)) | #EVAL(#PEEK($8C1A),$02,$08) | Up-Left | "#CALL:get_key(#PEEK($8C1B), #PEEK($8C1A))" }
+                     ; { #N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C1D), #PEEK($8C1C))" }
                      ; TABLE#}
 
 ; Sinclair Joystick #2.
@@ -2539,18 +2537,18 @@ g$8C0C DEFB $08,$DF  ; { #TABLE(default,centre,centre,centre,centre)
 ; .
 ;
 ; Note the Sinclair joystick maps directional movements and fire to keys.
-@label=SINCLAIR_2
+@label=Sinclair_2
 g$8C1E DEFB $08,$F7  ; { #TABLE(default,centre,centre,centre,centre)
  $8C20 DEFB $00,$F7  ; { =h Port Number | =h Bit | =h Action | =h Key }
- $8C22 DEFB $02,$F7  ; { $#N(#PEEK($8C1F)) | #EVAL(#PEEK($8C1E),2,8) | Up | "#CALL:get_key(#PEEK($8C1F), #PEEK($8C1E))" }
- $8C24 DEFB $00,$F7  ; { $#N(#PEEK($8C21)) | #EVAL(#PEEK($8C20),2,8) | Up-Right | - }
- $8C26 DEFB $04,$F7  ; { $#N(#PEEK($8C23)) | #EVAL(#PEEK($8C22),2,8) | Right | "#CALL:get_key(#PEEK($8C23), #PEEK($8C22))" }
- $8C28 DEFB $00,$F7  ; { $#N(#PEEK($8C25)) | #EVAL(#PEEK($8C24),2,8) | Down-Right | - }
- $8C2A DEFB $01,$F7  ; { $#N(#PEEK($8C27)) | #EVAL(#PEEK($8C26),2,8) | Down | "#CALL:get_key(#PEEK($8C27), #PEEK($8C26))" }
- $8C2C DEFB $00,$F7  ; { $#N(#PEEK($8C29)) | #EVAL(#PEEK($8C28),2,8) | Down-Left | - }
- $8C2E DEFB $10,$F7  ; { $#N(#PEEK($8C2B)) | #EVAL(#PEEK($8C2A),2,8) | Left | "#CALL:get_key(#PEEK($8C2B), #PEEK($8C2A))" }
-                     ; { $#N(#PEEK($8C2D)) | #EVAL(#PEEK($8C2C),2,8) | Up-Left | - }
-                     ; { $#N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),2,8) | Fire | "#CALL:get_key(#PEEK($8C2F), #PEEK($8C2E))" }
+ $8C22 DEFB $02,$F7  ; { #N(#PEEK($8C1F)) | #EVAL(#PEEK($8C1E),$02,$08) | Up | "#CALL:get_key(#PEEK($8C1F), #PEEK($8C1E))" }
+ $8C24 DEFB $00,$F7  ; { #N(#PEEK($8C21)) | #EVAL(#PEEK($8C20),$02,$08) | Up-Right | - }
+ $8C26 DEFB $04,$F7  ; { #N(#PEEK($8C23)) | #EVAL(#PEEK($8C22),$02,$08) | Right | "#CALL:get_key(#PEEK($8C23), #PEEK($8C22))" }
+ $8C28 DEFB $00,$F7  ; { #N(#PEEK($8C25)) | #EVAL(#PEEK($8C24),$02,$08) | Down-Right | - }
+ $8C2A DEFB $01,$F7  ; { #N(#PEEK($8C27)) | #EVAL(#PEEK($8C26),$02,$08) | Down | "#CALL:get_key(#PEEK($8C27), #PEEK($8C26))" }
+ $8C2C DEFB $00,$F7  ; { #N(#PEEK($8C29)) | #EVAL(#PEEK($8C28),$02,$08) | Down-Left | - }
+ $8C2E DEFB $10,$F7  ; { #N(#PEEK($8C2B)) | #EVAL(#PEEK($8C2A),$02,$08) | Left | "#CALL:get_key(#PEEK($8C2B), #PEEK($8C2A))" }
+                     ; { #N(#PEEK($8C2D)) | #EVAL(#PEEK($8C2C),$02,$08) | Up-Left | - }
+                     ; { #N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C2F), #PEEK($8C2E))" }
                      ; TABLE#}
 
 ; Sinclair Joystick #1.
@@ -2560,33 +2558,33 @@ g$8C1E DEFB $08,$F7  ; { #TABLE(default,centre,centre,centre,centre)
 ; .
 ;
 ; Note the Sinclair joystick maps directional movements and fire to keys.
-@label=SINCLAIR_1
+@label=Sinclair_1
 g$8C30 DEFB $02,$EF  ; { #TABLE(default,centre,centre,centre,centre)
  $8C32 DEFB $00,$EF  ; { =h Port Number | =h Bit | =h Action | =h Key }
- $8C34 DEFB $08,$EF  ; { $#N(#PEEK($8C31)) | #EVAL(#PEEK($8C30),2,8) | Up | "#CALL:get_key(#PEEK($8C31), #PEEK($8C30))" }
- $8C36 DEFB $00,$EF  ; { $#N(#PEEK($8C33)) | #EVAL(#PEEK($8C32),2,8) | Up-Right | - }
- $8C38 DEFB $04,$EF  ; { $#N(#PEEK($8C35)) | #EVAL(#PEEK($8C34),2,8) | Right | "#CALL:get_key(#PEEK($8C35), #PEEK($8C34))" }
- $8C3A DEFB $00,$EF  ; { $#N(#PEEK($8C37)) | #EVAL(#PEEK($8C36),2,8) | Down-Right | - }
- $8C3C DEFB $10,$EF  ; { $#N(#PEEK($8C39)) | #EVAL(#PEEK($8C38),2,8) | Down | "#CALL:get_key(#PEEK($8C39), #PEEK($8C38))" }
- $8C3E DEFB $00,$EF  ; { $#N(#PEEK($8C3B)) | #EVAL(#PEEK($8C3A),2,8) | Down-Left | - }
- $8C40 DEFB $01,$EF  ; { $#N(#PEEK($8C3D)) | #EVAL(#PEEK($8C3C),2,8) | Left | "#CALL:get_key(#PEEK($8C3D), #PEEK($8C3C))" }
-                     ; { $#N(#PEEK($8C3F)) | #EVAL(#PEEK($8C3E),2,8) | Up-Left | - }
-                     ; { $#N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),2,8) | Fire | "#CALL:get_key(#PEEK($8C41), #PEEK($8C40))" }
+ $8C34 DEFB $08,$EF  ; { #N(#PEEK($8C31)) | #EVAL(#PEEK($8C30),$02,$08) | Up | "#CALL:get_key(#PEEK($8C31), #PEEK($8C30))" }
+ $8C36 DEFB $00,$EF  ; { #N(#PEEK($8C33)) | #EVAL(#PEEK($8C32),$02,$08) | Up-Right | - }
+ $8C38 DEFB $04,$EF  ; { #N(#PEEK($8C35)) | #EVAL(#PEEK($8C34),$02,$08) | Right | "#CALL:get_key(#PEEK($8C35), #PEEK($8C34))" }
+ $8C3A DEFB $00,$EF  ; { #N(#PEEK($8C37)) | #EVAL(#PEEK($8C36),$02,$08) | Down-Right | - }
+ $8C3C DEFB $10,$EF  ; { #N(#PEEK($8C39)) | #EVAL(#PEEK($8C38),$02,$08) | Down | "#CALL:get_key(#PEEK($8C39), #PEEK($8C38))" }
+ $8C3E DEFB $00,$EF  ; { #N(#PEEK($8C3B)) | #EVAL(#PEEK($8C3A),$02,$08) | Down-Left | - }
+ $8C40 DEFB $01,$EF  ; { #N(#PEEK($8C3D)) | #EVAL(#PEEK($8C3C),$02,$08) | Left | "#CALL:get_key(#PEEK($8C3D), #PEEK($8C3C))" }
+                     ; { #N(#PEEK($8C3F)) | #EVAL(#PEEK($8C3E),$02,$08) | Up-Left | - }
+                     ; { #N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C41), #PEEK($8C40))" }
                      ; TABLE#}
 
 ; Kempston Joystick.
-@label=KEMPSTON
+@label=Kempston
 g$8C42 DEFB $08,$00  ; { #TABLE(default,centre,centre,centre,centre)
  $8C44 DEFB $00,$00  ; { =h Port Number | =h Bit | =h Action | =h Joystick }
- $8C46 DEFB $01,$00  ; { $#N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),2,8) | Up | "#CALL:get_kempston(#PEEK($8C43), #PEEK($8C42))" }
- $8C48 DEFB $00,$00  ; { $#N(#PEEK($8C45)) | #EVAL(#PEEK($8C44),2,8) | Up-Right | - }
- $8C4A DEFB $04,$00  ; { $#N(#PEEK($8C47)) | #EVAL(#PEEK($8C46),2,8) | Right | "#CALL:get_kempston(#PEEK($8C47), #PEEK($8C46))" }
- $8C4C DEFB $00,$00  ; { $#N(#PEEK($8C49)) | #EVAL(#PEEK($8C48),2,8) | Down-Right | - }
- $8C4E DEFB $02,$00  ; { $#N(#PEEK($8C4B)) | #EVAL(#PEEK($8C4A),2,8) | Down | "#CALL:get_kempston(#PEEK($8C4B), #PEEK($8C4A))" }
- $8C50 DEFB $00,$00  ; { $#N(#PEEK($8C4D)) | #EVAL(#PEEK($8C4C),2,8) | Down-Left | - }
- $8C52 DEFB $10,$00  ; { $#N(#PEEK($8C4F)) | #EVAL(#PEEK($8C4E),2,8) | Left | "#CALL:get_kempston(#PEEK($8C4F), #PEEK($8C4E))" }
-                     ; { $#N(#PEEK($8C51)) | #EVAL(#PEEK($8C50),2,8) | Up-Left | - }
-                     ; { $#N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),2,8) | Fire | "#CALL:get_kempston(#PEEK($8C53), #PEEK($8C52))" }
+ $8C46 DEFB $01,$00  ; { #N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),$02,$08) | Up | "#CALL:get_kempston(#PEEK($8C43), #PEEK($8C42))" }
+ $8C48 DEFB $00,$00  ; { #N(#PEEK($8C45)) | #EVAL(#PEEK($8C44),$02,$08) | Up-Right | - }
+ $8C4A DEFB $04,$00  ; { #N(#PEEK($8C47)) | #EVAL(#PEEK($8C46),$02,$08) | Right | "#CALL:get_kempston(#PEEK($8C47), #PEEK($8C46))" }
+ $8C4C DEFB $00,$00  ; { #N(#PEEK($8C49)) | #EVAL(#PEEK($8C48),$02,$08) | Down-Right | - }
+ $8C4E DEFB $02,$00  ; { #N(#PEEK($8C4B)) | #EVAL(#PEEK($8C4A),$02,$08) | Down | "#CALL:get_kempston(#PEEK($8C4B), #PEEK($8C4A))" }
+ $8C50 DEFB $00,$00  ; { #N(#PEEK($8C4D)) | #EVAL(#PEEK($8C4C),$02,$08) | Down-Left | - }
+ $8C52 DEFB $10,$00  ; { #N(#PEEK($8C4F)) | #EVAL(#PEEK($8C4E),$02,$08) | Left | "#CALL:get_kempston(#PEEK($8C4F), #PEEK($8C4E))" }
+                     ; { #N(#PEEK($8C51)) | #EVAL(#PEEK($8C50),$02,$08) | Up-Left | - }
+                     ; { #N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),$02,$08) | Fire | "#CALL:get_kempston(#PEEK($8C53), #PEEK($8C52))" }
                      ; TABLE#}
 
 ; Game Settings.
@@ -2597,7 +2595,7 @@ g$8C42 DEFB $08,$00  ; { #TABLE(default,centre,centre,centre,centre)
 ;
 ; The main settings page, used for directing to the controls for P1/ P2 and
 ; turning the sound on or off.
-@label=GAME_CONFIGS_MAIN
+@label=Game_Configs_Main
 c$8C54 CALL $8E4C    ; Call #R$8E4C.
  $8C57 LD DE,$8E6B   ; {Point to #R$8E6B and call #R$92E4.
  $8C5A LD HL,$002D   ;
@@ -2618,7 +2616,7 @@ c$8C54 CALL $8E4C    ; Call #R$8E4C.
  $8C87 LD HL,$0765   ;
  $8C8A CALL $92E4    ; }
 ; Does the user want to change Player 1 input method?
-@label=GAME_CONFIGS_P1
+@label=Game_Configs_P1
 *$8C8D LD A,$24      ; {Check if "1" key is pressed.
  $8C8F CALL $9C53    ; }
  $8C92 JP C,$8C9E    ; No keys were pressed, continue on to #R$8C9E.
@@ -2626,7 +2624,7 @@ c$8C54 CALL $8E4C    ; Call #R$8E4C.
  $8C98 LD ($8E69),HL ; }
  $8C9B JP $8CDB      ; Jump to #R$8CDB.
 ; Does the user want to change Player 2 input method?
-@label=GAME_CONFIGS_P2
+@label=Game_Configs_P2
 *$8C9E LD A,$1C      ; {Check if "2" key is pressed.
  $8CA0 CALL $9C53    ; }
  $8CA3 JP C,$8CAF    ; No keys were pressed, continue on to #R$8CAF.
@@ -2634,30 +2632,30 @@ c$8C54 CALL $8E4C    ; Call #R$8E4C.
  $8CA9 LD ($8E69),HL ; }
  $8CAC JP $8CDB      ; Jump to #R$8CDB.
 ; Does the user want to exit this config screen and go back to the demo mode?
-@label=GAME_CONFIGS_EXIT
+@label=Game_Configs_Exit
 *$8CAF LD A,$15      ; {Check if "E" key is pressed.
  $8CB1 CALL $9C53    ; }
  $8CB4 JP NC,$8CDA   ; Jump to #R$8CDA (just returns).
 ; Does the user want to toggle the sound flag to be "ON".
-@label=GAME_CONFIGS_SOUND_ON
+@label=Game_Configs_Sound_On
  $8CB7 LD A,$14      ; {Check if "3" key is pressed.
  $8CB9 CALL $9C53    ; }
  $8CBC JP C,$8CC7    ; No keys were pressed, continue on to #R$8CC7.
- $8CBF LD A,$01      ; {Write $01 to #R$B2FA.
+ $8CBF LD A,$01      ; {Write #N$01 to #R$B2FA.
  $8CC1 LD ($B2FA),A  ; }
  $8CC4 JP $8CDA      ; Jump to #R$8CDA (just returns).
 ; Does the user want to toggle the sound flag to be "OFF".
-@label=GAME_CONFIGS_SOUND_OFF
+@label=Game_Configs_Sound_Off
 *$8CC7 LD A,$0C      ; {Check if "4" key is pressed.
  $8CC9 CALL $9C53    ; }
  $8CCC JP C,$8CD7    ; No keys were pressed, continue on to #R$8CD7.
- $8CCF LD A,$00      ; {Write $00 to #R$B2FA.
+ $8CCF LD A,$00      ; {Write #N$00 to #R$B2FA.
  $8CD1 LD ($B2FA),A  ; }
  $8CD4 JP $8CDA      ; Jump to #R$8CDA (just returns).
-@label=GAME_CONFIGS_END
+@label=Game_Configs_End
 *$8CD7 JP $8C8D      ; Loop back round to #R$8C8D.
 ; This entry point is used by the routines at #R$8CDB and #R$8D99.
-@label=GAME_CONFIGS_RETURN
+@label=Game_Configs_Return
 *$8CDA RET           ; Return.
 
 ; Game Control Settings.
@@ -2668,7 +2666,7 @@ c$8C54 CALL $8E4C    ; Call #R$8E4C.
 ;
 ; The player controls menu.  Used for either player, references the currently
 ; targetted player at #R$8E69.
-@label=GAME_CONFIGS_CONTROLS
+@label=Game_Configs_Controls
 c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8CDE LD DE,$8ED6   ; {Point to #R$8ED6 and call #R$92E4.
  $8CE1 LD HL,$012D   ;
@@ -2691,31 +2689,31 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8D14 CALL $8E42    ; {Adds a delay for keyboard debounce.
  $8D17 CALL $8E42    ; }
 ; Does the user want to revert to the default control method?
-@label=GAME_CONTROLS_DEFAULTS
+@label=Game_Controls_Defaults
 *$8D1A LD A,$24      ; {Check if "1" key is pressed.
  $8D1C CALL $9C53    ; }
  $8D1F JP C,$8D25    ; No keys were pressed, continue on to #R$8D25.
  $8D22 JP $8D57      ; Jump to #R$8D57.
 ; Change player to use "Sinclair Joystick #1"?
-@label=GAME_CONTROLS_SINCLAIR_1
+@label=Game_Controls_Sinclair_1
 *$8D25 LD A,$1C      ; {Check if "2" key is pressed.
  $8D27 CALL $9C53    ; }
  $8D2A JP C,$8D30    ; No keys were pressed, continue on to #R$8D30.
  $8D2D JP $8D75      ; Jump to #R$8D75.
 ; Change player to use "Sinclair Joystick #2"?
-@label=GAME_CONTROLS_SINCLAIR_2
+@label=Game_Controls_Sinclair_2
 *$8D30 LD A,$14      ; {Check if "3" key is pressed.
  $8D32 CALL $9C53    ; }
  $8D35 JP C,$8D3B    ; No keys were pressed, continue on to #R$8D3B.
  $8D38 JP $8D81      ; Jump to #R$8D81.
 ; Change player to use "Kempston" joystick?
-@label=GAME_CONTROLS_KEMPSTON
+@label=Game_Controls_Kempston
 *$8D3B LD A,$04      ; {Check if "5" key is pressed.
  $8D3D CALL $9C53    ; }
  $8D40 JP C,$8D46    ; No keys were pressed, continue on to #R$8D46.
  $8D43 JP $8D8D      ; Jump to #R$8D8D.
 ; Redefine keys for player.
-@label=GAME_CONTROLS_KEYBOARD
+@label=Game_Controls_Keyboard
 *$8D46 LD A,$0C      ; {Check if "4" key is pressed.
  $8D48 CALL $9C53    ; }
  $8D4B JP C,$8D1A    ; No keys were pressed, loop back round to #R$8D1A.
@@ -2723,7 +2721,7 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8D51 CALL $8E42    ; }
  $8D54 JP $8D99      ; Jump to #R$8D99.
 ; Actions setting keyboard controls for player back to defaults.
-@label=GAME_CONTROLS_SET_DEFAULT
+@label=Game_Controls_Set_Default
 *$8D57 LD HL,($8E69) ; {Check if #R$8E69 is equal to #R$8BD2.
  $8D5A LD BC,$8BD2   ;
  $8D5D XOR A         ;
@@ -2732,12 +2730,12 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8D63 LD HL,$8BFA   ; {Store #R$8BFA at #R$8BD2.
  $8D66 LD ($8BD2),HL ; }
  $8D69 JP $8CDA      ; Jump to #R$8CDA (just returns).
-@label=GAME_CONTROLS_SET_DEFAULT_P2
+@label=Game_Controls_Set_Default_P2
 *$8D6C LD HL,$8C0C   ; {Store #R$8C0C at #R$8BE6.
  $8D6F LD ($8BE6),HL ; }
  $8D72 JP $8CDA      ; Jump to #R$8CDA (just returns).
 ; Actions setting player to use Sinclair Joystick #1.
-@label=GAME_CONTROLS_SET_SINCLAIR_1
+@label=Game_Controls_Set_Sinclair_1
 *$8D75 LD HL,($8E69) ; Fetch the current player from #R$8E69.
  $8D78 LD DE,$8C30   ; {Pushes #R$8C30 for the current player.
  $8D7B LD (HL),E     ;
@@ -2745,7 +2743,7 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8D7D LD (HL),D     ; }
  $8D7E JP $8CDA      ; Jump to #R$8CDA (just returns).
 ; Actions setting player to use Sinclair Joystick #2.
-@label=GAME_CONTROLS_SET_SINCLAIR_2
+@label=Game_Controls_Set_Sinclair_2
 *$8D81 LD HL,($8E69) ; Fetch the current player from #R$8E69.
  $8D84 LD DE,$8C1E   ; {Pushes #R$8C1E for the current player.
  $8D87 LD (HL),E     ;
@@ -2753,7 +2751,7 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
  $8D89 LD (HL),D     ; }
  $8D8A JP $8CDA      ; Jump to #R$8CDA (just returns).
 ; Actions setting player to use Kempston Joystick.
-@label=GAME_CONTROLS_SET_KEMPSTON
+@label=Game_Controls_Set_Kempston
 *$8D8D LD HL,($8E69) ; Fetch the current player from #R$8E69.
  $8D90 LD DE,$8C42   ; {Pushes #R$8C42 for the current player.
  $8D93 LD (HL),E     ;
@@ -2764,7 +2762,7 @@ c$8CDB CALL $8E4C    ; Call #R$8E4C.
 ; Game Settings - Redefine Keys.
 ;
 ; Used by the routine at #R$8CDB.
-@label=GAME_CONFIGS_KEYS
+@label=Game_Configs_Keys
 c$8D99 CALL $8E4C                           ; Call #R$8E4C.
 ; Displays the "for each direction ... press key" banner.
  $8D9C LD DE,$8F6B                          ; {Point to #R$8F6B and call
@@ -2808,7 +2806,7 @@ c$8D99 CALL $8E4C                           ; Call #R$8E4C.
  $8DF9 JP $8CDA                             ; Jump to #R$8CDA.
 ; Print the message, get the key and write it to the mapping buffer for this
 ; player.
-@label=PRINT_KEY_LOOP
+@label=Print_Key_Loop
 *$8DFC PUSH DE                              ; Stash the current key mapping
                                             ; address on the stack.
  $8DFD EX DE,HL                             ; {Use #R$92E4 to show the message
@@ -2837,10 +2835,10 @@ c$8D99 CALL $8E4C                           ; Call #R$8E4C.
                                             ; off the stack.
  $8E21 RET                                  ; Return.
 ; Detect the key press.
-@label=GET_KEY
+@label=Get_Key
 *$8E22 LD DE,$8E3A                          ; #REGde=#R$8E3A.
- $8E25 LD B,$08                             ; Set a counter #REGb=$08.
-@label=GET_KEY_LOOP
+ $8E25 LD B,$08                             ; Set a counter #REGb=#N$08.
+@label=Get_Key_Loop
 *$8E27 LD A,(DE)                            ; {Using the current port, read the
  $8E28 IN A,($FE)                           ; keyboard.}
  $8E2A CPL                                  ; {Is a key being pressed?
@@ -2852,7 +2850,7 @@ c$8D99 CALL $8E4C                           ; Call #R$8E4C.
                                             ; zero.
  $8E33 JP $8E22                             ; Jump to #R$8E22.
 ; Stores the port number as the MSB of #REGhl, and the key byte as the LSB.
-@label=STORE_KEY
+@label=Store_Key
 *$8E36 LD L,A                               ; Store the key byte as the LSB of
                                             ; #REGhl.
  $8E37 LD A,(DE)                            ; {Store the port number from
@@ -2862,24 +2860,24 @@ c$8D99 CALL $8E4C                           ; Call #R$8E4C.
 ; #TABLE(default,centre,centre,centre,centre,centre,centre)
 ; { =h,r2 Port Number | =h,c5 Bit }
 ; { =h 0 | =h 1 | =h 2 | =h 3 | =h 4 }
-; { $FE | SHIFT | Z | X | C | V }
-; { $FD | A | S | D | F | G }
-; { $FB | Q | W | E | R | T }
-; { $F7 | 1 | 2 | 3 | 4 | 5 }
-; { $EF | 0 | 9 | 8 | 7 | 6 }
-; { $DF | P | O | I | U | Y }
-; { $BF | ENTER | L | K | J | H }
-; { $7F | SPACE | FULL-STOP | M | N | B }
+; { v$FE | SHIFT | Z | X | C | V }
+; { #N$FD | A | S | D | F | G }
+; { #N$FB | Q | W | E | R | T }
+; { #N$F7 | 1 | 2 | 3 | 4 | 5 }
+; { #N$EF | 0 | 9 | 8 | 7 | 6 }
+; { #N$DF | P | O | I | U | Y }
+; { #N$BF | ENTER | L | K | J | H }
+; { #N$7F | SPACE | FULL-STOP | M | N | B }
 ; TABLE#
-@label=KEY_DATA
+@label=Key_Data
  $8E3A DEFB $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F ; Key Data
 
 ; Short delay.
 ;
 ; Used by the routines at #R$8CDB and #R$8D99.
-@label=CONFIGS_DELAY
-c$8E42 LD BC,$EA60   ; Set #REGbc=$EA60
-@label=CONFIGS_DELAY_LOOP
+@label=Configs_Delay
+c$8E42 LD BC,$EA60   ; Set #REGbc=#N$EA60
+@label=Configs_Delay_Loop
 *$8E45 DEC BC        ; {Countdown #REGbc until #0000.
  $8E46 LD A,B        ;
  $8E47 OR C          ;
@@ -2889,14 +2887,14 @@ c$8E42 LD BC,$EA60   ; Set #REGbc=$EA60
 ; Blank the screen buffer.
 ;
 ; Used by the routines at #R$8C54, #R$8CDB and #R$8D99.
-@label=CLEAR_SCREEN
-c$8E4C LD DE,$4001   ; {Clears the screen buffer by writing $00 to 6143 memory
- $8E4F LD HL,$4000   ; locations.
+@label=Clear_Screen
+c$8E4C LD DE,$4001   ; {Clears the screen buffer by writing #N$00 to 6143
+ $8E4F LD HL,$4000   ; memory locations.
  $8E52 LD A,$00      ;
  $8E54 LD (HL),A     ;
  $8E55 LD BC,$17FF   ;
  $8E58 LDIR          ; }
- $8E5A LD HL,$5800   ; {Clears the attribute buffer by writing $0D to 767
+ $8E5A LD HL,$5800   ; {Clears the attribute buffer by writing #N$0D to 767
  $8E5D LD DE,$5801   ; memory locations.
  $8E60 LD A,$0D      ;
  $8E62 LD (HL),A     ;
@@ -2908,65 +2906,65 @@ c$8E4C LD DE,$4001   ; {Clears the screen buffer by writing $00 to 6143 memory
 ;
 ; Will hold either;
 ; #TABLE(default,centre,centre)
-; { =h #R$8BD2 | $8BD2 }
-; { =h #R$8BE6 | $8BE6 }
+; { =h #R$8BD2 | #N$8BD2 }
+; { =h #R$8BE6 | #N$8BE6 }
 ; TABLE#
-@label=TEMP_PLAYER
+@label=Temp_Player
 w$8E69 DEFW $0000
 
 ; Message at 8E6B
-@label=TEXT_P1_CONTROLS
+@label=Text_P1_Controls
 t$8E6B DEFM "CHANGE CONTROLS FOR PLAYER 1 (1)",$00 ; P1 controls text.
-@label=TEXT_P2_CONTROLS
+@label=Text_P2_Controls
  $8E8C DEFM "PLAYER 2 (2)",$00                     ; P2 text.
-@label=TEXT_SOUND_ON
+@label=Text_Sound_On
  $8E99 DEFM "SOUND ON (3)",$00                     ; Sound on text.
-@label=TEXT_SOUND_OFF
+@label=Text_Sound_Off
  $8EA6 DEFM "SOUND OFF(4)",$00                     ; Sound off text.
-@label=TEXT_TYPE_1
+@label=Text_Type_1
  $8EB3 DEFM "(TYPE 1,2,3 OR 4.)",$00               ; "Type" message.
-@label=TEXT_EXIT
+@label=Text_Exit
  $8EC6 DEFM "TYPE E TO EXIT.",$00                  ; "Exit" message.
-@label=TEXT_DEFAULT_LAYOUT
+@label=Text_Default_Layout
  $8ED6 DEFM "1:USE DEFAULT KEYBOARD LAYOUT",$00    ; "Default" layout text.
-@label=TEXT_SINCLAIR_P1
+@label=Text_Sinclair_P1
  $8EF4 DEFM "2:USE SINCLAIR JOYSTICK #1",$00       ; P1 "Sinclair" text.
-@label=TEXT_SINCLAIR_P2
+@label=Text_Sinclair_P2
  $8F0F DEFM "3:USE SINCLAIR JOYSTICK #2",$00       ; P2 "Sinclair" text.
-@label=TEXT_KEYBOARD_RECONFIG
+@label=Text_Keyboard_Reconfig
  $8F2A DEFM "4:RECONFIGURE KEYBOARD",$00           ; Reconfigure keyboard text.
-@label=TEXT_KEMPSTON
+@label=Text_Kempston
  $8F41 DEFM "5:USE KEMPSTON JOYSTICK",$00          ; "Kempston" text.
-@label=TEXT_TYPE_2
+@label=Text_Type_2
  $8F59 DEFM "TYPE 1,2,3,4 OR 5",$00                ; "Type" message.
-@label=TEXT_CHANGE_1
+@label=Text_Change_1
  $8F6B DEFM "FOR EACH DIRECTION INDICATED,",$00    ; "Change keys line 1"
                                                    ; message.
-@label=TEXT_CHANGE_2
+@label=Text_Change_2
  $8F89 DEFM "PRESS THE KEY YOU WISH TO USE",$00    ; "Change keys line 2"
                                                    ; message.
-@label=TEXT_CHANGE_3
+@label=Text_Change_3
  $8FA7 DEFM "FOR THAT DIRECTION.",$00              ; "Change keys line 3"
                                                    ; message.
-@label=TEXT_UP
+@label=Text_Up
  $8FBB DEFM "UP",$00                               ; "Up" text.
-@label=TEXT_UP_RIGHT
+@label=Text_Up_Right
  $8FBE DEFM "UP-RIGHT",$00                         ; "Up-Right" text.
-@label=TEXT_RIGHT
+@label=Text_Right
  $8FC7 DEFM "RIGHT",$00                            ; "Right" text.
-@label=TEXT_DOWN_RIGHT
+@label=Text_Down_Right
  $8FCD DEFM "DOWN-RIGHT",$00                       ; "Down-Right" text.
-@label=TEXT_DOWN
+@label=Text_Down
  $8FD8 DEFM "DOWN",$00                             ; "Down" text.
-@label=TEXT_DOWN_LEFT
+@label=Text_Down_Left
  $8FDD DEFM "DOWN-LEFT",$00                        ; "Down-Left" text.
-@label=TEXT_LEFT
+@label=Text_Left
  $8FE7 DEFM "LEFT",$00                             ; "Left" text.
-@label=TEXT_UP_LEFT
+@label=Text_Up_Left
  $8FEC DEFM "UP-LEFT",$00                          ; "Up-Left" text.
-@label=TEXT_FIRE
+@label=Text_Fire
  $8FF4 DEFM "FIRE-BUTTON",$00                      ; "Fire" text.
-@label=TEXT_WHITESPACE_12
+@label=Text_Whitespace_12
  $9000 DEFM "            ",$00                     ; Blank text.
 
 i$900D
@@ -2978,32 +2976,32 @@ i$900D
 ; .
 ;
 ; Player 1 yin-yang functionality.
-@label=YIN_YANG_1UP
-c$900E LD A,($AA08)  ; {If #R$AA08 is $00 then no point was awarded for 1UP.
+@label=Yin_Yang_1UP
+c$900E LD A,($AA08)  ; {If #R$AA08 is #N$00 then no point was awarded for 1UP.
  $9011 AND A         ; Jump forward to #R$9057.
  $9012 JP Z,$9057    ; }
 ; Update 1UP yin-yang total.
  $9015 LD HL,$AA01   ; {Add #R$AA08 to #R$AA01 and update the new total at
  $9018 ADD A,(HL)    ; #R$AA01.
  $9019 LD (HL),A     ; }
-; Check if 1UP yin-yang total is now $01.
- $901A CP $01        ; {#HTML(If the total is not <strong>$01</strong> then
+; Check if 1UP yin-yang total is now #N$01.
+ $901A CP $01        ; {#HTML(If the total is not <strong>#N$01</strong> then
  $901C JR NZ,$9028   ; skip forward to #R$9028.)}
  $901E LD DE,$92AA   ; {Call #R$9255 using #R$92AA.
  $9021 LD HL,$0408   ;
  $9024 CALL $9255    ; }
  $9027 RET           ; Return.
-; Check if 1UP yin-yang total is now $02.
-@label=YIN_YANG_1UP_2
-*$9028 CP $02        ; {#HTML(If the total is not <strong>$02</strong> then
+; Check if 1UP yin-yang total is now #N$02.
+@label=Yin_Yang_1UP_2
+*$9028 CP $02        ; {#HTML(If the total is not <strong>#N$02</strong> then
  $902A JR NZ,$9036   ; skip forward to #R$9036.)}
  $902C LD DE,$928A   ; {Call #R$9255 using #R$928A.
  $902F LD HL,$0408   ;
  $9032 CALL $9255    ; }
  $9035 RET           ; Return.
-; Check if 1UP yin-yang total is now $03.
-@label=YIN_YANG_1UP_3
-*$9036 CP $03        ; {#HTML(If the total is not <strong>$03</strong> then
+; Check if 1UP yin-yang total is now #N$03.
+@label=Yin_Yang_1UP_3
+*$9036 CP $03        ; {#HTML(If the total is not <strong>#N$03</strong> then
  $9038 JR NZ,$904D   ; skip forward to #R$904D.)}
  $903A LD DE,$928A   ; {Call #R$9255 using #R$928A.
  $903D LD HL,$0408   ;
@@ -3012,39 +3010,39 @@ c$900E LD A,($AA08)  ; {If #R$AA08 is $00 then no point was awarded for 1UP.
  $9046 LD HL,$0108   ;
  $9049 CALL $9255    ; }
  $904C RET           ; Return.
-; 1UP yin-yang total is $04.
-@label=YIN_YANG_1UP_4
+; 1UP yin-yang total is #N$04.
+@label=Yin_Yang_1UP_4
 *$904D LD DE,$928A   ; {Call #R$9255 using #R$928A.
  $9050 LD HL,$0108   ;
  $9053 CALL $9255    ; }
  $9056 RET           ; Return.
 ; Player 2 yin-yang functionality.
-@label=YIN_YANG_2UP
-*$9057 LD A,($AA48)  ; {#HTML(If #R$AA48 is <strong>$00</strong> then no point
- $905A AND A         ; was awarded for 2UP, if so then return.)
+@label=Yin_Yang_2UP
+*$9057 LD A,($AA48)  ; {#HTML(If #R$AA48 is <strong>#N$00</strong> then no
+ $905A AND A         ; point was awarded for 2UP, if so then return.)
  $905B RET Z         ; }
 ; Update 2UP yin-yang total.
  $905C LD HL,$AA41   ; {Add #R$AA48 to #R$AA41 and update the new total at
  $905F ADD A,(HL)    ; #R$AA41.
  $9060 LD (HL),A     ; }
-; Check if 2UP yin-yang total is now $01.
- $9061 CP $01        ; {#HTML(If the total is not <strong>$01</strong> then
+; Check if 2UP yin-yang total is now #N$01.
+ $9061 CP $01        ; {#HTML(If the total is not <strong>#N$01</strong> then
  $9063 JR NZ,$906F   ; skip forward to #R$906F.)}
  $9065 LD DE,$92AA   ; {Call #R$9255 using #R$92AA.
  $9068 LD HL,$1A08   ;
  $906B CALL $9255    ; }
  $906E RET           ; Return.
-; Check if 2UP yin-yang total is now $02.
-@label=YIN_YANG_2UP_2
-*$906F CP $02        ; {#HTML(If the total is not <strong>$02</strong> then
+; Check if 2UP yin-yang total is now #N$02.
+@label=Yin_Yang_2UP_2
+*$906F CP $02        ; {#HTML(If the total is not <strong>#N$02</strong> then
  $9071 JR NZ,$907D   ; skip forward to #R$907D.)}
  $9073 LD DE,$928A   ; {Call #R$9255 using #R$928A.
  $9076 LD HL,$1A08   ;
  $9079 CALL $9255    ; }
  $907C RET           ; Return.
-; Check if 2UP yin-yang total is now $03.
-@label=YIN_YANG_2UP_3
-*$907D CP $03        ; {#HTML(If the total is not <strong>$03</strong> then
+; Check if 2UP yin-yang total is now #N$03.
+@label=Yin_Yang_2UP_3
+*$907D CP $03        ; {#HTML(If the total is not <strong>#N$03</strong> then
  $907F JR NZ,$9094   ; skip forward to #R$9094.)}
  $9081 LD DE,$928A   ; {Call #R$9255 using #R$928A.
  $9084 LD HL,$1A08   ;
@@ -3053,8 +3051,8 @@ c$900E LD A,($AA08)  ; {If #R$AA08 is $00 then no point was awarded for 1UP.
  $908D LD HL,$1D08   ;
  $9090 CALL $9255    ; }
  $9093 RET           ; Return.
-; 2UP yin-yang total is $04.
-@label=YIN_YANG_2UP_4
+; 2UP yin-yang total is #N$04.
+@label=Yin_Yang_2UP_4
 *$9094 LD DE,$928A   ; {Call #R$9255 using #R$928A.
  $9097 LD HL,$1D08   ;
  $909A CALL $9255    ; }
@@ -3063,9 +3061,9 @@ c$900E LD A,($AA08)  ; {If #R$AA08 is $00 then no point was awarded for 1UP.
 ; New round.
 ;
 ; Used by the routines at #R$9745, #R$AB70 and #R$AC3E.
-@label=NEW_ROUND
-c$909E XOR A         ; {Write $00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02 }
- $909F LD ($AA01),A  ; { #R$AA42 } LIST#
+@label=New_Round
+c$909E XOR A         ; {Write #N$00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02
+ $909F LD ($AA01),A  ; } { #R$AA42 } LIST#
  $90A2 LD ($AA41),A  ;
  $90A5 LD ($AA02),A  ;
  $90A8 LD ($AA42),A  ; }
@@ -3086,7 +3084,7 @@ c$909E XOR A         ; {Write $00 to; #LIST { #R$AA01 } { #R$AA41 } { #R$AA02 }
 ; Intro music.
 c$90D0 DEFB $1D             ;
 ; This entry point is used by the routine at #R$AC3E.
-@label=INTRO_MUSIC
+@label=Intro_Music
 *$90D1 DI                   ; Disable interrupts.
  $90D2 LD A,($B2FA)         ; {If #R$B2FA is zero then return.
  $90D5 AND A                ;
@@ -3097,17 +3095,17 @@ c$90D0 DEFB $1D             ;
  $90DD AND $07              ;
  $90DF LD L,A               ;
  $90E0 LD IX,$9128          ; #REGix=#R$9128
-@label=INTRO_MUSIC_LOOP
-*$90E4 LD C,(IX+$00)        ; #REGc=the next note byte from #REGix+$00.
- $90E7 XOR A                ; {If the current note is $00 then return.
+@label=Intro_Music_Loop
+*$90E4 LD C,(IX+$00)        ; #REGc=the next note byte from #REGix+#N$00.
+ $90E7 XOR A                ; {If the current note is #N$00 then return.
  $90E8 OR C                 ;
  $90E9 RET Z                ; }
  $90EA INC IX               ; Move the index onto the next note.
- $90EC LD B,(IX+$00)        ; #REGb=the next note byte from #REGix+$00.
+ $90EC LD B,(IX+$00)        ; #REGb=the next note byte from #REGix+#N$00.
  $90EF INC IX               ; Move the index onto the next note.
- $90F1 LD E,(IX+$00)        ; #REGe=the next note byte from #REGix+$00.
+ $90F1 LD E,(IX+$00)        ; #REGe=the next note byte from #REGix+#N$00.
  $90F4 INC IX               ; Move the index onto the next note.
- $90F6 LD D,(IX+$00)        ; #REGd=the next note byte from #REGix+$00.
+ $90F6 LD D,(IX+$00)        ; #REGd=the next note byte from #REGix+#N$00.
  $90F9 INC IX               ; Move the index onto the next note.
  $90FB LD A,B               ;
  $90FC AND A                ;
@@ -3116,18 +3114,18 @@ c$90D0 DEFB $1D             ;
  $9100 CP C                 ;
  $9101 JR NZ,$910D          ;
  $9103 LD BC,$0AF4          ;
-@label=INTRO_MUSIC_DELAY_1
+@label=Intro_Music_Delay_1
 *$9106 DEC BC               ;
  $9107 LD A,B               ;
  $9108 OR C                 ;
  $9109 JR NZ,$9106          ;
  $910B JR $90E4             ; Loop back to #R$90E4.
 ; Process the note data and create the sounds.
-@label=INTRO_MUSIC_PLAY
+@label=Intro_Music_Play
 *$910D PUSH BC              ;
  $910E LD A,H               ;
  $910F OUT ($FE),A          ;
-@label=INTRO_MUSIC_DELAY_2
+@label=Intro_Music_Delay_2
 *$9111 DEC BC               ;
  $9112 LD A,B               ;
  $9113 OR C                 ;
@@ -3136,7 +3134,7 @@ c$90D0 DEFB $1D             ;
  $9117 OUT ($FE),A          ;
  $9119 POP BC               ;
  $911A PUSH BC              ;
-@label=INTRO_MUSIC_DELAY_3
+@label=Intro_Music_Delay_3
 *$911B DEC BC               ;
  $911C LD A,B               ;
  $911D OR C                 ;
@@ -3147,7 +3145,7 @@ c$90D0 DEFB $1D             ;
  $9123 OR E                 ;
  $9124 JR NZ,$910D          ;
  $9126 JR $90E4             ;
-@label=INTRO_MUSIC_DATA
+@label=Intro_Music_Data
  $9128 DEFB $6D,$00,$8C,$00 ;
  $912C DEFB $01,$00,$00,$00 ;
  $9130 DEFB $6D,$00,$8C,$00 ;
@@ -3208,15 +3206,15 @@ c$90D0 DEFB $1D             ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
 c$9200 LD ($5F00),A  ; Write #REGa to #R$5F00.
  $9203 CALL $5F22    ; Call #R$5F22.
- $9206 LD A,$48      ; {Call #R$C203 using $48. On return #REGhl=$4820.
+ $9206 LD A,$48      ; {Call #R$C203 using #N$48. On return #REGhl=#N$4820.
  $9208 CALL $C203    ; }
- $920B LD B,$40      ; Set a counter of $40.
+ $920B LD B,$40      ; Set a counter of #N$40.
  $920D LD DE,$8000   ; #REGde=#R$8000.
 *$9210 PUSH HL       ; Push #REGhl onto the stack.
  $9211 PUSH DE       ; Push #REGde onto the stack.
 ; This entry point is used by the routine at #R$B2FB.
 *$9212 PUSH BC       ; Push #REGbc onto the stack.
- $9213 LD BC,$0020   ; {Copy #REGhl to #REGde $20 times.
+ $9213 LD BC,$0020   ; {Copy #REGhl to #REGde #N$20 times.
  $9216 LDIR          ; }
  $9218 POP BC        ;
  $9219 POP DE        ;
@@ -3281,12 +3279,12 @@ c$923A PUSH HL       ;
 ; { #R$92AA($92AA) | =c2 Half }
 ; { #R$928A($928A) | =c2 Full }
 ; { =h #REGhl | =h,c2 Screen Position }
-; { $0108 | 1 | 8 }
-; { $0408 | 4 | 8 }
-; { $1A08 | 26 | 8 }
-; { $1D08 | 29 | 8 }
+; { #N$0108 | 1 | 8 }
+; { #N$0408 | 4 | 8 }
+; { #N$1A08 | 26 | 8 }
+; { #N$1D08 | 29 | 8 }
 ; TABLE#
-@label=YIN_YANG_COPY
+@label=Yin_Yang_Copy
 c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
  $9256 PUSH HL                              ; coordinates on the stack.}
  $9257 CALL $92CA                           ; Call #R$92CA.
@@ -3297,8 +3295,8 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
                                             ; it again later.
  $925D INC H                                ; Increase the LSB of #REGhl by
                                             ; one.
- $925E LD BC,$0008                          ; {Add $0008 to #REGde and stash it
- $9261 EX DE,HL                             ; on the stack.
+ $925E LD BC,$0008                          ; {Add #N($0008,$04,$04) to #REGde
+ $9261 EX DE,HL                             ; and stash it on the stack.
  $9262 ADD HL,BC                            ;
  $9263 EX DE,HL                             ;
  $9264 PUSH DE                              ; }
@@ -3309,8 +3307,8 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
  $926B LD A,L                               ;
  $926C ADD A,$08                            ;
  $926E LD L,A                               ;
- $926F LD BC,$0008                          ; {Add $0008 to #REGde and stash it
- $9272 EX DE,HL                             ; on the stack.
+ $926F LD BC,$0008                          ; {Add #N($0008,$04,$04) to #REGde
+ $9272 EX DE,HL                             ; and stash it on the stack.
  $9273 ADD HL,BC                            ;
  $9274 EX DE,HL                             ;
  $9275 PUSH DE                              ; }
@@ -3321,26 +3319,26 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
  $927C LD A,L                               ;
  $927D ADD A,$08                            ;
  $927F LD L,A                               ;
- $9280 LD BC,$0008                          ; {Add $0008 to #REGde.
+ $9280 LD BC,$0008                          ; {Add #N($0008,$04,$04) to #REGde.
  $9283 EX DE,HL                             ;
  $9284 ADD HL,BC                            ;
  $9285 EX DE,HL                             ; }
  $9286 CALL $92CA                           ; Call #R$92CA.
  $9289 RET                                  ; Return.
 ; Full yin-yang UDG.
-@label=YIN_YANG_UDG_FULL
+@label=Yin_Yang_UDG_Full
  $928A DEFB $07,$18,$20,$46,$46,$80,$80,$80 ; {#UDGARRAY2,scale=4;(#PC)-(#PC+28)-8(full-yin-yang)
  $9292 DEFB $F0,$3C,$1E,$1E,$1F,$1F,$3F,$7F ;
  $929A DEFB $81,$83,$87,$47,$47,$23,$1B,$07 ;
  $92A2 DEFB $FF,$FF,$CF,$CE,$FE,$FC,$F8,$E0 ; }
 ; Half yin-yang UDG.
-@label=YIN_YANG_UDG_HALF
+@label=Yin_Yang_UDG_Half
  $92AA DEFB $07,$18,$20,$46,$46,$80,$80,$80 ; {#UDGARRAY2,scale=4;(#PC)-(#PC+28)-8(half-yin-yang)
  $92B2 DEFB $C0,$20,$10,$10,$10,$10,$20,$C0 ;
  $92BA DEFB $81,$82,$84,$44,$44,$22,$1A,$07 ;
  $92C2 DEFB $00,$00,$00,$00,$00,$00,$00,$80 ; }
 ; fff
-@label=YIN_YANG_COPY_LINE
+@label=Yin_Yang_Copy_Line
 *$92CA PUSH DE                              ; {Stash #REGde and #REGhl on the
  $92CB PUSH HL                              ; stack.}
  $92CC LD A,L                               ;
@@ -3351,8 +3349,8 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
  $92D4 ADD HL,DE                            ;
  $92D5 POP DE                               ;
  $92D6 EX DE,HL                             ;
- $92D7 LD B,$08                             ; Set a counter of $08.
-@label=YIN_YANG_COPY_LOOP
+ $92D7 LD B,$08                             ; Set a counter of #N$08.
+@label=Yin_Yang_Copy_Loop
 *$92D9 LD A,(HL)                            ; {Copy a byte from #REGhl to
  $92DA LD (DE),A                            ; #REGde.}
  $92DB INC HL                               ; Increase #REGhl by one.
@@ -3375,7 +3373,7 @@ c$9255 PUSH DE                              ; {Stash yin-yang UDG and screen
 ;       { =h REGde | =h REGhl }
 ;       { Memory location of string | X/Y position on screen }
 ;       TABLE#
-@label=PRINT_STRING
+@label=Print_String
 c$92E4 PUSH DE       ;
  $92E5 PUSH HL       ;
  $92E6 LD A,L        ;
@@ -3385,7 +3383,7 @@ c$92E4 PUSH DE       ;
  $92EC LD D,$00      ;
  $92EE ADD HL,DE     ;
  $92EF POP DE        ;
-@label=PRINT_STRING_LOOP
+@label=Print_String_Loop
 *$92F0 LD A,(DE)     ;
  $92F1 AND A         ;
  $92F2 RET Z         ;
@@ -3399,20 +3397,20 @@ c$92E4 PUSH DE       ;
  $92FC JP $92F0      ;
 
 ; Expand time byte to ASCII.
-@label=TIME_COUNTER
+@label=Time_Counter
 c$92FF DEFB $F0,$D8  ; {Guessing at the length.
  $9301 DEFB $18,$FC  ;
  $9303 DEFB $9C,$FF  ;
  $9305 DEFB $F6,$FF  ; }
  $9307 DEFB $FF,$FF  ; Terminator.
 ; On entry #REGhl contains the time as the LSB, e.g. for 30s #REGhl will be
-; $001E.
-@label=PROCESS_TIME
+; #N($001E,$04,$04).
+@label=Process_Time
 *$9309 PUSH HL       ; {Pushes #REGhl, #REGde and #REGbc onto the stack.
  $930A PUSH DE       ;
  $930B PUSH BC       ; }
  $930C LD DE,$92FF   ; Point to #R$92FF.
-@label=PROCESS_TIME_LOOP
+@label=Process_Time_Loop
 *$930F LD A,(DE)     ; {Load the next byte pair from the address pointer into
  $9310 LD C,A        ; #REGbc.
  $9311 INC DE        ;
@@ -3420,9 +3418,9 @@ c$92FF DEFB $F0,$D8  ; {Guessing at the length.
  $9313 LD B,A        ; }
  $9314 INC DE        ; {Increase the address pointer by one and stash it on the
  $9315 PUSH DE       ; stack for later.}
- $9316 LD A,$2F      ; Store $2F in #REGa.
+ $9316 LD A,$2F      ; Store #N$2F in #REGa.
 ; Count "up" from ASCII "0" until the correct representation is reached.
-@label=PROCESS_TIME_CHAR
+@label=Process_Time_Char
 *$9318 INC A         ; Increment #REGa by one (so on the first pass #REGa will
                      ; now contain ASCII "0").
  $9319 LD D,H        ; {Copy the remaining time into #REGde.
@@ -3437,7 +3435,7 @@ c$92FF DEFB $F0,$D8  ; {Guessing at the length.
                      ; the time buffer once looped around.
  $9324 POP DE        ; Restore the byte pair address pointer from the stack.
  $9325 INC C         ; {Loop back to #R$930F until the terminator is reached
- $9326 JR NZ,$930F   ; ($FF+$01 will set the zero flag).}
+ $9326 JR NZ,$930F   ; (#N$FF+#N$01 will set the zero flag).}
  $9328 POP BC        ; {Restores #REGbc, #REGde and #REGhl from the stack.
  $9329 POP DE        ;
  $932A POP HL        ; }
@@ -3450,18 +3448,18 @@ c$92FF DEFB $F0,$D8  ; {Guessing at the length.
 ; .
 ;
 ; Buffer for processing text output.
-@label=TIME_BUFFER
+@label=Time_Buffer
 c$932C DEFM "   30",$00 ; Guessing at the length.
  $9332 DEFS $04         ; Maybe unused?
 ; This entry point is used by the routine at #R$9C93.
-@label=PROCESS_PRINT_TIME
+@label=Process_Print_Time
 *$9336 PUSH DE          ; Push #REGde containing the screen position for
                         ; printing onto the stack for later.
  $9337 LD IX,$932C      ; Point #REGix at the first character of the time
                         ; display buffer at #R$932C.
  $933B CALL $9309       ; Call #R$9309.
  $933E PUSH IX          ; {#REGix points to one byte off the end of the time
- $9340 POP HL           ; buffer, write $00 as a terminator for the print
+ $9340 POP HL           ; buffer, write #N$00 as a terminator for the print
  $9341 LD A,$00         ; routine.
  $9343 LD (HL),A        ; }
  $9344 POP HL           ; Fetch the screen position off the stack and store it
@@ -3469,7 +3467,7 @@ c$932C DEFM "   30",$00 ; Guessing at the length.
 ; The time isn't printed as "00005" so this routine replaces the zeroes with
 ; spaces in the time print buffer.
  $9345 LD DE,$932C      ; Store #R$932C in #REGde.
-@label=TIME_ZERO_TO_SPACES
+@label=Time_Zero_To_Spaces
 *$9348 LD A,(DE)        ; Grab the next character from the time buffer.
  $9349 CP $30           ; {If it is not ASCII "0" then jump to #R$9355.
  $934B JP NZ,$9355      ; }
@@ -3478,7 +3476,7 @@ c$932C DEFM "   30",$00 ; Guessing at the length.
  $9351 INC DE           ; Move onto the next character.
  $9352 JP $9348         ; Jump back to #R$9348.
 ; If time has run out, show at least an ASCII "0".
-@label=TIME_CHECK_LAST
+@label=Time_Check_Last
 *$9355 LD DE,$9330      ; Point to the last digit of the time buffer
                         ; #R$932C($9330).
  $9358 LD A,(DE)        ; {If it is not an ASCII "space" ($20) then jump to
@@ -3487,7 +3485,7 @@ c$932C DEFM "   30",$00 ; Guessing at the length.
  $935E LD A,$30         ; {Time has run out, so write ASCII "0" to this last
  $9360 LD (DE),A        ; character.}
 ; Send the time buffer to #R$92E4.
-@label=PRINT_TIME_SCREEN
+@label=Print_Time_Screen
 *$9361 LD DE,$932C      ; {Point to #R$932C and call #R$92E4.
  $9364 CALL $92E4       ; }
  $9367 RET              ; Return.
@@ -3835,7 +3833,7 @@ c$95D4 LD HL,$AA16   ; {Call #R$95E1 using #R$AA16.
 ; Routine at 9745
 ;
 ; Used by the routine at #R$AC3E.
-@label=GAME_OVER
+@label=Game_Over
 c$9745 CALL $9C6F    ;
  $9748 CALL $9ED2    ;
  $974B CALL $9D29    ;
@@ -3845,12 +3843,12 @@ c$9745 CALL $9C6F    ;
  $9757 CALL $97CB    ;
  $975A AND A         ;
  $975B RET M         ;
- $975C LD A,$40      ; {Write $40 to #R$9C29.
+ $975C LD A,$40      ; {Write #N$40 to #R$9C29.
  $975E LD ($9C29),A  ; }
  $9761 LD C,$00      ;
  $9763 CALL $97BB    ;
  $9766 LD C,$40      ;
- $9768 XOR A         ; {Write $00 to #R$9C29.
+ $9768 XOR A         ; {Write #N$00 to #R$9C29.
  $9769 LD ($9C29),A  ; }
  $976C CALL $97BB    ;
  $976F LD A,($9C2C)  ;
@@ -3859,17 +3857,17 @@ c$9745 CALL $9C6F    ;
  $9776 CALL $AF01    ;
  $9779 AND A         ;
  $977A JR NZ,$9783   ;
- $977C XOR A         ; {Clear the yin-yang images by writing $00 to #R$AA08 and
- $977D LD ($AA08),A  ; #R$AA48 and calling #R$900E.
+ $977C XOR A         ; {Clear the yin-yang images by writing #N$00 to #R$AA08
+ $977D LD ($AA08),A  ; and #R$AA48 and calling #R$900E.
  $9780 LD ($AA48),A  ;
 *$9783 CALL $900E    ; }
- $9786 XOR A         ; {Clear the yin-yang images by writing $00 to #R$AA01 and
- $9787 LD ($AA01),A  ; #R$AA41 and calling #R$95D4, #R$BF13.
+ $9786 XOR A         ; {Clear the yin-yang images by writing #N$00 to #R$AA01
+ $9787 LD ($AA01),A  ; and #R$AA41 and calling #R$95D4, #R$BF13.
  $978A LD ($AA41),A  ;
 *$978D CALL $95D4    ; }
  $9790 CALL $BF13    ;
  $9793 LD C,$00      ;
- $9795 LD A,$40      ; {Write $40 to #R$9C29.
+ $9795 LD A,$40      ; {Write #N$40 to #R$9C29.
  $9797 LD ($9C29),A  ; }
  $979A CALL $9AD7    ;
  $979D CALL $9B9D    ;
@@ -3891,11 +3889,11 @@ c$9745 CALL $9C6F    ;
  $97C4 CALL $9AA1    ;
  $97C7 CALL $9B9D    ;
  $97CA RET           ; Return.
-*$97CB LD A,($9C2C)  ; {If #R$9C2C is not $00 then jump to #R$9827.
+*$97CB LD A,($9C2C)  ; {If #R$9C2C is not #N$00 then jump to #R$9827.
  $97CE AND A         ;
  $97CF JP NZ,$9827   ; }
  $97D2 LD A,R        ;
- $97D4 LD A,$01      ; {Write $01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
+ $97D4 LD A,$01      ; {Write #N$01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
  $97D6 LD ($AA46),A  ;
  $97D9 LD ($AA06),A  ; }
 ; Should we start a 1 player game?
@@ -3908,48 +3906,48 @@ c$9745 CALL $9C6F    ;
  $97EA AND $10       ; {Keep only bit 4 (fire), if it's not being pressed, jump
  $97EC JP Z,$9801    ; to #R$9801.}
 ; Starts a 1 player game.
-@label=START_1UP
-*$97EF LD A,$01      ; {Write $01 to; #LIST { #R$9C2C } { #R$AA46 } LIST#
+@label=Start_1UP
+*$97EF LD A,$01      ; {Write #N$01 to; #LIST { #R$9C2C } { #R$AA46 } LIST#
  $97F1 LD ($9C2C),A  ;
  $97F4 LD ($AA46),A  ; }
- $97F7 DEC A         ; {Write $00 to; #LIST { #R$AA06 } LIST#
+ $97F7 DEC A         ; {Write #N$00 to; #LIST { #R$AA06 } LIST#
  $97F8 LD ($AA06),A  ; }
  $97FB CALL $909E    ; Call #R$909E.
- $97FE LD A,$80      ; #REGa=$80.
+ $97FE LD A,$80      ; #REGa=#N$80.
  $9800 RET           ; Return.
 ; Should we start a 2 player game?
 *$9801 LD A,$1C      ; {Check if "2" key is pressed.
  $9803 CALL $9C53    ; }
  $9806 JR C,$981A    ; No keys were pressed, continue on to #R$981A.
 ; Starts a 2 player game.
-@label=START_2UP
- $9808 LD A,$02      ; {Write $02 to; #LIST { #R$9C2C } LIST#
+@label=Start_2UP
+ $9808 LD A,$02      ; {Write #N$02 to; #LIST { #R$9C2C } LIST#
  $980A LD ($9C2C),A  ; }
- $980D XOR A         ; {Write $00 to; #LIST { #R$AA06 } { #R$AA46 } LIST#
+ $980D XOR A         ; {Write #N$00 to; #LIST { #R$AA06 } { #R$AA46 } LIST#
  $980E LD ($AA06),A  ;
  $9811 LD ($AA46),A  ; }
  $9814 CALL $909E    ; Call #R$909E.
- $9817 LD A,$80      ; #REGa=$80.
+ $9817 LD A,$80      ; #REGa=#N$80.
  $9819 RET           ; Return.
 ; Should we go to the config page?
-@label=DEMO_CONFIGS_MAIN
+@label=Demo_Configs_Main
 *$981A LD A,$23      ; {Check if "0" key is pressed.
  $981C CALL $9C53    ; }
  $981F JR C,$983D    ; No keys were pressed, continue on to #R$983D.
  $9821 CALL $8C54    ; Call #R$8C54.
- $9824 LD A,$80      ; #REGa=$80.
+ $9824 LD A,$80      ; #REGa=#N$80.
  $9826 RET           ; Return.
 ; Checks if "G" and "H" are being held to quit a game.
-@label=CHECK_QUIT_GAME
+@label=Check_Quit_Game
 *$9827 LD A,$01      ; {Check if "H" key is pressed.
  $9829 CALL $9C53    ; }
  $982C JR C,$983D    ; No keys were pressed, continue on to #R$983D.
  $982E LD A,$06      ; {Check if "G" key is pressed.
  $9830 CALL $9C53    ; }
  $9833 JR C,$983D    ; No keys were pressed, continue on to #R$983D.
- $9835 XOR A         ; {Write $00 to; #LIST { #R$9C2C } LIST#
+ $9835 XOR A         ; {Write #N$00 to; #LIST { #R$9C2C } LIST#
  $9836 LD ($9C2C),A  ; }
- $9839 LD A,$80      ; #REGa=$80.
+ $9839 LD A,$80      ; #REGa=#N$80.
  $983B AND A         ;
  $983C RET           ; Return.
 *$983D LD A,($AA03)  ;
@@ -4572,7 +4570,7 @@ g$9C2A DEFB $00
 g$9C2B DEFB $01
 
 ; Number of players.
-@label=NUM_PLAYERS
+@label=Num_Players
 g$9C2C DEFB $00
 
 ; Game status buffer entry at 9C2D
@@ -4581,22 +4579,22 @@ g$9C2D DEFB $00
 ; Game Entry Point.
 ;
 ; Used by the routine at #R$8800.
-@label=GAME_START
+@label=Game_Start
 c$9C2E DI            ; Disable interrupts.
  $9C2F LD A,$05      ; {Set border colour to cyan.
  $9C31 OUT ($FE),A   ; #TABLE(default,centre,centre,centre,centre)
                      ; { =h Value | =h Ink | =h Paper | =h Bright }
-                     ; { $05 | $05 | $00 | $00 }
+                     ; { #N$05 | #N$05 | #N$00 | #N$00 }
                      ; TABLE#}
- $9C33 LD HL,$5BFF   ; {Set the stack pointer to $5BFF.
+ $9C33 LD HL,$5BFF   ; {Set the stack pointer to #N$5BFF.
  $9C36 LD SP,HL      ; }
  $9C37 CALL $B138    ; Call #R$B138.
- $9C3A LD DE,$5F00   ; {Copies a large chunk of code from $6000 to $5F00. See
- $9C3D LD HL,$6000   ; the .t2s file.
+ $9C3A LD DE,$5F00   ; {Copies a large chunk of code from #N$6000 to #N$5F00.
+ $9C3D LD HL,$6000   ; See the .t2s file.
  $9C40 LD BC,$2100   ;
  $9C43 LDIR          ; }
- $9C45 LD A,$00      ; {Write $0000 to; #LIST { #R$C423 } { #R$C425 } LIST#
- $9C47 LD L,A        ;
+ $9C45 LD A,$00      ; {Write #N($0000,$04,$04) to; #LIST { #R$C423 } { #R$C425
+ $9C47 LD L,A        ; } LIST#
  $9C48 LD H,$00      ;
  $9C4A LD ($C423),HL ;
  $9C4D LD ($C425),HL ; }
@@ -4609,7 +4607,7 @@ c$9C2E DI            ; Disable interrupts.
 ; .
 ;
 ; Annotated by Stephen Jones; Spectrum Discovery Club.
-@label=KEYBOARD_TEST
+@label=Keyboard_Test
 c$9C53 LD C,A        ; Key to test in #REGc.
  $9C54 AND $07       ; Mask bits d0-d2 for row.
  $9C56 INC A         ; In range 1-8.
@@ -4621,11 +4619,11 @@ c$9C53 LD C,A        ; Key to test in #REGc.
  $9C60 SUB C         ; Subtract position.
  $9C61 LD C,A        ; Put into #REGc.
  $9C62 LD A,$FE      ; High byte of port to read.
-@label=KEYBOARD_FIND_ROW
+@label=Keyboard_Find_Row
 *$9C64 RRCA          ; Rotate into position.
  $9C65 DJNZ $9C64    ; Repeat until we've found the relevant row.
  $9C67 IN A,($FE)    ; Read port (#REGa=high, 254=low).
-@label=KEYBOARD_ROTATE_LOOP
+@label=Keyboard_Rotate_Loop
 *$9C69 RRA           ; Rotate bit out of result.
  $9C6A DEC C         ; Loop counter.
  $9C6B JR NZ,$9C69   ; Repeat until bit for position in carry flag.
@@ -4644,39 +4642,39 @@ c$9C6F LD A,($9C2B)  ; {Return if #R$9C2B is not zero.
  $9C77 LD HL,$AA43   ;
  $9C7A OR (HL)       ;
  $9C7B RET NZ        ; }
- $9C7C LD A,($AA04)  ; {Return if #R$AA04 is $17.
+ $9C7C LD A,($AA04)  ; {Return if #R$AA04 is #N$17.
  $9C7F CP $17        ;
  $9C81 RET Z         ; }
  $9C82 LD HL,$9CA6   ; {Decrease #R$9CA6 by one, return if it is not zero.
  $9C85 DEC (HL)      ;
  $9C86 RET NZ        ; }
- $9C87 LD (HL),$0D   ; Write $0D to; #LIST { #R$9CA6 } LIST#
+ $9C87 LD (HL),$0D   ; Write #N$0D to; #LIST { #R$9CA6 } LIST#
  $9C89 CALL $9CA0    ; {Call #R$9CA0 and jump to #R$9C93 if it is not zero.
  $9C8C JR NZ,$9C93   ; }
- $9C8E LD A,$01      ; {Write $01 to; #LIST { #R$9C2B } LIST#
+ $9C8E LD A,$01      ; {Write #N$01 to; #LIST { #R$9C2B } LIST#
  $9C90 LD ($9C2B),A  ; }
 
 ; Print remaining time to the screen.
 ;
 ; Used by the routines at #R$9C6F, #R$AC3E and #R$AEF8.
-@label=PRINT_TIME
+@label=Print_Time
 c$9C93 LD A,($9CA5)  ; {Stores #R$9CA5 as the LSB in #REGhl.
  $9C96 LD H,$00      ;
  $9C98 LD L,A        ; }
- $9C99 LD DE,$0B00   ; Store $0B00 in #REGde for the screen position.
+ $9C99 LD DE,$0B00   ; Store #N$0B00 in #REGde for the screen position.
  $9C9C CALL $9336    ; Call #R$9336.
  $9C9F RET           ; Return.
 
 ; Countdown time by one unit.
 ;
 ; Used by the routines at #R$9C6F and #R$AC3E.
-@label=TIME_TICK
+@label=Time_Tick
 c$9CA0 LD HL,$9CA5   ; {Decrease #R$9CA5 by 1 and return.
  $9CA3 DEC (HL)      ;
  $9CA4 RET           ; }
 
 ; Time.
-@label=TIME
+@label=Time
 g$9CA5 DEFB $00
 
 ; Routine at 9CA6
@@ -4685,7 +4683,7 @@ c$9CA6 DEC C         ;
 ; This entry point is used by the routine at #R$AC3E.
 *$9CA8 LD A,R        ;
  $9CAA LD ($A645),A  ;
- $9CAD XOR A         ; {Write $00 to; #LIST
+ $9CAD XOR A         ; {Write #N$00 to; #LIST
  $9CAE LD ($9C2B),A  ; { #R$9C2B }
  $9CB1 LD ($9CA7),A  ; { #R$9CA7 }
  $9CB4 LD ($AA4D),A  ; { #R$AA4D }
@@ -4701,14 +4699,14 @@ c$9CA6 DEC C         ;
  $9CD2 LD ($AA49),A  ; { #R$AA49 }
  $9CD5 LD ($9C28),A  ; { #R$9C28 }
                      ; LIST#}
- $9CD8 LD A,$20      ; {Write $20 to; #LIST { #R$AA19 } LIST#
+ $9CD8 LD A,$20      ; {Write #N$20 to; #LIST { #R$AA19 } LIST#
  $9CDA LD ($AA19),A  ; }
- $9CDD LD A,$3C      ; {Write $3C to; #LIST { #R$AA59 } LIST#
+ $9CDD LD A,$3C      ; {Write #N$3C to; #LIST { #R$AA59 } LIST#
  $9CDF LD ($AA59),A  ; }
- $9CE2 LD A,$7A      ; {Write $7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
+ $9CE2 LD A,$7A      ; {Write #N$7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
  $9CE4 LD ($AA18),A  ;
  $9CE7 LD ($AA58),A  ; }
- $9CEA LD A,$17      ; {Write $17 to; #LIST
+ $9CEA LD A,$17      ; {Write #N$17 to; #LIST
  $9CEC LD ($AA0C),A  ; { #R$AA0C }
  $9CEF LD ($AA4C),A  ; { #R$AA4C }
  $9CF2 LD ($AA05),A  ; { #R$AA05 }
@@ -4716,10 +4714,10 @@ c$9CA6 DEC C         ;
  $9CF8 LD ($AA04),A  ; { #R$AA04 }
  $9CFB LD ($AA44),A  ; { #R$AA44 }
                      ; LIST#}
- $9CFE LD A,$01      ; {Write $01 to; #LIST { #R$AA0A } { #R$AA4A } LIST#
+ $9CFE LD A,$01      ; {Write #N$01 to; #LIST { #R$AA0A } { #R$AA4A } LIST#
  $9D00 LD ($AA0A),A  ;
  $9D03 LD ($AA4A),A  ; }
- $9D06 LD A,$01      ; {Write $01 to; #LIST { #R$AA57 } LIST#
+ $9D06 LD A,$01      ; {Write #N$01 to; #LIST { #R$AA57 } LIST#
  $9D08 LD ($AA57),A  ; }
  $9D0B CALL $AADC    ;
  $9D0E CALL $AB0A    ;
@@ -5681,7 +5679,7 @@ c$9ED2 LD A,($AA44)  ;
 ; Random number.
 ;
 ; Semi-random number generator using the refresh register.
-@label=RANDOM_NUMBER
+@label=Random_Number
 c$A3FF LD A,R        ; #REGa=0-127 (the contents of the refresh register).
  $A401 RET           ; Return.
 
@@ -6039,7 +6037,7 @@ c$A402 LD A,($A614)  ;
 ; .
 ;
 ; Check if either player has broken the high score.
-@label=CHECK_HISCORE
+@label=Check_HighScore
 c$A647 LD HL,$B035   ; #REGhl=#R$B035(high score).
  $A64A LD DE,$B02F   ; #REGde=#R$B02F(1UP score)
 ; If this is not a two player game then we skip forward to #R$A679 to only test
@@ -6048,7 +6046,7 @@ c$A647 LD HL,$B035   ; #REGhl=#R$B035(high score).
  $A650 CP $02        ; }
  $A652 JR NZ,$A679   ; If not, jump to #R$A679.
 ; #R$A6B6 mirrors #R$9C2C here. todo: why?
- $A654 LD ($A6B6),A  ; Store $02 at #R$A6B6.
+ $A654 LD ($A6B6),A  ; Store #N$02 at #R$A6B6.
 ; Check 2UP score.
  $A657 LD HL,$B032   ; {#REGhl=#R$B032 and call #R$A697.
  $A65A CALL $A697    ; }
@@ -6059,19 +6057,19 @@ c$A647 LD HL,$B035   ; #REGhl=#R$B035(high score).
  $A664 LD DE,$B02F   ; #REGde=#R$B02F(2UP score)
  $A667 JR $A676      ; Jump to #R$A676.
 ; Checks if all three digits changed. todo: why?
-@label=CHECK_HS_CHANGES
+@label=Check_HighScore_Changes
 *$A669 LD A,($A6B7)  ; {Check #R$A6B7; are there three digit changes?
  $A66C CP $03        ; }
- $A66E LD A,$01      ; Store $01 at #R$A6B6 (skips forward to #R$A673).
+ $A66E LD A,$01      ; Store #N$01 at #R$A6B6 (skips forward to #R$A673).
  $A670 JR NZ,$A673   ;
 ; Else reset #R$A6B6.
- $A672 XOR A         ; {Write $00 to #R$A6B6.
-@label=HS_WRITE_A6B6
+ $A672 XOR A         ; {Write #N$00 to #R$A6B6.
+@label=HighScore_Write_A6B6
 *$A673 LD ($A6B6),A  ; }
 ; Resets #REGhl with #R$B038 so the 1UP score can also be tested.
-@label=CHECK_HS_RESTORE
-*$A676 LD HL,$B038   ; #REGhl=#R$B038 and call #R$A697.
-@label=CHECK_HISCORE_1UP
+@label=Check_HighScore_Restore
+*$A676 LD HL,$B038   ; #REGhl=#R$B038.
+@label=Check_HighScore_1UP
 *$A679 CALL $A697    ; Call #R$A697.
  $A67C RET C         ; Return if this is not a new high score.
 ; Overwrite the high score with the 1UP score.
@@ -6084,8 +6082,8 @@ c$A647 LD HL,$B035   ; #REGhl=#R$B035(high score).
 ; Print Hi-Score.
 ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
-@label=PRINT_HISCORE
-c$A685 LD B,$03      ; Set a counter = $03 digits.
+@label=Print_HighScore
+c$A685 LD B,$03      ; Set a counter = #N$03 digits.
  $A687 CALL $AFDA    ; Call #R$AFDA.
  $A68A CALL $AFED    ; Call #R$AFED.
  $A68D LD DE,$B024   ; {Point to #R$B024 and call #R$92E4.
@@ -6096,13 +6094,13 @@ c$A685 LD B,$03      ; Set a counter = $03 digits.
 ; Check player score against high score.
 ;
 ; Used by the routine at #R$A647.
-@label=IS_HIGH_SCORE
-c$A697 LD A,$00      ; {Write $00 to #R$A6B7.
+@label=Is_HighScore
+c$A697 LD A,$00      ; {Write #N$00 to #R$A6B7.
  $A699 LD ($A6B7),A  ; }
  $A69C PUSH DE       ; {Stash the high score and player score positions on the
  $A69D PUSH HL       ; stack.}
- $A69E LD B,$03      ; Set the counter to $03 for the three score digits.
-@label=IS_HS_LOOP
+ $A69E LD B,$03      ; Set the counter to #N$03 for the three score digits.
+@label=Is_HighScore_Loop
 *$A6A0 LD A,(DE)     ; Fetch the score digit.
  $A6A1 CP (HL)       ; Compare the score digit against the high score.
  $A6A2 JR C,$A6B3    ; If the the high score is higher, jump to #R$A6B3.
@@ -6110,14 +6108,14 @@ c$A697 LD A,$00      ; {Write $00 to #R$A6B7.
  $A6A6 LD A,($A6B7)  ; {Increase #R$A6B7 by one.
  $A6A9 INC A         ;
  $A6AA LD ($A6B7),A  ; }
-@label=IS_HS_SKIP
+@label=Is_HighScore_Skip
 *$A6AD DEC DE        ; {Move onto the next digits for both the player score and
  $A6AE DEC HL        ; high score.}
  $A6AF DJNZ $A6A0    ; Decrease counter by one and loop back to #R$A6A0 until
                      ; counter is zero.
  $A6B1 SCF           ; {Sets then clears the carry flag.
  $A6B2 CCF           ; }
-@label=IS_HS_RETURN
+@label=Is_HighScore_Return
 *$A6B3 POP HL        ; {Restore high score and player score positions from the
  $A6B4 POP DE        ; stack.}
  $A6B5 RET           ; Return.
@@ -6237,7 +6235,7 @@ g$A6B7 DEFB $00,$F8,$40,$40,$40,$40,$F0,$0F
 g$AA00 DEFB $00
 
 ; 1UP Yin-yang count.
-@label=P1_YIN_YANG
+@label=P1_Yin_Yang
 g$AA01 DEFB $00
  $AA02 DEFB $00
  $AA03 DEFB $00
@@ -6245,10 +6243,10 @@ g$AA01 DEFB $00
  $AA05 DEFB $00
 
 ; Is this demo mode?
-@label=IS_DEMO_MODE
+@label=Is_Demo_Mode
 g$AA06 DEFB $00
  $AA07 DEFB $00
-@label=P1_POINTS_AWARDED
+@label=P1_Points_Awarded
  $AA08 DEFB $00
  $AA09 DEFB $00
  $AA0A DEFB $00
@@ -6271,7 +6269,7 @@ g$AA06 DEFB $00
 g$AA40 DEFB $00
 
 ; Game status buffer entry at AA41
-@label=P2_YIN_YANG
+@label=P2_Yin_Yang
 g$AA41 DEFB $00
  $AA42 DEFB $00
  $AA43 DEFB $00
@@ -6279,7 +6277,7 @@ g$AA41 DEFB $00
  $AA45 DEFB $00
  $AA46 DEFB $00
  $AA47 DEFB $00
-@label=P2_POINTS_AWARDED
+@label=P2_Points_Awarded
  $AA48 DEFB $00
  $AA49 DEFB $00
  $AA4A DEFB $00
@@ -6296,7 +6294,7 @@ g$AA41 DEFB $00
  $AA71 DEFB $00,$00,$00,$00,$00,$00
  $AA77 DEFB $00
  $AA78 DEFB $1F,$7F,$00,$00,$00,$00,$00,$00
-@label=ALSO_RANK
+@label=Also_Rank
  $AA80 DEFB $00
  $AA81 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $AA89 DEFB $00,$00
@@ -6325,65 +6323,65 @@ t$AA9C DEFM $00
 ; Routine at AADC
 ;
 ; Used by the routines at #R$9745 and #R$9CA6.
-c$AADC LD HL,$AA00   ; {Copies $1A bytes of data from #R$AA00 to #R$A5F1.
+c$AADC LD HL,$AA00   ; {Copies #N$1A bytes of data from #R$AA00 to #R$A5F1.
  $AADF LD DE,$A5F1   ;
  $AAE2 LD BC,$001A   ;
  $AAE5 LDIR          ; }
- $AAE7 LD HL,$AA40   ; {Copies $1A bytes of data from #R$AA40 to #R$A62B.
+ $AAE7 LD HL,$AA40   ; {Copies #N$1A bytes of data from #R$AA40 to #R$A62B.
  $AAEA LD DE,$A62B   ;
  $AAED LD BC,$001A   ;
  $AAF0 LDIR          ; }
  $AAF2 RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AAF3 LD HL,$A5F1   ; {Copies $1A bytes of data from #R$A5F1 to #R$AA00.
+*$AAF3 LD HL,$A5F1   ; {Copies #N$1A bytes of data from #R$A5F1 to #R$AA00.
  $AAF6 LD DE,$AA00   ;
  $AAF9 LD BC,$001A   ;
  $AAFC LDIR          ; }
- $AAFE LD HL,$A62B   ; {Copies $1A bytes of data from #R$A62B to #R$AA40.
+ $AAFE LD HL,$A62B   ; {Copies #N$1A bytes of data from #R$A62B to #R$AA40.
  $AB01 LD DE,$AA40   ;
  $AB04 LD BC,$001A   ;
  $AB07 LDIR          ; }
  $AB09 RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AB0A LD HL,$AA8B   ; {Copies $12 bytes of data from #R$AA8B to #R$A60B.
+*$AB0A LD HL,$AA8B   ; {Copies #N$12 bytes of data from #R$AA8B to #R$A60B.
  $AB0D LD DE,$A60B   ;
  $AB10 LD BC,$0012   ;
  $AB13 LDIR          ; }
  $AB15 RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AB16 LD HL,$A60B   ; {Copies $12 bytes of data from #R$A60B to #R$AA8B.
+*$AB16 LD HL,$A60B   ; {Copies #N$12 bytes of data from #R$A60B to #R$AA8B.
  $AB19 LD DE,$AA8B   ;
  $AB1C LD BC,$0012   ;
  $AB1F LDIR          ; }
  $AB21 RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AB22 LD HL,$AA40   ; {Copies $1A bytes of data from #R$AA40 to #R$A5F1.
+*$AB22 LD HL,$AA40   ; {Copies #N$1A bytes of data from #R$AA40 to #R$A5F1.
  $AB25 LD DE,$A5F1   ;
  $AB28 LD BC,$001A   ;
  $AB2B LDIR          ; }
- $AB2D LD HL,$AA00   ; {Copies $1A bytes of data from #R$AA00 to #R$A62B.
+ $AB2D LD HL,$AA00   ; {Copies #N$1A bytes of data from #R$AA00 to #R$A62B.
  $AB30 LD DE,$A62B   ;
  $AB33 LD BC,$001A   ;
  $AB36 LDIR          ; }
  $AB38 RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AB39 LD HL,$A5F1   ; {Copies $1A bytes of data from #R$A5F1 to #R$AA40.
+*$AB39 LD HL,$A5F1   ; {Copies #N$1A bytes of data from #R$A5F1 to #R$AA40.
  $AB3C LD DE,$AA40   ;
  $AB3F LD BC,$001A   ;
  $AB42 LDIR          ; }
- $AB44 LD HL,$A62B   ; {Copies $1A bytes of data from #R$A62B to #R$AA00.
+ $AB44 LD HL,$A62B   ; {Copies #N$1A bytes of data from #R$A62B to #R$AA00.
  $AB47 LD DE,$AA00   ;
  $AB4A LD BC,$001A   ;
  $AB4D LDIR          ; }
  $AB4F RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AB50 LD HL,$AA77   ; {Copies $12 bytes of data from #R$AA77 to #R$A60B.
+*$AB50 LD HL,$AA77   ; {Copies #N$12 bytes of data from #R$AA77 to #R$A60B.
  $AB53 LD DE,$A60B   ;
  $AB56 LD BC,$0012   ;
  $AB59 LDIR          ; }
  $AB5B RET           ; Return.
 ; This entry point is used by the routines at #R$9745 and #R$9CA6.
-*$AB5C LD HL,$A60B   ; {Copies $12 bytes of data from #R$A60B to #R$AA77.
+*$AB5C LD HL,$A60B   ; {Copies #N$12 bytes of data from #R$A60B to #R$AA77.
  $AB5F LD DE,$AA77   ;
  $AB62 LD BC,$0012   ;
  $AB65 LDIR          ; }
@@ -6398,9 +6396,9 @@ c$AADC LD HL,$AA00   ; {Copies $1A bytes of data from #R$AA00 to #R$A5F1.
 ; Demo mode.
 ;
 ; Used by the routine at #R$AC05.
-@label=DEMO_MODE
-c$AB70 XOR A         ; #REGa=$00
- $AB71 LD ($B05F),A  ; {Write $00 to; #LIST { #R$B05F } { #R$9C2C } LIST#
+@label=Demo_Mode
+c$AB70 XOR A         ; #REGa=#N$00
+ $AB71 LD ($B05F),A  ; {Write #N$00 to; #LIST { #R$B05F } { #R$9C2C } LIST#
  $AB74 LD ($9C2C),A  ; }
  $AB77 CALL $A3FF    ; Call #R$A3FF.
  $AB7A AND $03       ;
@@ -6410,10 +6408,10 @@ c$AB70 XOR A         ; #REGa=$00
  $AB84 AND $03       ;
  $AB86 ADD A,$07     ;
  $AB88 LD ($AA80),A  ;
- $AB8B LD A,$01      ; {Write $01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
+ $AB8B LD A,$01      ; {Write #N$01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
  $AB8D LD ($AA46),A  ;
  $AB90 LD ($AA06),A  ; }
- $AB93 INC A         ; {Write $02 to; #LIST { #R$AF34 } LIST#
+ $AB93 INC A         ; {Write #N$02 to; #LIST { #R$AF34 } LIST#
  $AB94 LD ($AF34),A  ; }
 *$AB97 LD A,($AF34)  ; #R$AF34.
  $AB9A CALL $9200    ;
@@ -6424,7 +6422,7 @@ c$AB70 XOR A         ; #REGa=$00
  $ABA9 CALL $A685    ; }
  $ABAC CALL $909E    ; Call #R$909E.
  $ABAF CALL $AEF8    ; Call #R$AEF8.
- $ABB2 XOR A         ; {Write $00 to; #LIST { $9C2B } LIST#
+ $ABB2 XOR A         ; {Write #N$00 to; #LIST { #N$9C2B } LIST#
  $ABB3 LD ($9C2B),A  ; }
  $ABB6 CALL $ABC8    ; Call #R$ABC8.
  $ABB9 AND A         ;
@@ -6432,7 +6430,7 @@ c$AB70 XOR A         ; #REGa=$00
  $ABBB CALL $AF27    ;
  $ABBE LD HL,$B05F   ; {Point to #R$B05F and increment it by 1.
  $ABC1 INC (HL)      ; }
- $ABC2 LD A,(HL)     ; {If this value is not $04 then jump to #R$AB97.
+ $ABC2 LD A,(HL)     ; {If this value is not #N$04 then jump to #R$AB97.
  $ABC3 CP $04        ;
  $ABC5 JR NZ,$AB97   ; }
  $ABC7 RET           ; Else, return.
@@ -6470,10 +6468,10 @@ c$AB70 XOR A         ; #REGa=$00
 ; Main game loop.
 ;
 ; Used by the routine at #R$9C2E.
-@label=MAIN_GAME
-c$AC05 XOR A         ; {Writes $00 to #R$9C2C - this signifies we're in "demo
+@label=Main_Game
+c$AC05 XOR A         ; {Writes #N$00 to #R$9C2C - this signifies we're in "demo
  $AC06 LD ($9C2C),A  ; mode".}
-@label=MAIN_GAME_LOOP
+@label=Main_Game_Loop
 *$AC09 LD HL,$0022   ; {Point to #R$B060 and call #R$92E4.
  $AC0C LD DE,$B060   ;
  $AC0F CALL $92E4    ; }
@@ -6487,11 +6485,11 @@ c$AC05 XOR A         ; {Writes $00 to #R$9C2C - this signifies we're in "demo
  $AC27 LD A,($9C2C)  ; {If #R$9C2C is still zero, loop back round to #R$AC09.
  $AC2A AND A         ;
  $AC2B JR Z,$AC09    ; }
- $AC2D CP $01        ; {If #R$9C2C is $01, then jump to #R$AC3E.
+ $AC2D CP $01        ; {If #R$9C2C is #N$01, then jump to #R$AC3E.
  $AC2F JR Z,$AC36    ; }
  $AC31 CALL $AD9C    ; Else, call #R$AD9C.
  $AC34 JR $AC09      ; Loop back round to #R$AC09.
-@label=MAIN_GAME_START_1UP
+@label=Main_Game_Start_1UP
 *$AC36 CALL $AC3E    ; Call #R$AC3E.
  $AC39 CALL $A647    ; Call #R$A647.
  $AC3C JR $AC09      ; Loop back round to #R$AC09.
@@ -6503,17 +6501,17 @@ c$AC05 XOR A         ; {Writes $00 to #R$9C2C - this signifies we're in "demo
 ; .
 ;
 ; fff
-@label=START_1UP_GAME
-c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
- $AC3F LD ($AA80),A  ; { #R$AA08 } { #R$AA48 } LIST#
+@label=Start_1UP_Game
+c$AC3E XOR A         ; {Write #N$00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06
+ $AC3F LD ($AA80),A  ; } { #R$AA08 } { #R$AA48 } LIST#
  $AC42 LD ($B05F),A  ;
  $AC45 LD ($AA06),A  ;
  $AC48 LD ($AA08),A  ;
  $AC4B LD ($AA48),A  ; }
- $AC4E INC A         ; {Write $01 to; #LIST { #R$AF35 } { #R$AA46 } LIST#
+ $AC4E INC A         ; {Write #N$01 to; #LIST { #R$AF35 } { #R$AA46 } LIST#
  $AC4F LD ($AF35),A  ;
  $AC52 LD ($AA46),A  ; }
- $AC55 INC A         ; {Write $02 to; #LIST { #R$AA3C } { #R$AF34 } LIST#
+ $AC55 INC A         ; {Write #N$02 to; #LIST { #R$AA3C } { #R$AF34 } LIST#
  $AC56 LD ($AA3C),A  ;
  $AC59 LD ($AF34),A  ; }
  $AC5C CALL $AF0B    ; Call #R$AF0B.
@@ -6575,17 +6573,17 @@ c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
  $ACE0 ADD A,$07     ;
  $ACE2 LD ($AA80),A  ;
  $ACE5 JP $AC5F      ;
-*$ACE8 LD A,$19      ; {Write $19 to; #LIST { #R$AA0C } { #R$AA4C } LIST#
+*$ACE8 LD A,$19      ; {Write #N$19 to; #LIST { #R$AA0C } { #R$AA4C } LIST#
  $ACEA LD ($AA0C),A  ;
  $ACED LD ($AA4C),A  ; }
-*$ACF0 XOR A         ; {Write $00 to; #LIST { #R$AA0D } { #R$AA0B } { #R$AA4B }
- $ACF1 LD ($AA0D),A  ; { #R$AA16 } { #R$AA56 } { #R$AA0D } LIST#
+*$ACF0 XOR A         ; {Write #N$00 to; #LIST { #R$AA0D } { #R$AA0B } { #R$AA4B
+ $ACF1 LD ($AA0D),A  ; } { #R$AA16 } { #R$AA56 } { #R$AA0D } LIST#
  $ACF4 LD ($AA0B),A  ;
  $ACF7 LD ($AA4B),A  ;
  $ACFA LD ($AA16),A  ;
  $ACFD LD ($AA56),A  ;
  $AD00 LD ($AA0D),A  ; }
- $AD03 LD A,$7A      ; {Write $7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
+ $AD03 LD A,$7A      ; {Write #N$7A to; #LIST { #R$AA18 } { #R$AA58 } LIST#
  $AD05 LD ($AA18),A  ;
  $AD08 LD ($AA58),A  ; }
 *$AD0B CALL $95D4    ; Call #R$95D4.
@@ -6653,14 +6651,14 @@ c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
 *$AD99 LD A,$81      ;
  $AD9B RET           ;
 ; This entry point is used by the routine at #R$AC05.
-@label=START_2UP_GAME
-*$AD9C XOR A         ; {Write $00 to; #LIST { #R$B05F } { #R$AA06 } { #R$AA46 }
- $AD9D LD ($B05F),A  ; { #R$AA08 } { #R$AA48 } LIST#
+@label=Start_2UP_Game
+*$AD9C XOR A         ; {Write #N$00 to; #LIST { #R$B05F } { #R$AA06 } { #R$AA46
+ $AD9D LD ($B05F),A  ; } { #R$AA08 } { #R$AA48 } LIST#
  $ADA0 LD ($AA06),A  ;
  $ADA3 LD ($AA46),A  ;
  $ADA6 LD ($AA08),A  ;
  $ADA9 LD ($AA48),A  ; }
- $ADAC LD A,$02      ; {Write $02 to; #LIST { #R$AF34 } LIST#
+ $ADAC LD A,$02      ; {Write #N$02 to; #LIST { #R$AF34 } LIST#
  $ADAE LD ($AF34),A  ; }
  $ADB1 CALL $90D1    ;
  $ADB4 CALL $909E    ;
@@ -6737,10 +6735,10 @@ c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
  $AE4D LD A,(HL)     ;
  $AE4E AND A         ;
  $AE4F JR NZ,$AE57   ;
-*$AE51 XOR A         ; {Write $00 to; #LIST { #R$C427 } LIST#
+*$AE51 XOR A         ; {Write #N$00 to; #LIST { #R$C427 } LIST#
  $AE52 LD ($C427),A  ; }
  $AE55 JR $AE5C      ; Jump to #R$AE5C.
-*$AE57 LD A,$01      ; {Write $01 to; #LIST { #R$C427 } LIST#
+*$AE57 LD A,$01      ; {Write #N$01 to; #LIST { #R$C427 } LIST#
  $AE59 LD ($C427),A  ; }
 *$AE5C LD A,($9C28)  ; {Return if #R$9C28 is not zero.
  $AE5F AND A         ;
@@ -6748,7 +6746,7 @@ c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
  $AE61 LD A,($9C2B)  ; {Jump to #R$AE29 if #R$9C2B is not zero.
  $AE64 AND A         ;
  $AE65 JR Z,$AE29    ; }
- $AE67 LD A,$1C      ; {Write $1C to; #LIST { #R$AA0C } { #R$AA4C } LIST#
+ $AE67 LD A,$1C      ; {Write #N$1C to; #LIST { #R$AA0C } { #R$AA4C } LIST#
  $AE69 LD ($AA0C),A  ;
  $AE6C LD ($AA4C),A  ; }
  $AE6F CALL $ACF0    ; Call #R$ACF0.
@@ -6797,7 +6795,7 @@ c$AC3E XOR A         ; {Write $00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 }
 ; .
 ;
 ; Should this be a Dan, or just "novice"?
-@label=SHOW_RANK
+@label=Show_Rank
 c$AEBF LD HL,$0122   ; {Grab #R$B05F.
  $AEC2 LD A,($B05F)  ; }
  $AEC5 AND $1F       ; Mask bits d0-d4.
@@ -6806,7 +6804,7 @@ c$AEBF LD HL,$0122   ; {Grab #R$B05F.
  $AECC CALL $92E4    ; }
  $AECF RET           ; Return.
 ; Handle "ST" suffix.
-@label=RANK_IS_DAN
+@label=Rank_Is_Dan
 *$AED0 LD DE,$B04D   ; {Use #R$B04D if this is the "1st" Dan.
  $AED3 CP $01        ;
  $AED5 JR Z,$AEE8    ; }
@@ -6821,7 +6819,7 @@ c$AEBF LD HL,$0122   ; {Grab #R$B05F.
 ; Handle "TH" suffix.
  $AEE5 LD DE,$B056   ; Else use #R$B056 for every"th"ing else.
 ; Print the result to screen.
-@label=PRINT_RANK
+@label=Print_Rank
 *$AEE8 LD HL,$0222   ; {Call #R$92E4.
  $AEEB CALL $92E4    ; }
  $AEEE LD HL,$0422   ; {Point to #R$B059 and call #R$92E4.
@@ -6832,8 +6830,8 @@ c$AEBF LD HL,$0122   ; {Grab #R$B05F.
 ; Initialise time counter.
 ;
 ; Used by the routines at #R$AB70 and #R$AC3E.
-@label=INIT_TIME
-c$AEF8 LD A,$1E      ; {Write $1E (30 seconds) to #R$9CA5.
+@label=Init_Time
+c$AEF8 LD A,$1E      ; {Write #N$1E (30 seconds) to #R$9CA5.
  $AEFA LD ($9CA5),A  ; }
  $AEFD CALL $9C93    ; Call #R$9C93.
  $AF00 RET           ; Return.
@@ -6850,9 +6848,9 @@ c$AF01 LD A,($AA03)  ;
 ; Resets score.
 ;
 ; Used by the routine at #R$AC3E.
-@label=RESET_SCORE
-c$AF0B LD HL,$B02D   ; {Writes $00 to the memory locations between $B02D-$B032
- $AF0E LD (HL),$00   ; (blanks current $B02D).
+@label=Reset_Score
+c$AF0B LD HL,$B02D   ; {Writes #N$00 to the memory locations between
+ $AF0E LD (HL),$00   ; #N$B02D-#N$B032 (blanks current #N$B02D).
  $AF10 LD DE,$B02D   ;
  $AF13 INC DE        ;
  $AF14 LD BC,$0005   ;
@@ -6893,7 +6891,7 @@ c$AF36 LD A,($AA08)  ; {Jump to #R$AF7D if #R$AA08 is zero.
  $AF39 CP $00        ;
  $AF3B JP Z,$AF7D    ; }
  $AF3E LD HL,$B00B   ; #REGhl=#R$B00B
- $AF41 LD A,($AA3F)  ; {#REGbc=$AA3F.
+ $AF41 LD A,($AA3F)  ; {#REGbc=#N$AA3F.
  $AF44 LD C,A        ;
  $AF45 LD B,$00      ; }
  $AF47 ADD HL,BC     ;
@@ -6909,14 +6907,14 @@ c$AF36 LD A,($AA08)  ; {Jump to #R$AF7D if #R$AA08 is zero.
  $AF57 LD (HL),A     ;
  $AF58 LD DE,$B02D   ; #R$B02C($B02D).
  $AF5B CALL $AFC2    ; Call #R$AFC2.
- $AF5E XOR A         ; {Write $00 to; #LIST { #R$AA08 } LIST#
+ $AF5E XOR A         ; {Write #N$00 to; #LIST { #R$AA08 } LIST#
  $AF5F LD ($AA08),A  ; }
  $AF62 LD A,($9C2C)  ; {Return if #R$9C2C is zero.
  $AF65 CP $00        ;
  $AF67 RET Z         ; }
 ; Player 1 display score.
  $AF68 LD HL,$B02F   ; Point to #R$B02F.
- $AF6B LD B,$03      ; Set a counter of $03.
+ $AF6B LD B,$03      ; Set a counter of #N$03.
  $AF6D CALL $AFDA    ; Call #R$AFDA.
  $AF70 CALL $AFED    ; Call #R$AFED.
  $AF73 LD DE,$B024   ; {Point to #R$B024 and call #R$92E4.
@@ -6950,7 +6948,7 @@ c$AF36 LD A,($AA08)  ; {Jump to #R$AF7D if #R$AA08 is zero.
  $AFAC RET NZ        ;
 ; Player 2 display score.
  $AFAD LD HL,$B032   ; Point to #R$B032.
- $AFB0 LD B,$03      ; Set a counter of $03.
+ $AFB0 LD B,$03      ; Set a counter of #N$03.
  $AFB2 CALL $AFDA    ; Call #R$AFDA.
  $AFB5 CALL $AFED    ; Call #R$AFED.
  $AFB8 LD DE,$B024   ; {Point to #R$B024 and call #R$92E4.
@@ -6981,9 +6979,9 @@ c$AF36 LD A,($AA08)  ; {Jump to #R$AF7D if #R$AA08 is zero.
 ; Routine at AFDA
 ;
 ; Used by the routines at #R$9745, #R$A685, #R$AC3E and #R$AF36.
-@label=POPULATE_SCORE_BUFFER
+@label=Populate_Score_Buffer
 c$AFDA LD DE,$B024   ; Point to #R$B024.
-@label=SCORE_BUFFER_LOOP
+@label=Score_Buffer_Loop
 *$AFDD LD A,(HL)     ; Stores the contents of #REGhl in the accumulator.
  $AFDE RRCA          ; {Move bits 4 and 5 into bits 0 and 1.
  $AFDF RRCA          ;
@@ -6997,34 +6995,34 @@ c$AFDA LD DE,$B024   ; Point to #R$B024.
                      ; counter is zero.
  $AFEC RET           ; Return.
 ; Writes "00" to the end of the score.
-@label=WRITE_00
+@label=Write_00
 *$AFED LD A,$30      ; #REGa="0" (ASCII zero for display).
  $AFEF LD (DE),A     ; {Write "0" to #REGde, increment #REGde by 1, write "0"
  $AFF0 INC DE        ; to #REGde, increment #REGde by 1.
  $AFF1 LD (DE),A     ;
  $AFF2 INC DE        ; }
 ; This entry point is used by the routines at #R$9745 and #R$AC3E.
-@label=ZERO_TO_SPACE
-*$AFF3 XOR A         ; {Writes $00 to #REGde (used as a terminator).
+@label=Zero_To_Space
+*$AFF3 XOR A         ; {Writes #N$00 to #REGde (used as a terminator).
  $AFF4 LD (DE),A     ; }
  $AFF5 LD HL,$B024   ; Point to #R$B024.
- $AFF8 LD B,$07      ; Set a counter of $07.
-@label=ZERO
+ $AFF8 LD B,$07      ; Set a counter of #N$07.
+@label=Zero
 *$AFFA LD A,(HL)     ; Fetch the score character.
  $AFFB CP $30        ; {If it is not ASCII "0" then return.
  $AFFD RET NZ        ; }
- $AFFE LD (HL),$20   ; Overwrite the character with $20 (ASCII space for
+ $AFFE LD (HL),$20   ; Overwrite the character with #N$20 (ASCII space for
                      ; display).
  $B000 INC HL        ; Move onto next character.
-@label=ZERO_LOOP
+@label=Zero_Loop
  $B001 DJNZ $AFFA    ; Decrease counter by one and loop back to #R$AFFA until
                      ; counter is zero.
  $B003 RET           ; Return.
 ; Convert a single number into ASCII ready for printing to the screen.
-@label=CONVERT_ASCII
+@label=Convert_ASCII
 *$B004 AND $0F       ; {Store the ASCII representation of the number at #REGde
  $B006 ADD A,$30     ;           (it adds ASCII "0") so for example 1 ends up being
- $B008 LD (DE),A     ; 1 + $30 = $31 (e.g. "1" in ASCII).}
+ $B008 LD (DE),A     ; 1 + #N$30 = #N$31 (e.g. "1" in ASCII).}
  $B009 INC DE        ; Then increase #REGde by one for the next digit.
  $B00A RET           ; Return.
 
@@ -7035,38 +7033,38 @@ b$B00B DEFB $00,$00,$00,$00,$00,$00,$08,$08
  $B023 DEFB $06
 
 ; Message at B024
-@label=SCORE_BUFFER
+@label=Score_Buffer
 t$B024 DEFM $00,$00,$00,$00,$00,$00,$00,$00 ; Score text buffer.
 @label=XXXXX
  $B02C DEFB $00,$00,$00                     ; XXXXX
-@label=SCORE_P1
+@label=Score_P1
  $B02F DEFB $00,$00,$00                     ; Score Player 1
-@label=SCORE_P2
+@label=Score_P2
  $B032 DEFB $00,$10,$00                     ; Score Player 2
-@label=HISCORE
+@label=Hi_Score
  $B035 DEFB $00,$10,$00                     ; Hi-Score (defaults to 1000).
  $B038 DEFM $00
-@label=TEXT_DEMO
+@label=Text_Demo
  $B039 DEFM "DEMO",$00                      ; "DEMO" text.
-@label=TEXT_PLAYER
+@label=Text_Player
  $B03E DEFM "PLAYER",$00                    ; "PLAYER" text.
-@label=TEXT_NOVICE
+@label=Text_Novice
  $B045 DEFM "NOVICE ",$00                   ; "NOVICE" text.
-@label=TEXT_ST_SUFFIX
+@label=Text_ST_Suffix
  $B04D DEFM "ST",$00                        ; "ST" numeric suffix.
-@label=TEXT_ND_SUFFIX
+@label=Text_ND_Suffix
  $B050 DEFM "ND",$00                        ; "ND" numeric suffix.
-@label=TEXT_RD_SUFFIX
+@label=Text_RD_Suffix
  $B053 DEFM "RD",$00                        ; "RD" numeric suffix.
-@label=TEXT_TH_SUFFIX
+@label=Text_TH_Suffix
  $B056 DEFM "TH",$00                        ; "TH" numeric suffix.
-@label=TEXT_DAN
+@label=Text_Dan
  $B059 DEFM " DAN",$00                      ; "DAN" text.
  $B05E DEFM $01
-@label=CURRENT_RANK
+@label=Current_Rank
  $B05F DEFB $00                             ; Current rank (0=novice, 1 or
                                             ; more=Dan rank).
-@label=TEXT_WHITESPACE_9
+@label=Text_Whitespace_9
  $B060 DEFM "         ",$00                 ; Whitespace?
 
 ; Data block at B06A
@@ -7100,11 +7098,11 @@ b$B06A DEFB $FF,$FE,$83,$01,$FE,$FE,$83,$07
 ; Routine at B138
 ;
 ; Used by the routine at #R$9C2E.
-@label=GAME_INIT
-c$B138 LD A,$01                             ; {Write $01 to; #LIST { #R$B153 }
- $B13A LD ($B153),A                         ; LIST#}
- $B13D LD HL,$FFFF                          ; {Write $FFFF to; #LIST { #R$B151
- $B140 LD ($B151),HL                        ; } LIST#}
+@label=Game_Init
+c$B138 LD A,$01                             ; {Write #N$01 to; #LIST { #R$B153
+ $B13A LD ($B153),A                         ; } LIST#}
+ $B13D LD HL,$FFFF                          ; {Write #N$FFFF to; #LIST {
+ $B140 LD ($B151),HL                        ; #R$B151 } LIST#}
  $B143 RET                                  ; Return.
 ; TODO.
  $B144 DEFB $79,$B1,$85,$B1,$91,$B1,$9D,$B1 ;
@@ -7363,7 +7361,7 @@ c$B15A AND A         ;
  $B2F9 RET           ;
 
 ; Sound flag.
-@label=FLAG_SOUND
+@label=Flag_Sound
 g$B2FA DEFB $01
 
 ; Routine at B2FB
@@ -8995,44 +8993,45 @@ c$C1F6 PUSH DE       ;
 ;
 ; This routine works out which area of the screen we are in.
 ;       Here are a few examples of usage;
-;       #REGa=$22
-;       #REGhl=$4000
-;       #REGa=$22 (restored from #REGe)
-;       AND $07 == #REGa=$02
-;       #REGbc=$0200
-;       #REGhl=$4200
-;       #REGa=$22 (restored from #REGe)
-;       AND $38 == #REGa=$20
-;       #REGbc=$0020
-;       #REGbc=$0080
-;       #REGhl=$4280
-@label=SCREEN_CALC
+;       #REGa=#N$22
+;       #REGhl=#N$4000
+;       #REGa=#N$22 (restored from #REGe)
+;       AND #N$07 == #REGa=#N$02
+;       #REGbc=#N$0200
+;       #REGhl=#N$4200
+;       #REGa=#N$22 (restored from #REGe)
+;       AND #N$38 == #REGa=#N$20
+;       #REGbc=#N$0020
+;       #REGbc=#N$0080
+;       #REGhl=#N$4280
+@label=Screen_Calc
 c$C203 LD E,A        ; Stash the accumulator in #REGe for later.
  $C204 AND $C0       ; Mask off low bits d6-d7.
  $C206 JP Z,$C21A    ; If the result is now zero, jump to #R$C21A.
- $C209 CP $40        ; {If #REGa is $40 then jump to #R$C214.
+ $C209 CP $40        ; {If #REGa is #N$40 then jump to #R$C214.
  $C20B JP Z,$C214    ; }
-@label=SCREEN_BOTTOM
- $C20E LD HL,$5000   ; {Sets #REGhl to $5000 (the bottom of the screen buffer)
- $C211 JP $C21D      ; and jump to #R$C21D.}
-@label=SCREEN_MIDDLE
-*$C214 LD HL,$4800   ; Sets #REGhl to $4800 (the middle of the screen buffer)
-                     ; and jump to #R$C21D.
+@label=Screen_Bottom
+ $C20E LD HL,$5000   ; Sets #REGhl to #N$5000 (the bottom of the screen
+                     ; buffer).
+ $C211 JP $C21D      ; Jump to #R$C21D.
+@label=Screen_Middle
+*$C214 LD HL,$4800   ; Sets #REGhl to #N$4800 (the middle of the screen
+                     ; buffer).
  $C217 JP $C21D      ; Jump to #R$C21D.
-@label=SCREEN_TOP
-*$C21A LD HL,$4000   ; Sets #REGhl to $4000 (the top of the screen buffer) and
-                     ; continue on...
+@label=Screen_Top
+*$C21A LD HL,$4000   ; Sets #REGhl to #N$4000 (the top of the screen buffer)
+                     ; and continue on...
 ; Now we have the base screen address; work out the exact address to return.
-@label=SCREEN_CALC_MINOR
+@label=Screen_Calc_Minor
 *$C21D LD A,E        ; Restore the accumulator from #REGe.
  $C21E AND $07       ; Mask bits d0-d2.
  $C220 LD B,A        ; {Push the accumulator into #REGbc as the high-order byte
- $C221 LD C,$00      ; (low is $00).}
+ $C221 LD C,$00      ; (low is #N$00).}
  $C223 ADD HL,BC     ; Adds #REGbc to #REGhl.
  $C224 LD A,E        ; Again, restore the accumulator from #REGe.
  $C225 AND $38       ; Mask bits d3-d5.
  $C227 LD C,A        ; {Push the accumulator into #REGbc as the low-order byte
- $C228 LD B,$00      ; (high is $00).}
+ $C228 LD B,$00      ; (high is #N$00).}
  $C22A SLA C         ; {* 2 * 2.
  $C22C RL B          ;
  $C22E SLA C         ;
@@ -9344,7 +9343,7 @@ c$C3E4 LD A,($C409)  ;
 b$C407 DEFB $00,$00
 
 ; Player 1 screen position.
-@label=POSITION_P1
+@label=Position_P1
 g$C409 DEFW $0000    ; The position in the screen buffer for Player 1.
 
 ; Game status buffer entry at C40B
