@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -41,7 +42,7 @@ Next: <a href="37676.html">37676</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">TIME_COUNTER</td>
+<td class="asm-label">Time_Counter</td>
 <td class="address-2"><span id="37631"></span>37631</td>
 <td class="instruction">DEFB 240,216</td>
 <td class="comment-1" rowspan="4">Guessing at the length.</td>
@@ -72,13 +73,13 @@ Next: <a href="37676.html">37676</a>
 <span id="37641"></span>
 <div class="comments">
 <div class="paragraph">
-On entry <span class="register">HL</span> contains the time as the LSB, e.g. for 30s <span class="register">HL</span> will be $001E.
+On entry <span class="register">HL</span> contains the time as the LSB, e.g. for 30s <span class="register">HL</span> will be 0030.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">PROCESS_TIME</td>
+<td class="asm-label">Process_Time</td>
 <td class="address-2"><span id="37641"></span>37641</td>
 <td class="instruction">PUSH HL</td>
 <td class="comment-1" rowspan="3">Pushes <span class="register">HL</span>, <span class="register">DE</span> and <span class="register">BC</span> onto the stack.</td>
@@ -97,10 +98,10 @@ On entry <span class="register">HL</span> contains the time as the LSB, e.g. for
 <td class="asm-label"></td>
 <td class="address-1"><span id="37644"></span>37644</td>
 <td class="instruction">LD DE,37631</td>
-<td class="comment-1" rowspan="1">Point to <a href="37631.html">TIME_COUNTER</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="37631.html">Time_Counter</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">PROCESS_TIME_LOOP</td>
+<td class="asm-label">Process_Time_Loop</td>
 <td class="address-2"><span id="37647"></span>37647</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="5">Load the next byte pair from the address pointer into <span class="register">BC</span>.</td>
@@ -140,7 +141,7 @@ On entry <span class="register">HL</span> contains the time as the LSB, e.g. for
 <td class="asm-label"></td>
 <td class="address-1"><span id="37654"></span>37654</td>
 <td class="instruction">LD A,47</td>
-<td class="comment-1" rowspan="1">Store $2F in <span class="register">A</span>.</td>
+<td class="comment-1" rowspan="1">Store 47 in <span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -153,7 +154,7 @@ Count "up" from ASCII "0" until the correct representation is reached.
 </td>
 </tr>
 <tr>
-<td class="asm-label">PROCESS_TIME_CHAR</td>
+<td class="asm-label">Process_Time_Char</td>
 <td class="address-2"><span id="37656"></span>37656</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="1">Increment <span class="register">A</span> by one (so on the first pass <span class="register">A</span> will now contain ASCII "0").</td>
@@ -178,8 +179,8 @@ Count "up" from ASCII "0" until the correct representation is reached.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37660"></span>37660</td>
-<td class="instruction">JR C,<a href="37631.html#37656">PROCESS_TIME_CHAR</a></td>
-<td class="comment-1" rowspan="1">If the carry flag is set loop back to <a href="37631.html#37656">PROCESS_TIME_CHAR</a>.</td>
+<td class="instruction">JR C,<a href="37631.html#37656">Process_Time_Char</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set loop back to <a href="37631.html#37656">Process_Time_Char</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -209,12 +210,12 @@ Count "up" from ASCII "0" until the correct representation is reached.
 <td class="asm-label"></td>
 <td class="address-1"><span id="37669"></span>37669</td>
 <td class="instruction">INC C</td>
-<td class="comment-1" rowspan="2">Loop back to <a href="37631.html#37647">PROCESS_TIME_LOOP</a> until the terminator is reached ($FF+$01 will set the zero flag).</td>
+<td class="comment-1" rowspan="2">Loop back to <a href="37631.html#37647">Process_Time_Loop</a> until the terminator is reached (255+1 will set the zero flag).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37670"></span>37670</td>
-<td class="instruction">JR NZ,<a href="37631.html#37647">PROCESS_TIME_LOOP</a></td>
+<td class="instruction">JR NZ,<a href="37631.html#37647">Process_Time_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -252,8 +253,8 @@ Next: <a href="37676.html">37676</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/92FF.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

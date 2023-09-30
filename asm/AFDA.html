@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,19 +39,19 @@ Next: <a href="B00B.html">B00B</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="9745.html">GAME_OVER</a>, <a href="A685.html">PRINT_HISCORE</a>, <a href="AC3E.html">START_1UP_GAME</a> and <a href="AF36.html">AF36</a>.
+Used by the routines at <a href="9745.html">Game_Over</a>, <a href="A685.html">Print_HighScore</a>, <a href="AC3E.html">Start_1UP_Game</a> and <a href="AF36.html">AF36</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">POPULATE_SCORE_BUFFER</td>
+<td class="asm-label">Populate_Score_Buffer</td>
 <td class="address-2"><span id="afda"></span>AFDA</td>
 <td class="instruction">LD DE,$B024</td>
-<td class="comment-1" rowspan="1">Point to <a href="B024.html">SCORE_BUFFER</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="B024.html">Score_Buffer</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">SCORE_BUFFER_LOOP</td>
+<td class="asm-label">Score_Buffer_Loop</td>
 <td class="address-2"><span id="afdd"></span>AFDD</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Stores the contents of <span class="register">HL</span> in the accumulator.</td>
@@ -79,8 +80,8 @@ Used by the routines at <a href="9745.html">GAME_OVER</a>, <a href="A685.html">P
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="afe2"></span>AFE2</td>
-<td class="instruction">CALL <a href="AFDA.html#b004">CONVERT_ASCII</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html#b004">CONVERT_ASCII</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html#b004">Convert_ASCII</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html#b004">Convert_ASCII</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -91,8 +92,8 @@ Used by the routines at <a href="9745.html">GAME_OVER</a>, <a href="A685.html">P
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="afe6"></span>AFE6</td>
-<td class="instruction">CALL <a href="AFDA.html#b004">CONVERT_ASCII</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html#b004">CONVERT_ASCII</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html#b004">Convert_ASCII</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html#b004">Convert_ASCII</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -103,8 +104,8 @@ Used by the routines at <a href="9745.html">GAME_OVER</a>, <a href="A685.html">P
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="afea"></span>AFEA</td>
-<td class="instruction">DJNZ <a href="AFDA.html#afdd">SCORE_BUFFER_LOOP</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AFDA.html#afdd">SCORE_BUFFER_LOOP</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="AFDA.html#afdd">Score_Buffer_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AFDA.html#afdd">Score_Buffer_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -123,7 +124,7 @@ Writes "00" to the end of the score.
 </td>
 </tr>
 <tr>
-<td class="asm-label">WRITE_00</td>
+<td class="asm-label">Write_00</td>
 <td class="address-2"><span id="afed"></span>AFED</td>
 <td class="instruction">LD A,$30</td>
 <td class="comment-1" rowspan="1"><span class="register">A</span>="0" (ASCII zero for display).</td>
@@ -154,16 +155,16 @@ Writes "00" to the end of the score.
 <span id="aff3"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routines at <a href="9745.html">GAME_OVER</a> and <a href="AC3E.html">START_1UP_GAME</a>.
+This entry point is used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html">Start_1UP_Game</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">ZERO_TO_SPACE</td>
+<td class="asm-label">Zero_To_Space</td>
 <td class="address-2"><span id="aff3"></span>AFF3</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Writes $00 to <span class="register">DE</span> (used as a terminator).</td>
+<td class="comment-1" rowspan="2">Writes 00 to <span class="register">DE</span> (used as a terminator).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -174,16 +175,16 @@ This entry point is used by the routines at <a href="9745.html">GAME_OVER</a> an
 <td class="asm-label"></td>
 <td class="address-1"><span id="aff5"></span>AFF5</td>
 <td class="instruction">LD HL,$B024</td>
-<td class="comment-1" rowspan="1">Point to <a href="B024.html">SCORE_BUFFER</a>.</td>
+<td class="comment-1" rowspan="1">Point to <a href="B024.html">Score_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aff8"></span>AFF8</td>
 <td class="instruction">LD B,$07</td>
-<td class="comment-1" rowspan="1">Set a counter of $07.</td>
+<td class="comment-1" rowspan="1">Set a counter of 07.</td>
 </tr>
 <tr>
-<td class="asm-label">ZERO</td>
+<td class="asm-label">Zero</td>
 <td class="address-2"><span id="affa"></span>AFFA</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Fetch the score character.</td>
@@ -203,7 +204,7 @@ This entry point is used by the routines at <a href="9745.html">GAME_OVER</a> an
 <td class="asm-label"></td>
 <td class="address-1"><span id="affe"></span>AFFE</td>
 <td class="instruction">LD (HL),$20</td>
-<td class="comment-1" rowspan="1">Overwrite the character with $20 (ASCII space for display).</td>
+<td class="comment-1" rowspan="1">Overwrite the character with 20 (ASCII space for display).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -212,10 +213,10 @@ This entry point is used by the routines at <a href="9745.html">GAME_OVER</a> an
 <td class="comment-1" rowspan="1">Move onto next character.</td>
 </tr>
 <tr>
-<td class="asm-label">ZERO_LOOP</td>
+<td class="asm-label">Zero_Loop</td>
 <td class="address-1"><span id="b001"></span>B001</td>
-<td class="instruction">DJNZ <a href="AFDA.html#affa">ZERO</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AFDA.html#affa">ZERO</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="AFDA.html#affa">Zero</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="AFDA.html#affa">Zero</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -234,10 +235,10 @@ Convert a single number into ASCII ready for printing to the screen.
 </td>
 </tr>
 <tr>
-<td class="asm-label">CONVERT_ASCII</td>
+<td class="asm-label">Convert_ASCII</td>
 <td class="address-2"><span id="b004"></span>B004</td>
 <td class="instruction">AND $0F</td>
-<td class="comment-1" rowspan="3">Store the ASCII representation of the number at <span class="register">DE</span> (it adds ASCII "0") so for example 1 ends up being 1 + $30 = $31 (e.g. "1" in ASCII).</td>
+<td class="comment-1" rowspan="3">Store the ASCII representation of the number at <span class="register">DE</span> (it adds ASCII "0") so for example 1 ends up being 1 + 30 = 31 (e.g. "1" in ASCII).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -275,8 +276,8 @@ Next: <a href="B00B.html">B00B</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/45018.html">Switch to decimal</a>.</div>
 </footer>
 </body>

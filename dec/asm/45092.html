@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -41,7 +42,7 @@ Next: <a href="45162.html">45162</a>
 </td>
 </tr>
 <tr>
-<td class="asm-label">SCORE_BUFFER</td>
+<td class="asm-label">Score_Buffer</td>
 <td class="address-1"><span id="45092"></span>45092</td>
 <td class="instruction">DEFM 0,0,0,0,0,0,0,0</td>
 <td class="comment-1" rowspan="1">Score text buffer.</td>
@@ -53,19 +54,19 @@ Next: <a href="45162.html">45162</a>
 <td class="comment-1" rowspan="1">XXXXX</td>
 </tr>
 <tr>
-<td class="asm-label">SCORE_P1</td>
+<td class="asm-label">Score_P1</td>
 <td class="address-1"><span id="45103"></span>45103</td>
 <td class="instruction">DEFB 0,0,0</td>
 <td class="comment-1" rowspan="1">Score Player 1</td>
 </tr>
 <tr>
-<td class="asm-label">SCORE_P2</td>
+<td class="asm-label">Score_P2</td>
 <td class="address-1"><span id="45106"></span>45106</td>
 <td class="instruction">DEFB 0,16,0</td>
 <td class="comment-1" rowspan="1">Score Player 2</td>
 </tr>
 <tr>
-<td class="asm-label">HISCORE</td>
+<td class="asm-label">Hi_Score</td>
 <td class="address-1"><span id="45109"></span>45109</td>
 <td class="instruction">DEFB 0,16,0</td>
 <td class="comment-1" rowspan="1">Hi-Score (defaults to 1000).</td>
@@ -77,49 +78,49 @@ Next: <a href="45162.html">45162</a>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_DEMO</td>
+<td class="asm-label">Text_Demo</td>
 <td class="address-1"><span id="45113"></span>45113</td>
 <td class="instruction">DEFM "DEMO",0</td>
 <td class="comment-1" rowspan="1">"DEMO" text.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_PLAYER</td>
+<td class="asm-label">Text_Player</td>
 <td class="address-1"><span id="45118"></span>45118</td>
 <td class="instruction">DEFM "PLAYER",0</td>
 <td class="comment-1" rowspan="1">"PLAYER" text.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_NOVICE</td>
+<td class="asm-label">Text_Novice</td>
 <td class="address-1"><span id="45125"></span>45125</td>
 <td class="instruction">DEFM "NOVICE ",0</td>
 <td class="comment-1" rowspan="1">"NOVICE" text.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_ST_SUFFIX</td>
+<td class="asm-label">Text_ST_Suffix</td>
 <td class="address-1"><span id="45133"></span>45133</td>
 <td class="instruction">DEFM "ST",0</td>
 <td class="comment-1" rowspan="1">"ST" numeric suffix.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_ND_SUFFIX</td>
+<td class="asm-label">Text_ND_Suffix</td>
 <td class="address-1"><span id="45136"></span>45136</td>
 <td class="instruction">DEFM "ND",0</td>
 <td class="comment-1" rowspan="1">"ND" numeric suffix.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_RD_SUFFIX</td>
+<td class="asm-label">Text_RD_Suffix</td>
 <td class="address-1"><span id="45139"></span>45139</td>
 <td class="instruction">DEFM "RD",0</td>
 <td class="comment-1" rowspan="1">"RD" numeric suffix.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_TH_SUFFIX</td>
+<td class="asm-label">Text_TH_Suffix</td>
 <td class="address-1"><span id="45142"></span>45142</td>
 <td class="instruction">DEFM "TH",0</td>
 <td class="comment-1" rowspan="1">"TH" numeric suffix.</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_DAN</td>
+<td class="asm-label">Text_Dan</td>
 <td class="address-1"><span id="45145"></span>45145</td>
 <td class="instruction">DEFM " DAN",0</td>
 <td class="comment-1" rowspan="1">"DAN" text.</td>
@@ -131,13 +132,13 @@ Next: <a href="45162.html">45162</a>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">CURRENT_RANK</td>
+<td class="asm-label">Current_Rank</td>
 <td class="address-1"><span id="45151"></span>45151</td>
 <td class="instruction">DEFB 0</td>
 <td class="comment-1" rowspan="1">Current rank (0=novice, 1 or more=Dan rank).</td>
 </tr>
 <tr>
-<td class="asm-label">TEXT_WHITESPACE_9</td>
+<td class="asm-label">Text_Whitespace_9</td>
 <td class="address-1"><span id="45152"></span>45152</td>
 <td class="instruction">DEFM "         ",0</td>
 <td class="comment-1" rowspan="1">Whitespace?</td>
@@ -156,8 +157,8 @@ Next: <a href="45162.html">45162</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/B024.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

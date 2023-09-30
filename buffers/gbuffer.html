@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -32,13 +33,13 @@ gtag('config', 'G-75RERFCHBG');
 <td class="map-g"><span id="5f00"></span><a href="../asm/5F00.html">5F00</a></td>
 <td class="map-length">1</td>
 <td class="map-g-desc">
-<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/5F00.html">Background Reference.</a></div>
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/5F00.html">Background Reference</a></div>
 <div class="map-entry-desc">
 <div class="paragraph">
 Used by the routine at <a href="../asm/5F22.html#5f3c">5F3C</a>. Can be either; <ul class="">
-<li>$01</li>
-<li>$02</li>
-<li>$03</li>
+<li>01</li>
+<li>02</li>
+<li>03</li>
 </ul> This represents which background is shown.
 </div>
 </div>
@@ -57,7 +58,7 @@ Used by the routine at <a href="../asm/5F22.html#5f3c">5F3C</a>. Can be either; 
 <td class="map-g"><span id="5f02"></span><a href="../asm/5F02.html">5F02</a></td>
 <td class="map-length">14</td>
 <td class="map-g-desc">
-<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/5F02.html">Background screen buffer.</a></div>
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/5F02.html">Background screen buffer</a></div>
 <div class="map-entry-desc">
 </div>
 </td>
@@ -66,25 +67,25 @@ Used by the routine at <a href="../asm/5F22.html#5f3c">5F3C</a>. Can be either; 
 <td class="map-g"><span id="5f10"></span><a href="../asm/5F10.html">5F10</a></td>
 <td class="map-length">18</td>
 <td class="map-g-desc">
-<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/5F10.html">Background address buffer.</a></div>
+<div class="map-entry-title-11"><a class="map-entry-title" href="../asm/5F10.html">Background address buffer</a></div>
 <div class="map-entry-desc">
 <div class="paragraph">
 Buffer that holds the currently processed background data depending on the background reference value. <table class="default">
 <tr>
-<th colspan="1" rowspan="1"><a href="../asm/5F00.html">BACKGROUND_REFERENCE</a></th>
+<th colspan="1" rowspan="1"><a href="../asm/5F00.html">Background_Reference</a></th>
 <th colspan="1" rowspan="1">Background Data</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$01</td>
-<td class="centre" colspan="1" rowspan="1"><a href="../asm/602B.html">BACKGROUND_1_ADDRESSES</a></td>
+<td class="centre" colspan="1" rowspan="1">01</td>
+<td class="centre" colspan="1" rowspan="1"><a href="../asm/602B.html">Background_1_Addresses</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$02</td>
-<td class="centre" colspan="1" rowspan="1"><a href="../asm/603D.html">BACKGROUND_2_ADDRESSES</a></td>
+<td class="centre" colspan="1" rowspan="1">02</td>
+<td class="centre" colspan="1" rowspan="1"><a href="../asm/603D.html">Background_2_Addresses</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$03</td>
-<td class="centre" colspan="1" rowspan="1"><a href="../asm/604F.html">BACKGROUND_3_ADDRESSES</a></td>
+<td class="centre" colspan="1" rowspan="1">03</td>
+<td class="centre" colspan="1" rowspan="1"><a href="../asm/604F.html">Background_3_Addresses</a></td>
 </tr>
 </table> Populated from one of <a href="../asm/5F22.html#5f53">5F53</a>, <a href="../asm/5F22.html#5f62">5F62</a> or <a href="../asm/5F22.html#5f71">5F71</a>.
 </div>
@@ -146,7 +147,7 @@ When player 2 is using the keyboard, these byte pairs will be populated with the
 <div class="map-entry-title-11"><a class="map-entry-title" href="../asm/8BFA.html">Player 1 default keys.</a></div>
 <div class="map-entry-desc">
 <div class="paragraph">
-See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
+See <a href="../asm/8D99.html#8e3a">Key_Data</a> for key mappings.
 </div>
 </div>
 </td>
@@ -158,7 +159,7 @@ See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
 <div class="map-entry-title-11"><a class="map-entry-title" href="../asm/8C0C.html">Player 2 default keys.</a></div>
 <div class="map-entry-desc">
 <div class="paragraph">
-See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
+See <a href="../asm/8D99.html#8e3a">Key_Data</a> for key mappings.
 </div>
 </div>
 </td>
@@ -170,7 +171,7 @@ See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
 <div class="map-entry-title-11"><a class="map-entry-title" href="../asm/8C1E.html">Sinclair Joystick #2.</a></div>
 <div class="map-entry-desc">
 <div class="paragraph">
-See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
+See <a href="../asm/8D99.html#8e3a">Key_Data</a> for key mappings.
 </div>
 </div>
 </td>
@@ -182,7 +183,7 @@ See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
 <div class="map-entry-title-11"><a class="map-entry-title" href="../asm/8C30.html">Sinclair Joystick #1.</a></div>
 <div class="map-entry-desc">
 <div class="paragraph">
-See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
+See <a href="../asm/8D99.html#8e3a">Key_Data</a> for key mappings.
 </div>
 </div>
 </td>
@@ -433,8 +434,8 @@ See <a href="../asm/8D99.html#8e3a">KEY_DATA</a> for key mappings.
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/buffers/gbuffer.html">Switch to decimal</a>.</div>
 </footer>
 </body>

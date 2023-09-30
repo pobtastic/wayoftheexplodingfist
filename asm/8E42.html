@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,19 +39,19 @@ Next: <a href="8E4C.html">8E4C</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="8CDB.html">GAME_CONFIGS_CONTROLS</a> and <a href="8D99.html">GAME_CONFIGS_KEYS</a>.
+Used by the routines at <a href="8CDB.html">Game_Configs_Controls</a> and <a href="8D99.html">Game_Configs_Keys</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">CONFIGS_DELAY</td>
+<td class="asm-label">Configs_Delay</td>
 <td class="address-2"><span id="8e42"></span>8E42</td>
 <td class="instruction">LD BC,$EA60</td>
-<td class="comment-1" rowspan="1">Set <span class="register">BC</span>=$EA60</td>
+<td class="comment-1" rowspan="1">Set <span class="register">BC</span>=EA60</td>
 </tr>
 <tr>
-<td class="asm-label">CONFIGS_DELAY_LOOP</td>
+<td class="asm-label">Configs_Delay_Loop</td>
 <td class="address-2"><span id="8e45"></span>8E45</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="4">Countdown <span class="register">BC</span> until #0000.</td>
@@ -68,7 +69,7 @@ Used by the routines at <a href="8CDB.html">GAME_CONFIGS_CONTROLS</a> and <a hre
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8e48"></span>8E48</td>
-<td class="instruction">JP NZ,<a href="8E42.html#8e45">CONFIGS_DELAY_LOOP</a></td>
+<td class="instruction">JP NZ,<a href="8E42.html#8e45">Configs_Delay_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -90,8 +91,8 @@ Next: <a href="8E4C.html">8E4C</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/36418.html">Switch to decimal</a>.</div>
 </footer>
 </body>

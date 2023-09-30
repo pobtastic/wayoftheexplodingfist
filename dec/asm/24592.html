@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,7 +39,7 @@ Next: <a href="24619.html">24619</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="24448.html">CREATE_BACKGROUND</a>.
+Used by the routine at <a href="24448.html">Create_Background</a>.
 </div>
 </div>
 </td>
@@ -54,15 +55,15 @@ Unpacks the attribute data into the buffer. On entry <span class="register">HL</
 <th colspan="1" rowspan="1">Background data</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1">1</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24673.html">24673</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1">2</td>
 <td class="centre" colspan="1" rowspan="1"><a href="27523.html">27523</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1">3</td>
 <td class="centre" colspan="1" rowspan="1"><a href="30566.html">30566</a></td>
 </tr>
 </table> The idea here is to use bit 7 (flash) as a flag to signify to copy the attrbute byte a specified number of times. For example; <table class="default">
@@ -73,30 +74,30 @@ Unpacks the attribute data into the buffer. On entry <span class="register">HL</
 <th colspan="1" rowspan="1">Value After Reset</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$6061</td>
-<td class="centre" colspan="1" rowspan="1">$232</td>
+<td class="centre" colspan="1" rowspan="1">24673</td>
+<td class="centre" colspan="1" rowspan="1">232</td>
 <td class="centre" colspan="1" rowspan="1">11101000</td>
-<td class="centre" colspan="1" rowspan="1">$104</td>
+<td class="centre" colspan="1" rowspan="1">104</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$6062</td>
-<td class="centre" colspan="1" rowspan="1">$158</td>
+<td class="centre" colspan="1" rowspan="1">24674</td>
+<td class="centre" colspan="1" rowspan="1">158</td>
 <td class="centre" colspan="1" rowspan="1"></td>
 <td class="centre" colspan="1" rowspan="1"></td>
 </tr>
-</table> So, in $6061 bit 7 is set - after a reset we take $6062 as a counter and hence copy $104 into the following 158 memory locations.
+</table> So, in 24673 bit 7 is set - after a reset we take 24674 as a counter and hence copy 104 into the following 158 memory locations.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">BACKGROUND_ATTRIBUTES</td>
+<td class="asm-label">Background_Attributes</td>
 <td class="address-2"><span id="24592"></span>24592</td>
 <td class="instruction">LD DE,22528</td>
-<td class="comment-1" rowspan="1">Begin at the start of the <a href="16384.html#22528">ATTRIBUTE_BUFFER</a>.</td>
+<td class="comment-1" rowspan="1">Begin at the start of the <a href="16384.html#22528">22528</a>.</td>
 </tr>
 <tr>
-<td class="asm-label">BACKGROUND_ATTR_LOOP</td>
+<td class="asm-label">Background_Attributes_Loop</td>
 <td class="address-2"><span id="24595"></span>24595</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="1">Pick up the attribute data from <span class="register">HL</span>.</td>
@@ -111,12 +112,12 @@ Unpacks the attribute data into the buffer. On entry <span class="register">HL</
 <td class="asm-label"></td>
 <td class="address-1"><span id="24597"></span>24597</td>
 <td class="instruction">CP (HL)</td>
-<td class="comment-1" rowspan="2">If the following byte is different to the current attribute byte jump to <a href="24592.html#24602">BKG_ATTR_REPEAT_COPY</a>.</td>
+<td class="comment-1" rowspan="2">If the following byte is different to the current attribute byte jump to <a href="24592.html#24602">Background_Attributes_Repeat_Copy</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24598"></span>24598</td>
-<td class="instruction">JR NZ,<a href="24592.html#24602">BKG_ATTR_REPEAT_COPY</a></td>
+<td class="instruction">JR NZ,<a href="24592.html#24602">Background_Attributes_Repeat_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -134,13 +135,13 @@ Unpacks the attribute data into the buffer. On entry <span class="register">HL</
 <span id="24602"></span>
 <div class="comments">
 <div class="paragraph">
-Copy and loop back round to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> until bit 7 in the current attribute data is set.
+Copy and loop back round to <a href="24592.html#24595">Background_Attributes_Loop</a> until bit 7 in the current attribute data is set.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">BKG_ATTR_REPEAT_COPY</td>
+<td class="asm-label">Background_Attributes_Repeat_Copy</td>
 <td class="address-2"><span id="24602"></span>24602</td>
 <td class="instruction">BIT 7,A</td>
 <td class="comment-1" rowspan="2">Test if d7 is set in current attribute data. Reset bit to zero.</td>
@@ -165,8 +166,8 @@ Copy and loop back round to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> 
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24608"></span>24608</td>
-<td class="instruction">JR Z,<a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a></td>
-<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a> unless the bit was set.</td>
+<td class="instruction">JR Z,<a href="24592.html#24595">Background_Attributes_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">Background_Attributes_Loop</a> unless the bit was set.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -197,7 +198,7 @@ Using the following attribute data byte as a counter, copy the current byte this
 <td class="comment-1" rowspan="1">Decrease the counter by one.</td>
 </tr>
 <tr>
-<td class="asm-label">BACKGROUND_COPY_ATTR_REPEAT</td>
+<td class="asm-label">Background_Copy_Attribute_Repeat</td>
 <td class="address-2"><span id="24613"></span>24613</td>
 <td class="instruction">LD (DE),A</td>
 <td class="comment-1" rowspan="1">Write the same attribute data to <span class="register">DE</span>.</td>
@@ -211,14 +212,14 @@ Using the following attribute data byte as a counter, copy the current byte this
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24615"></span>24615</td>
-<td class="instruction">DJNZ <a href="24592.html#24613">BACKGROUND_COPY_ATTR_REPEAT</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24592.html#24613">BACKGROUND_COPY_ATTR_REPEAT</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="24592.html#24613">Background_Copy_Attribute_Repeat</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="24592.html#24613">Background_Copy_Attribute_Repeat</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24617"></span>24617</td>
-<td class="instruction">JR <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a></td>
-<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">BACKGROUND_ATTR_LOOP</a>.</td>
+<td class="instruction">JR <a href="24592.html#24595">Background_Attributes_Loop</a></td>
+<td class="comment-1" rowspan="1">Jump back to <a href="24592.html#24595">Background_Attributes_Loop</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -234,8 +235,8 @@ Next: <a href="24619.html">24619</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/6010.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,13 +39,13 @@ Next: <a href="9C28.html">9C28</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
+Used by the routine at <a href="AC3E.html">Start_1UP_Game</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER</td>
+<td class="asm-label">Game_Over</td>
 <td class="address-2"><span id="9745"></span>9745</td>
 <td class="instruction">CALL <a href="9C6F.html">$9C6F</a></td>
 <td class="comment-1" rowspan="1"></td>
@@ -82,7 +83,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9757"></span>9757</td>
-<td class="instruction">CALL <a href="9745.html#97cb">GAME_OVER_3</a></td>
+<td class="instruction">CALL <a href="9745.html#97cb">Game_Over_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -101,7 +102,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="975c"></span>975C</td>
 <td class="instruction">LD A,$40</td>
-<td class="comment-1" rowspan="2">Write $40 to <a href="9C29.html">9C29</a>.</td>
+<td class="comment-1" rowspan="2">Write 40 to <a href="9C29.html">9C29</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -117,7 +118,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9763"></span>9763</td>
-<td class="instruction">CALL <a href="9745.html#97bb">GAME_OVER_2</a></td>
+<td class="instruction">CALL <a href="9745.html#97bb">Game_Over_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -130,7 +131,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9768"></span>9768</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write $00 to <a href="9C29.html">9C29</a>.</td>
+<td class="comment-1" rowspan="2">Write 00 to <a href="9C29.html">9C29</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -140,7 +141,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="976c"></span>976C</td>
-<td class="instruction">CALL <a href="9745.html#97bb">GAME_OVER_2</a></td>
+<td class="instruction">CALL <a href="9745.html#97bb">Game_Over_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -158,7 +159,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9774"></span>9774</td>
-<td class="instruction">JR NZ,<a href="9745.html#978d">GAME_OVER_1</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#978d">Game_Over_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -176,14 +177,14 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="977a"></span>977A</td>
-<td class="instruction">JR NZ,<a href="9745.html#9783">GAME_OVER_0</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9783">Game_Over_0</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="977c"></span>977C</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="4">Clear the yin-yang images by writing $00 to <a href="AA06.html#aa08">P1_POINTS_AWARDED</a> and <a href="AA41.html#aa48">P2_POINTS_AWARDED</a> and calling <a href="900E.html">YIN_YANG_1UP</a>.</td>
+<td class="comment-1" rowspan="4">Clear the yin-yang images by writing 00 to <a href="AA06.html#aa08">P1_Points_Awarded</a> and <a href="AA41.html#aa48">P2_Points_Awarded</a> and calling <a href="900E.html">Yin_Yang_1UP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -196,15 +197,15 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="instruction">LD ($AA48),A</td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_0</td>
+<td class="asm-label">Game_Over_0</td>
 <td class="address-2"><span id="9783"></span>9783</td>
-<td class="instruction">CALL <a href="900E.html">YIN_YANG_1UP</a></td>
+<td class="instruction">CALL <a href="900E.html">Yin_Yang_1UP</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9786"></span>9786</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="4">Clear the yin-yang images by writing $00 to <a href="AA01.html">P1_YIN_YANG</a> and <a href="AA41.html">P2_YIN_YANG</a> and calling <a href="95D4.html">95D4</a>, <a href="BF13.html">BF13</a>.</td>
+<td class="comment-1" rowspan="4">Clear the yin-yang images by writing 00 to <a href="AA01.html">P1_Yin_Yang</a> and <a href="AA41.html">P2_Yin_Yang</a> and calling <a href="95D4.html">95D4</a>, <a href="BF13.html">BF13</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -217,7 +218,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="instruction">LD ($AA41),A</td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_1</td>
+<td class="asm-label">Game_Over_1</td>
 <td class="address-2"><span id="978d"></span>978D</td>
 <td class="instruction">CALL <a href="95D4.html">$95D4</a></td>
 </tr>
@@ -237,7 +238,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9795"></span>9795</td>
 <td class="instruction">LD A,$40</td>
-<td class="comment-1" rowspan="2">Write $40 to <a href="9C29.html">9C29</a>.</td>
+<td class="comment-1" rowspan="2">Write 40 to <a href="9C29.html">9C29</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -247,13 +248,13 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="979a"></span>979A</td>
-<td class="instruction">CALL <a href="9745.html#9ad7">GAME_OVER_39</a></td>
+<td class="instruction">CALL <a href="9745.html#9ad7">Game_Over_39</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="979d"></span>979D</td>
-<td class="instruction">CALL <a href="9745.html#9b9d">GAME_OVER_48</a></td>
+<td class="instruction">CALL <a href="9745.html#9b9d">Game_Over_48</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -277,13 +278,13 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97a6"></span>97A6</td>
-<td class="instruction">CALL <a href="9745.html#9ad7">GAME_OVER_39</a></td>
+<td class="instruction">CALL <a href="9745.html#9ad7">Game_Over_39</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97a9"></span>97A9</td>
-<td class="instruction">CALL <a href="9745.html#9b9d">GAME_OVER_48</a></td>
+<td class="instruction">CALL <a href="9745.html#9b9d">Game_Over_48</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -329,33 +330,33 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_2</td>
+<td class="asm-label">Game_Over_2</td>
 <td class="address-2"><span id="97bb"></span>97BB</td>
-<td class="instruction">CALL <a href="9745.html#9b93">GAME_OVER_47</a></td>
+<td class="instruction">CALL <a href="9745.html#9b93">Game_Over_47</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97be"></span>97BE</td>
-<td class="instruction">CALL <a href="9745.html#9920">GAME_OVER_15</a></td>
+<td class="instruction">CALL <a href="9745.html#9920">Game_Over_15</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97c1"></span>97C1</td>
-<td class="instruction">CALL <a href="9745.html#9994">GAME_OVER_19</a></td>
+<td class="instruction">CALL <a href="9745.html#9994">Game_Over_19</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97c4"></span>97C4</td>
-<td class="instruction">CALL <a href="9745.html#9aa1">GAME_OVER_36</a></td>
+<td class="instruction">CALL <a href="9745.html#9aa1">Game_Over_36</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97c7"></span>97C7</td>
-<td class="instruction">CALL <a href="9745.html#9b9d">GAME_OVER_48</a></td>
+<td class="instruction">CALL <a href="9745.html#9b9d">Game_Over_48</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -365,10 +366,10 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_3</td>
+<td class="asm-label">Game_Over_3</td>
 <td class="address-2"><span id="97cb"></span>97CB</td>
 <td class="instruction">LD A,($9C2C)</td>
-<td class="comment-1" rowspan="3">If <a href="9C2C.html">NUM_PLAYERS</a> is not $00 then jump to <a href="9745.html#9827">CHECK_QUIT_GAME</a>.</td>
+<td class="comment-1" rowspan="3">If <a href="9C2C.html">Num_Players</a> is not 00 then jump to <a href="9745.html#9827">Check_Quit_Game</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -378,7 +379,7 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97cf"></span>97CF</td>
-<td class="instruction">JP NZ,<a href="9745.html#9827">CHECK_QUIT_GAME</a></td>
+<td class="instruction">JP NZ,<a href="9745.html#9827">Check_Quit_Game</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -390,9 +391,9 @@ Used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="97d4"></span>97D4</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="3">Write $01 to; <ul class="">
+<td class="comment-1" rowspan="3">Write 01 to; <ul class="">
 <li><a href="AA41.html#aa46">AA46</a></li>
-<li><a href="AA06.html">IS_DEMO_MODE</a></li>
+<li><a href="AA06.html">Is_Demo_Mode</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -424,13 +425,13 @@ Should we start a 1 player game?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97de"></span>97DE</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97e1"></span>97E1</td>
-<td class="instruction">JR NC,<a href="9745.html#97ef">START_1UP</a></td>
-<td class="comment-1" rowspan="1">If it is, jump to <a href="9745.html#97ef">START_1UP</a>.</td>
+<td class="instruction">JR NC,<a href="9745.html#97ef">Start_1UP</a></td>
+<td class="comment-1" rowspan="1">If it is, jump to <a href="9745.html#97ef">Start_1UP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -442,23 +443,23 @@ Should we start a 1 player game?
 <td class="asm-label"></td>
 <td class="address-1"><span id="97e5"></span>97E5</td>
 <td class="instruction">BIT 5,A</td>
-<td class="comment-1" rowspan="2">If the fire button is not being pressed, jump to <a href="9745.html#9801">GAME_OVER_4</a>.</td>
+<td class="comment-1" rowspan="2">If the fire button is not being pressed, jump to <a href="9745.html#9801">Game_Over_4</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97e7"></span>97E7</td>
-<td class="instruction">JP NZ,<a href="9745.html#9801">GAME_OVER_4</a></td>
+<td class="instruction">JP NZ,<a href="9745.html#9801">Game_Over_4</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97ea"></span>97EA</td>
 <td class="instruction">AND $10</td>
-<td class="comment-1" rowspan="2">Keep only bit 4 (fire), if it's not being pressed, jump to <a href="9745.html#9801">GAME_OVER_4</a>.</td>
+<td class="comment-1" rowspan="2">Keep only bit 4 (fire), if it's not being pressed, jump to <a href="9745.html#9801">Game_Over_4</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97ec"></span>97EC</td>
-<td class="instruction">JP Z,<a href="9745.html#9801">GAME_OVER_4</a></td>
+<td class="instruction">JP Z,<a href="9745.html#9801">Game_Over_4</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -471,11 +472,11 @@ Starts a 1 player game.
 </td>
 </tr>
 <tr>
-<td class="asm-label">START_1UP</td>
+<td class="asm-label">Start_1UP</td>
 <td class="address-2"><span id="97ef"></span>97EF</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="3">Write $01 to; <ul class="">
-<li><a href="9C2C.html">NUM_PLAYERS</a></li>
+<td class="comment-1" rowspan="3">Write 01 to; <ul class="">
+<li><a href="9C2C.html">Num_Players</a></li>
 <li><a href="AA41.html#aa46">AA46</a></li>
 </ul></td>
 </tr>
@@ -493,8 +494,8 @@ Starts a 1 player game.
 <td class="asm-label"></td>
 <td class="address-1"><span id="97f7"></span>97F7</td>
 <td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
-<li><a href="AA06.html">IS_DEMO_MODE</a></li>
+<td class="comment-1" rowspan="2">Write 00 to; <ul class="">
+<li><a href="AA06.html">Is_Demo_Mode</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -505,14 +506,14 @@ Starts a 1 player game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97fb"></span>97FB</td>
-<td class="instruction">CALL <a href="909E.html">NEW_ROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="909E.html">NEW_ROUND</a>.</td>
+<td class="instruction">CALL <a href="909E.html">New_Round</a></td>
+<td class="comment-1" rowspan="1">Call <a href="909E.html">New_Round</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="97fe"></span>97FE</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$80.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=80.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -531,7 +532,7 @@ Should we start a 2 player game?
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_4</td>
+<td class="asm-label">Game_Over_4</td>
 <td class="address-2"><span id="9801"></span>9801</td>
 <td class="instruction">LD A,$1C</td>
 <td class="comment-1" rowspan="2">Check if "2" key is pressed.</td>
@@ -539,13 +540,13 @@ Should we start a 2 player game?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9803"></span>9803</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9806"></span>9806</td>
-<td class="instruction">JR C,<a href="9745.html#981a">DEMO_CONFIGS_MAIN</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#981a">DEMO_CONFIGS_MAIN</a>.</td>
+<td class="instruction">JR C,<a href="9745.html#981a">Demo_Configs_Main</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#981a">Demo_Configs_Main</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -558,11 +559,11 @@ Starts a 2 player game.
 </td>
 </tr>
 <tr>
-<td class="asm-label">START_2UP</td>
+<td class="asm-label">Start_2UP</td>
 <td class="address-1"><span id="9808"></span>9808</td>
 <td class="instruction">LD A,$02</td>
-<td class="comment-1" rowspan="2">Write $02 to; <ul class="">
-<li><a href="9C2C.html">NUM_PLAYERS</a></li>
+<td class="comment-1" rowspan="2">Write 02 to; <ul class="">
+<li><a href="9C2C.html">Num_Players</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -574,8 +575,8 @@ Starts a 2 player game.
 <td class="asm-label"></td>
 <td class="address-1"><span id="980d"></span>980D</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="3">Write $00 to; <ul class="">
-<li><a href="AA06.html">IS_DEMO_MODE</a></li>
+<td class="comment-1" rowspan="3">Write 00 to; <ul class="">
+<li><a href="AA06.html">Is_Demo_Mode</a></li>
 <li><a href="AA41.html#aa46">AA46</a></li>
 </ul></td>
 </tr>
@@ -592,14 +593,14 @@ Starts a 2 player game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9814"></span>9814</td>
-<td class="instruction">CALL <a href="909E.html">NEW_ROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="909E.html">NEW_ROUND</a>.</td>
+<td class="instruction">CALL <a href="909E.html">New_Round</a></td>
+<td class="comment-1" rowspan="1">Call <a href="909E.html">New_Round</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9817"></span>9817</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$80.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=80.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -618,7 +619,7 @@ Should we go to the config page?
 </td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_CONFIGS_MAIN</td>
+<td class="asm-label">Demo_Configs_Main</td>
 <td class="address-2"><span id="981a"></span>981A</td>
 <td class="instruction">LD A,$23</td>
 <td class="comment-1" rowspan="2">Check if "0" key is pressed.</td>
@@ -626,25 +627,25 @@ Should we go to the config page?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="981c"></span>981C</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="981f"></span>981F</td>
-<td class="instruction">JR C,<a href="9745.html#983d">GAME_OVER_5</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#983d">GAME_OVER_5</a>.</td>
+<td class="instruction">JR C,<a href="9745.html#983d">Game_Over_5</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#983d">Game_Over_5</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9821"></span>9821</td>
-<td class="instruction">CALL <a href="8C54.html">GAME_CONFIGS_MAIN</a></td>
-<td class="comment-1" rowspan="1">Call <a href="8C54.html">GAME_CONFIGS_MAIN</a>.</td>
+<td class="instruction">CALL <a href="8C54.html">Game_Configs_Main</a></td>
+<td class="comment-1" rowspan="1">Call <a href="8C54.html">Game_Configs_Main</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9824"></span>9824</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$80.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=80.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -663,7 +664,7 @@ Checks if "G" and "H" are being held to quit a game.
 </td>
 </tr>
 <tr>
-<td class="asm-label">CHECK_QUIT_GAME</td>
+<td class="asm-label">Check_Quit_Game</td>
 <td class="address-2"><span id="9827"></span>9827</td>
 <td class="instruction">LD A,$01</td>
 <td class="comment-1" rowspan="2">Check if "H" key is pressed.</td>
@@ -671,13 +672,13 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9829"></span>9829</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="982c"></span>982C</td>
-<td class="instruction">JR C,<a href="9745.html#983d">GAME_OVER_5</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#983d">GAME_OVER_5</a>.</td>
+<td class="instruction">JR C,<a href="9745.html#983d">Game_Over_5</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#983d">Game_Over_5</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -688,20 +689,20 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9830"></span>9830</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9833"></span>9833</td>
-<td class="instruction">JR C,<a href="9745.html#983d">GAME_OVER_5</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#983d">GAME_OVER_5</a>.</td>
+<td class="instruction">JR C,<a href="9745.html#983d">Game_Over_5</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="9745.html#983d">Game_Over_5</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9835"></span>9835</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
-<li><a href="9C2C.html">NUM_PLAYERS</a></li>
+<td class="comment-1" rowspan="2">Write 00 to; <ul class="">
+<li><a href="9C2C.html">Num_Players</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -713,7 +714,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9839"></span>9839</td>
 <td class="instruction">LD A,$80</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$80.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=80.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -728,7 +729,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="comment-1" rowspan="1">Return.</td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_5</td>
+<td class="asm-label">Game_Over_5</td>
 <td class="address-2"><span id="983d"></span>983D</td>
 <td class="instruction">LD A,($AA03)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -742,7 +743,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9841"></span>9841</td>
-<td class="instruction">JR Z,<a href="9745.html#9849">GAME_OVER_6</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9849">Game_Over_6</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -754,11 +755,11 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9846"></span>9846</td>
-<td class="instruction">JP <a href="9745.html#986e">GAME_OVER_8</a></td>
+<td class="instruction">JP <a href="9745.html#986e">Game_Over_8</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_6</td>
+<td class="asm-label">Game_Over_6</td>
 <td class="address-2"><span id="9849"></span>9849</td>
 <td class="instruction">LD A,($AA06)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -772,7 +773,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="984d"></span>984D</td>
-<td class="instruction">JR Z,<a href="9745.html#9860">GAME_OVER_7</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9860">Game_Over_7</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -808,11 +809,11 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="985e"></span>985E</td>
-<td class="instruction">JR <a href="9745.html#986e">GAME_OVER_8</a></td>
+<td class="instruction">JR <a href="9745.html#986e">Game_Over_8</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_7</td>
+<td class="asm-label">Game_Over_7</td>
 <td class="address-2"><span id="9860"></span>9860</td>
 <td class="instruction">LD A,$01</td>
 <td class="comment-1" rowspan="1"></td>
@@ -832,7 +833,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9867"></span>9867</td>
-<td class="instruction">CALL <a href="9745.html#98a0">GAME_OVER_11</a></td>
+<td class="instruction">CALL <a href="9745.html#98a0">Game_Over_11</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -848,7 +849,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_8</td>
+<td class="asm-label">Game_Over_8</td>
 <td class="address-2"><span id="986e"></span>986E</td>
 <td class="instruction">LD A,($AA43)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -862,7 +863,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9872"></span>9872</td>
-<td class="instruction">JR Z,<a href="9745.html#987a">GAME_OVER_9</a></td>
+<td class="instruction">JR Z,<a href="9745.html#987a">Game_Over_9</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -884,7 +885,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_9</td>
+<td class="asm-label">Game_Over_9</td>
 <td class="address-2"><span id="987a"></span>987A</td>
 <td class="instruction">LD A,($AA46)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -898,7 +899,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="987e"></span>987E</td>
-<td class="instruction">JR Z,<a href="9745.html#9891">GAME_OVER_10</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9891">Game_Over_10</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -944,7 +945,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_10</td>
+<td class="asm-label">Game_Over_10</td>
 <td class="address-2"><span id="9891"></span>9891</td>
 <td class="instruction">LD A,$02</td>
 <td class="comment-1" rowspan="1"></td>
@@ -964,7 +965,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9898"></span>9898</td>
-<td class="instruction">CALL <a href="9745.html#98a0">GAME_OVER_11</a></td>
+<td class="instruction">CALL <a href="9745.html#98a0">Game_Over_11</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -986,7 +987,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_11</td>
+<td class="asm-label">Game_Over_11</td>
 <td class="address-2"><span id="98a0"></span>98A0</td>
 <td class="instruction">BIT 5,A</td>
 <td class="comment-1" rowspan="1"></td>
@@ -994,7 +995,7 @@ Checks if "G" and "H" are being held to quit a game.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98a2"></span>98A2</td>
-<td class="instruction">JR Z,<a href="9745.html#98a6">GAME_OVER_12</a></td>
+<td class="instruction">JR Z,<a href="9745.html#98a6">Game_Over_12</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1004,7 +1005,7 @@ Checks if "G" and "H" are being held to quit a game.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_12</td>
+<td class="asm-label">Game_Over_12</td>
 <td class="address-2"><span id="98a6"></span>98A6</td>
 <td class="instruction">AND $1F</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1110,16 +1111,16 @@ Checks if "G" and "H" are being held to quit a game.
 <span id="98bf"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a>.
+This entry point is used by the routine at <a href="AC3E.html">Start_1UP_Game</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_13</td>
+<td class="asm-label">Game_Over_13</td>
 <td class="address-2"><span id="98bf"></span>98BF</td>
 <td class="instruction">LD HL,$9C2C</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="9C2C.html">NUM_PLAYERS</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="9C2C.html">Num_Players</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1130,20 +1131,20 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98c4"></span>98C4</td>
-<td class="instruction">CALL <a href="AFDA.html">POPULATE_SCORE_BUFFER</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html">POPULATE_SCORE_BUFFER</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html">Populate_Score_Buffer</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html">Populate_Score_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98c7"></span>98C7</td>
-<td class="instruction">CALL <a href="AFDA.html#aff3">ZERO_TO_SPACE</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AFDA.html#aff3">ZERO_TO_SPACE</a>.</td>
+<td class="instruction">CALL <a href="AFDA.html#aff3">Zero_To_Space</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AFDA.html#aff3">Zero_To_Space</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98ca"></span>98CA</td>
 <td class="instruction">LD HL,$0019</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html">SCORE_BUFFER</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html">Score_Buffer</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1153,13 +1154,13 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98d0"></span>98D0</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98d3"></span>98D3</td>
 <td class="instruction">LD HL,$0319</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b03e">TEXT_PLAYER</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#b03e">Text_Player</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1169,7 +1170,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98d9"></span>98D9</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -1234,7 +1235,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="98f3"></span>98F3</td>
-<td class="instruction">DJNZ <a href="9745.html#98f6">GAME_OVER_14</a></td>
+<td class="instruction">DJNZ <a href="9745.html#98f6">Game_Over_14</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1244,7 +1245,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_14</td>
+<td class="asm-label">Game_Over_14</td>
 <td class="address-2"><span id="98f6"></span>98F6</td>
 <td class="instruction">DEC C</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1352,7 +1353,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_15</td>
+<td class="asm-label">Game_Over_15</td>
 <td class="address-2"><span id="9920"></span>9920</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1366,7 +1367,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9923"></span>9923</td>
-<td class="instruction">JR NZ,<a href="9745.html#9986">GAME_OVER_18</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9986">Game_Over_18</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1384,7 +1385,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9928"></span>9928</td>
-<td class="instruction">JR Z,<a href="9745.html#992e">GAME_OVER_16</a></td>
+<td class="instruction">JR Z,<a href="9745.html#992e">Game_Over_16</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1396,11 +1397,11 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="992c"></span>992C</td>
-<td class="instruction">JR NZ,<a href="9745.html#9930">GAME_OVER_17</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9930">Game_Over_17</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_16</td>
+<td class="asm-label">Game_Over_16</td>
 <td class="address-2"><span id="992e"></span>992E</td>
 <td class="instruction">LD E,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1412,7 +1413,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_17</td>
+<td class="asm-label">Game_Over_17</td>
 <td class="address-2"><span id="9930"></span>9930</td>
 <td class="instruction">LD HL,$AA16</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1594,7 +1595,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="995e"></span>995E</td>
-<td class="instruction">CALL <a href="9745.html#9ba7">GAME_OVER_49</a></td>
+<td class="instruction">CALL <a href="9745.html#9ba7">Game_Over_49</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1736,7 +1737,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_18</td>
+<td class="asm-label">Game_Over_18</td>
 <td class="address-2"><span id="9986"></span>9986</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1796,7 +1797,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_19</td>
+<td class="asm-label">Game_Over_19</td>
 <td class="address-2"><span id="9994"></span>9994</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -1810,7 +1811,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9997"></span>9997</td>
-<td class="instruction">JR Z,<a href="9745.html#99a1">GAME_OVER_20</a></td>
+<td class="instruction">JR Z,<a href="9745.html#99a1">Game_Over_20</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1822,7 +1823,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="999b"></span>999B</td>
-<td class="instruction">JR Z,<a href="9745.html#99a1">GAME_OVER_20</a></td>
+<td class="instruction">JR Z,<a href="9745.html#99a1">Game_Over_20</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -1834,11 +1835,11 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="999f"></span>999F</td>
-<td class="instruction">JR NZ,<a href="9745.html#99dd">GAME_OVER_22</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#99dd">Game_Over_22</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_20</td>
+<td class="asm-label">Game_Over_20</td>
 <td class="address-2"><span id="99a1"></span>99A1</td>
 <td class="instruction">LD D,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2002,7 +2003,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="99c8"></span>99C8</td>
-<td class="instruction">JR Z,<a href="9745.html#99cd">GAME_OVER_21</a></td>
+<td class="instruction">JR Z,<a href="9745.html#99cd">Game_Over_21</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2018,7 +2019,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_21</td>
+<td class="asm-label">Game_Over_21</td>
 <td class="address-2"><span id="99cd"></span>99CD</td>
 <td class="instruction">LD A,($9CA7)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2066,7 +2067,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_22</td>
+<td class="asm-label">Game_Over_22</td>
 <td class="address-2"><span id="99dd"></span>99DD</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2092,7 +2093,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="99e2"></span>99E2</td>
-<td class="instruction">JR NZ,<a href="9745.html#99fd">GAME_OVER_26</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#99fd">Game_Over_26</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2110,7 +2111,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="99e7"></span>99E7</td>
-<td class="instruction">JR NZ,<a href="9745.html#99ec">GAME_OVER_23</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#99ec">Game_Over_23</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2126,7 +2127,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_23</td>
+<td class="asm-label">Game_Over_23</td>
 <td class="address-2"><span id="99ec"></span>99EC</td>
 <td class="instruction">CP $07</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2134,7 +2135,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="99ee"></span>99EE</td>
-<td class="instruction">JR Z,<a href="9745.html#99f8">GAME_OVER_24</a></td>
+<td class="instruction">JR Z,<a href="9745.html#99f8">Game_Over_24</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2146,7 +2147,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="99f2"></span>99F2</td>
-<td class="instruction">JR Z,<a href="9745.html#99f8">GAME_OVER_24</a></td>
+<td class="instruction">JR Z,<a href="9745.html#99f8">Game_Over_24</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2158,11 +2159,11 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="99f6"></span>99F6</td>
-<td class="instruction">JR NZ,<a href="9745.html#99fb">GAME_OVER_25</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#99fb">Game_Over_25</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_24</td>
+<td class="asm-label">Game_Over_24</td>
 <td class="address-2"><span id="99f8"></span>99F8</td>
 <td class="instruction">LD D,$04</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2174,7 +2175,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_25</td>
+<td class="asm-label">Game_Over_25</td>
 <td class="address-2"><span id="99fb"></span>99FB</td>
 <td class="instruction">LD D,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2186,7 +2187,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_26</td>
+<td class="asm-label">Game_Over_26</td>
 <td class="address-2"><span id="99fd"></span>99FD</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2200,7 +2201,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a00"></span>9A00</td>
-<td class="instruction">JR Z,<a href="9745.html#9a0a">GAME_OVER_27</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9a0a">Game_Over_27</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2212,7 +2213,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a04"></span>9A04</td>
-<td class="instruction">JR Z,<a href="9745.html#9a0a">GAME_OVER_27</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9a0a">Game_Over_27</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2224,11 +2225,11 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a08"></span>9A08</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a27">GAME_OVER_30</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a27">Game_Over_30</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_27</td>
+<td class="asm-label">Game_Over_27</td>
 <td class="address-2"><span id="9a0a"></span>9A0A</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2242,7 +2243,7 @@ This entry point is used by the routine at <a href="AC3E.html">START_1UP_GAME</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a0d"></span>9A0D</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a1b">GAME_OVER_29</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a1b">Game_Over_29</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2304,13 +2305,13 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_28</td>
+<td class="asm-label">Game_Over_28</td>
 <td class="address-2"><span id="9a1a"></span>9A1A</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_29</td>
+<td class="asm-label">Game_Over_29</td>
 <td class="address-2"><span id="9a1b"></span>9A1B</td>
 <td class="instruction">CP $12</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2358,7 +2359,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_30</td>
+<td class="asm-label">Game_Over_30</td>
 <td class="address-2"><span id="9a27"></span>9A27</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2372,7 +2373,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a2a"></span>9A2A</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a3d">GAME_OVER_31</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a3d">Game_Over_31</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2390,7 +2391,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a2f"></span>9A2F</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a3d">GAME_OVER_31</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a3d">Game_Over_31</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2448,7 +2449,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_31</td>
+<td class="asm-label">Game_Over_31</td>
 <td class="address-2"><span id="9a3d"></span>9A3D</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2462,7 +2463,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a40"></span>9A40</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a70">GAME_OVER_32</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a70">Game_Over_32</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2504,7 +2505,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a4b"></span>9A4B</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a70">GAME_OVER_32</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a70">Game_Over_32</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2640,7 +2641,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_32</td>
+<td class="asm-label">Game_Over_32</td>
 <td class="address-2"><span id="9a70"></span>9A70</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2678,7 +2679,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a79"></span>9A79</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a8d">GAME_OVER_34</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a8d">Game_Over_34</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2726,7 +2727,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a86"></span>9A86</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a8b">GAME_OVER_33</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a8b">Game_Over_33</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2742,7 +2743,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_33</td>
+<td class="asm-label">Game_Over_33</td>
 <td class="address-2"><span id="9a8b"></span>9A8B</td>
 <td class="instruction">LD D,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2754,7 +2755,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_34</td>
+<td class="asm-label">Game_Over_34</td>
 <td class="address-2"><span id="9a8d"></span>9A8D</td>
 <td class="instruction">AND A</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2762,7 +2763,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9a8e"></span>9A8E</td>
-<td class="instruction">JR NZ,<a href="9745.html#9a98">GAME_OVER_35</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9a98">Game_Over_35</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2796,7 +2797,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_35</td>
+<td class="asm-label">Game_Over_35</td>
 <td class="address-2"><span id="9a98"></span>9A98</td>
 <td class="instruction">LD HL,$AA09</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2832,7 +2833,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_36</td>
+<td class="asm-label">Game_Over_36</td>
 <td class="address-2"><span id="9aa1"></span>9AA1</td>
 <td class="instruction">LD HL,$AA0B</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2870,7 +2871,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9aa9"></span>9AA9</td>
-<td class="instruction">JR Z,<a href="9745.html#9ab9">GAME_OVER_37</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9ab9">Game_Over_37</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -2934,7 +2935,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_37</td>
+<td class="asm-label">Game_Over_37</td>
 <td class="address-2"><span id="9ab9"></span>9AB9</td>
 <td class="instruction">LD HL,$AA09</td>
 <td class="comment-1" rowspan="1"></td>
@@ -2972,7 +2973,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9ac2"></span>9AC2</td>
-<td class="instruction">JR NZ,<a href="9745.html#9acd">GAME_OVER_38</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9acd">Game_Over_38</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3012,7 +3013,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_38</td>
+<td class="asm-label">Game_Over_38</td>
 <td class="address-2"><span id="9acd"></span>9ACD</td>
 <td class="instruction">LD HL,$AA0B</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3060,9 +3061,9 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_39</td>
+<td class="asm-label">Game_Over_39</td>
 <td class="address-2"><span id="9ad7"></span>9AD7</td>
-<td class="instruction">CALL <a href="9745.html#9b93">GAME_OVER_47</a></td>
+<td class="instruction">CALL <a href="9745.html#9b93">Game_Over_47</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3080,7 +3081,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9add"></span>9ADD</td>
-<td class="instruction">JR Z,<a href="9745.html#9ae3">GAME_OVER_40</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9ae3">Game_Over_40</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3092,11 +3093,11 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9ae1"></span>9AE1</td>
-<td class="instruction">JR NZ,<a href="9745.html#9af4">GAME_OVER_41</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9af4">Game_Over_41</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_40</td>
+<td class="asm-label">Game_Over_40</td>
 <td class="address-2"><span id="9ae3"></span>9AE3</td>
 <td class="instruction">LD HL,$AA19</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3164,11 +3165,11 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9af2"></span>9AF2</td>
-<td class="instruction">JR Z,<a href="9745.html#9af4">GAME_OVER_41</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9af4">Game_Over_41</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_41</td>
+<td class="asm-label">Game_Over_41</td>
 <td class="address-2"><span id="9af4"></span>9AF4</td>
 <td class="instruction">LD HL,$AA0D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3254,7 +3255,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b07"></span>9B07</td>
-<td class="instruction">JR Z,<a href="9745.html#9b0e">GAME_OVER_42</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9b0e">Game_Over_42</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3276,7 +3277,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_42</td>
+<td class="asm-label">Game_Over_42</td>
 <td class="address-2"><span id="9b0e"></span>9B0E</td>
 <td class="instruction">LD HL,$AA16</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3314,7 +3315,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b16"></span>9B16</td>
-<td class="instruction">JP Z,<a href="9745.html#9b67">GAME_OVER_45</a></td>
+<td class="instruction">JP Z,<a href="9745.html#9b67">Game_Over_45</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3332,7 +3333,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b1c"></span>9B1C</td>
-<td class="instruction">JR NZ,<a href="9745.html#9b23">GAME_OVER_43</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9b23">Game_Over_43</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3360,7 +3361,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_43</td>
+<td class="asm-label">Game_Over_43</td>
 <td class="address-2"><span id="9b23"></span>9B23</td>
 <td class="instruction">LD HL,$AA07</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3494,7 +3495,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b44"></span>9B44</td>
-<td class="instruction">JR Z,<a href="9745.html#9b51">GAME_OVER_44</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9b51">Game_Over_44</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3506,7 +3507,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b48"></span>9B48</td>
-<td class="instruction">JR Z,<a href="9745.html#9b51">GAME_OVER_44</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9b51">Game_Over_44</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3518,7 +3519,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b4c"></span>9B4C</td>
-<td class="instruction">JR Z,<a href="9745.html#9b51">GAME_OVER_44</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9b51">Game_Over_44</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3534,7 +3535,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_44</td>
+<td class="asm-label">Game_Over_44</td>
 <td class="address-2"><span id="9b51"></span>9B51</td>
 <td class="instruction">LD D,$04</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3618,7 +3619,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_45</td>
+<td class="asm-label">Game_Over_45</td>
 <td class="address-2"><span id="9b67"></span>9B67</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3656,7 +3657,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9b6f"></span>9B6F</td>
-<td class="instruction">JR Z,<a href="9745.html#9b8a">GAME_OVER_46</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9b8a">Game_Over_46</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -3768,7 +3769,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_46</td>
+<td class="asm-label">Game_Over_46</td>
 <td class="address-2"><span id="9b8a"></span>9B8A</td>
 <td class="instruction">LD HL,$AA09</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3804,7 +3805,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_47</td>
+<td class="asm-label">Game_Over_47</td>
 <td class="address-2"><span id="9b93"></span>9B93</td>
 <td class="instruction">LD HL,$AA05</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3852,7 +3853,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_48</td>
+<td class="asm-label">Game_Over_48</td>
 <td class="address-2"><span id="9b9d"></span>9B9D</td>
 <td class="instruction">LD HL,$AA04</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3900,7 +3901,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_49</td>
+<td class="asm-label">Game_Over_49</td>
 <td class="address-2"><span id="9ba7"></span>9BA7</td>
 <td class="instruction">LD HL,$AA19</td>
 <td class="comment-1" rowspan="1"></td>
@@ -3980,7 +3981,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9bbe"></span>9BBE</td>
-<td class="instruction">JR Z,<a href="9745.html#9bf5">GAME_OVER_54</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9bf5">Game_Over_54</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4022,7 +4023,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9bc8"></span>9BC8</td>
-<td class="instruction">JR NZ,<a href="9745.html#9bce">GAME_OVER_50</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9bce">Game_Over_50</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4040,11 +4041,11 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9bcc"></span>9BCC</td>
-<td class="instruction">JR <a href="9745.html#9bd0">GAME_OVER_51</a></td>
+<td class="instruction">JR <a href="9745.html#9bd0">Game_Over_51</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_50</td>
+<td class="asm-label">Game_Over_50</td>
 <td class="address-2"><span id="9bce"></span>9BCE</td>
 <td class="instruction">LD A,D</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4056,7 +4057,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_51</td>
+<td class="asm-label">Game_Over_51</td>
 <td class="address-2"><span id="9bd0"></span>9BD0</td>
 <td class="instruction">LD ($9C2D),A</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4124,7 +4125,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9be3"></span>9BE3</td>
-<td class="instruction">JR NZ,<a href="9745.html#9bf0">GAME_OVER_52</a></td>
+<td class="instruction">JR NZ,<a href="9745.html#9bf0">Game_Over_52</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4142,7 +4143,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9bea"></span>9BEA</td>
-<td class="instruction">JR NC,<a href="9745.html#9bf2">GAME_OVER_53</a></td>
+<td class="instruction">JR NC,<a href="9745.html#9bf2">Game_Over_53</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4154,11 +4155,11 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9bee"></span>9BEE</td>
-<td class="instruction">JR C,<a href="9745.html#9bf2">GAME_OVER_53</a></td>
+<td class="instruction">JR C,<a href="9745.html#9bf2">Game_Over_53</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_52</td>
+<td class="asm-label">Game_Over_52</td>
 <td class="address-2"><span id="9bf0"></span>9BF0</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4170,7 +4171,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_53</td>
+<td class="asm-label">Game_Over_53</td>
 <td class="address-2"><span id="9bf2"></span>9BF2</td>
 <td class="instruction">LD A,$01</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4182,7 +4183,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_54</td>
+<td class="asm-label">Game_Over_54</td>
 <td class="address-2"><span id="9bf5"></span>9BF5</td>
 <td class="instruction">LD HL,$AA17</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4220,7 +4221,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9bfd"></span>9BFD</td>
-<td class="instruction">JR Z,<a href="9745.html#9c03">GAME_OVER_55</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9c03">Game_Over_55</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4238,11 +4239,11 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c01"></span>9C01</td>
-<td class="instruction">JR <a href="9745.html#9c05">GAME_OVER_56</a></td>
+<td class="instruction">JR <a href="9745.html#9c05">Game_Over_56</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_55</td>
+<td class="asm-label">Game_Over_55</td>
 <td class="address-2"><span id="9c03"></span>9C03</td>
 <td class="instruction">LD A,E</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4254,7 +4255,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">GAME_OVER_56</td>
+<td class="asm-label">Game_Over_56</td>
 <td class="address-2"><span id="9c05"></span>9C05</td>
 <td class="instruction">LD ($9C2D),A</td>
 <td class="comment-1" rowspan="1"></td>
@@ -4322,7 +4323,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c18"></span>9C18</td>
-<td class="instruction">JR Z,<a href="9745.html#9bf0">GAME_OVER_52</a></td>
+<td class="instruction">JR Z,<a href="9745.html#9bf0">Game_Over_52</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4340,7 +4341,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c1f"></span>9C1F</td>
-<td class="instruction">JR C,<a href="9745.html#9bf0">GAME_OVER_52</a></td>
+<td class="instruction">JR C,<a href="9745.html#9bf0">Game_Over_52</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4352,7 +4353,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c23"></span>9C23</td>
-<td class="instruction">JR NC,<a href="9745.html#9bf0">GAME_OVER_52</a></td>
+<td class="instruction">JR NC,<a href="9745.html#9bf0">Game_Over_52</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -4381,8 +4382,8 @@ Next: <a href="9C28.html">9C28</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/38725.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,24 +39,24 @@ Next: <a href="AC05.html">AC05</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
+Used by the routine at <a href="AC05.html">Main_Game</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_MODE</td>
+<td class="asm-label">Demo_Mode</td>
 <td class="address-2"><span id="ab70"></span>AB70</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=$00</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=00</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab71"></span>AB71</td>
 <td class="instruction">LD ($B05F),A</td>
-<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
-<li><a href="B024.html#b05f">CURRENT_RANK</a></li>
-<li><a href="9C2C.html">NUM_PLAYERS</a></li>
+<td class="comment-1" rowspan="2">Write 00 to; <ul class="">
+<li><a href="B024.html#b05f">Current_Rank</a></li>
+<li><a href="9C2C.html">Num_Players</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -66,8 +67,8 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab77"></span>AB77</td>
-<td class="instruction">CALL <a href="A3FF.html">RANDOM_NUMBER</a></td>
-<td class="comment-1" rowspan="1">Call <a href="A3FF.html">RANDOM_NUMBER</a>.</td>
+<td class="instruction">CALL <a href="A3FF.html">Random_Number</a></td>
+<td class="comment-1" rowspan="1">Call <a href="A3FF.html">Random_Number</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -90,7 +91,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab81"></span>AB81</td>
-<td class="instruction">CALL <a href="A3FF.html">RANDOM_NUMBER</a></td>
+<td class="instruction">CALL <a href="A3FF.html">Random_Number</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -115,9 +116,9 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab8b"></span>AB8B</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="3">Write $01 to; <ul class="">
+<td class="comment-1" rowspan="3">Write 01 to; <ul class="">
 <li><a href="AA41.html#aa46">AA46</a></li>
-<li><a href="AA06.html">IS_DEMO_MODE</a></li>
+<li><a href="AA06.html">Is_Demo_Mode</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -134,7 +135,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab93"></span>AB93</td>
 <td class="instruction">INC A</td>
-<td class="comment-1" rowspan="2">Write $02 to; <ul class="">
+<td class="comment-1" rowspan="2">Write 02 to; <ul class="">
 <li><a href="AF27.html#af34">AF34</a></li>
 </ul></td>
 </tr>
@@ -144,7 +145,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="instruction">LD ($AF34),A</td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_MODE_0</td>
+<td class="asm-label">Demo_Mode_0</td>
 <td class="address-2"><span id="ab97"></span>AB97</td>
 <td class="instruction">LD A,($AF34)</td>
 <td class="comment-1" rowspan="1"><a href="AF27.html#af34">AF34</a>.</td>
@@ -159,7 +160,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab9d"></span>AB9D</td>
 <td class="instruction">LD HL,$0222</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b039">TEXT_DEMO</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B024.html#b039">Text_Demo</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -169,37 +170,37 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aba3"></span>ABA3</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aba6"></span>ABA6</td>
 <td class="instruction">LD HL,$B035</td>
-<td class="comment-1" rowspan="2">Point to <a href="B024.html#b035">HISCORE</a> and call <a href="A685.html">PRINT_HISCORE</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="B024.html#b035">Hi_Score</a> and call <a href="A685.html">Print_HighScore</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="aba9"></span>ABA9</td>
-<td class="instruction">CALL <a href="A685.html">PRINT_HISCORE</a></td>
+<td class="instruction">CALL <a href="A685.html">Print_HighScore</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abac"></span>ABAC</td>
-<td class="instruction">CALL <a href="909E.html">NEW_ROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="909E.html">NEW_ROUND</a>.</td>
+<td class="instruction">CALL <a href="909E.html">New_Round</a></td>
+<td class="comment-1" rowspan="1">Call <a href="909E.html">New_Round</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abaf"></span>ABAF</td>
-<td class="instruction">CALL <a href="AEF8.html">INIT_TIME</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AEF8.html">INIT_TIME</a>.</td>
+<td class="instruction">CALL <a href="AEF8.html">Init_Time</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AEF8.html">Init_Time</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abb2"></span>ABB2</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write $00 to; <ul class="">
-<li>$9C2B</li>
+<td class="comment-1" rowspan="2">Write 00 to; <ul class="">
+<li>9C2B</li>
 </ul></td>
 </tr>
 <tr>
@@ -210,8 +211,8 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abb6"></span>ABB6</td>
-<td class="instruction">CALL <a href="AB70.html#abc8">DEMO_MODE_1</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AB70.html#abc8">DEMO_MODE_1</a>.</td>
+<td class="instruction">CALL <a href="AB70.html#abc8">Demo_Mode_1</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AB70.html#abc8">Demo_Mode_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -235,7 +236,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="abbe"></span>ABBE</td>
 <td class="instruction">LD HL,$B05F</td>
-<td class="comment-1" rowspan="2">Point to <a href="B024.html#b05f">CURRENT_RANK</a> and increment it by 1.</td>
+<td class="comment-1" rowspan="2">Point to <a href="B024.html#b05f">Current_Rank</a> and increment it by 1.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -246,7 +247,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="abc2"></span>ABC2</td>
 <td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="3">If this value is not $04 then jump to <a href="AB70.html#ab97">DEMO_MODE_0</a>.</td>
+<td class="comment-1" rowspan="3">If this value is not 04 then jump to <a href="AB70.html#ab97">Demo_Mode_0</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -256,7 +257,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abc5"></span>ABC5</td>
-<td class="instruction">JR NZ,<a href="AB70.html#ab97">DEMO_MODE_0</a></td>
+<td class="instruction">JR NZ,<a href="AB70.html#ab97">Demo_Mode_0</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -265,9 +266,9 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="comment-1" rowspan="1">Else, return.</td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_MODE_1</td>
+<td class="asm-label">Demo_Mode_1</td>
 <td class="address-2"><span id="abc8"></span>ABC8</td>
-<td class="instruction">CALL <a href="AC3E.html#ae26">START_1UP_GAME_24</a></td>
+<td class="instruction">CALL <a href="AC3E.html#ae26">Start_1UP_Game_24</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -291,13 +292,13 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abd0"></span>ABD0</td>
-<td class="instruction">JR Z,<a href="AB70.html#abf1">DEMO_MODE_3</a></td>
+<td class="instruction">JR Z,<a href="AB70.html#abf1">Demo_Mode_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abd2"></span>ABD2</td>
-<td class="instruction">CALL <a href="900E.html">YIN_YANG_1UP</a></td>
+<td class="instruction">CALL <a href="900E.html">Yin_Yang_1UP</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -321,7 +322,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abdc"></span>ABDC</td>
-<td class="instruction">JR Z,<a href="AB70.html#abea">DEMO_MODE_2</a></td>
+<td class="instruction">JR Z,<a href="AB70.html#abea">Demo_Mode_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -339,13 +340,13 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abe3"></span>ABE3</td>
-<td class="instruction">JR C,<a href="AB70.html#abf1">DEMO_MODE_3</a></td>
+<td class="instruction">JR C,<a href="AB70.html#abf1">Demo_Mode_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abe5"></span>ABE5</td>
-<td class="instruction">CALL <a href="AC3E.html#ae9d">START_1UP_GAME_33</a></td>
+<td class="instruction">CALL <a href="AC3E.html#ae9d">Start_1UP_Game_33</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -361,7 +362,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_MODE_2</td>
+<td class="asm-label">Demo_Mode_2</td>
 <td class="address-2"><span id="abea"></span>ABEA</td>
 <td class="instruction">LD A,($AA01)</td>
 <td class="comment-1" rowspan="1"></td>
@@ -375,11 +376,11 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abef"></span>ABEF</td>
-<td class="instruction">JR NC,<a href="AB70.html#ac00">DEMO_MODE_4</a></td>
+<td class="instruction">JR NC,<a href="AB70.html#ac00">Demo_Mode_4</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_MODE_3</td>
+<td class="asm-label">Demo_Mode_3</td>
 <td class="address-2"><span id="abf1"></span>ABF1</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="1"></td>
@@ -411,7 +412,7 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abfc"></span>ABFC</td>
-<td class="instruction">JR Z,<a href="AB70.html#abc8">DEMO_MODE_1</a></td>
+<td class="instruction">JR Z,<a href="AB70.html#abc8">Demo_Mode_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -427,9 +428,9 @@ Used by the routine at <a href="AC05.html">MAIN_GAME</a>.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">DEMO_MODE_4</td>
+<td class="asm-label">Demo_Mode_4</td>
 <td class="address-2"><span id="ac00"></span>AC00</td>
-<td class="instruction">CALL <a href="AC3E.html#ae7a">START_1UP_GAME_30</a></td>
+<td class="instruction">CALL <a href="AC3E.html#ae7a">Start_1UP_Game_30</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -458,8 +459,8 @@ Next: <a href="AC05.html">AC05</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/43888.html">Switch to decimal</a>.</div>
 </footer>
 </body>

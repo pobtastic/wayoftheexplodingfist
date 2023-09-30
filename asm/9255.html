@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,7 +39,7 @@ Next: <a href="92E4.html">92E4</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="900E.html">YIN_YANG_1UP</a>.
+Used by the routine at <a href="900E.html">Yin_Yang_1UP</a>.
 </div>
 </div>
 </td>
@@ -66,22 +67,22 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <th colspan="2" rowspan="1">Screen Position</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$0108</td>
+<td class="centre" colspan="1" rowspan="1">0108</td>
 <td class="centre" colspan="1" rowspan="1">1</td>
 <td class="centre" colspan="1" rowspan="1">8</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$0408</td>
+<td class="centre" colspan="1" rowspan="1">0408</td>
 <td class="centre" colspan="1" rowspan="1">4</td>
 <td class="centre" colspan="1" rowspan="1">8</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$1A08</td>
+<td class="centre" colspan="1" rowspan="1">1A08</td>
 <td class="centre" colspan="1" rowspan="1">26</td>
 <td class="centre" colspan="1" rowspan="1">8</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$1D08</td>
+<td class="centre" colspan="1" rowspan="1">1D08</td>
 <td class="centre" colspan="1" rowspan="1">29</td>
 <td class="centre" colspan="1" rowspan="1">8</td>
 </tr>
@@ -91,7 +92,7 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_COPY</td>
+<td class="asm-label">Yin_Yang_Copy</td>
 <td class="address-2"><span id="9255"></span>9255</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="2">Stash yin-yang UDG and screen coordinates on the stack.</td>
@@ -104,8 +105,8 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9257"></span>9257</td>
-<td class="instruction">CALL <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a></td>
-<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a>.</td>
+<td class="instruction">CALL <a href="9255.html#92ca">Yin_Yang_Copy_Line</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">Yin_Yang_Copy_Line</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -134,7 +135,7 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <td class="asm-label"></td>
 <td class="address-1"><span id="925e"></span>925E</td>
 <td class="instruction">LD BC,$0008</td>
-<td class="comment-1" rowspan="5">Add $0008 to <span class="register">DE</span> and stash it on the stack.</td>
+<td class="comment-1" rowspan="5">Add 0008 to <span class="register">DE</span> and stash it on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -159,8 +160,8 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9265"></span>9265</td>
-<td class="instruction">CALL <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a></td>
-<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a>.</td>
+<td class="instruction">CALL <a href="9255.html#92ca">Yin_Yang_Copy_Line</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">Yin_Yang_Copy_Line</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -202,7 +203,7 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <td class="asm-label"></td>
 <td class="address-1"><span id="926f"></span>926F</td>
 <td class="instruction">LD BC,$0008</td>
-<td class="comment-1" rowspan="5">Add $0008 to <span class="register">DE</span> and stash it on the stack.</td>
+<td class="comment-1" rowspan="5">Add 0008 to <span class="register">DE</span> and stash it on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -227,8 +228,8 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9276"></span>9276</td>
-<td class="instruction">CALL <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a></td>
-<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a>.</td>
+<td class="instruction">CALL <a href="9255.html#92ca">Yin_Yang_Copy_Line</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">Yin_Yang_Copy_Line</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -270,7 +271,7 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <td class="asm-label"></td>
 <td class="address-1"><span id="9280"></span>9280</td>
 <td class="instruction">LD BC,$0008</td>
-<td class="comment-1" rowspan="4">Add $0008 to <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="4">Add 0008 to <span class="register">DE</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -290,8 +291,8 @@ On entry <span class="register">DE</span> points to a yin-yang UDG and <span cla
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9286"></span>9286</td>
-<td class="instruction">CALL <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a></td>
-<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">YIN_YANG_COPY_LINE</a>.</td>
+<td class="instruction">CALL <a href="9255.html#92ca">Yin_Yang_Copy_Line</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9255.html#92ca">Yin_Yang_Copy_Line</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -310,7 +311,7 @@ Full yin-yang UDG.
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_UDG_FULL</td>
+<td class="asm-label">Yin_Yang_UDG_Full</td>
 <td class="address-1"><span id="928a"></span>928A</td>
 <td class="instruction">DEFB $07,$18,$20,$46,$46,$80,$80,$80</td>
 <td class="comment-1" rowspan="4"><img alt="full-yin-yang" src="../images/udgs/full-yin-yang.png" /></td>
@@ -341,7 +342,7 @@ Half yin-yang UDG.
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_UDG_HALF</td>
+<td class="asm-label">Yin_Yang_UDG_Half</td>
 <td class="address-1"><span id="92aa"></span>92AA</td>
 <td class="instruction">DEFB $07,$18,$20,$46,$46,$80,$80,$80</td>
 <td class="comment-1" rowspan="4"><img alt="half-yin-yang" src="../images/udgs/half-yin-yang.png" /></td>
@@ -372,7 +373,7 @@ fff
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_COPY_LINE</td>
+<td class="asm-label">Yin_Yang_Copy_Line</td>
 <td class="address-2"><span id="92ca"></span>92CA</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="2">Stash <span class="register">DE</span> and <span class="register">HL</span> on the stack.</td>
@@ -391,8 +392,8 @@ fff
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="92cd"></span>92CD</td>
-<td class="instruction">CALL <a href="C203.html">SCREEN_CALC</a></td>
-<td class="comment-1" rowspan="1">Call <a href="C203.html">SCREEN_CALC</a>.</td>
+<td class="instruction">CALL <a href="C203.html">Screen_Calc</a></td>
+<td class="comment-1" rowspan="1">Call <a href="C203.html">Screen_Calc</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -434,10 +435,10 @@ fff
 <td class="asm-label"></td>
 <td class="address-1"><span id="92d7"></span>92D7</td>
 <td class="instruction">LD B,$08</td>
-<td class="comment-1" rowspan="1">Set a counter of $08.</td>
+<td class="comment-1" rowspan="1">Set a counter of 08.</td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_COPY_LOOP</td>
+<td class="asm-label">Yin_Yang_Copy_Loop</td>
 <td class="address-2"><span id="92d9"></span>92D9</td>
 <td class="instruction">LD A,(HL)</td>
 <td class="comment-1" rowspan="2">Copy a byte from <span class="register">HL</span> to <span class="register">DE</span>.</td>
@@ -472,8 +473,8 @@ fff
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="92e1"></span>92E1</td>
-<td class="instruction">DJNZ <a href="9255.html#92d9">YIN_YANG_COPY_LOOP</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="9255.html#92d9">YIN_YANG_COPY_LOOP</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="9255.html#92d9">Yin_Yang_Copy_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="9255.html#92d9">Yin_Yang_Copy_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -495,8 +496,8 @@ Next: <a href="92E4.html">92E4</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/37461.html">Switch to decimal</a>.</div>
 </footer>
 </body>

@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -51,13 +52,13 @@ Next: <a href="37376.html">37376</a>
 <span id="37073"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</a>.
+This entry point is used by the routine at <a href="44094.html">Start_1UP_Game</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC</td>
+<td class="asm-label">Intro_Music</td>
 <td class="address-2"><span id="37073"></span>37073</td>
 <td class="instruction">DI</td>
 <td class="comment-1" rowspan="1">Disable interrupts.</td>
@@ -66,7 +67,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <td class="asm-label"></td>
 <td class="address-1"><span id="37074"></span>37074</td>
 <td class="instruction">LD A,(45818)</td>
-<td class="comment-1" rowspan="3">If <a href="45818.html">FLAG_SOUND</a> is zero then return.</td>
+<td class="comment-1" rowspan="3">If <a href="45818.html">Flag_Sound</a> is zero then return.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -112,19 +113,19 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <td class="asm-label"></td>
 <td class="address-1"><span id="37088"></span>37088</td>
 <td class="instruction">LD IX,37160</td>
-<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="37072.html#37160">INTRO_MUSIC_DATA</a></td>
+<td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="37072.html#37160">Intro_Music_Data</a></td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC_LOOP</td>
+<td class="asm-label">Intro_Music_Loop</td>
 <td class="address-2"><span id="37092"></span>37092</td>
 <td class="instruction">LD C,(IX+0)</td>
-<td class="comment-1" rowspan="1"><span class="register">C</span>=the next note byte from <span class="register">IX</span>+$00.</td>
+<td class="comment-1" rowspan="1"><span class="register">C</span>=the next note byte from <span class="register">IX</span>+0.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37095"></span>37095</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="3">If the current note is $00 then return.</td>
+<td class="comment-1" rowspan="3">If the current note is 0 then return.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -146,7 +147,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <td class="asm-label"></td>
 <td class="address-1"><span id="37100"></span>37100</td>
 <td class="instruction">LD B,(IX+0)</td>
-<td class="comment-1" rowspan="1"><span class="register">B</span>=the next note byte from <span class="register">IX</span>+$00.</td>
+<td class="comment-1" rowspan="1"><span class="register">B</span>=the next note byte from <span class="register">IX</span>+0.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -158,7 +159,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <td class="asm-label"></td>
 <td class="address-1"><span id="37105"></span>37105</td>
 <td class="instruction">LD E,(IX+0)</td>
-<td class="comment-1" rowspan="1"><span class="register">E</span>=the next note byte from <span class="register">IX</span>+$00.</td>
+<td class="comment-1" rowspan="1"><span class="register">E</span>=the next note byte from <span class="register">IX</span>+0.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -170,7 +171,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <td class="asm-label"></td>
 <td class="address-1"><span id="37110"></span>37110</td>
 <td class="instruction">LD D,(IX+0)</td>
-<td class="comment-1" rowspan="1"><span class="register">D</span>=the next note byte from <span class="register">IX</span>+$00.</td>
+<td class="comment-1" rowspan="1"><span class="register">D</span>=the next note byte from <span class="register">IX</span>+0.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -193,7 +194,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37117"></span>37117</td>
-<td class="instruction">JR NZ,<a href="37072.html#37133">INTRO_MUSIC_PLAY</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37133">Intro_Music_Play</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -211,7 +212,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37121"></span>37121</td>
-<td class="instruction">JR NZ,<a href="37072.html#37133">INTRO_MUSIC_PLAY</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37133">Intro_Music_Play</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -221,7 +222,7 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC_DELAY_1</td>
+<td class="asm-label">Intro_Music_Delay_1</td>
 <td class="address-2"><span id="37126"></span>37126</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1"></td>
@@ -241,14 +242,14 @@ This entry point is used by the routine at <a href="44094.html">START_1UP_GAME</
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37129"></span>37129</td>
-<td class="instruction">JR NZ,<a href="37072.html#37126">INTRO_MUSIC_DELAY_1</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37126">Intro_Music_Delay_1</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37131"></span>37131</td>
-<td class="instruction">JR <a href="37072.html#37092">INTRO_MUSIC_LOOP</a></td>
-<td class="comment-1" rowspan="1">Loop back to <a href="37072.html#37092">INTRO_MUSIC_LOOP</a>.</td>
+<td class="instruction">JR <a href="37072.html#37092">Intro_Music_Loop</a></td>
+<td class="comment-1" rowspan="1">Loop back to <a href="37072.html#37092">Intro_Music_Loop</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -261,7 +262,7 @@ Process the note data and create the sounds.
 </td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC_PLAY</td>
+<td class="asm-label">Intro_Music_Play</td>
 <td class="address-2"><span id="37133"></span>37133</td>
 <td class="instruction">PUSH BC</td>
 <td class="comment-1" rowspan="1"></td>
@@ -279,7 +280,7 @@ Process the note data and create the sounds.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC_DELAY_2</td>
+<td class="asm-label">Intro_Music_Delay_2</td>
 <td class="address-2"><span id="37137"></span>37137</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1"></td>
@@ -299,7 +300,7 @@ Process the note data and create the sounds.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37140"></span>37140</td>
-<td class="instruction">JR NZ,<a href="37072.html#37137">INTRO_MUSIC_DELAY_2</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37137">Intro_Music_Delay_2</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -327,7 +328,7 @@ Process the note data and create the sounds.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC_DELAY_3</td>
+<td class="asm-label">Intro_Music_Delay_3</td>
 <td class="address-2"><span id="37147"></span>37147</td>
 <td class="instruction">DEC BC</td>
 <td class="comment-1" rowspan="1"></td>
@@ -347,7 +348,7 @@ Process the note data and create the sounds.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37150"></span>37150</td>
-<td class="instruction">JR NZ,<a href="37072.html#37147">INTRO_MUSIC_DELAY_3</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37147">Intro_Music_Delay_3</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -377,17 +378,17 @@ Process the note data and create the sounds.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37156"></span>37156</td>
-<td class="instruction">JR NZ,<a href="37072.html#37133">INTRO_MUSIC_PLAY</a></td>
+<td class="instruction">JR NZ,<a href="37072.html#37133">Intro_Music_Play</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37158"></span>37158</td>
-<td class="instruction">JR <a href="37072.html#37092">INTRO_MUSIC_LOOP</a></td>
+<td class="instruction">JR <a href="37072.html#37092">Intro_Music_Loop</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">INTRO_MUSIC_DATA</td>
+<td class="asm-label">Intro_Music_Data</td>
 <td class="address-1"><span id="37160"></span>37160</td>
 <td class="instruction">DEFB 109,0,140,0</td>
 <td class="comment-1" rowspan="1"></td>
@@ -724,8 +725,8 @@ Next: <a href="37376.html">37376</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/90D0.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

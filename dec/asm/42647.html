@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,16 +39,16 @@ Next: <a href="42678.html">42678</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="42567.html">CHECK_HISCORE</a>.
+Used by the routine at <a href="42567.html">Check_HighScore</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">IS_HIGH_SCORE</td>
+<td class="asm-label">Is_HighScore</td>
 <td class="address-2"><span id="42647"></span>42647</td>
 <td class="instruction">LD A,0</td>
-<td class="comment-1" rowspan="2">Write $00 to <a href="42679.html">42679</a>.</td>
+<td class="comment-1" rowspan="2">Write 0 to <a href="42679.html">42679</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -69,10 +70,10 @@ Used by the routine at <a href="42567.html">CHECK_HISCORE</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="42654"></span>42654</td>
 <td class="instruction">LD B,3</td>
-<td class="comment-1" rowspan="1">Set the counter to $03 for the three score digits.</td>
+<td class="comment-1" rowspan="1">Set the counter to 3 for the three score digits.</td>
 </tr>
 <tr>
-<td class="asm-label">IS_HS_LOOP</td>
+<td class="asm-label">Is_HighScore_Loop</td>
 <td class="address-2"><span id="42656"></span>42656</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="1">Fetch the score digit.</td>
@@ -86,14 +87,14 @@ Used by the routine at <a href="42567.html">CHECK_HISCORE</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="42658"></span>42658</td>
-<td class="instruction">JR C,<a href="42647.html#42675">IS_HS_RETURN</a></td>
-<td class="comment-1" rowspan="1">If the the high score is higher, jump to <a href="42647.html#42675">IS_HS_RETURN</a>.</td>
+<td class="instruction">JR C,<a href="42647.html#42675">Is_HighScore_Return</a></td>
+<td class="comment-1" rowspan="1">If the the high score is higher, jump to <a href="42647.html#42675">Is_HighScore_Return</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="42660"></span>42660</td>
-<td class="instruction">JR NZ,<a href="42647.html#42669">IS_HS_SKIP</a></td>
-<td class="comment-1" rowspan="1">If the high score is lower skip ahead to <a href="42647.html#42669">IS_HS_SKIP</a>.</td>
+<td class="instruction">JR NZ,<a href="42647.html#42669">Is_HighScore_Skip</a></td>
+<td class="comment-1" rowspan="1">If the high score is lower skip ahead to <a href="42647.html#42669">Is_HighScore_Skip</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -112,7 +113,7 @@ Used by the routine at <a href="42567.html">CHECK_HISCORE</a>.
 <td class="instruction">LD (42679),A</td>
 </tr>
 <tr>
-<td class="asm-label">IS_HS_SKIP</td>
+<td class="asm-label">Is_HighScore_Skip</td>
 <td class="address-2"><span id="42669"></span>42669</td>
 <td class="instruction">DEC DE</td>
 <td class="comment-1" rowspan="2">Move onto the next digits for both the player score and high score.</td>
@@ -125,8 +126,8 @@ Used by the routine at <a href="42567.html">CHECK_HISCORE</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="42671"></span>42671</td>
-<td class="instruction">DJNZ <a href="42647.html#42656">IS_HS_LOOP</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="42647.html#42656">IS_HS_LOOP</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="42647.html#42656">Is_HighScore_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="42647.html#42656">Is_HighScore_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -140,7 +141,7 @@ Used by the routine at <a href="42567.html">CHECK_HISCORE</a>.
 <td class="instruction">CCF</td>
 </tr>
 <tr>
-<td class="asm-label">IS_HS_RETURN</td>
+<td class="asm-label">Is_HighScore_Return</td>
 <td class="address-2"><span id="42675"></span>42675</td>
 <td class="instruction">POP HL</td>
 <td class="comment-1" rowspan="2">Restore high score and player score positions from the stack.</td>
@@ -170,8 +171,8 @@ Next: <a href="42678.html">42678</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/A697.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

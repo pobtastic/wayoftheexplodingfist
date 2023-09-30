@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,16 +39,16 @@ Next: <a href="36418.html">36418</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="36059.html">GAME_CONFIGS_CONTROLS</a>.
+Used by the routine at <a href="36059.html">Game_Configs_Controls</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONFIGS_KEYS</td>
+<td class="asm-label">Game_Configs_Keys</td>
 <td class="address-2"><span id="36249"></span>36249</td>
-<td class="instruction">CALL <a href="36428.html">CLEAR_SCREEN</a></td>
-<td class="comment-1" rowspan="1">Call <a href="36428.html">CLEAR_SCREEN</a>.</td>
+<td class="instruction">CALL <a href="36428.html">Clear_Screen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="36428.html">Clear_Screen</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -63,7 +64,7 @@ Displays the "for each direction ... press key" banner.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36252"></span>36252</td>
 <td class="instruction">LD DE,36715</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36715">TEXT_CHANGE_1</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36715">Text_Change_1</a> and call <a href="37604.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -73,13 +74,13 @@ Displays the "for each direction ... press key" banner.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36258"></span>36258</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="37604.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36261"></span>36261</td>
 <td class="instruction">LD DE,36745</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36745">TEXT_CHANGE_2</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36745">Text_Change_2</a> and call <a href="37604.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -89,13 +90,13 @@ Displays the "for each direction ... press key" banner.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36267"></span>36267</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="37604.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36270"></span>36270</td>
 <td class="instruction">LD DE,36775</td>
-<td class="comment-1" rowspan="3">Point to <a href="36459.html#36775">TEXT_CHANGE_3</a> and call <a href="37604.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="36459.html#36775">Text_Change_3</a> and call <a href="37604.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -105,7 +106,7 @@ Displays the "for each direction ... press key" banner.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36276"></span>36276</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="37604.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -121,7 +122,7 @@ Set that this player should use the "redefined keys" for their input.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36279"></span>36279</td>
 <td class="instruction">LD HL,(36457)</td>
-<td class="comment-1" rowspan="2">Fetch the current player from <a href="36457.html">TEMP_PLAYER</a>, and set it in both <span class="register">DE</span> and <span class="register">HL</span>.</td>
+<td class="comment-1" rowspan="2">Fetch the current player from <a href="36457.html">Temp_Player</a>, and set it in both <span class="register">DE</span> and <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -143,7 +144,7 @@ Set that this player should use the "redefined keys" for their input.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36288"></span>36288</td>
 <td class="instruction">LD (HL),E</td>
-<td class="comment-1" rowspan="3">Stores either <a href="35796.html">PLAYER_1_UP</a> or <a href="35816.html">PLAYER_2_UP</a> at the address for the player control method.</td>
+<td class="comment-1" rowspan="3">Stores either <a href="35796.html">Player_1_Up</a> or <a href="35816.html">Player_2_Up</a> at the address for the player control method.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -169,106 +170,106 @@ Go through each key and process.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36291"></span>36291</td>
 <td class="instruction">LD HL,36795</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36795">TEXT_UP</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36795">Text_Up</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36294"></span>36294</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36297"></span>36297</td>
 <td class="instruction">LD HL,36798</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36798">TEXT_UP_RIGHT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36798">Text_Up_Right</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36300"></span>36300</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36303"></span>36303</td>
 <td class="instruction">LD HL,36807</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36807">TEXT_RIGHT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36807">Text_Right</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36306"></span>36306</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36309"></span>36309</td>
 <td class="instruction">LD HL,36813</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36813">TEXT_DOWN_RIGHT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36813">Text_Down_Right</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36312"></span>36312</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36315"></span>36315</td>
 <td class="instruction">LD HL,36824</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36824">TEXT_DOWN</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36824">Text_Down</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36318"></span>36318</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36321"></span>36321</td>
 <td class="instruction">LD HL,36829</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36829">TEXT_DOWN_LEFT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36829">Text_Down_Left</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36324"></span>36324</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36327"></span>36327</td>
 <td class="instruction">LD HL,36839</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36839">TEXT_LEFT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36839">Text_Left</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36330"></span>36330</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36333"></span>36333</td>
 <td class="instruction">LD HL,36844</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36844">TEXT_UP_LEFT</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36844">Text_Up_Left</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36336"></span>36336</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36339"></span>36339</td>
 <td class="instruction">LD HL,36852</td>
-<td class="comment-1" rowspan="2">Point to <a href="36459.html#36852">TEXT_FIRE</a> and call <a href="36249.html#36348">PRINT_KEY_LOOP</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="36459.html#36852">Text_Fire</a> and call <a href="36249.html#36348">Print_Key_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36342"></span>36342</td>
-<td class="instruction">CALL <a href="36249.html#36348">PRINT_KEY_LOOP</a></td>
+<td class="instruction">CALL <a href="36249.html#36348">Print_Key_Loop</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36345"></span>36345</td>
-<td class="instruction">JP <a href="35924.html#36058">GAME_CONFIGS_RETURN</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">GAME_CONFIGS_RETURN</a>.</td>
+<td class="instruction">JP <a href="35924.html#36058">Game_Configs_Return</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="35924.html#36058">Game_Configs_Return</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -281,7 +282,7 @@ Print the message, get the key and write it to the mapping buffer for this playe
 </td>
 </tr>
 <tr>
-<td class="asm-label">PRINT_KEY_LOOP</td>
+<td class="asm-label">Print_Key_Loop</td>
 <td class="address-2"><span id="36348"></span>36348</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="1">Stash the current key mapping address on the stack.</td>
@@ -290,7 +291,7 @@ Print the message, get the key and write it to the mapping buffer for this playe
 <td class="asm-label"></td>
 <td class="address-1"><span id="36349"></span>36349</td>
 <td class="instruction">EX DE,HL</td>
-<td class="comment-1" rowspan="3">Use <a href="37604.html">PRINT_STRING</a> to show the message for which key to press.</td>
+<td class="comment-1" rowspan="3">Use <a href="37604.html">Print_String</a> to show the message for which key to press.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -300,7 +301,7 @@ Print the message, get the key and write it to the mapping buffer for this playe
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36353"></span>36353</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="37604.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -317,8 +318,8 @@ Print the message, get the key and write it to the mapping buffer for this playe
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36358"></span>36358</td>
-<td class="instruction">CALL <a href="36249.html#36386">GET_KEY</a></td>
-<td class="comment-1" rowspan="1">Call <a href="36249.html#36386">GET_KEY</a>.</td>
+<td class="instruction">CALL <a href="36249.html#36386">Get_Key</a></td>
+<td class="comment-1" rowspan="1">Call <a href="36249.html#36386">Get_Key</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -377,18 +378,18 @@ Print the message, get the key and write it to the mapping buffer for this playe
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36375"></span>36375</td>
-<td class="instruction">CALL <a href="37604.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="37604.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36378"></span>36378</td>
-<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
-<td class="comment-1" rowspan="2">Delay (for debounce) twice <a href="36418.html">CONFIGS_DELAY</a>.</td>
+<td class="instruction">CALL <a href="36418.html">Configs_Delay</a></td>
+<td class="comment-1" rowspan="2">Delay (for debounce) twice <a href="36418.html">Configs_Delay</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36381"></span>36381</td>
-<td class="instruction">CALL <a href="36418.html">CONFIGS_DELAY</a></td>
+<td class="instruction">CALL <a href="36418.html">Configs_Delay</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -413,19 +414,19 @@ Detect the key press.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GET_KEY</td>
+<td class="asm-label">Get_Key</td>
 <td class="address-2"><span id="36386"></span>36386</td>
 <td class="instruction">LD DE,36410</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="36249.html#36410">KEY_DATA</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="36249.html#36410">Key_Data</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36389"></span>36389</td>
 <td class="instruction">LD B,8</td>
-<td class="comment-1" rowspan="1">Set a counter <span class="register">B</span>=$08.</td>
+<td class="comment-1" rowspan="1">Set a counter <span class="register">B</span>=8.</td>
 </tr>
 <tr>
-<td class="asm-label">GET_KEY_LOOP</td>
+<td class="asm-label">Get_Key_Loop</td>
 <td class="address-2"><span id="36391"></span>36391</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="2">Using the current port, read the keyboard.</td>
@@ -449,8 +450,8 @@ Detect the key press.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36397"></span>36397</td>
-<td class="instruction">JP NZ,<a href="36249.html#36406">STORE_KEY</a></td>
-<td class="comment-1" rowspan="1">Yes - jump to <a href="36249.html#36406">STORE_KEY</a>.</td>
+<td class="instruction">JP NZ,<a href="36249.html#36406">Store_Key</a></td>
+<td class="comment-1" rowspan="1">Yes - jump to <a href="36249.html#36406">Store_Key</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -461,14 +462,14 @@ Detect the key press.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36401"></span>36401</td>
-<td class="instruction">DJNZ <a href="36249.html#36391">GET_KEY_LOOP</a></td>
-<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="36249.html#36391">GET_KEY_LOOP</a> until counter is zero.</td>
+<td class="instruction">DJNZ <a href="36249.html#36391">Get_Key_Loop</a></td>
+<td class="comment-1" rowspan="1">Decrease counter by one and loop back to <a href="36249.html#36391">Get_Key_Loop</a> until counter is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36403"></span>36403</td>
-<td class="instruction">JP <a href="36249.html#36386">GET_KEY</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="36249.html#36386">GET_KEY</a>.</td>
+<td class="instruction">JP <a href="36249.html#36386">Get_Key</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="36249.html#36386">Get_Key</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -481,7 +482,7 @@ Stores the port number as the MSB of <span class="register">HL</span>, and the k
 </td>
 </tr>
 <tr>
-<td class="asm-label">STORE_KEY</td>
+<td class="asm-label">Store_Key</td>
 <td class="address-2"><span id="36406"></span>36406</td>
 <td class="instruction">LD L,A</td>
 <td class="comment-1" rowspan="1">Store the key byte as the LSB of <span class="register">HL</span>.</td>
@@ -521,7 +522,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <th colspan="1" rowspan="1">4</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$FE</td>
+<td class="centre" colspan="1" rowspan="1">v$FE</td>
 <td class="centre" colspan="1" rowspan="1">SHIFT</td>
 <td class="centre" colspan="1" rowspan="1">Z</td>
 <td class="centre" colspan="1" rowspan="1">X</td>
@@ -529,7 +530,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">V</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$FD</td>
+<td class="centre" colspan="1" rowspan="1">253</td>
 <td class="centre" colspan="1" rowspan="1">A</td>
 <td class="centre" colspan="1" rowspan="1">S</td>
 <td class="centre" colspan="1" rowspan="1">D</td>
@@ -537,7 +538,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">G</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$FB</td>
+<td class="centre" colspan="1" rowspan="1">251</td>
 <td class="centre" colspan="1" rowspan="1">Q</td>
 <td class="centre" colspan="1" rowspan="1">W</td>
 <td class="centre" colspan="1" rowspan="1">E</td>
@@ -545,7 +546,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">T</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$F7</td>
+<td class="centre" colspan="1" rowspan="1">247</td>
 <td class="centre" colspan="1" rowspan="1">1</td>
 <td class="centre" colspan="1" rowspan="1">2</td>
 <td class="centre" colspan="1" rowspan="1">3</td>
@@ -553,7 +554,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">5</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$EF</td>
+<td class="centre" colspan="1" rowspan="1">239</td>
 <td class="centre" colspan="1" rowspan="1">0</td>
 <td class="centre" colspan="1" rowspan="1">9</td>
 <td class="centre" colspan="1" rowspan="1">8</td>
@@ -561,7 +562,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">6</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$DF</td>
+<td class="centre" colspan="1" rowspan="1">223</td>
 <td class="centre" colspan="1" rowspan="1">P</td>
 <td class="centre" colspan="1" rowspan="1">O</td>
 <td class="centre" colspan="1" rowspan="1">I</td>
@@ -569,7 +570,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">Y</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$BF</td>
+<td class="centre" colspan="1" rowspan="1">191</td>
 <td class="centre" colspan="1" rowspan="1">ENTER</td>
 <td class="centre" colspan="1" rowspan="1">L</td>
 <td class="centre" colspan="1" rowspan="1">K</td>
@@ -577,7 +578,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 <td class="centre" colspan="1" rowspan="1">H</td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$7F</td>
+<td class="centre" colspan="1" rowspan="1">127</td>
 <td class="centre" colspan="1" rowspan="1">SPACE</td>
 <td class="centre" colspan="1" rowspan="1">FULL-STOP</td>
 <td class="centre" colspan="1" rowspan="1">M</td>
@@ -590,7 +591,7 @@ The keyboard is split into 8 sections - 4 'half rows' on each side, and each wit
 </td>
 </tr>
 <tr>
-<td class="asm-label">KEY_DATA</td>
+<td class="asm-label">Key_Data</td>
 <td class="address-1"><span id="36410"></span>36410</td>
 <td class="instruction">DEFB 254,253,251,247,239,223,191,127</td>
 <td class="comment-1" rowspan="1">Key Data</td>
@@ -609,8 +610,8 @@ Next: <a href="36418.html">36418</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/8D99.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

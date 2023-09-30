@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -51,7 +52,7 @@ Buffer for processing text output.
 </td>
 </tr>
 <tr>
-<td class="asm-label">TIME_BUFFER</td>
+<td class="asm-label">Time_Buffer</td>
 <td class="address-2"><span id="932c"></span>932C</td>
 <td class="instruction">DEFM "   30",$00</td>
 <td class="comment-1" rowspan="1">Guessing at the length.</td>
@@ -67,13 +68,13 @@ Buffer for processing text output.
 <span id="9336"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="9C93.html">PRINT_TIME</a>.
+This entry point is used by the routine at <a href="9C93.html">Print_Time</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">PROCESS_PRINT_TIME</td>
+<td class="asm-label">Process_Print_Time</td>
 <td class="address-2"><span id="9336"></span>9336</td>
 <td class="instruction">PUSH DE</td>
 <td class="comment-1" rowspan="1">Push <span class="register">DE</span> containing the screen position for printing onto the stack for later.</td>
@@ -82,19 +83,19 @@ This entry point is used by the routine at <a href="9C93.html">PRINT_TIME</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9337"></span>9337</td>
 <td class="instruction">LD IX,$932C</td>
-<td class="comment-1" rowspan="1">Point <span class="register">IX</span> at the first character of the time display buffer at <a href="932C.html">TIME_BUFFER</a>.</td>
+<td class="comment-1" rowspan="1">Point <span class="register">IX</span> at the first character of the time display buffer at <a href="932C.html">Time_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="933b"></span>933B</td>
-<td class="instruction">CALL <a href="92FF.html#9309">PROCESS_TIME</a></td>
-<td class="comment-1" rowspan="1">Call <a href="92FF.html#9309">PROCESS_TIME</a>.</td>
+<td class="instruction">CALL <a href="92FF.html#9309">Process_Time</a></td>
+<td class="comment-1" rowspan="1">Call <a href="92FF.html#9309">Process_Time</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="933e"></span>933E</td>
 <td class="instruction">PUSH IX</td>
-<td class="comment-1" rowspan="4"><span class="register">IX</span> points to one byte off the end of the time buffer, write $00 as a terminator for the print routine.</td>
+<td class="comment-1" rowspan="4"><span class="register">IX</span> points to one byte off the end of the time buffer, write 00 as a terminator for the print routine.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -131,10 +132,10 @@ The time isn't printed as "00005" so this routine replaces the zeroes with space
 <td class="asm-label"></td>
 <td class="address-1"><span id="9345"></span>9345</td>
 <td class="instruction">LD DE,$932C</td>
-<td class="comment-1" rowspan="1">Store <a href="932C.html">TIME_BUFFER</a> in <span class="register">DE</span>.</td>
+<td class="comment-1" rowspan="1">Store <a href="932C.html">Time_Buffer</a> in <span class="register">DE</span>.</td>
 </tr>
 <tr>
-<td class="asm-label">TIME_ZERO_TO_SPACES</td>
+<td class="asm-label">Time_Zero_To_Spaces</td>
 <td class="address-2"><span id="9348"></span>9348</td>
 <td class="instruction">LD A,(DE)</td>
 <td class="comment-1" rowspan="1">Grab the next character from the time buffer.</td>
@@ -143,12 +144,12 @@ The time isn't printed as "00005" so this routine replaces the zeroes with space
 <td class="asm-label"></td>
 <td class="address-1"><span id="9349"></span>9349</td>
 <td class="instruction">CP $30</td>
-<td class="comment-1" rowspan="2">If it is not ASCII "0" then jump to <a href="932C.html#9355">TIME_CHECK_LAST</a>.</td>
+<td class="comment-1" rowspan="2">If it is not ASCII "0" then jump to <a href="932C.html#9355">Time_Check_Last</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="934b"></span>934B</td>
-<td class="instruction">JP NZ,<a href="932C.html#9355">TIME_CHECK_LAST</a></td>
+<td class="instruction">JP NZ,<a href="932C.html#9355">Time_Check_Last</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -170,8 +171,8 @@ The time isn't printed as "00005" so this routine replaces the zeroes with space
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9352"></span>9352</td>
-<td class="instruction">JP <a href="932C.html#9348">TIME_ZERO_TO_SPACES</a></td>
-<td class="comment-1" rowspan="1">Jump back to <a href="932C.html#9348">TIME_ZERO_TO_SPACES</a>.</td>
+<td class="instruction">JP <a href="932C.html#9348">Time_Zero_To_Spaces</a></td>
+<td class="comment-1" rowspan="1">Jump back to <a href="932C.html#9348">Time_Zero_To_Spaces</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -184,7 +185,7 @@ If time has run out, show at least an ASCII "0".
 </td>
 </tr>
 <tr>
-<td class="asm-label">TIME_CHECK_LAST</td>
+<td class="asm-label">Time_Check_Last</td>
 <td class="address-2"><span id="9355"></span>9355</td>
 <td class="instruction">LD DE,$9330</td>
 <td class="comment-1" rowspan="1">Point to the last digit of the time buffer <a href="932C.html">$9330</a>.</td>
@@ -193,7 +194,7 @@ If time has run out, show at least an ASCII "0".
 <td class="asm-label"></td>
 <td class="address-1"><span id="9358"></span>9358</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-1" rowspan="3">If it is not an ASCII "space" ($20) then jump to <a href="932C.html#9361">PRINT_TIME_SCREEN</a>.</td>
+<td class="comment-1" rowspan="3">If it is not an ASCII "space" ($20) then jump to <a href="932C.html#9361">Print_Time_Screen</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -203,7 +204,7 @@ If time has run out, show at least an ASCII "0".
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="935b"></span>935B</td>
-<td class="instruction">JP NZ,<a href="932C.html#9361">PRINT_TIME_SCREEN</a></td>
+<td class="instruction">JP NZ,<a href="932C.html#9361">Print_Time_Screen</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -221,21 +222,21 @@ If time has run out, show at least an ASCII "0".
 <span id="9361"></span>
 <div class="comments">
 <div class="paragraph">
-Send the time buffer to <a href="92E4.html">PRINT_STRING</a>.
+Send the time buffer to <a href="92E4.html">Print_String</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">PRINT_TIME_SCREEN</td>
+<td class="asm-label">Print_Time_Screen</td>
 <td class="address-2"><span id="9361"></span>9361</td>
 <td class="instruction">LD DE,$932C</td>
-<td class="comment-1" rowspan="2">Point to <a href="932C.html">TIME_BUFFER</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="2">Point to <a href="932C.html">Time_Buffer</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9364"></span>9364</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -257,8 +258,8 @@ Next: <a href="9368.html">9368</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/37676.html">Switch to decimal</a>.</div>
 </footer>
 </body>

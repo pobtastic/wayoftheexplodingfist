@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -44,7 +45,7 @@ Used by the routine at <a href="8800.html">8800</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_START</td>
+<td class="asm-label">Game_Start</td>
 <td class="address-2"><span id="9c2e"></span>9C2E</td>
 <td class="instruction">DI</td>
 <td class="comment-1" rowspan="1">Disable interrupts.</td>
@@ -61,10 +62,10 @@ Used by the routine at <a href="8800.html">8800</a>.
 <th colspan="1" rowspan="1">Bright</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$05</td>
-<td class="centre" colspan="1" rowspan="1">$05</td>
-<td class="centre" colspan="1" rowspan="1">$00</td>
-<td class="centre" colspan="1" rowspan="1">$00</td>
+<td class="centre" colspan="1" rowspan="1">05</td>
+<td class="centre" colspan="1" rowspan="1">05</td>
+<td class="centre" colspan="1" rowspan="1">00</td>
+<td class="centre" colspan="1" rowspan="1">00</td>
 </tr>
 </table></td>
 </tr>
@@ -77,7 +78,7 @@ Used by the routine at <a href="8800.html">8800</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c33"></span>9C33</td>
 <td class="instruction">LD HL,$5BFF</td>
-<td class="comment-1" rowspan="2">Set the stack pointer to $5BFF.</td>
+<td class="comment-1" rowspan="2">Set the stack pointer to 5BFF.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -87,14 +88,14 @@ Used by the routine at <a href="8800.html">8800</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c37"></span>9C37</td>
-<td class="instruction">CALL <a href="B138.html">GAME_INIT</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B138.html">GAME_INIT</a>.</td>
+<td class="instruction">CALL <a href="B138.html">Game_Init</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B138.html">Game_Init</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c3a"></span>9C3A</td>
 <td class="instruction">LD DE,$5F00</td>
-<td class="comment-1" rowspan="4">Copies a large chunk of code from $6000 to $5F00. See the .t2s file.</td>
+<td class="comment-1" rowspan="4">Copies a large chunk of code from 6000 to 5F00. See the .t2s file.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -115,7 +116,7 @@ Used by the routine at <a href="8800.html">8800</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c45"></span>9C45</td>
 <td class="instruction">LD A,$00</td>
-<td class="comment-1" rowspan="5">Write $0000 to; <ul class="">
+<td class="comment-1" rowspan="5">Write 0000 to; <ul class="">
 <li><a href="C423.html">C423</a></li>
 <li><a href="C425.html">C425</a></li>
 </ul></td>
@@ -143,8 +144,8 @@ Used by the routine at <a href="8800.html">8800</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c50"></span>9C50</td>
-<td class="instruction">JP <a href="AC05.html">MAIN_GAME</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="AC05.html">MAIN_GAME</a>.</td>
+<td class="instruction">JP <a href="AC05.html">Main_Game</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="AC05.html">Main_Game</a>.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -160,8 +161,8 @@ Next: <a href="9C53.html">9C53</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/39982.html">Switch to decimal</a>.</div>
 </footer>
 </body>

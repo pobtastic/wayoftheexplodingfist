@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,7 +39,7 @@ Next: <a href="37022.html">37022</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="38725.html">GAME_OVER</a>, <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
+Used by the routines at <a href="38725.html">Game_Over</a>, <a href="43888.html">Demo_Mode</a> and <a href="44094.html">Start_1UP_Game</a>.
 </div>
 </div>
 </td>
@@ -54,10 +55,10 @@ Player 1 yin-yang functionality.
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_1UP</td>
+<td class="asm-label">Yin_Yang_1UP</td>
 <td class="address-2"><span id="36878"></span>36878</td>
 <td class="instruction">LD A,(43528)</td>
-<td class="comment-1" rowspan="3">If <a href="43526.html#43528">P1_POINTS_AWARDED</a> is $00 then no point was awarded for 1UP. Jump forward to <a href="36878.html#36951">YIN_YANG_2UP</a>.</td>
+<td class="comment-1" rowspan="3">If <a href="43526.html#43528">P1_Points_Awarded</a> is 0 then no point was awarded for 1UP. Jump forward to <a href="36878.html#36951">Yin_Yang_2UP</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -67,7 +68,7 @@ Player 1 yin-yang functionality.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36882"></span>36882</td>
-<td class="instruction">JP Z,<a href="36878.html#36951">YIN_YANG_2UP</a></td>
+<td class="instruction">JP Z,<a href="36878.html#36951">Yin_Yang_2UP</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -83,7 +84,7 @@ Update 1UP yin-yang total.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36885"></span>36885</td>
 <td class="instruction">LD HL,43521</td>
-<td class="comment-1" rowspan="3">Add <a href="43526.html#43528">P1_POINTS_AWARDED</a> to <a href="43521.html">P1_YIN_YANG</a> and update the new total at <a href="43521.html">P1_YIN_YANG</a>.</td>
+<td class="comment-1" rowspan="3">Add <a href="43526.html#43528">P1_Points_Awarded</a> to <a href="43521.html">P1_Yin_Yang</a> and update the new total at <a href="43521.html">P1_Yin_Yang</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -100,7 +101,7 @@ Update 1UP yin-yang total.
 <span id="36890"></span>
 <div class="comments">
 <div class="paragraph">
-Check if 1UP yin-yang total is now $01.
+Check if 1UP yin-yang total is now 1.
 </div>
 </div>
 </td>
@@ -109,18 +110,18 @@ Check if 1UP yin-yang total is now $01.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36890"></span>36890</td>
 <td class="instruction">CP 1</td>
-<td class="comment-1" rowspan="2">If the total is not <strong>$01</strong> then skip forward to <a href="36878.html#36904">YIN_YANG_1UP_2</a>.</td>
+<td class="comment-1" rowspan="2">If the total is not <strong>1</strong> then skip forward to <a href="36878.html#36904">Yin_Yang_1UP_2</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36892"></span>36892</td>
-<td class="instruction">JR NZ,<a href="36878.html#36904">YIN_YANG_1UP_2</a></td>
+<td class="instruction">JR NZ,<a href="36878.html#36904">Yin_Yang_1UP_2</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36894"></span>36894</td>
 <td class="instruction">LD DE,37546</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37546">YIN_YANG_UDG_HALF</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37546">Yin_Yang_UDG_Half</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -130,7 +131,7 @@ Check if 1UP yin-yang total is now $01.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36900"></span>36900</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -143,27 +144,27 @@ Check if 1UP yin-yang total is now $01.
 <span id="36904"></span>
 <div class="comments">
 <div class="paragraph">
-Check if 1UP yin-yang total is now $02.
+Check if 1UP yin-yang total is now 2.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_1UP_2</td>
+<td class="asm-label">Yin_Yang_1UP_2</td>
 <td class="address-2"><span id="36904"></span>36904</td>
 <td class="instruction">CP 2</td>
-<td class="comment-1" rowspan="2">If the total is not <strong>$02</strong> then skip forward to <a href="36878.html#36918">YIN_YANG_1UP_3</a>.</td>
+<td class="comment-1" rowspan="2">If the total is not <strong>2</strong> then skip forward to <a href="36878.html#36918">Yin_Yang_1UP_3</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36906"></span>36906</td>
-<td class="instruction">JR NZ,<a href="36878.html#36918">YIN_YANG_1UP_3</a></td>
+<td class="instruction">JR NZ,<a href="36878.html#36918">Yin_Yang_1UP_3</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36908"></span>36908</td>
 <td class="instruction">LD DE,37514</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37514">YIN_YANG_UDG_FULL</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37514">Yin_Yang_UDG_Full</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -173,7 +174,7 @@ Check if 1UP yin-yang total is now $02.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36914"></span>36914</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -186,27 +187,27 @@ Check if 1UP yin-yang total is now $02.
 <span id="36918"></span>
 <div class="comments">
 <div class="paragraph">
-Check if 1UP yin-yang total is now $03.
+Check if 1UP yin-yang total is now 3.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_1UP_3</td>
+<td class="asm-label">Yin_Yang_1UP_3</td>
 <td class="address-2"><span id="36918"></span>36918</td>
 <td class="instruction">CP 3</td>
-<td class="comment-1" rowspan="2">If the total is not <strong>$03</strong> then skip forward to <a href="36878.html#36941">YIN_YANG_1UP_4</a>.</td>
+<td class="comment-1" rowspan="2">If the total is not <strong>3</strong> then skip forward to <a href="36878.html#36941">Yin_Yang_1UP_4</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36920"></span>36920</td>
-<td class="instruction">JR NZ,<a href="36878.html#36941">YIN_YANG_1UP_4</a></td>
+<td class="instruction">JR NZ,<a href="36878.html#36941">Yin_Yang_1UP_4</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36922"></span>36922</td>
 <td class="instruction">LD DE,37514</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37514">YIN_YANG_UDG_FULL</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37514">Yin_Yang_UDG_Full</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -216,13 +217,13 @@ Check if 1UP yin-yang total is now $03.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36928"></span>36928</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36931"></span>36931</td>
 <td class="instruction">LD DE,37546</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37546">YIN_YANG_UDG_HALF</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37546">Yin_Yang_UDG_Half</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -232,7 +233,7 @@ Check if 1UP yin-yang total is now $03.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36937"></span>36937</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -245,16 +246,16 @@ Check if 1UP yin-yang total is now $03.
 <span id="36941"></span>
 <div class="comments">
 <div class="paragraph">
-1UP yin-yang total is $04.
+1UP yin-yang total is 4.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_1UP_4</td>
+<td class="asm-label">Yin_Yang_1UP_4</td>
 <td class="address-2"><span id="36941"></span>36941</td>
 <td class="instruction">LD DE,37514</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37514">YIN_YANG_UDG_FULL</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37514">Yin_Yang_UDG_Full</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -264,7 +265,7 @@ Check if 1UP yin-yang total is now $03.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36947"></span>36947</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -283,10 +284,10 @@ Player 2 yin-yang functionality.
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_2UP</td>
+<td class="asm-label">Yin_Yang_2UP</td>
 <td class="address-2"><span id="36951"></span>36951</td>
 <td class="instruction">LD A,(43592)</td>
-<td class="comment-1" rowspan="3">If <a href="43585.html#43592">P2_POINTS_AWARDED</a> is <strong>$00</strong> then no point was awarded for 2UP, if so then return.</td>
+<td class="comment-1" rowspan="3">If <a href="43585.html#43592">P2_Points_Awarded</a> is <strong>0</strong> then no point was awarded for 2UP, if so then return.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -312,7 +313,7 @@ Update 2UP yin-yang total.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36956"></span>36956</td>
 <td class="instruction">LD HL,43585</td>
-<td class="comment-1" rowspan="3">Add <a href="43585.html#43592">P2_POINTS_AWARDED</a> to <a href="43585.html">P2_YIN_YANG</a> and update the new total at <a href="43585.html">P2_YIN_YANG</a>.</td>
+<td class="comment-1" rowspan="3">Add <a href="43585.html#43592">P2_Points_Awarded</a> to <a href="43585.html">P2_Yin_Yang</a> and update the new total at <a href="43585.html">P2_Yin_Yang</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -329,7 +330,7 @@ Update 2UP yin-yang total.
 <span id="36961"></span>
 <div class="comments">
 <div class="paragraph">
-Check if 2UP yin-yang total is now $01.
+Check if 2UP yin-yang total is now 1.
 </div>
 </div>
 </td>
@@ -338,18 +339,18 @@ Check if 2UP yin-yang total is now $01.
 <td class="asm-label"></td>
 <td class="address-1"><span id="36961"></span>36961</td>
 <td class="instruction">CP 1</td>
-<td class="comment-1" rowspan="2">If the total is not <strong>$01</strong> then skip forward to <a href="36878.html#36975">YIN_YANG_2UP_2</a>.</td>
+<td class="comment-1" rowspan="2">If the total is not <strong>1</strong> then skip forward to <a href="36878.html#36975">Yin_Yang_2UP_2</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36963"></span>36963</td>
-<td class="instruction">JR NZ,<a href="36878.html#36975">YIN_YANG_2UP_2</a></td>
+<td class="instruction">JR NZ,<a href="36878.html#36975">Yin_Yang_2UP_2</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36965"></span>36965</td>
 <td class="instruction">LD DE,37546</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37546">YIN_YANG_UDG_HALF</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37546">Yin_Yang_UDG_Half</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -359,7 +360,7 @@ Check if 2UP yin-yang total is now $01.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36971"></span>36971</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -372,27 +373,27 @@ Check if 2UP yin-yang total is now $01.
 <span id="36975"></span>
 <div class="comments">
 <div class="paragraph">
-Check if 2UP yin-yang total is now $02.
+Check if 2UP yin-yang total is now 2.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_2UP_2</td>
+<td class="asm-label">Yin_Yang_2UP_2</td>
 <td class="address-2"><span id="36975"></span>36975</td>
 <td class="instruction">CP 2</td>
-<td class="comment-1" rowspan="2">If the total is not <strong>$02</strong> then skip forward to <a href="36878.html#36989">YIN_YANG_2UP_3</a>.</td>
+<td class="comment-1" rowspan="2">If the total is not <strong>2</strong> then skip forward to <a href="36878.html#36989">Yin_Yang_2UP_3</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36977"></span>36977</td>
-<td class="instruction">JR NZ,<a href="36878.html#36989">YIN_YANG_2UP_3</a></td>
+<td class="instruction">JR NZ,<a href="36878.html#36989">Yin_Yang_2UP_3</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36979"></span>36979</td>
 <td class="instruction">LD DE,37514</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37514">YIN_YANG_UDG_FULL</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37514">Yin_Yang_UDG_Full</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -402,7 +403,7 @@ Check if 2UP yin-yang total is now $02.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36985"></span>36985</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -415,27 +416,27 @@ Check if 2UP yin-yang total is now $02.
 <span id="36989"></span>
 <div class="comments">
 <div class="paragraph">
-Check if 2UP yin-yang total is now $03.
+Check if 2UP yin-yang total is now 3.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_2UP_3</td>
+<td class="asm-label">Yin_Yang_2UP_3</td>
 <td class="address-2"><span id="36989"></span>36989</td>
 <td class="instruction">CP 3</td>
-<td class="comment-1" rowspan="2">If the total is not <strong>$03</strong> then skip forward to <a href="36878.html#37012">YIN_YANG_2UP_4</a>.</td>
+<td class="comment-1" rowspan="2">If the total is not <strong>3</strong> then skip forward to <a href="36878.html#37012">Yin_Yang_2UP_4</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36991"></span>36991</td>
-<td class="instruction">JR NZ,<a href="36878.html#37012">YIN_YANG_2UP_4</a></td>
+<td class="instruction">JR NZ,<a href="36878.html#37012">Yin_Yang_2UP_4</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36993"></span>36993</td>
 <td class="instruction">LD DE,37514</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37514">YIN_YANG_UDG_FULL</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37514">Yin_Yang_UDG_Full</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -445,13 +446,13 @@ Check if 2UP yin-yang total is now $03.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="36999"></span>36999</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37002"></span>37002</td>
 <td class="instruction">LD DE,37546</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37546">YIN_YANG_UDG_HALF</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37546">Yin_Yang_UDG_Half</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -461,7 +462,7 @@ Check if 2UP yin-yang total is now $03.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37008"></span>37008</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -474,16 +475,16 @@ Check if 2UP yin-yang total is now $03.
 <span id="37012"></span>
 <div class="comments">
 <div class="paragraph">
-2UP yin-yang total is $04.
+2UP yin-yang total is 4.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">YIN_YANG_2UP_4</td>
+<td class="asm-label">Yin_Yang_2UP_4</td>
 <td class="address-2"><span id="37012"></span>37012</td>
 <td class="instruction">LD DE,37514</td>
-<td class="comment-1" rowspan="3">Call <a href="37461.html">YIN_YANG_COPY</a> using <a href="37461.html#37514">YIN_YANG_UDG_FULL</a>.</td>
+<td class="comment-1" rowspan="3">Call <a href="37461.html">Yin_Yang_Copy</a> using <a href="37461.html#37514">Yin_Yang_UDG_Full</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -493,7 +494,7 @@ Check if 2UP yin-yang total is now $03.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37018"></span>37018</td>
-<td class="instruction">CALL <a href="37461.html">YIN_YANG_COPY</a></td>
+<td class="instruction">CALL <a href="37461.html">Yin_Yang_Copy</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -515,8 +516,8 @@ Next: <a href="37022.html">37022</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/900E.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

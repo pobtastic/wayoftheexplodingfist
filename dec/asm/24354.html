@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,7 +39,7 @@ Next: <a href="24448.html">24448</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Takes the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a> and executes the appropriate routine to copy the background data addresses to the buffer at <a href="24336.html">BACKGROUND_DATA_BUFFER</a>. <div>Used by the routine at <a href="37376.html">37376</a>.</div>
+Takes the background reference from <a href="24320.html">Background_Reference</a> and executes the appropriate routine to copy the background data addresses to the buffer at <a href="24336.html">Background_Data_Buffer</a>. <div>Used by the routine at <a href="37376.html">37376</a>.</div>
 </div>
 </div>
 </td>
@@ -54,10 +55,10 @@ Blanks the screen.
 </td>
 </tr>
 <tr>
-<td class="asm-label">CHANGE_BACKGROUND</td>
+<td class="asm-label">Change_Background</td>
 <td class="address-2"><span id="24354"></span>24354</td>
 <td class="instruction">LD HL,22528</td>
-<td class="comment-1" rowspan="7">Writes $3F to all $300 locations of the attributes buffer. <table class="default">
+<td class="comment-1" rowspan="7">Writes 63 to all 768 locations of the attributes buffer. <table class="default">
 <tr>
 <th colspan="1" rowspan="1">Value</th>
 <th colspan="1" rowspan="1">Ink</th>
@@ -65,10 +66,10 @@ Blanks the screen.
 <th colspan="1" rowspan="1">Bright</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$3F</td>
-<td class="centre" colspan="1" rowspan="1">$07</td>
-<td class="centre" colspan="1" rowspan="1">$07</td>
-<td class="centre" colspan="1" rowspan="1">$00</td>
+<td class="centre" colspan="1" rowspan="1">63</td>
+<td class="centre" colspan="1" rowspan="1">7</td>
+<td class="centre" colspan="1" rowspan="1">7</td>
+<td class="centre" colspan="1" rowspan="1">0</td>
 </tr>
 </table> This is white ink on white paper.</td>
 </tr>
@@ -106,7 +107,7 @@ Blanks the screen.
 <td class="asm-label"></td>
 <td class="address-1"><span id="24367"></span>24367</td>
 <td class="instruction">LD HL,16384</td>
-<td class="comment-1" rowspan="7">Writes $00 to all $1800 locations of the screen buffer.</td>
+<td class="comment-1" rowspan="7">Writes 0 to all 6144 locations of the screen buffer.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -143,7 +144,7 @@ Blanks the screen.
 <span id="24380"></span>
 <div class="comments">
 <div class="paragraph">
-Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a> and use it to calculate the address for the copy-to-buffer routine.
+Fetch the background reference from <a href="24320.html">Background_Reference</a> and use it to calculate the address for the copy-to-buffer routine.
 </div>
 </div>
 </td>
@@ -152,7 +153,7 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <td class="asm-label"></td>
 <td class="address-1"><span id="24380"></span>24380</td>
 <td class="instruction">LD HL,24320</td>
-<td class="comment-1" rowspan="2">Loads <span class="register">A</span> with the contents of <a href="24320.html">BACKGROUND_REFERENCE</a>.</td>
+<td class="comment-1" rowspan="2">Loads <span class="register">A</span> with the contents of <a href="24320.html">Background_Reference</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -174,7 +175,7 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <td class="asm-label"></td>
 <td class="address-1"><span id="24386"></span>24386</td>
 <td class="instruction">LD C,A</td>
-<td class="comment-1" rowspan="2">Store it as the LSB of <span class="register">BC</span> (MSB is $00).</td>
+<td class="comment-1" rowspan="2">Store it as the LSB of <span class="register">BC</span> (MSB is 0).</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -185,13 +186,13 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <td class="asm-label"></td>
 <td class="address-1"><span id="24389"></span>24389</td>
 <td class="instruction">LD (HL),B</td>
-<td class="comment-1" rowspan="1">Write $00 to <a href="24320.html">BACKGROUND_REFERENCE</a>.</td>
+<td class="comment-1" rowspan="1">Write 0 to <a href="24320.html">Background_Reference</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24390"></span>24390</td>
 <td class="instruction">LD HL,24330</td>
-<td class="comment-1" rowspan="1"><span class="register">HL</span>=The beginning of three address references for the copy routines which populate <a href="24336.html">BACKGROUND_DATA_BUFFER</a> at <a href="24322.html#24330">$5F0A</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=The beginning of three address references for the copy routines which populate <a href="24336.html">Background_Data_Buffer</a> at <a href="24322.html#24330">$5F0A</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -205,19 +206,19 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <td class="instruction">LD E,(HL)</td>
 <td class="comment-1" rowspan="3"><span class="register">DE</span>=One of the three background address references; <table class="default">
 <tr>
-<th colspan="1" rowspan="1"><a href="24320.html">BACKGROUND_REFERENCE</a></th>
+<th colspan="1" rowspan="1"><a href="24320.html">Background_Reference</a></th>
 <th colspan="1" rowspan="1">Address Reference</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1">1</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24322.html#24330">$5F0A</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1">2</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24322.html#24332">$5F0C</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1">3</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24322.html#24334">$5F0E</a></td>
 </tr>
 </table></td>
@@ -241,8 +242,8 @@ Fetch the background reference from <a href="24320.html">BACKGROUND_REFERENCE</a
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24398"></span>24398</td>
-<td class="instruction">CALL <a href="24354.html#24402">INDIRECT_JUMP</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24354.html#24402">INDIRECT_JUMP</a>.</td>
+<td class="instruction">CALL <a href="24354.html#24402">Indirect_Jump</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html#24402">Indirect_Jump</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -261,24 +262,24 @@ Indirect jump to copy-to-buffer routine.
 </td>
 </tr>
 <tr>
-<td class="asm-label">INDIRECT_JUMP</td>
+<td class="asm-label">Indirect_Jump</td>
 <td class="address-2"><span id="24402"></span>24402</td>
 <td class="instruction">JP (HL)</td>
 <td class="comment-1" rowspan="1">Indirect jump to address held by <span class="register">HL</span>. <table class="default">
 <tr>
-<th colspan="1" rowspan="1"><a href="24320.html">BACKGROUND_REFERENCE</a></th>
+<th colspan="1" rowspan="1"><a href="24320.html">Background_Reference</a></th>
 <th colspan="1" rowspan="1">Jumps To...</th>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$01</td>
+<td class="centre" colspan="1" rowspan="1">1</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24354.html#24403">24403</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$02</td>
+<td class="centre" colspan="1" rowspan="1">2</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24354.html#24418">24418</a></td>
 </tr>
 <tr>
-<td class="centre" colspan="1" rowspan="1">$03</td>
+<td class="centre" colspan="1" rowspan="1">3</td>
 <td class="centre" colspan="1" rowspan="1"><a href="24354.html#24433">24433</a></td>
 </tr>
 </table></td>
@@ -297,7 +298,7 @@ Set up background 1.
 <td class="asm-label"></td>
 <td class="address-1"><span id="24403"></span>24403</td>
 <td class="instruction">LD HL,24619</td>
-<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24619.html">BACKGROUND_1_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
+<td class="comment-1" rowspan="4">Copies 18 bytes of data from <a href="24619.html">Background_1_Addresses</a> to <a href="24336.html">Background_Data_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -317,8 +318,8 @@ Set up background 1.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24414"></span>24414</td>
-<td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
+<td class="instruction">CALL <a href="24448.html">Create_Background</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html">Create_Background</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -340,7 +341,7 @@ Set up background 2.
 <td class="asm-label"></td>
 <td class="address-1"><span id="24418"></span>24418</td>
 <td class="instruction">LD HL,24637</td>
-<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24637.html">BACKGROUND_2_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
+<td class="comment-1" rowspan="4">Copies 18 bytes of data from <a href="24637.html">Background_2_Addresses</a> to <a href="24336.html">Background_Data_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -360,8 +361,8 @@ Set up background 2.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24429"></span>24429</td>
-<td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
+<td class="instruction">CALL <a href="24448.html">Create_Background</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html">Create_Background</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -383,7 +384,7 @@ Set up background 3.
 <td class="asm-label"></td>
 <td class="address-1"><span id="24433"></span>24433</td>
 <td class="instruction">LD HL,24655</td>
-<td class="comment-1" rowspan="4">Copies $12 bytes of data from <a href="24655.html">BACKGROUND_3_ADDRESSES</a> to <a href="24336.html">BACKGROUND_DATA_BUFFER</a>.</td>
+<td class="comment-1" rowspan="4">Copies 18 bytes of data from <a href="24655.html">Background_3_Addresses</a> to <a href="24336.html">Background_Data_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -403,8 +404,8 @@ Set up background 3.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="24444"></span>24444</td>
-<td class="instruction">CALL <a href="24448.html">CREATE_BACKGROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24448.html">CREATE_BACKGROUND</a>.</td>
+<td class="instruction">CALL <a href="24448.html">Create_Background</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24448.html">Create_Background</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -426,8 +427,8 @@ Next: <a href="24448.html">24448</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/5F22.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

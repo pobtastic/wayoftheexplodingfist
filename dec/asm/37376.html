@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,7 +39,7 @@ Next: <a href="37417.html">37417</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.html">START_1UP_GAME</a>.
+Used by the routines at <a href="43888.html">Demo_Mode</a> and <a href="44094.html">Start_1UP_Game</a>.
 </div>
 </div>
 </td>
@@ -46,31 +47,31 @@ Used by the routines at <a href="43888.html">DEMO_MODE</a> and <a href="44094.ht
 <tr>
 <td class="address-2"><span id="37376"></span>37376</td>
 <td class="instruction">LD (24320),A</td>
-<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="24320.html">BACKGROUND_REFERENCE</a>.</td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="24320.html">Background_Reference</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="37379"></span>37379</td>
-<td class="instruction">CALL <a href="24354.html">CHANGE_BACKGROUND</a></td>
-<td class="comment-1" rowspan="1">Call <a href="24354.html">CHANGE_BACKGROUND</a>.</td>
+<td class="instruction">CALL <a href="24354.html">Change_Background</a></td>
+<td class="comment-1" rowspan="1">Call <a href="24354.html">Change_Background</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="37382"></span>37382</td>
 <td class="instruction">LD A,72</td>
-<td class="comment-1" rowspan="2">Call <a href="49667.html">SCREEN_CALC</a> using $48. On return <span class="register">HL</span>=$4820.</td>
+<td class="comment-1" rowspan="2">Call <a href="49667.html">Screen_Calc</a> using 72. On return <span class="register">HL</span>=18464.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="37384"></span>37384</td>
-<td class="instruction">CALL <a href="49667.html">SCREEN_CALC</a></td>
+<td class="instruction">CALL <a href="49667.html">Screen_Calc</a></td>
 </tr>
 <tr>
 <td class="address-1"><span id="37387"></span>37387</td>
 <td class="instruction">LD B,64</td>
-<td class="comment-1" rowspan="1">Set a counter of $40.</td>
+<td class="comment-1" rowspan="1">Set a counter of 64.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="37389"></span>37389</td>
 <td class="instruction">LD DE,32768</td>
-<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="32768.html">SHADOW_BUFFER</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">DE</span>=<a href="32768.html">Shadow_Buffer</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="37392"></span>37392</td>
@@ -100,7 +101,7 @@ This entry point is used by the routine at <a href="45819.html">45819</a>.
 <tr>
 <td class="address-1"><span id="37395"></span>37395</td>
 <td class="instruction">LD BC,32</td>
-<td class="comment-1" rowspan="2">Copy <span class="register">HL</span> to <span class="register">DE</span> $20 times.</td>
+<td class="comment-1" rowspan="2">Copy <span class="register">HL</span> to <span class="register">DE</span> 32 times.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="37398"></span>37398</td>
@@ -180,8 +181,8 @@ Next: <a href="37417.html">37417</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../../asm/9200.html">Switch to hexadecimal</a>.</div>
 </footer>
 </body>

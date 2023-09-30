@@ -5,6 +5,7 @@
 <meta charset="utf-8" />
 <link rel="stylesheet" type="text/css" href="../skoolkit.css" />
 <link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
 <script>
@@ -38,7 +39,7 @@ Next: <a href="8D99.html">8D99</a>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routine at <a href="8C54.html">GAME_CONFIGS_MAIN</a>.
+Used by the routine at <a href="8C54.html">Game_Configs_Main</a>.
 </div>
 </div>
 </td>
@@ -48,22 +49,22 @@ Used by the routine at <a href="8C54.html">GAME_CONFIGS_MAIN</a>.
 <span id="8cdb"></span>
 <div class="comments">
 <div class="paragraph">
-The player controls menu.  Used for either player, references the currently targetted player at <a href="8E69.html">TEMP_PLAYER</a>.
+The player controls menu.  Used for either player, references the currently targetted player at <a href="8E69.html">Temp_Player</a>.
 </div>
 </div>
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONFIGS_CONTROLS</td>
+<td class="asm-label">Game_Configs_Controls</td>
 <td class="address-2"><span id="8cdb"></span>8CDB</td>
-<td class="instruction">CALL <a href="8E4C.html">CLEAR_SCREEN</a></td>
-<td class="comment-1" rowspan="1">Call <a href="8E4C.html">CLEAR_SCREEN</a>.</td>
+<td class="instruction">CALL <a href="8E4C.html">Clear_Screen</a></td>
+<td class="comment-1" rowspan="1">Call <a href="8E4C.html">Clear_Screen</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8cde"></span>8CDE</td>
 <td class="instruction">LD DE,$8ED6</td>
-<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ed6">TEXT_DEFAULT_LAYOUT</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ed6">Text_Default_Layout</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -73,13 +74,13 @@ The player controls menu.  Used for either player, references the currently targ
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8ce4"></span>8CE4</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8ce7"></span>8CE7</td>
 <td class="instruction">LD DE,$8EF4</td>
-<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ef4">TEXT_SINCLAIR_P1</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8ef4">Text_Sinclair_P1</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -89,13 +90,13 @@ The player controls menu.  Used for either player, references the currently targ
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8ced"></span>8CED</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8cf0"></span>8CF0</td>
 <td class="instruction">LD DE,$8F0F</td>
-<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f0f">TEXT_SINCLAIR_P2</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f0f">Text_Sinclair_P2</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -105,13 +106,13 @@ The player controls menu.  Used for either player, references the currently targ
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8cf6"></span>8CF6</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8cf9"></span>8CF9</td>
 <td class="instruction">LD DE,$8F2A</td>
-<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f2a">TEXT_KEYBOARD_RECONFIG</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f2a">Text_Keyboard_Reconfig</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -121,13 +122,13 @@ The player controls menu.  Used for either player, references the currently targ
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8cff"></span>8CFF</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d02"></span>8D02</td>
 <td class="instruction">LD DE,$8F41</td>
-<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f41">TEXT_KEMPSTON</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f41">Text_Kempston</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -137,13 +138,13 @@ The player controls menu.  Used for either player, references the currently targ
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d08"></span>8D08</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d0b"></span>8D0B</td>
 <td class="instruction">LD DE,$8F59</td>
-<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f59">TEXT_TYPE_2</a> and call <a href="92E4.html">PRINT_STRING</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="8E6B.html#8f59">Text_Type_2</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -153,18 +154,18 @@ The player controls menu.  Used for either player, references the currently targ
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d11"></span>8D11</td>
-<td class="instruction">CALL <a href="92E4.html">PRINT_STRING</a></td>
+<td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d14"></span>8D14</td>
-<td class="instruction">CALL <a href="8E42.html">CONFIGS_DELAY</a></td>
+<td class="instruction">CALL <a href="8E42.html">Configs_Delay</a></td>
 <td class="comment-1" rowspan="2">Adds a delay for keyboard debounce.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d17"></span>8D17</td>
-<td class="instruction">CALL <a href="8E42.html">CONFIGS_DELAY</a></td>
+<td class="instruction">CALL <a href="8E42.html">Configs_Delay</a></td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -177,7 +178,7 @@ Does the user want to revert to the default control method?
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_DEFAULTS</td>
+<td class="asm-label">Game_Controls_Defaults</td>
 <td class="address-2"><span id="8d1a"></span>8D1A</td>
 <td class="instruction">LD A,$24</td>
 <td class="comment-1" rowspan="2">Check if "1" key is pressed.</td>
@@ -185,19 +186,19 @@ Does the user want to revert to the default control method?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d1c"></span>8D1C</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d1f"></span>8D1F</td>
-<td class="instruction">JP C,<a href="8CDB.html#8d25">GAME_CONTROLS_SINCLAIR_1</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d25">GAME_CONTROLS_SINCLAIR_1</a>.</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d25">Game_Controls_Sinclair_1</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d25">Game_Controls_Sinclair_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d22"></span>8D22</td>
-<td class="instruction">JP <a href="8CDB.html#8d57">GAME_CONTROLS_SET_DEFAULT</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d57">GAME_CONTROLS_SET_DEFAULT</a>.</td>
+<td class="instruction">JP <a href="8CDB.html#8d57">Game_Controls_Set_Default</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d57">Game_Controls_Set_Default</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -210,7 +211,7 @@ Change player to use "Sinclair Joystick #1"?
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SINCLAIR_1</td>
+<td class="asm-label">Game_Controls_Sinclair_1</td>
 <td class="address-2"><span id="8d25"></span>8D25</td>
 <td class="instruction">LD A,$1C</td>
 <td class="comment-1" rowspan="2">Check if "2" key is pressed.</td>
@@ -218,19 +219,19 @@ Change player to use "Sinclair Joystick #1"?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d27"></span>8D27</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d2a"></span>8D2A</td>
-<td class="instruction">JP C,<a href="8CDB.html#8d30">GAME_CONTROLS_SINCLAIR_2</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d30">GAME_CONTROLS_SINCLAIR_2</a>.</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d30">Game_Controls_Sinclair_2</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d30">Game_Controls_Sinclair_2</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d2d"></span>8D2D</td>
-<td class="instruction">JP <a href="8CDB.html#8d75">GAME_CONTROLS_SET_SINCLAIR_1</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d75">GAME_CONTROLS_SET_SINCLAIR_1</a>.</td>
+<td class="instruction">JP <a href="8CDB.html#8d75">Game_Controls_Set_Sinclair_1</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d75">Game_Controls_Set_Sinclair_1</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -243,7 +244,7 @@ Change player to use "Sinclair Joystick #2"?
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SINCLAIR_2</td>
+<td class="asm-label">Game_Controls_Sinclair_2</td>
 <td class="address-2"><span id="8d30"></span>8D30</td>
 <td class="instruction">LD A,$14</td>
 <td class="comment-1" rowspan="2">Check if "3" key is pressed.</td>
@@ -251,19 +252,19 @@ Change player to use "Sinclair Joystick #2"?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d32"></span>8D32</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d35"></span>8D35</td>
-<td class="instruction">JP C,<a href="8CDB.html#8d3b">GAME_CONTROLS_KEMPSTON</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d3b">GAME_CONTROLS_KEMPSTON</a>.</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d3b">Game_Controls_Kempston</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d3b">Game_Controls_Kempston</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d38"></span>8D38</td>
-<td class="instruction">JP <a href="8CDB.html#8d81">GAME_CONTROLS_SET_SINCLAIR_2</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d81">GAME_CONTROLS_SET_SINCLAIR_2</a>.</td>
+<td class="instruction">JP <a href="8CDB.html#8d81">Game_Controls_Set_Sinclair_2</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d81">Game_Controls_Set_Sinclair_2</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -276,7 +277,7 @@ Change player to use "Kempston" joystick?
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_KEMPSTON</td>
+<td class="asm-label">Game_Controls_Kempston</td>
 <td class="address-2"><span id="8d3b"></span>8D3B</td>
 <td class="instruction">LD A,$04</td>
 <td class="comment-1" rowspan="2">Check if "5" key is pressed.</td>
@@ -284,19 +285,19 @@ Change player to use "Kempston" joystick?
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d3d"></span>8D3D</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d40"></span>8D40</td>
-<td class="instruction">JP C,<a href="8CDB.html#8d46">GAME_CONTROLS_KEYBOARD</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d46">GAME_CONTROLS_KEYBOARD</a>.</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d46">Game_Controls_Keyboard</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, continue on to <a href="8CDB.html#8d46">Game_Controls_Keyboard</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d43"></span>8D43</td>
-<td class="instruction">JP <a href="8CDB.html#8d8d">GAME_CONTROLS_SET_KEMPSTON</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d8d">GAME_CONTROLS_SET_KEMPSTON</a>.</td>
+<td class="instruction">JP <a href="8CDB.html#8d8d">Game_Controls_Set_Kempston</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d8d">Game_Controls_Set_Kempston</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -309,7 +310,7 @@ Redefine keys for player.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_KEYBOARD</td>
+<td class="asm-label">Game_Controls_Keyboard</td>
 <td class="address-2"><span id="8d46"></span>8D46</td>
 <td class="instruction">LD A,$0C</td>
 <td class="comment-1" rowspan="2">Check if "4" key is pressed.</td>
@@ -317,30 +318,30 @@ Redefine keys for player.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d48"></span>8D48</td>
-<td class="instruction">CALL <a href="9C53.html">KEYBOARD_TEST</a></td>
+<td class="instruction">CALL <a href="9C53.html">Keyboard_Test</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d4b"></span>8D4B</td>
-<td class="instruction">JP C,<a href="8CDB.html#8d1a">GAME_CONTROLS_DEFAULTS</a></td>
-<td class="comment-1" rowspan="1">No keys were pressed, loop back round to <a href="8CDB.html#8d1a">GAME_CONTROLS_DEFAULTS</a>.</td>
+<td class="instruction">JP C,<a href="8CDB.html#8d1a">Game_Controls_Defaults</a></td>
+<td class="comment-1" rowspan="1">No keys were pressed, loop back round to <a href="8CDB.html#8d1a">Game_Controls_Defaults</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d4e"></span>8D4E</td>
-<td class="instruction">CALL <a href="8E42.html">CONFIGS_DELAY</a></td>
+<td class="instruction">CALL <a href="8E42.html">Configs_Delay</a></td>
 <td class="comment-1" rowspan="2">Adds a delay for keyboard debounce.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d51"></span>8D51</td>
-<td class="instruction">CALL <a href="8E42.html">CONFIGS_DELAY</a></td>
+<td class="instruction">CALL <a href="8E42.html">Configs_Delay</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d54"></span>8D54</td>
-<td class="instruction">JP <a href="8D99.html">GAME_CONFIGS_KEYS</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8D99.html">GAME_CONFIGS_KEYS</a>.</td>
+<td class="instruction">JP <a href="8D99.html">Game_Configs_Keys</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8D99.html">Game_Configs_Keys</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -353,10 +354,10 @@ Actions setting keyboard controls for player back to defaults.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SET_DEFAULT</td>
+<td class="asm-label">Game_Controls_Set_Default</td>
 <td class="address-2"><span id="8d57"></span>8D57</td>
 <td class="instruction">LD HL,($8E69)</td>
-<td class="comment-1" rowspan="4">Check if <a href="8E69.html">TEMP_PLAYER</a> is equal to <a href="8BD2.html">PLAYER_1_CONTROLS</a>.</td>
+<td class="comment-1" rowspan="4">Check if <a href="8E69.html">Temp_Player</a> is equal to <a href="8BD2.html">Player_1_Controls</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -376,14 +377,14 @@ Actions setting keyboard controls for player back to defaults.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d60"></span>8D60</td>
-<td class="instruction">JP NZ,<a href="8CDB.html#8d6c">GAME_CONTROLS_SET_DEFAULT_P2</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d6c">GAME_CONTROLS_SET_DEFAULT_P2</a> if we are working with player 2.</td>
+<td class="instruction">JP NZ,<a href="8CDB.html#8d6c">Game_Controls_Set_Default_P2</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8CDB.html#8d6c">Game_Controls_Set_Default_P2</a> if we are working with player 2.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d63"></span>8D63</td>
 <td class="instruction">LD HL,$8BFA</td>
-<td class="comment-1" rowspan="2">Store <a href="8BFA.html">P1_DEFAULT_KEYS</a> at <a href="8BD2.html">PLAYER_1_CONTROLS</a>.</td>
+<td class="comment-1" rowspan="2">Store <a href="8BFA.html">P1_Default_Keys</a> at <a href="8BD2.html">Player_1_Controls</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -393,14 +394,14 @@ Actions setting keyboard controls for player back to defaults.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d69"></span>8D69</td>
-<td class="instruction">JP <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a> (just returns).</td>
+<td class="instruction">JP <a href="8C54.html#8cda">Game_Configs_Return</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">Game_Configs_Return</a> (just returns).</td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SET_DEFAULT_P2</td>
+<td class="asm-label">Game_Controls_Set_Default_P2</td>
 <td class="address-2"><span id="8d6c"></span>8D6C</td>
 <td class="instruction">LD HL,$8C0C</td>
-<td class="comment-1" rowspan="2">Store <a href="8C0C.html">P2_DEFAULT_KEYS</a> at <a href="8BE6.html">PLAYER_2_CONTROLS</a>.</td>
+<td class="comment-1" rowspan="2">Store <a href="8C0C.html">P2_Default_Keys</a> at <a href="8BE6.html">Player_2_Controls</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -410,8 +411,8 @@ Actions setting keyboard controls for player back to defaults.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d72"></span>8D72</td>
-<td class="instruction">JP <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a> (just returns).</td>
+<td class="instruction">JP <a href="8C54.html#8cda">Game_Configs_Return</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">Game_Configs_Return</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -424,16 +425,16 @@ Actions setting player to use Sinclair Joystick #1.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SET_SINCLAIR_1</td>
+<td class="asm-label">Game_Controls_Set_Sinclair_1</td>
 <td class="address-2"><span id="8d75"></span>8D75</td>
 <td class="instruction">LD HL,($8E69)</td>
-<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">TEMP_PLAYER</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">Temp_Player</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d78"></span>8D78</td>
 <td class="instruction">LD DE,$8C30</td>
-<td class="comment-1" rowspan="4">Pushes <a href="8C30.html">SINCLAIR_1</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="8C30.html">Sinclair_1</a> for the current player.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -453,8 +454,8 @@ Actions setting player to use Sinclair Joystick #1.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d7e"></span>8D7E</td>
-<td class="instruction">JP <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a> (just returns).</td>
+<td class="instruction">JP <a href="8C54.html#8cda">Game_Configs_Return</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">Game_Configs_Return</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -467,16 +468,16 @@ Actions setting player to use Sinclair Joystick #2.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SET_SINCLAIR_2</td>
+<td class="asm-label">Game_Controls_Set_Sinclair_2</td>
 <td class="address-2"><span id="8d81"></span>8D81</td>
 <td class="instruction">LD HL,($8E69)</td>
-<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">TEMP_PLAYER</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">Temp_Player</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d84"></span>8D84</td>
 <td class="instruction">LD DE,$8C1E</td>
-<td class="comment-1" rowspan="4">Pushes <a href="8C1E.html">SINCLAIR_2</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="8C1E.html">Sinclair_2</a> for the current player.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -496,8 +497,8 @@ Actions setting player to use Sinclair Joystick #2.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d8a"></span>8D8A</td>
-<td class="instruction">JP <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a> (just returns).</td>
+<td class="instruction">JP <a href="8C54.html#8cda">Game_Configs_Return</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">Game_Configs_Return</a> (just returns).</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -510,16 +511,16 @@ Actions setting player to use Kempston Joystick.
 </td>
 </tr>
 <tr>
-<td class="asm-label">GAME_CONTROLS_SET_KEMPSTON</td>
+<td class="asm-label">Game_Controls_Set_Kempston</td>
 <td class="address-2"><span id="8d8d"></span>8D8D</td>
 <td class="instruction">LD HL,($8E69)</td>
-<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">TEMP_PLAYER</a>.</td>
+<td class="comment-1" rowspan="1">Fetch the current player from <a href="8E69.html">Temp_Player</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d90"></span>8D90</td>
 <td class="instruction">LD DE,$8C42</td>
-<td class="comment-1" rowspan="4">Pushes <a href="8C42.html">KEMPSTON</a> for the current player.</td>
+<td class="comment-1" rowspan="4">Pushes <a href="8C42.html">Kempston</a> for the current player.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -539,8 +540,8 @@ Actions setting player to use Kempston Joystick.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="8d96"></span>8D96</td>
-<td class="instruction">JP <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">GAME_CONFIGS_RETURN</a> (just returns).</td>
+<td class="instruction">JP <a href="8C54.html#8cda">Game_Configs_Return</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="8C54.html#8cda">Game_Configs_Return</a> (just returns).</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -556,8 +557,8 @@ Next: <a href="8D99.html">8D99</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.6.</div>
+<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
 <div><a href="../dec/asm/36059.html">Switch to decimal</a>.</div>
 </footer>
 </body>
