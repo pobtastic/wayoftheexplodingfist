@@ -33,7 +33,7 @@ Next: <a href="37736.html">37736</a>
 </td>
 </tr>
 </table>
-<div class="description">37676: Processes the remaining time string.</div>
+<div class="description">37676: Processes The Remaining Time String</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -155,7 +155,7 @@ The time isn't printed as "00005" so this routine replaces the zeroes with space
 <td class="asm-label"></td>
 <td class="address-1"><span id="37710"></span>37710</td>
 <td class="instruction">LD A,32</td>
-<td class="comment-1" rowspan="2">Write ASCII "space" ($20) to the time buffer location.</td>
+<td class="comment-1" rowspan="2">Write ASCII "space" (32) to the time buffer location.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -188,13 +188,13 @@ If time has run out, show at least an ASCII "0".
 <td class="asm-label">Time_Check_Last</td>
 <td class="address-2"><span id="37717"></span>37717</td>
 <td class="instruction">LD DE,37680</td>
-<td class="comment-1" rowspan="1">Point to the last digit of the time buffer <a href="37676.html">$9330</a>.</td>
+<td class="comment-1" rowspan="1">Point to the last digit of the time buffer <a href="37676.html">37680</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="37720"></span>37720</td>
 <td class="instruction">LD A,(DE)</td>
-<td class="comment-1" rowspan="3">If it is not an ASCII "space" ($20) then jump to <a href="37676.html#37729">Print_Time_Screen</a>.</td>
+<td class="comment-1" rowspan="3">If it is not an ASCII "space" (32) then jump to <a href="37676.html#37729">Print_Time_Screen</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
