@@ -1,28 +1,130 @@
 ; Copyright 2023 Paul Maddern (paul@arcadegeek.co.uk)
 
-[Poke:extraTime:Extra time]
+[Poke:Extra time]
 To give the fighters 255 seconds of time:
 
-POKE #R$AEF8(44793),255
+POKE #R$AEF8(#N$AEF9),#N$FF
 
-[Poke:pointsToWinP1:Points to win (P1)]
+This changes the value which is written to #R$9CA5 when a game begins.
 
-POKE #R$AD2B(44332),255
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$AEF8(#N$AEF8)</td>
+      <td class="instruction">LD #REGa,#N$1E</td>
+    </tr>
+    <tr>
+      <td class="address-1">#R$AEFA</td>
+      <td class="instruction">LD (#R$9CA5(#N$9CA5)),#REGa</td>
+    </tr>
+  </tbody>
+</table>
 
-[Poke:pointsToWinP2:Points to win (P2)]
+[Poke:Points to win (P1)]
 
-POKE #R$AD32(44339),255
+POKE #R$AD2B(#N$AD2C),<em>nn</em>
 
-[Poke:cpuNonScoring:CPU doesn't score]
+This alters the check ("compare") for how many points 1UP has when a round finishes to determine whether the match is
+over.
 
-POKE #R$9057(36951),201
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$AD2B</td>
+      <td class="instruction">CP #N$04</td>
+    </tr>
+  </tbody>
+</table>
 
-[Poke:winOnDraw:Win on draw]
+[Poke:Points to win (P2)]
 
-POKE #R$AD4D(44366),16
+POKE #R$AD32(#N$AD33),<em>nn</em>
 
-[Poke:disableTime:Combat without time]
+This alters the check ("compare") for how many points 2UP has when a round finishes to determine whether the match is
+over.
 
-<div>POKE #R$AD82(44418),175</div>
-<div>POKE #R$9CF5(40181),182</div>
-<div>POKE #R$9CA3(40099),182</div>
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$AD32</td>
+      <td class="instruction">CP #N$04</td>
+    </tr>
+  </tbody>
+</table>
+
+[Poke:CPU doesn't score]
+
+POKE #R$9057(#N$9057),#N$C9
+
+This changes the block of code which handles CPU scoring from:
+
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$9057(#N$9057)</td>
+      <td class="instruction">LD #REGa,(#R$AA48(#N$AA48))</td>
+    </tr>
+    <tr>
+      <td class="address-1">#R$905A</td>
+      <td class="instruction">AND #REGa</td>
+    </tr>
+    <tr>
+      <td class="address-1">#R$905B</td>
+      <td class="instruction">RET Z</td>
+    </tr>
+  </tbody>
+</table>
+
+To simply just return.
+
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$9057(#N$9057)</td>
+      <td class="instruction">RET</td>
+    </tr>
+  </tbody>
+</table>
+
+[Poke:Win on draw]
+
+POKE #R$AD4D(#N$AD4E),#N$10
+
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$AD4D</td>
+      <td class="instruction">JR Z,#R$AD51(#N$AD51)</td>
+    </tr>
+  </tbody>
+</table>
+
+[Poke:Combat without time]
+
+<div>POKE #R$AD82,#N$AF</div>
+<div>POKE #R$9CF5,#N$B6</div>
+<div>POKE #R$9CA3,#N$B6</div>
+
+This changes:
+
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$AD82</td>
+      <td class="instruction">AND #REGa</td>
+    </tr>
+  </tbody>
+</table>
+
+To:
+
+<table>
+  <tbody>
+    <tr>
+      <td class="address-1">#R$AD82</td>
+      <td class="instruction">XOR #REGa</td>
+    </tr>
+  </tbody>
+</table>
+
+TBC.

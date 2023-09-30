@@ -19,7 +19,7 @@ g $5F00 Background Reference
 D $5F00 Used by the routine at #R$5F3C. Can be either; #LIST { #N$01 } { #N$02 } { #N$03 } LIST#
 . This represents which background is shown.
 
-g $5F01 Unused.
+g $5F01 Unused
 S $5F01
 
 g $5F02 Background screen buffer
@@ -53,7 +53,7 @@ W $5F18,$04 Block 3.
 W $5F1C,$04 Block 4.
 W $5F20 Attribute data.
 
-c $5F22 Change Background.
+c $5F22 Change Background
 @ $5F22 label=Change_Background
 D $5F22 #HTML(Takes the background reference from #R$5F00 and executes the appropriate routine to copy the background data
 .       addresses to the buffer at #R$5F10.
@@ -109,7 +109,7 @@ N $5F71 Set up background 3.
   $5F7C,$03 Call #R$5F80.
   $5F7F,$01 Return.
 
-c $5F80 Creates the background image.
+c $5F80 Creates Background Image
 N $5F80 Each background uses 4 sets of data "pairs" and a single reference for attribute data (handled separately at
 . #R$6010). For example, #R$602B(background 1) uses;
 . #TABLE(default,centre,centre,centre)
@@ -209,7 +209,7 @@ N $6007 Handles moving from one screen location block to the next.
   $600B,$04 Add #N$07 to #REGd, so that #REGde points to the next block down.
   $600F,$01 Return.
 
-c $6010 Unpack background attribute data.
+c $6010 Unpack Background Attribute Data
 @ $6010 label=Background_Attributes
 N $6010 Unpacks the attribute data into the buffer. On entry #REGhl will contain one of the following background
 . reference memory locations;
@@ -250,132 +250,159 @@ N $6022 Using the following attribute data byte as a counter, copy the current b
   $6027,$02 Decrease counter by one and loop back to #R$6025 until counter is zero.
   $6029,$02 Jump back to #R$6013.
 
-b $602B Background 1 Address references.
+w $602B Background 1 Address References
 D $602B The data blocks containing UDG, positioning and attribute data.
 N $602B #BACKGROUND1,$01(background_1)
 @ $602B label=Background_1_Addresses
-W $602B,$04 Block #N$01.
-W $602F,$04 Block #N$02.
-W $6033,$04 Block #N$03.
-W $6037,$04 Block #N$04.
-W $603B Attribute data.
+  $602B,$04 Block #N$01.
+  $602F,$04 Block #N$02.
+  $6033,$04 Block #N$03.
+  $6037,$04 Block #N$04.
 @ $603B label=Background_1_Attribute_Data
+  $603B Attribute data.
 
-b $603D Background 2 Address references.
+w $603D Background 2 Address References
 D $603D The data blocks containing UDG, positioning and attribute data.
 N $603D #BACKGROUND2,$01(background_2)
 @ $603D label=Background_2_Addresses
-W $603D,$04 Block #N$01.
-W $6041,$04 Block #N$02.
-W $6045,$04 Block #N$03.
-W $6049,$04 Block #N$04.
-W $604D Attribute data.
+  $603D,$04 Block #N$01.
+  $6041,$04 Block #N$02.
+  $6045,$04 Block #N$03.
+  $6049,$04 Block #N$04.
 @ $604D label=Background_2_Attribute_Data
+  $604D Attribute data.
 
-b $604F Background 3 Address references.
+w $604F Background 3 Address References
 D $604F The data blocks containing UDG, positioning and attribute data.
 N $604F #BACKGROUND3,$01(background_3)
 @ $604F label=Background_3_Addresses
-W $604F,$04 Block #N$01.
-W $6053,$04 Block #N$02.
-W $6057,$04 Block #N$03.
-W $605B,$04 Block #N$04.
-W $605F Attribute data.
+  $604F,$04 Block #N$01.
+  $6053,$04 Block #N$02.
+  $6057,$04 Block #N$03.
+  $605B,$04 Block #N$04.
 @ $605F label=Background_3_Attribute_Data
+  $605F Attribute data.
 
-b $6061 Background 1 attribute data.
+b $6061 Background 1 Attribute Data
 D $6061 See #R$6010 for usage.
-B $6100,$02 Terminator.
+  $6100,$02 Terminator.
+
 b $6102 Background 1 positioning data.
 D $6102 See #R$5F80 for usage.
-B $6102 #CALL:position_data(#PC, $626A, position_1_1, 1)
-B $6155,$02 Terminator.
+  $6102 #CALL:position_data(#PC, $626A, position_1_1, 1)
+  $6155,$02 Terminator.
+
 b $6157 Background 1 positioning data.
 D $6157 See #R$5F80 for usage.
-B $6157 #CALL:position_data(#PC, $648A, position_1_2, 1)
-B $61D7,$02 Terminator.
+  $6157 #CALL:position_data(#PC, $648A, position_1_2, 1)
+  $61D7,$02 Terminator.
+
 b $61D9 Background 1 positioning data.
 D $61D9 See #R$5F80 for usage.
-B $61D9 #CALL:position_data(#PC, $685A, position_1_3, 1)
-B $624B,$02 Terminator.
+  $61D9 #CALL:position_data(#PC, $685A, position_1_3, 1)
+  $624B,$02 Terminator.
+
 b $624D Background 1 positioning data.
 D $624D See #R$5F80 for usage.
-B $624D #CALL:position_data(#PC, $6AE2, position_1_4, 1)
-B $6268,$02 Terminator.
+  $624D #CALL:position_data(#PC, $6AE2, position_1_4, 1)
+  $6268,$02 Terminator.
+
 b $626A Background 1 tile data.
-B $626A,$08 #UDG(#PC,attr=56)
+  $626A,$08 #UDG(#PC,attr=56)
 L $626A,$08,$44
+
 b $648A Background 1 tile data.
-B $648A,$08 #UDG(#PC,attr=56)
+  $648A,$08 #UDG(#PC,attr=56)
 L $648A,$08,$7A
+
 b $685A Background 1 tile data.
-B $685A,$08 #UDG(#PC,attr=56)
+  $685A,$08 #UDG(#PC,attr=56)
 L $685A,$08,$51
+
 b $6AE2 Background 1 tile data.
-B $6AE2,$08 #UDG(#PC,attr=56)
+  $6AE2,$08 #UDG(#PC,attr=56)
 L $6AE2,$08,$14
+
 u $6B82
+
 b $6B83 Background 2 attribute data.
 D $6B83 See #R$6010 for usage.
-B $6C49,$02 Terminator.
+  $6C49,$02 Terminator.
+
 b $6C4B Background 2 positioning data.
 D $6C4B See #R$5F80 for usage.
-B $6C4B #CALL:position_data(#PC, $6DAE, position_2_1, 1)
-B $6C77,$02 Terminator.
+  $6C4B #CALL:position_data(#PC, $6DAE, position_2_1, 1)
+  $6C77,$02 Terminator.
+
 b $6C79 Background 2 positioning data.
 D $6C79 See #R$5F80 for usage.
-B $6C79 #CALL:position_data(#PC, $6E96, position_2_2, 1)
-B $6CF5,$02 Terminator.
+  $6C79 #CALL:position_data(#PC, $6E96, position_2_2, 1)
+  $6CF5,$02 Terminator.
+
 b $6CF7 Background 2 positioning data.
 D $6CF7 See #R$5F80 for usage.
-B $6CF7 #CALL:position_data(#PC, $720E, position_2_3, 1)
-B $6D77,$02 Terminator.
+  $6CF7 #CALL:position_data(#PC, $720E, position_2_3, 1)
+  $6D77,$02 Terminator.
+
 b $6D79 Background 2 positioning data.
 D $6D79 See #R$5F80 for usage.
-B $6D79 #CALL:position_data(#PC, $7606, position_2_4, 1)
-B $6DAC,$02 Terminator.
+  $6D79 #CALL:position_data(#PC, $7606, position_2_4, 1)
+  $6DAC,$02 Terminator.
+
 b $6DAE Background 2 tile data.
-B $6DAE,$08 #UDG(#PC,attr=56)
+  $6DAE,$08 #UDG(#PC,attr=56)
 L $6DAE,$08,$1D
+
 b $6E96 Background 2 tile data.
-B $6E96,$08 #UDG(#PC,attr=56)
+  $6E96,$08 #UDG(#PC,attr=56)
 L $6E96,$08,$6F
+
 b $720E Background 2 tile data.
-B $720E,$08 #UDG(#PC,attr=56)
+  $720E,$08 #UDG(#PC,attr=56)
 L $720E,$08,$7F
+
 b $7606 Background 2 tile data.
-B $7606,$08 #UDG(#PC,attr=56)
+  $7606,$08 #UDG(#PC,attr=56)
 L $7606,$08,$2C
+
 b $7766 Background 3 attribute data.
 D $7766 See #R$6010 for usage.
-B $784D,$02 Terminator.
+  $784D,$02 Terminator.
+
 b $784F Background 3 positioning data.
 D $784F See #R$5F80 for usage.
-B $784F #CALL:position_data(#PC, $79B1, position_3_1, 1)
-B $7891,$02 Terminator.
+  $784F #CALL:position_data(#PC, $79B1, position_3_1, 1)
+  $7891,$02 Terminator.
+
 b $7893 Background 3 positioning data.
 D $7893 See #R$5F80 for usage.
-B $7893 #CALL:position_data(#PC, $7BB1, position_3_2, 1)
-B $790E,$02 Terminator.
+  $7893 #CALL:position_data(#PC, $7BB1, position_3_2, 1)
+  $790E,$02 Terminator.
+
 b $7910 Background 3 positioning data.
 D $7910 See #R$5F80 for usage.
-B $7910 #CALL:position_data(#PC, $7D09, position_3_3, 1)
-B $798F,$02 Terminator.
+  $7910 #CALL:position_data(#PC, $7D09, position_3_3, 1)
+  $798F,$02 Terminator.
+
 b $7991 Background 3 positioning data.
 D $7991 See #R$5F80 for usage.
-B $7991 #CALL:position_data(#PC, $7F39, position_3_4, 1)
-B $79AF,$02 Terminator.
+  $7991 #CALL:position_data(#PC, $7F39, position_3_4, 1)
+  $79AF,$02 Terminator.
+
 b $79B1 Background 3 tile data.
-B $79B1,$08 #UDG(#PC,attr=56)
+  $79B1,$08 #UDG(#PC,attr=56)
 L $79B1,$08,$40
+
 b $7BB1 Background 3 tile data.
-B $7BB1,$08 #UDG(#PC,attr=56)
+  $7BB1,$08 #UDG(#PC,attr=56)
 L $7BB1,$08,$2B
+
 b $7D09 Background 3 tile data.
-B $7D09,$08 #UDG(#PC,attr=56)
+  $7D09,$08 #UDG(#PC,attr=56)
 L $7D09,$08,$46
+
 b $7F39 Background 3 tile data.
-B $7F39,$08 #UDG(#PC,attr=56)
+  $7F39,$08 #UDG(#PC,attr=56)
 L $7F39,$08,$0E
 
 b $8000 Shadow buffer
@@ -388,7 +415,7 @@ D $8000 #UDGTABLE
 . { #SHADOWBUFF3,$02{y=$50}(shadow-screen-3) }
 . UDGTABLE#
 D $8000 Used by the routine at #R$9200.
-B $8000,$800,$20 Pixels
+  $8000,$800,$20 Pixels
 
 c $8800
 c $8833
@@ -888,8 +915,12 @@ c $9200
   $9210,$01 Push #REGhl onto the stack.
   $9211,$01 Push #REGde onto the stack.
   $9212,$01 Push #REGbc onto the stack.
-  $9213,$05 Copy #REGhl to #REGde #N$20 times.
+  $9213,$05 Copy #N$20 bytes of data from #REGhl to #REGde.
+  $9218,$03 Restore #REGbc, #REGde and #REGhl from the stack.
+  $921B,$03 Call #R$9229.
   $921E,$01 Stash the counter on the stack.
+  $921F,$03 #REGbc=#N($0020,$04,$04).
+  $9222,$03 #REGde+=#REGbc.
   $9225,$01 Restore the counter from the stack.
   $9226,$02 Decrease counter by one and loop back to #R$9210 until counter is zero.
   $9228,$01 Return.
@@ -1391,7 +1422,15 @@ N $AC3E fff
   $AC4E,$07 Write #N$01 to; #LIST { #R$AF35 } { #R$AA46 } LIST#
   $AC55,$07 Write #N$02 to; #LIST { #R$AA3C } { #R$AF34 } LIST#
   $AC5C,$03 Call #R$AF0B.
-
+  $AC5F,$06 If #R$AF35 is zero, jump to #R$AC9D.
+  $AC65,$01 Decrease #REGa by one.
+  $AC66,$03 Write #REGa to #R$AF35.
+  $AC69,$03 Call #R$90D1.
+  $AC6C,$03 #REGa=#R$AF34.
+  $AC6F,$03 Call #R$9200.
+  $AC72,$02 #REGb=#N$00.
+  $AC74,$03 Call #R$AF52.
+  $AC77,$03 Call #R$98BF.
   $AC7A,$06 Point to #R$B035 and call #R$A685.
 
   $AC91,$09 Point to #R$B024 and call #R$92E4.
@@ -1455,9 +1494,9 @@ c $AEF8 Initialise time counter.
 c $AF01
   $AF0A,$01 Return.
 
-c $AF0B Resets score.
+c $AF0B Reset Score
 @ $AF0B label=Reset_Score
-  $AF0B,$0E Writes #N$00 to the memory locations between #N$B02D-#N$B032 (blanks current #N$B02D).
+  $AF0B,$0E Writes #N$00 to the memory locations between #R$B02C(#N$B02D)-#N$B032.
   $AF19,$01 Return.
 
 c $AF1A

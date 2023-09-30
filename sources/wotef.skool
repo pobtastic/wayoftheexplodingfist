@@ -236,7 +236,7 @@ s$5B00 DEFS $0400
 @label=Background_Reference
 g$5F00 DEFB $00
 
-; Unused.
+; Unused
 g$5F01 DEFS $01
 
 ; Background screen buffer
@@ -276,7 +276,7 @@ g$5F10 DEFW $0000    ; {Block 1.
  $5F1E DEFW $0000    ; }
  $5F20 DEFW $0000    ; Attribute data.
 
-; Change Background.
+; Change Background
 ;
 ; #HTML(Takes the background reference from #R$5F00 and executes the appropriate routine to copy the background data
 ;       addresses to the buffer at #R$5F10.
@@ -353,7 +353,7 @@ c$5F22 LD HL,$5800   ; {Writes #N$3F to all #N$300 locations of the attributes b
  $5F7C CALL $5F80    ; Call #R$5F80.
  $5F7F RET           ; Return.
 
-; Creates the background image.
+; Creates Background Image
 ;
 ; Used by the routine at #R$5F22.
 ;
@@ -501,7 +501,7 @@ c$5F80 LD HL,$4080   ; {The first screen address is #N$4080 which allows space f
  $600E LD D,A        ; }
  $600F RET           ; Return.
 
-; Unpack background attribute data.
+; Unpack Background Attribute Data
 ;
 ; Used by the routine at #R$5F80.
 ;
@@ -554,7 +554,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
                      ; counter is zero.
  $6029 JR $6013      ; Jump back to #R$6013.
 
-; Background 1 Address references.
+; Background 1 Address References
 ;
 ; The data blocks containing UDG, positioning and attribute data.
 ;
@@ -562,7 +562,7 @@ c$6010 LD DE,$5800   ; Begin at the start of the #R$5800.
 ;
 ; #BACKGROUND1,$01(background_1)
 @label=Background_1_Addresses
-b$602B DEFW $626A    ; {Block #N$01.
+w$602B DEFW $626A    ; {Block #N$01.
  $602D DEFW $6102    ; }
  $602F DEFW $648A    ; {Block #N$02.
  $6031 DEFW $6157    ; }
@@ -573,7 +573,7 @@ b$602B DEFW $626A    ; {Block #N$01.
 @label=Background_1_Attribute_Data
  $603B DEFW $6061    ; Attribute data.
 
-; Background 2 Address references.
+; Background 2 Address References
 ;
 ; The data blocks containing UDG, positioning and attribute data.
 ;
@@ -581,7 +581,7 @@ b$602B DEFW $626A    ; {Block #N$01.
 ;
 ; #BACKGROUND2,$01(background_2)
 @label=Background_2_Addresses
-b$603D DEFW $6DAE    ; {Block #N$01.
+w$603D DEFW $6DAE    ; {Block #N$01.
  $603F DEFW $6C4B    ; }
  $6041 DEFW $6E96    ; {Block #N$02.
  $6043 DEFW $6C79    ; }
@@ -592,7 +592,7 @@ b$603D DEFW $6DAE    ; {Block #N$01.
 @label=Background_2_Attribute_Data
  $604D DEFW $6B83    ; Attribute data.
 
-; Background 3 Address references.
+; Background 3 Address References
 ;
 ; The data blocks containing UDG, positioning and attribute data.
 ;
@@ -600,7 +600,7 @@ b$603D DEFW $6DAE    ; {Block #N$01.
 ;
 ; #BACKGROUND3,$01(background_3)
 @label=Background_3_Addresses
-b$604F DEFW $79B1    ; {Block #N$01.
+w$604F DEFW $79B1    ; {Block #N$01.
  $6051 DEFW $784F    ; }
  $6053 DEFW $7BB1    ; {Block #N$02.
  $6055 DEFW $7893    ; }
@@ -611,7 +611,7 @@ b$604F DEFW $79B1    ; {Block #N$01.
 @label=Background_3_Attribute_Data
  $605F DEFW $7766    ; Attribute data.
 
-; Background 1 attribute data.
+; Background 1 Attribute Data
 ;
 ; See #R$6010 for usage.
 b$6061 DEFB $E8,$9E,$6B,$6C,$E8,$1A,$EB,$04
@@ -3214,17 +3214,17 @@ c$9200 LD ($5F00),A  ; Write #REGa to #R$5F00.
  $9211 PUSH DE       ; Push #REGde onto the stack.
 ; This entry point is used by the routine at #R$B2FB.
 *$9212 PUSH BC       ; Push #REGbc onto the stack.
- $9213 LD BC,$0020   ; {Copy #REGhl to #REGde #N$20 times.
+ $9213 LD BC,$0020   ; {Copy #N$20 bytes of data from #REGhl to #REGde.
  $9216 LDIR          ; }
- $9218 POP BC        ;
+ $9218 POP BC        ; {Restore #REGbc, #REGde and #REGhl from the stack.
  $9219 POP DE        ;
- $921A POP HL        ;
- $921B CALL $9229    ;
+ $921A POP HL        ; }
+ $921B CALL $9229    ; Call #R$9229.
  $921E PUSH BC       ; Stash the counter on the stack.
- $921F LD BC,$0020   ;
- $9222 EX DE,HL      ;
+ $921F LD BC,$0020   ; #REGbc=#N($0020,$04,$04).
+ $9222 EX DE,HL      ; {#REGde+=#REGbc.
  $9223 ADD HL,BC     ;
- $9224 EX DE,HL      ;
+ $9224 EX DE,HL      ; }
  $9225 POP BC        ; Restore the counter from the stack.
  $9226 DJNZ $9210    ; Decrease counter by one and loop back to #R$9210 until
                      ; counter is zero.
@@ -6515,17 +6515,17 @@ c$AC3E XOR A         ; {Write #N$00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06
  $AC56 LD ($AA3C),A  ;
  $AC59 LD ($AF34),A  ; }
  $AC5C CALL $AF0B    ; Call #R$AF0B.
-*$AC5F LD A,($AF35)  ;
+*$AC5F LD A,($AF35)  ; {If #R$AF35 is zero, jump to #R$AC9D.
  $AC62 AND A         ;
- $AC63 JR Z,$AC9D    ;
- $AC65 DEC A         ;
- $AC66 LD ($AF35),A  ;
- $AC69 CALL $90D1    ;
- $AC6C LD A,($AF34)  ;
- $AC6F CALL $9200    ;
- $AC72 LD B,$00      ;
- $AC74 CALL $AF52    ;
- $AC77 CALL $98BF    ;
+ $AC63 JR Z,$AC9D    ; }
+ $AC65 DEC A         ; Decrease #REGa by one.
+ $AC66 LD ($AF35),A  ; Write #REGa to #R$AF35.
+ $AC69 CALL $90D1    ; Call #R$90D1.
+ $AC6C LD A,($AF34)  ; #REGa=#R$AF34.
+ $AC6F CALL $9200    ; Call #R$9200.
+ $AC72 LD B,$00      ; #REGb=#N$00.
+ $AC74 CALL $AF52    ; Call #R$AF52.
+ $AC77 CALL $98BF    ; Call #R$98BF.
  $AC7A LD HL,$B035   ; {Point to #R$B035 and call #R$A685.
  $AC7D CALL $A685    ; }
  $AC80 LD A,($B05F)  ;
@@ -6845,12 +6845,12 @@ c$AF01 LD A,($AA03)  ;
  $AF08 AND $10       ;
  $AF0A RET           ; Return.
 
-; Resets score.
+; Reset Score
 ;
 ; Used by the routine at #R$AC3E.
 @label=Reset_Score
 c$AF0B LD HL,$B02D   ; {Writes #N$00 to the memory locations between
- $AF0E LD (HL),$00   ; #N$B02D-#N$B032 (blanks current #N$B02D).
+ $AF0E LD (HL),$00   ; #R$B02C(#N$B02D)-#N$B032.
  $AF10 LD DE,$B02D   ;
  $AF13 INC DE        ;
  $AF14 LD BC,$0005   ;
