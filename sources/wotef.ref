@@ -7,6 +7,7 @@
 ;   skool2html.py -H sources/wotef.skool -T dark
 
 [Config]
+Expand=#INCLUDE(Expand)
 RefFiles=bases.ref;analytics.ref;changelog.ref;facts.ref;graphics.ref;pages.ref;pokes.ref
 HtmlWriterClass=:wotef.WayOfTheExplodingFistHtmlWriter
 GameDir=wayoftheexplodingfist
@@ -15,6 +16,7 @@ GameDir=wayoftheexplodingfist
 Game=The Way Of The Exploding Fist
 Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
 Copyright=&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.
+Repository=https://github.com/pobtastic/wayoftheexplodingfist/
 LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}
 
@@ -35,3 +37,30 @@ Backgrounds=graphics/backgrounds.html
 [Index:Graphics:Graphics]
 Backgrounds
 Graphics
+
+[Expand]
+#DEF(#COLOUR(id)
+  #LET(ink=$id&$07)#IF({ink}>=$00)(INK:
+    #MAP({ink})(
+      UNKNOWN,
+      0:BLACK,
+      1:BLUE,
+      2:RED,
+      3:MAGENTA,
+      4:GREEN,
+      5:CYAN,
+      6:YELLOW,
+      7:WHITE)),
+  #LET(paper=$id>>$03&$07)#IF({paper}>=$00)(PAPER:
+    #MAP({paper})(
+      UNKNOWN,
+      0:BLACK,
+      1:BLUE,
+      2:RED,
+      3:MAGENTA,
+      4:GREEN,
+      5:CYAN,
+      6:YELLOW,
+      7:WHITE))
+  #LET(bright=$id&$40)#IF({bright}>$00)((BRIGHT))
+  #LET(flash=$id&$80)#IF({flash}>$00)(FLASH: ON))

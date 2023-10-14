@@ -417,7 +417,12 @@ D $8000 #UDGTABLE
 D $8000 Used by the routine at #R$9200.
   $8000,$800,$20 Pixels
 
-c $8800
+c $8800 Game Entry Point
+  $8800,$03 Jump to #R$9C2E.
+
+c $8803
+  $8803,$03 #REGa=#N$C40E.
+  $8806,$02,b$01 Keep only bits 1-7.
 
 c $8833
 
@@ -927,13 +932,17 @@ c $909E New Round
   $90CF,$01 Return.
 
 c $90D0 Intro Music
-B $90D0,$01
+B $90D0,b$01
 @ $90D1 label=Intro_Music
   $90D1,$01 Disable interrupts.
   $90D2,$05 If #R$B2FA is zero then return.
-  $90D7,$03 #R$90D0.
-  $90DA,$02 Check bits 0-4.
+  $90D7,$03 #REGa=#R$90D0.
+  $90DA,$02,b$01 Keep only bits 0-4.
+  $90DC,$01 #REGh=#REGa.
+  $90DD,$02,b$01 Keep only bits 0-2.
+  $90DF,$01 #REGl=#REGa.
   $90E0,$04 #REGix=#R$9128
+N $90E4 The
 @ $90E4 label=Intro_Music_Loop
   $90E4,$03 #REGc=the next note byte from #REGix+#N$00.
   $90E7,$03 If the current note is #N$00 then return.
@@ -945,22 +954,41 @@ B $90D0,$01
   $90F6,$03 #REGd=the next note byte from #REGix+#N$00.
   $90F9,$02 Move the index onto the next note.
   $90FB
-@ $9106 label=Intro_Music_Delay_1
-  $910B,$02 Loop back to #R$90E4.
+N $9103 Introduce a small delay.
+  $9103,$03 #REGbc=#N$0AF4.
+@ $9106 label=Intro_Music_Delay
+  $9106,$01 Decrease #REGbc by one.
+  $9107,$04 Jump back to #R$9106 until #REGbc is zero.
+N $910B Jump back to continue playing the music.
+  $910B,$02 Jump to #R$90E4.
 N $910D Process the note data and create the sounds.
 @ $910D label=Intro_Music_Play
-@ $9111 label=Intro_Music_Delay_2
-@ $911B label=Intro_Music_Delay_3
-
+  $910D,$01 Stash #REGbc on the stack.
+  $910E
+@ $9111 label=Intro_Music_Delay_1
+  $9111,$01 Decrease #REGbc by one.
+  $9112,$04 Jump back to #R$9111 until #REGbc is zero.
+  $9119,$01 Restore #REGbc from the stack.
+  $911A,$01 But stash a copy of it back on the stack for the next loop.
+@ $911B label=Intro_Music_Delay_2
+  $911B,$01 Decrease #REGbc by one.
+  $911C,$04 Jump back to #R$911B until #REGbc is zero.
+  $9120,$01 Restore #REGbc from the stack again.
+  $9121,$01 Decrease #REGde by one.
+  $9122,$04 Jump back to #R$910D until #REGde is zero.
+  $9126,$02 Jump to #R$90E4.
 B $9128,$D8,$04
 @ $9128 label=Intro_Music_Data
 
-c $9200
+c $9200 Draw Background
+@ $9200 label=DrawBackground
+R $9200 A Background to display
   $9200,$03 Write #REGa to #R$5F00.
   $9203,$03 Call #R$5F22.
   $9206,$05 Call #R$C203 using #N$48. On return #REGhl=#N$4820.
   $920B,$02 Set a counter of #N$40.
   $920D,$03 #REGde=#R$8000.
+@ $9210 label=DrawBackground_Loop
   $9210,$01 Push #REGhl onto the stack.
   $9211,$01 Push #REGde onto the stack.
   $9212,$01 Push #REGbc onto the stack.
@@ -974,7 +1002,19 @@ c $9200
   $9226,$02 Decrease counter by one and loop back to #R$9210 until counter is zero.
   $9228,$01 Return.
 
-c $9229
+c $9229 Screen Address One Pixel Below
+@ $9229 label=ScreenPos1PixelBelow
+R $9229 HL Current position
+R $9229 O:HL Address for new position
+N $9229 Calculates the new address for writing a sprite pixel, in a downward direction, taking into consideration the screen memory layout.
+  $9229,$01 Increment #REGh by one to move down one pixel on screen.
+  $922A,$01 Stash #REGh in #REGa temporarily.
+  $922B,$02,b$01 Keep only bits 0-2.
+  $922D,$02 If a character line has not been crossed then jump to #R$9239 to return.
+  $922F,$04 #REGl+=#N$20.
+  $9233,$02 If a new section of the screen has not been crossed, jump to #R$9239 to return.
+  $9235,$04 #REGh-=#N$08.
+@ $9239 label=ScreenPos1PixelBelow_Return
   $9239,$01 Return.
 
 c $923A
@@ -1101,6 +1141,9 @@ B $9744,$01
 
 c $9745
 @ $9745 label=Game_Over
+  $9745,$03 Call #R$9C6F.
+  $9748,$03 Call #R$9ED2.
+  $974B,$03 Call #R$9D29.
 
   $975C,$05 Write #N$40 to #R$9C29.
 
@@ -1184,7 +1227,7 @@ g $9C2D
 c $9C2E Game Entry Point
 @ $9C2E label=Game_Start
   $9C2E,$01 Disable interrupts.
-  $9C2F,$04 Set border colour to cyan.
+  $9C2F,$04 Set border colour to #COLOUR$05.
 . #TABLE(default,centre,centre,centre,centre)
 . { =h Value | =h Ink | =h Paper | =h Bright }
 . { #N$05 | #N$05 | #N$00 | #N$00 }
@@ -1272,7 +1315,17 @@ c $9CA6
 . { #R$AA44 }
 . LIST#
   $9CFE,$08 Write #N$01 to; #LIST { #R$AA0A } { #R$AA4A } LIST#
-  $9D06,$05 Write #N$01 to; #LIST { #R$AA57 } LIST#
+  $9D06,$05 Write #N$01 to #R$AA57.
+  $9D0B,$03 Call #R$AADC.
+  $9D0E,$03 Call #R$AB0A.
+  $9D11,$03 Call #R$A402.
+  $9D14,$03 Call #R$AAF3.
+  $9D17,$03 Call #R$AB16.
+  $9D1A,$03 Call #R$AB22.
+  $9D1D,$03 Call #R$AB50.
+  $9D20,$03 Call #R$A402.
+  $9D23,$03 Call #R$AB39.
+  $9D26,$03 Call #R$AB5C.
 
 c $9ED2
 
@@ -1436,23 +1489,43 @@ c $AB70 Demo Mode
 @ $AB70 label=Demo_Mode
   $AB70,$01 #REGa=#N$00
   $AB71,$06 Write #N$00 to; #LIST { #R$B05F } { #R$9C2C } LIST#
+N $AB77 Get a random number #REGa between #N$07 and #N$0A.
   $AB77,$03 Call #R$A3FF.
-
+  $AB7A,$02,b$01 Keep only bits 0-1.
+  $AB7C,$02 #REGa+=#N$07.
+  $AB7E,$03 Write #REGa to #R$AA94.
+N $AB81 Get another random number #REGa between #N$07 and #N$0A.
+  $AB81,$03 Call #R$A3FF.
+  $AB84,$02,b$01 Keep only bits 0-1.
+  $AB86,$02 #REGa+=#N$07.
+  $AB88,$03 Write #REGa to #R$AA80.
   $AB8B,$08 Write #N$01 to; #LIST { #R$AA46 } { #R$AA06 } LIST#
+N $AB93 Demo mode always uses background #2.
   $AB93,$04 Write #N$02 to; #LIST { #R$AF34 } LIST#
-  $AB97,$03 #R$AF34.
-
+  $AB97,$03 #REGa=#R$AF34.
+  $AB9A,$03 Call #R$9200.
+N $AB9D Print "#STR$B039" to the screen.
   $AB9D,$09 Point to #R$B039 and call #R$92E4.
+N $ABA6 Print the current high score to the screen.
   $ABA6,$06 Point to #R$B035 and call #R$A685.
   $ABAC,$03 Call #R$909E.
   $ABAF,$03 Call #R$AEF8.
 
-  $ABB2,$04 Write #N$00 to; #LIST { #N$9C2B } LIST#
+  $ABB2,$04 Write #N$00 to #R$9C2B.
   $ABB6,$03 Call #R$ABC8.
 
+  $ABBB,$03 Call #R$AF27.
   $ABBE,$04 Point to #R$B05F and increment it by 1.
   $ABC2,$05 If this value is not #N$04 then jump to #R$AB97.
-  $ABC7,$01 Else, return.
+  $ABC7,$01 Return.
+
+c $ABC8
+  $ABC8,$03 Call #R$AE26.
+  $ABCB,$01
+  $ABCC,$01
+  $ABCD,$03 Call #R$AF01.
+
+  $ABE9,$01 Return.
 
 c $AC05 Main Game Loop
 @ $AC05 label=Main_Game
@@ -1471,8 +1544,7 @@ c $AC05 Main Game Loop
   $AC39,$03 Call #R$A647.
   $AC3C,$02 Loop back round to #R$AC09.
 
-c $AC3E
-N $AC3E fff
+c $AC3E Start 1UP Game
 @ $AC3E label=Start_1UP_Game
   $AC3E,$10 Write #N$00 to; #LIST { #R$AA80 } { #R$B05F } { #R$AA06 } { #R$AA08 } { #R$AA48 } LIST#
   $AC4E,$07 Write #N$01 to; #LIST { #R$AF35 } { #R$AA46 } LIST#
@@ -1503,13 +1575,40 @@ N $AC3E fff
 
   $AD32,$02 Check if player 2 has 4 points.
 
+c $AD9C Start 2UP Game
 @ $AD9C label=Start_2UP_Game
   $AD9C,$10 Write #N$00 to; #LIST { #R$B05F } { #R$AA06 } { #R$AA46 } { #R$AA08 } { #R$AA48 } LIST#
-  $ADAC,$05 Write #N$02 to; #LIST { #R$AF34 } LIST#
+  $ADAC,$05 Write #N$02 to #R$AF34.
+  $ADB1,$03 Call #R$90D1.
+  $ADB4,$03 Call #R$909E.
+  $ADB7,$03 Call #R$AF0B.
+  $ADBA,$03 #REGa=#R$AF34.
+  $ADBD,$03 Call #R$9200.
+  $ADC0,$03 Call #R$98BF.
+  $ADC3,$02 #REGb=#N$00.
+  $ADC5,$03 Call #R$AF52.
+  $ADC8,$02 #REGb=#N$00.
+  $ADCA,$03 Call #R$AF97.
+  $ADCD,$03 #REGhl=#R$B038.
+  $ADD0,$03 Call #R$A685.
+  $ADD3,$03 Call #R$98BF.
+  $ADD6,$03 Call #R$AEF8.
+  $ADD9,$04 Write #N$00 to #R$9C2B.
+  $ADDD,$03 Call #R$AE14.
 
-  $AE51,$04 Write #N$00 to; #LIST { #R$C427 } LIST#
+  $AE25,$01 Return.
+
+c $AE26
+  $AE26,$03 Call #R$9CA8.
+  $AE29,$03 Call #R$9745.
+
+  $AE2E,$03 #REGa=#R$AA44.
+
+  $AE35,$03 #REGa=#R$AA04.
+
+  $AE51,$04 Write #N$00 to #R$C427.
   $AE55,$02 Jump to #R$AE5C.
-  $AE57,$05 Write #N$01 to; #LIST { #R$C427 } LIST#
+  $AE57,$05 Write #N$01 to #R$C427.
   $AE5C,$05 Return if #R$9C28 is not zero.
   $AE61,$06 Jump to #R$AE29 if #R$9C2B is not zero.
   $AE67,$08 Write #N$1C to; #LIST { #R$AA0C } { #R$AA4C } LIST#
@@ -1558,8 +1657,15 @@ c $AF0B Reset Score
 c $AF1A
 
 c $AF27
+
+g $AF33
 B $AF33
-B $AF34
+
+g $AF34 Current Background
+@ $AF34 label=CurrentBackground
+B $AF34,$01
+
+g $AF35
 B $AF35
 
 c $AF36
@@ -1636,6 +1742,7 @@ b $B00B
 t $B024
 T $B024,$08 Score text buffer.
 @ $B024 label=Score_Buffer
+
 B $B02C,$03 XXXXX
 @ $B02C label=XXXXX
 B $B02F,$03 Score Player 1
@@ -1644,39 +1751,54 @@ B $B032,$03 Score Player 2
 @ $B032 label=Score_P2
 B $B035,$03 Hi-Score (defaults to 1000).
 @ $B035 label=Hi_Score
-T $B039,$05,$04:$01 "DEMO" text.
+
+t $B039 Messaging: "Demo"
 @ $B039 label=Text_Demo
-T $B03E,$07,$06:$01 "PLAYER" text.
+  $B039,$05,$04:$01 "#STR(#PC)" text.
+
+t $B03E Messaging: "Player"
 @ $B03E label=Text_Player
-T $B045,$08,$07:$01 "NOVICE" text.
+  $B03E,$07,$06:$01 "#STR(#PC)" text.
+
+t $B045 Messaging: "Novice"
 @ $B045 label=Text_Novice
-T $B04D,$03,$02:$01 "ST" numeric suffix.
+  $B045,$08,$07:$01 "#STR(#PC)" text.
+
+t $B04D Messaging: Suffixes
 @ $B04D label=Text_ST_Suffix
-T $B050,$03,$02:$01 "ND" numeric suffix.
+  $B04D,$03,$02:$01 "#STR(#PC)" numeric suffix.
 @ $B050 label=Text_ND_Suffix
-T $B053,$03,$02:$01 "RD" numeric suffix.
+  $B050,$03,$02:$01 "#STR(#PC)" numeric suffix.
 @ $B053 label=Text_RD_Suffix
-T $B056,$03,$02:$01 "TH" numeric suffix.
+  $B053,$03,$02:$01 "#STR(#PC)" numeric suffix.
 @ $B056 label=Text_TH_Suffix
-T $B059,$05,$04:$01 "DAN" text.
+  $B056,$03,$02:$01 "#STR(#PC)" numeric suffix.
+
+t $B059 Messaging: "Dan"
 @ $B059 label=Text_Dan
-B $B05F,$01 Current rank (0=novice, 1 or more=Dan rank).
+  $B059,$05,$04:$01 "#STR(#PC)" text.
+
+g $B05E Current Rank
 @ $B05F label=Current_Rank
-T $B060,$0A,$09:$01 Whitespace?
+B $B05F,$01 Current rank (0=novice, 1 or more=Dan rank).
+
+t $B060 Messaging: "Whitespace"
 @ $B060 label=Text_Whitespace_9
+  $B060,$0A,$09:$01 Whitespace?
 
 b $B06A
 
-c $B138
-@ $B138 label=Game_Init
-  $B138,$05 Write #N$01 to; #LIST { #R$B153 } LIST#
-  $B13D,$06 Write #N$FFFF to; #LIST { #R$B151 } LIST#
+c $B138 Game Initialisation
+@ $B138 label=Game_Initialisation
+  $B138,$05 Write #N$01 to #R$B153.
+  $B13D,$06 Write #N$FFFF to #R$B151.
   $B143,$01 Return.
-N $B144 TODO.
-B $B144
+
+b $B144
+  $B144
 W $B151
-B $B153,$01
-B $B154
+  $B153,$01
+  $B154
 
 c $B15A
 
@@ -1689,7 +1811,45 @@ b $B800 UDGs
 B $B800,$08 #UDG(#PC,attr=56)
 L $B800,$08,$E0
 
-c $BF13
+c $BF13 Draw Sprites?
+  $BF13,$03 #REGa=#N$AA52.
+  $BF16,$03 Create an offset in #REGhl.
+  $BF19,$03 Write #REGhl to #R$C425.
+
+  $BF7B,$03 Call #R$C1F6.
+
+  $BF92,$03 Call #R$C1F6.
+
+  $BFA1,$03 Call #R$C1F6.
+
+  $BFB4,$03 Call #R$C1F6.
+
+  $BFC5,$03 Call #R$C1F6.
+
+  $BFDC,$03 Call #R$C1F6.
+
+  $BFEB,$03 Call #R$C1F6.
+
+  $BFFE,$03 Call #R$C1F6.
+
+  $C05D,$03 Call #R$C1F6.
+
+  $C06C,$03 Call #R$C1F6.
+
+  $C07B,$03 Call #R$C1F6.
+
+  $C08A,$03 Call #R$C1F6.
+
+  $C0DF,$03 Jump to #R$C0E8.
+
+  $C0E2,$03 Call #R$C1CC.
+  $C0E5,$03 Call #R$C1A2.
+  $C0E8,$03 #REGa=#R$C436.
+  $C0EB,$03 Call #R$C203.
+  $C0EE,$03 #REGa=#R$C434.
+
+  $C0FA,$03 #REGhl=#R$F730.
+  $C0FD,$03 Call #R$C3E4.
   $C100,$01 Return.
 
 c $C101
@@ -1782,7 +1942,13 @@ g $C425
 W $C425
 b $C427
 
+b $C434
+
+b $C436
+
 B $D296,$40,$08 #UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
 B $D2F1,$4B,$05 #UDGARRAY5,scale=4,step=5;(#PC)-(#PC+$F2)-$08(test-3)
 
 B $EB6C,$40,$08 #UDGARRAY2,scale=4,step=2;(#PC)-(#PC+$10)-$10(test-4)
+
+  $F730
