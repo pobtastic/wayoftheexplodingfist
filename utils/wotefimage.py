@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright 2026 Paul Maddern (paul@arcadegeek.co.uk)
 
 import sys
 import os

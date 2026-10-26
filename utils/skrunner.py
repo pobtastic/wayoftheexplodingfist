@@ -1,3 +1,4 @@
+# Copyright 2026 Paul Maddern (paul@arcadegeek.co.uk)
 import art
 import sys
 import os
@@ -28,7 +29,7 @@ def run_skool2asm():
 def run_skool2html():
     options = "-c Config/InitModule={}:publish -d {}/build/html".format(SKOOLKIT_TOOLS, WAYOFTHEEXPLODINGFIST_HOME)
     art.tprint("The Way Of The Exploding Fist")
-    hex = '-H -c Config/GameDir=wayoftheexplodingfist --var pub=2'
-    dec = '-D -c Config/GameDir=wayoftheexplodingfist/dec --var pub=4'
+    hex = '-H --ini ListRefs=2 -c Config/GameDir=wayoftheexplodingfist --var pub=2'
+    dec = '-D --ini ListRefs=2 -c Config/GameDir=wayoftheexplodingfist/dec --var pub=4'
     skool2html.main(options.split() + hex.split() + sys.argv[1:] + [WOTEF_SKOOL])
     skool2html.main(options.split() + dec.split() + sys.argv[1:] + [WOTEF_SKOOL])

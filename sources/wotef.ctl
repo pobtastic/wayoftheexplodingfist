@@ -1,11 +1,11 @@
-; Copyright Melbourne House 1985, 2023 ArcadeGeek LTD.
+; Copyright Melbourne House 1985, 2026 ArcadeGeek LTD.
 ; NOTE: Disassembly is Work-In-Progress.
 ; Label naming is loosely based on Action_ActionName_SubAction e.g. Print_HighScore_Loop.
 
 > $4000 @org=$4000
-> $4000 @expand=#DEFINE0(BUG,#LINK:Bugs)
-> $4000 @expand=#DEFINE0(FACT,#LINK:Facts)
-> $4000 @expand=#DEFINE0(POKE,#LINK:Pokes)
+> $4000 @expand=#DEF(#BUG()(anchor,text) #LINK(Bugs#$anchor)($text))
+> $4000 @expand=#DEF(#FACT()(anchor,text) #LINK(Facts#$anchor)($text))
+> $4000 @expand=#DEF(#POKE()(anchor,text) #LINK(Pokes#$anchor)($text))
 b $4000 Loading screen
 D $4000 #UDGTABLE { #SCR2(loading) | The Way Of The Exploding Fist Loading Screen. } UDGTABLE#
 @ $4000 label=Loading
@@ -289,22 +289,22 @@ D $6061 See #R$6010 for usage.
 
 b $6102 Background 1 Positioning Data
 D $6102 See #R$5F80 for usage.
-  $6102 #CALL:position_data(#PC, $626A, position_1_1, 1)
+  $6102 #CALL(position_data(#PC, $626A, position_1_1, 1))
   $6155,$02 Terminator.
 
 b $6157 Background 1 Positioning Data
 D $6157 See #R$5F80 for usage.
-  $6157 #CALL:position_data(#PC, $648A, position_1_2, 1)
+  $6157 #CALL(position_data(#PC, $648A, position_1_2, 1))
   $61D7,$02 Terminator.
 
 b $61D9 Background 1 Positioning Data
 D $61D9 See #R$5F80 for usage.
-  $61D9 #CALL:position_data(#PC, $685A, position_1_3, 1)
+  $61D9 #CALL(position_data(#PC, $685A, position_1_3, 1))
   $624B,$02 Terminator.
 
 b $624D Background 1 Positioning Data
 D $624D See #R$5F80 for usage.
-  $624D #CALL:position_data(#PC, $6AE2, position_1_4, 1)
+  $624D #CALL(position_data(#PC, $6AE2, position_1_4, 1))
   $6268,$02 Terminator.
 
 b $626A Background 1 Tile Data
@@ -331,22 +331,22 @@ D $6B83 See #R$6010 for usage.
 
 b $6C4B Background 2 Positioning Data
 D $6C4B See #R$5F80 for usage.
-  $6C4B #CALL:position_data(#PC, $6DAE, position_2_1, 1)
+  $6C4B #CALL(position_data(#PC, $6DAE, position_2_1, 1))
   $6C77,$02 Terminator.
 
 b $6C79 Background 2 Positioning Data
 D $6C79 See #R$5F80 for usage.
-  $6C79 #CALL:position_data(#PC, $6E96, position_2_2, 1)
+  $6C79 #CALL(position_data(#PC, $6E96, position_2_2, 1))
   $6CF5,$02 Terminator.
 
 b $6CF7 Background 2 Positioning Data
 D $6CF7 See #R$5F80 for usage.
-  $6CF7 #CALL:position_data(#PC, $720E, position_2_3, 1)
+  $6CF7 #CALL(position_data(#PC, $720E, position_2_3, 1))
   $6D77,$02 Terminator.
 
 b $6D79 Background 2 Positioning Data
 D $6D79 See #R$5F80 for usage.
-  $6D79 #CALL:position_data(#PC, $7606, position_2_4, 1)
+  $6D79 #CALL(position_data(#PC, $7606, position_2_4, 1))
   $6DAC,$02 Terminator.
 
 b $6DAE Background 2 Tile Data
@@ -371,22 +371,22 @@ D $7766 See #R$6010 for usage.
 
 b $784F Background 3 Positioning Data
 D $784F See #R$5F80 for usage.
-  $784F #CALL:position_data(#PC, $79B1, position_3_1, 1)
+  $784F #CALL(position_data(#PC, $79B1, position_3_1, 1))
   $7891,$02 Terminator.
 
 b $7893 Background 3 Positioning Data
 D $7893 See #R$5F80 for usage.
-  $7893 #CALL:position_data(#PC, $7BB1, position_3_2, 1)
+  $7893 #CALL(position_data(#PC, $7BB1, position_3_2, 1))
   $790E,$02 Terminator.
 
 b $7910 Background 3 Positioning Data
 D $7910 See #R$5F80 for usage.
-  $7910 #CALL:position_data(#PC, $7D09, position_3_3, 1)
+  $7910 #CALL(position_data(#PC, $7D09, position_3_3, 1))
   $798F,$02 Terminator.
 
 b $7991 Background 3 Positioning Data
 D $7991 See #R$5F80 for usage.
-  $7991 #CALL:position_data(#PC, $7F39, position_3_4, 1)
+  $7991 #CALL(position_data(#PC, $7F39, position_3_4, 1))
   $79AF,$02 Terminator.
 
 b $79B1 Background 3 Tile Data
@@ -495,15 +495,15 @@ g $8BFA Player 1 Default Keys
 D $8BFA See #R$8E3A for key mappings.
 B $8BFA,$12,$02 #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Key }
-. { #N(#PEEK($8BFB)) | #EVAL(#PEEK($8BFA),$02,$08) | Up | "#CALL:get_key(#PEEK($8BFB), #PEEK($8BFA))" }
-. { #N(#PEEK($8BFD)) | #EVAL(#PEEK($8BFC),$02,$08) | Up-Right | "#CALL:get_key(#PEEK($8BFD), #PEEK($8BFC))" }
-. { #N(#PEEK($8BFF)) | #EVAL(#PEEK($8BFE),$02,$08) | Right | "#CALL:get_key(#PEEK($8BFF), #PEEK($8BFE))" }
-. { #N(#PEEK($8C01)) | #EVAL(#PEEK($8C00),$02,$08) | Down-Right | "#CALL:get_key(#PEEK($8C01), #PEEK($8C00))" }
-. { #N(#PEEK($8C03)) | #EVAL(#PEEK($8C02),$02,$08) | Down | "#CALL:get_key(#PEEK($8C03), #PEEK($8C02))" }
-. { #N(#PEEK($8C05)) | #EVAL(#PEEK($8C04),$02,$08) | Down-Left | "#CALL:get_key(#PEEK($8C05), #PEEK($8C04))" }
-. { #N(#PEEK($8C07)) | #EVAL(#PEEK($8C06),$02,$08) | Left | "#CALL:get_key(#PEEK($8C07), #PEEK($8C06))" }
-. { #N(#PEEK($8C09)) | #EVAL(#PEEK($8C08),$02,$08) | Up-Left | "#CALL:get_key(#PEEK($8C09), #PEEK($8C08))" }
-. { #N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C0B), #PEEK($8C0A))" }
+. { #N(#PEEK($8BFB)) | #EVAL(#PEEK($8BFA),$02,$08) | Up | "#CALL(get_key(#PEEK($8BFB), #PEEK($8BFA)))" }
+. { #N(#PEEK($8BFD)) | #EVAL(#PEEK($8BFC),$02,$08) | Up-Right | "#CALL(get_key(#PEEK($8BFD), #PEEK($8BFC)))" }
+. { #N(#PEEK($8BFF)) | #EVAL(#PEEK($8BFE),$02,$08) | Right | "#CALL(get_key(#PEEK($8BFF), #PEEK($8BFE)))" }
+. { #N(#PEEK($8C01)) | #EVAL(#PEEK($8C00),$02,$08) | Down-Right | "#CALL(get_key(#PEEK($8C01), #PEEK($8C00)))" }
+. { #N(#PEEK($8C03)) | #EVAL(#PEEK($8C02),$02,$08) | Down | "#CALL(get_key(#PEEK($8C03), #PEEK($8C02)))" }
+. { #N(#PEEK($8C05)) | #EVAL(#PEEK($8C04),$02,$08) | Down-Left | "#CALL(get_key(#PEEK($8C05), #PEEK($8C04)))" }
+. { #N(#PEEK($8C07)) | #EVAL(#PEEK($8C06),$02,$08) | Left | "#CALL(get_key(#PEEK($8C07), #PEEK($8C06)))" }
+. { #N(#PEEK($8C09)) | #EVAL(#PEEK($8C08),$02,$08) | Up-Left | "#CALL(get_key(#PEEK($8C09), #PEEK($8C08)))" }
+. { #N(#PEEK($8C0B)) | #EVAL(#PEEK($8C0A),$02,$08) | Fire | "#CALL(get_key(#PEEK($8C0B), #PEEK($8C0A)))" }
 . TABLE#
 @ $8BFA label=P1_Default_Keys
 
@@ -511,15 +511,15 @@ g $8C0C Player 2 Default Keys
 D $8C0C See #R$8E3A for key mappings.
 B $8C0C,$12,$02 #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Key }
-. { #N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),$02,$08) | Up | "#CALL:get_key(#PEEK($8C0D), #PEEK($8C0C))" }
-. { #N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),$02,$08) | Up-Right | "#CALL:get_key(#PEEK($8C0F), #PEEK($8C0E))" }
-. { #N(#PEEK($8C11)) | #EVAL(#PEEK($8C10),$02,$08) | Right | "#CALL:get_key(#PEEK($8C11), #PEEK($8C10))" }
-. { #N(#PEEK($8C13)) | #EVAL(#PEEK($8C12),$02,$08) | Down-Right | "#CALL:get_key(#PEEK($8C13), #PEEK($8C12))" }
-. { #N(#PEEK($8C15)) | #EVAL(#PEEK($8C14),$02,$08) | Down | "#CALL:get_key(#PEEK($8C15), #PEEK($8C14))" }
-. { #N(#PEEK($8C17)) | #EVAL(#PEEK($8C16),$02,$08) | Down-Left | "#CALL:get_key(#PEEK($8C17), #PEEK($8C16))" }
-. { #N(#PEEK($8C19)) | #EVAL(#PEEK($8C18),$02,$08) | Left | "#CALL:get_key(#PEEK($8C19), #PEEK($8C18))" }
-. { #N(#PEEK($8C1B)) | #EVAL(#PEEK($8C1A),$02,$08) | Up-Left | "#CALL:get_key(#PEEK($8C1B), #PEEK($8C1A))" }
-. { #N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C1D), #PEEK($8C1C))" }
+. { #N(#PEEK($8C0D)) | #EVAL(#PEEK($8C0C),$02,$08) | Up | "#CALL(get_key(#PEEK($8C0D), #PEEK($8C0C)))" }
+. { #N(#PEEK($8C0F)) | #EVAL(#PEEK($8C0E),$02,$08) | Up-Right | "#CALL(get_key(#PEEK($8C0F), #PEEK($8C0E)))" }
+. { #N(#PEEK($8C11)) | #EVAL(#PEEK($8C10),$02,$08) | Right | "#CALL(get_key(#PEEK($8C11), #PEEK($8C10)))" }
+. { #N(#PEEK($8C13)) | #EVAL(#PEEK($8C12),$02,$08) | Down-Right | "#CALL(get_key(#PEEK($8C13), #PEEK($8C12)))" }
+. { #N(#PEEK($8C15)) | #EVAL(#PEEK($8C14),$02,$08) | Down | "#CALL(get_key(#PEEK($8C15), #PEEK($8C14)))" }
+. { #N(#PEEK($8C17)) | #EVAL(#PEEK($8C16),$02,$08) | Down-Left | "#CALL(get_key(#PEEK($8C17), #PEEK($8C16)))" }
+. { #N(#PEEK($8C19)) | #EVAL(#PEEK($8C18),$02,$08) | Left | "#CALL(get_key(#PEEK($8C19), #PEEK($8C18)))" }
+. { #N(#PEEK($8C1B)) | #EVAL(#PEEK($8C1A),$02,$08) | Up-Left | "#CALL(get_key(#PEEK($8C1B), #PEEK($8C1A)))" }
+. { #N(#PEEK($8C1D)) | #EVAL(#PEEK($8C1C),$02,$08) | Fire | "#CALL(get_key(#PEEK($8C1D), #PEEK($8C1C)))" }
 . TABLE#
 @ $8C0C label=P2_Default_Keys
 
@@ -528,15 +528,15 @@ D $8C1E See #R$8E3A for key mappings.
 N $8C1E Note the Sinclair joystick maps directional movements and fire to keys.
 B $8C1E,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Key }
-. { #N(#PEEK($8C1F)) | #EVAL(#PEEK($8C1E),$02,$08) | Up | "#CALL:get_key(#PEEK($8C1F), #PEEK($8C1E))" }
+. { #N(#PEEK($8C1F)) | #EVAL(#PEEK($8C1E),$02,$08) | Up | "#CALL(get_key(#PEEK($8C1F), #PEEK($8C1E)))" }
 . { #N(#PEEK($8C21)) | #EVAL(#PEEK($8C20),$02,$08) | Up-Right | - }
-. { #N(#PEEK($8C23)) | #EVAL(#PEEK($8C22),$02,$08) | Right | "#CALL:get_key(#PEEK($8C23), #PEEK($8C22))" }
+. { #N(#PEEK($8C23)) | #EVAL(#PEEK($8C22),$02,$08) | Right | "#CALL(get_key(#PEEK($8C23), #PEEK($8C22)))" }
 . { #N(#PEEK($8C25)) | #EVAL(#PEEK($8C24),$02,$08) | Down-Right | - }
-. { #N(#PEEK($8C27)) | #EVAL(#PEEK($8C26),$02,$08) | Down | "#CALL:get_key(#PEEK($8C27), #PEEK($8C26))" }
+. { #N(#PEEK($8C27)) | #EVAL(#PEEK($8C26),$02,$08) | Down | "#CALL(get_key(#PEEK($8C27), #PEEK($8C26)))" }
 . { #N(#PEEK($8C29)) | #EVAL(#PEEK($8C28),$02,$08) | Down-Left | - }
-. { #N(#PEEK($8C2B)) | #EVAL(#PEEK($8C2A),$02,$08) | Left | "#CALL:get_key(#PEEK($8C2B), #PEEK($8C2A))" }
+. { #N(#PEEK($8C2B)) | #EVAL(#PEEK($8C2A),$02,$08) | Left | "#CALL(get_key(#PEEK($8C2B), #PEEK($8C2A)))" }
 . { #N(#PEEK($8C2D)) | #EVAL(#PEEK($8C2C),$02,$08) | Up-Left | - }
-. { #N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C2F), #PEEK($8C2E))" }
+. { #N(#PEEK($8C2F)) | #EVAL(#PEEK($8C2E),$02,$08) | Fire | "#CALL(get_key(#PEEK($8C2F), #PEEK($8C2E)))" }
 . TABLE#
 @ $8C1E label=Sinclair_2
 
@@ -545,30 +545,30 @@ D $8C30 See #R$8E3A for key mappings.
 N $8C30 Note the Sinclair joystick maps directional movements and fire to keys.
 B $8C30,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Key }
-. { #N(#PEEK($8C31)) | #EVAL(#PEEK($8C30),$02,$08) | Up | "#CALL:get_key(#PEEK($8C31), #PEEK($8C30))" }
+. { #N(#PEEK($8C31)) | #EVAL(#PEEK($8C30),$02,$08) | Up | "#CALL(get_key(#PEEK($8C31), #PEEK($8C30)))" }
 . { #N(#PEEK($8C33)) | #EVAL(#PEEK($8C32),$02,$08) | Up-Right | - }
-. { #N(#PEEK($8C35)) | #EVAL(#PEEK($8C34),$02,$08) | Right | "#CALL:get_key(#PEEK($8C35), #PEEK($8C34))" }
+. { #N(#PEEK($8C35)) | #EVAL(#PEEK($8C34),$02,$08) | Right | "#CALL(get_key(#PEEK($8C35), #PEEK($8C34)))" }
 . { #N(#PEEK($8C37)) | #EVAL(#PEEK($8C36),$02,$08) | Down-Right | - }
-. { #N(#PEEK($8C39)) | #EVAL(#PEEK($8C38),$02,$08) | Down | "#CALL:get_key(#PEEK($8C39), #PEEK($8C38))" }
+. { #N(#PEEK($8C39)) | #EVAL(#PEEK($8C38),$02,$08) | Down | "#CALL(get_key(#PEEK($8C39), #PEEK($8C38)))" }
 . { #N(#PEEK($8C3B)) | #EVAL(#PEEK($8C3A),$02,$08) | Down-Left | - }
-. { #N(#PEEK($8C3D)) | #EVAL(#PEEK($8C3C),$02,$08) | Left | "#CALL:get_key(#PEEK($8C3D), #PEEK($8C3C))" }
+. { #N(#PEEK($8C3D)) | #EVAL(#PEEK($8C3C),$02,$08) | Left | "#CALL(get_key(#PEEK($8C3D), #PEEK($8C3C)))" }
 . { #N(#PEEK($8C3F)) | #EVAL(#PEEK($8C3E),$02,$08) | Up-Left | - }
-. { #N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),$02,$08) | Fire | "#CALL:get_key(#PEEK($8C41), #PEEK($8C40))" }
+. { #N(#PEEK($8C41)) | #EVAL(#PEEK($8C40),$02,$08) | Fire | "#CALL(get_key(#PEEK($8C41), #PEEK($8C40)))" }
 . TABLE#
 @ $8C30 label=Sinclair_1
 
 g $8C42 Kempston Joystick
 B $8C42,$12,$02  #TABLE(default,centre,centre,centre,centre)
 . { =h Port Number | =h Bit | =h Action | =h Joystick }
-. { #N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),$02,$08) | Up | "#CALL:get_kempston(#PEEK($8C43), #PEEK($8C42))" }
+. { #N(#PEEK($8C43)) | #EVAL(#PEEK($8C42),$02,$08) | Up | "#CALL(get_kempston(#PEEK($8C43), #PEEK($8C42)))" }
 . { #N(#PEEK($8C45)) | #EVAL(#PEEK($8C44),$02,$08) | Up-Right | - }
-. { #N(#PEEK($8C47)) | #EVAL(#PEEK($8C46),$02,$08) | Right | "#CALL:get_kempston(#PEEK($8C47), #PEEK($8C46))" }
+. { #N(#PEEK($8C47)) | #EVAL(#PEEK($8C46),$02,$08) | Right | "#CALL(get_kempston(#PEEK($8C47), #PEEK($8C46)))" }
 . { #N(#PEEK($8C49)) | #EVAL(#PEEK($8C48),$02,$08) | Down-Right | - }
-. { #N(#PEEK($8C4B)) | #EVAL(#PEEK($8C4A),$02,$08) | Down | "#CALL:get_kempston(#PEEK($8C4B), #PEEK($8C4A))" }
+. { #N(#PEEK($8C4B)) | #EVAL(#PEEK($8C4A),$02,$08) | Down | "#CALL(get_kempston(#PEEK($8C4B), #PEEK($8C4A)))" }
 . { #N(#PEEK($8C4D)) | #EVAL(#PEEK($8C4C),$02,$08) | Down-Left | - }
-. { #N(#PEEK($8C4F)) | #EVAL(#PEEK($8C4E),$02,$08) | Left | "#CALL:get_kempston(#PEEK($8C4F), #PEEK($8C4E))" }
+. { #N(#PEEK($8C4F)) | #EVAL(#PEEK($8C4E),$02,$08) | Left | "#CALL(get_kempston(#PEEK($8C4F), #PEEK($8C4E)))" }
 . { #N(#PEEK($8C51)) | #EVAL(#PEEK($8C50),$02,$08) | Up-Left | - }
-. { #N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),$02,$08) | Fire | "#CALL:get_kempston(#PEEK($8C53), #PEEK($8C52))" }
+. { #N(#PEEK($8C53)) | #EVAL(#PEEK($8C52),$02,$08) | Fire | "#CALL(get_kempston(#PEEK($8C53), #PEEK($8C52)))" }
 . TABLE#
 @ $8C42 label=Kempston
 
@@ -1047,10 +1047,10 @@ N $9255 On entry #REGde points to a yin-yang UDG and #REGhl to screen coordinate
   $9289,$01 Return.
 N $928A Full yin-yang UDG.
 @ $928A label=Yin_Yang_UDG_Full
-B $928A,$20,$08 #UDGARRAY2,scale=4;(#PC)-(#PC+28)-8(full-yin-yang)
+B $928A,$20,$08 #UDGARRAY2,scale=4((#PC)-(#PC+28)-8)(full-yin-yang)
 N $92AA Half yin-yang UDG.
 @ $92AA label=Yin_Yang_UDG_Half
-B $92AA,$20,$08 #UDGARRAY2,scale=4;(#PC)-(#PC+28)-8(half-yin-yang)
+B $92AA,$20,$08 #UDGARRAY2,scale=4((#PC)-(#PC+28)-8)(half-yin-yang)
 N $92CA fff
 @ $92CA label=Yin_Yang_Copy_Line
   $92CA,$02 Stash #REGde and #REGhl on the stack.
@@ -1946,9 +1946,9 @@ b $C434
 
 b $C436
 
-B $D296,$40,$08 #UDGARRAY3,scale=4,step=3;(#PC)-(#PC+$F2)-$08(test-2)
-B $D2F1,$4B,$05 #UDGARRAY5,scale=4,step=5;(#PC)-(#PC+$F2)-$08(test-3)
+B $D296,$40,$08 #UDGARRAY3,scale=4,step=3((#PC)-(#PC+$F2)-$08)(test-2)
+B $D2F1,$4B,$05 #UDGARRAY5,scale=4,step=5((#PC)-(#PC+$F2)-$08)(test-3)
 
-B $EB6C,$40,$08 #UDGARRAY2,scale=4,step=2;(#PC)-(#PC+$10)-$10(test-4)
+B $EB6C,$40,$08 #UDGARRAY2,scale=4,step=2((#PC)-(#PC+$10)-$10)(test-4)
 
   $F730

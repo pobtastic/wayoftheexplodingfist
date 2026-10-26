@@ -1,3 +1,5 @@
+; Copyright 2026 Paul Maddern (paul@arcadegeek.co.uk)
+
 ;
 ; SkoolKit ref file for The Way Of The Exploding Fist
 ;
@@ -15,7 +17,7 @@ GameDir=wayoftheexplodingfist
 [Game]
 Game=The Way Of The Exploding Fist
 Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
-Copyright=&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.
+Copyright=&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.
 Repository=https://github.com/pobtastic/wayoftheexplodingfist/
 LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}

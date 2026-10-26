@@ -1,4 +1,4 @@
-; Copyright 2023 Paul Maddern (paul@arcadegeek.co.uk)
+; Copyright 2026 Paul Maddern (paul@arcadegeek.co.uk)
 
 [Page:Changelog]
 SectionType=BulletPoints
@@ -7,12 +7,12 @@ SectionType=BulletPoints
 -
 
 - Added POKEs:
-  - #POKE#extraTime()
-  - #POKE#pointsToWinP1()
-  - #POKE#pointsToWinP2()
-  - #POKE#cpuNonScoring()
-  - #POKE#winOnDraw()
-  - #POKE#disableTime()
+  - #POKE(extraTime,)
+  - #POKE(pointsToWinP1,)
+  - #POKE(pointsToWinP2,)
+  - #POKE(cpuNonScoring,)
+  - #POKE(winOnDraw,)
+  - #POKE(disableTime,)
 
 [Changelog:20210612]
 -
@@ -23,9 +23,9 @@ SectionType=BulletPoints
 -
 
 - Added trivia:
-  - #FACT#music()
-  - #FACT#scoring()
-  - #FACT#nes()
-  - #FACT#records()
-  - #FACT#awards()
-  - #FACT#sequels()
+  - #FACT(music,)
+  - #FACT(scoring,)
+  - #FACT(nes,)
+  - #FACT(records,)
+  - #FACT(awards,)
+  - #FACT(sequels,)
