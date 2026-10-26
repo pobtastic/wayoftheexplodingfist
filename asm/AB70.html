@@ -29,7 +29,7 @@ Prev: <a href="AADC.html">AADC</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#ab70">Map</a></td>
 <td class="next">
-Next: <a href="AC05.html">AC05</a>
+Next: <a href="ABC8.html">ABC8</a>
 </td>
 </tr>
 </table>
@@ -55,7 +55,7 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="address-1"><span id="ab71"></span>AB71</td>
 <td class="instruction">LD ($B05F),A</td>
 <td class="comment-1" rowspan="2">Write 00 to; <ul class="">
-<li><a href="B024.html#b05f">Current_Rank</a></li>
+<li><a href="B05E.html#b05f">Current_Rank</a></li>
 <li><a href="9C2C.html">Num_Players</a></li>
 </ul></td>
 </tr>
@@ -63,6 +63,16 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab74"></span>AB74</td>
 <td class="instruction">LD ($9C2C),A</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ab77"></span>
+<div class="comments">
+<div class="paragraph">
+Get a random number <span class="register">A</span> between 07 and 0A.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -73,44 +83,54 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab7a"></span>AB7A</td>
-<td class="instruction">AND $03</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %00000011</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-1.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab7c"></span>AB7C</td>
 <td class="instruction">ADD A,$07</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>+=07.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab7e"></span>AB7E</td>
 <td class="instruction">LD ($AA94),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="AA41.html#aa94">AA94</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ab81"></span>
+<div class="comments">
+<div class="paragraph">
+Get another random number <span class="register">A</span> between 07 and 0A.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab81"></span>AB81</td>
 <td class="instruction">CALL <a href="A3FF.html">Random_Number</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="A3FF.html">Random_Number</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab84"></span>AB84</td>
-<td class="instruction">AND $03</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %00000011</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-1.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab86"></span>AB86</td>
 <td class="instruction">ADD A,$07</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>+=07.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab88"></span>AB88</td>
 <td class="instruction">LD ($AA80),A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="AA41.html#aa80">Also_Rank</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -132,11 +152,21 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="instruction">LD ($AA06),A</td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="ab93"></span>
+<div class="comments">
+<div class="paragraph">
+Demo mode always uses background #2.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab93"></span>AB93</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="2">Write 02 to; <ul class="">
-<li><a href="AF27.html#af34">AF34</a></li>
+<li><a href="AF34.html">CurrentBackground</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -148,19 +178,29 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="asm-label">Demo_Mode_0</td>
 <td class="address-2"><span id="ab97"></span>AB97</td>
 <td class="instruction">LD A,($AF34)</td>
-<td class="comment-1" rowspan="1"><a href="AF27.html#af34">AF34</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="AF34.html">CurrentBackground</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab9a"></span>AB9A</td>
-<td class="instruction">CALL <a href="9200.html">$9200</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">CALL <a href="9200.html">DrawBackground</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9200.html">DrawBackground</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ab9d"></span>
+<div class="comments">
+<div class="paragraph">
+Print "DEMO" to the screen.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="ab9d"></span>AB9D</td>
 <td class="instruction">LD HL,$0222</td>
-<td class="comment-1" rowspan="3">Point to <a href="B024.html#b039">Text_Demo</a> and call <a href="92E4.html">Print_String</a>.</td>
+<td class="comment-1" rowspan="3">Point to <a href="B039.html">Text_Demo</a> and call <a href="92E4.html">Print_String</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -171,6 +211,16 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="aba3"></span>ABA3</td>
 <td class="instruction">CALL <a href="92E4.html">Print_String</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="aba6"></span>
+<div class="comments">
+<div class="paragraph">
+Print the current high score to the screen.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -199,9 +249,7 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="abb2"></span>ABB2</td>
 <td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write 00 to; <ul class="">
-<li>9C2B</li>
-</ul></td>
+<td class="comment-1" rowspan="2">Write 00 to <a href="9C2B.html">9C2B</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -211,8 +259,8 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abb6"></span>ABB6</td>
-<td class="instruction">CALL <a href="AB70.html#abc8">Demo_Mode_1</a></td>
-<td class="comment-1" rowspan="1">Call <a href="AB70.html#abc8">Demo_Mode_1</a>.</td>
+<td class="instruction">CALL <a href="ABC8.html">$ABC8</a></td>
+<td class="comment-1" rowspan="1">Call <a href="ABC8.html">ABC8</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -230,13 +278,13 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="abbb"></span>ABBB</td>
 <td class="instruction">CALL <a href="AF27.html">$AF27</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="AF27.html">AF27</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="abbe"></span>ABBE</td>
 <td class="instruction">LD HL,$B05F</td>
-<td class="comment-1" rowspan="2">Point to <a href="B024.html#b05f">Current_Rank</a> and increment it by 1.</td>
+<td class="comment-1" rowspan="2">Point to <a href="B05E.html#b05f">Current_Rank</a> and increment it by 1.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -263,187 +311,7 @@ Used by the routine at <a href="AC05.html">Main_Game</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="abc7"></span>ABC7</td>
 <td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Else, return.</td>
-</tr>
-<tr>
-<td class="asm-label">Demo_Mode_1</td>
-<td class="address-2"><span id="abc8"></span>ABC8</td>
-<td class="instruction">CALL <a href="AC3E.html#ae26">Start_1UP_Game_24</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abcb"></span>ABCB</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abcc"></span>ABCC</td>
-<td class="instruction">RET M</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abcd"></span>ABCD</td>
-<td class="instruction">CALL <a href="AF01.html">$AF01</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abd0"></span>ABD0</td>
-<td class="instruction">JR Z,<a href="AB70.html#abf1">Demo_Mode_3</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abd2"></span>ABD2</td>
-<td class="instruction">CALL <a href="900E.html">Yin_Yang_1UP</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abd5"></span>ABD5</td>
-<td class="instruction">CALL <a href="AF36.html">$AF36</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abd8"></span>ABD8</td>
-<td class="instruction">LD A,($AA03)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abdb"></span>ABDB</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abdc"></span>ABDC</td>
-<td class="instruction">JR Z,<a href="AB70.html#abea">Demo_Mode_2</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abde"></span>ABDE</td>
-<td class="instruction">LD A,($AA41)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abe1"></span>ABE1</td>
-<td class="instruction">CP $04</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abe3"></span>ABE3</td>
-<td class="instruction">JR C,<a href="AB70.html#abf1">Demo_Mode_3</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abe5"></span>ABE5</td>
-<td class="instruction">CALL <a href="AC3E.html#ae9d">Start_1UP_Game_33</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abe8"></span>ABE8</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abe9"></span>ABE9</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Demo_Mode_2</td>
-<td class="address-2"><span id="abea"></span>ABEA</td>
-<td class="instruction">LD A,($AA01)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abed"></span>ABED</td>
-<td class="instruction">CP $04</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abef"></span>ABEF</td>
-<td class="instruction">JR NC,<a href="AB70.html#ac00">Demo_Mode_4</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Demo_Mode_3</td>
-<td class="address-2"><span id="abf1"></span>ABF1</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abf2"></span>ABF2</td>
-<td class="instruction">LD ($AA08),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abf5"></span>ABF5</td>
-<td class="instruction">LD ($AA48),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abf8"></span>ABF8</td>
-<td class="instruction">LD A,($9C2B)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abfb"></span>ABFB</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abfc"></span>ABFC</td>
-<td class="instruction">JR Z,<a href="AB70.html#abc8">Demo_Mode_1</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abfe"></span>ABFE</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="abff"></span>ABFF</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Demo_Mode_4</td>
-<td class="address-2"><span id="ac00"></span>AC00</td>
-<td class="instruction">CALL <a href="AC3E.html#ae7a">Start_1UP_Game_30</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="ac03"></span>AC03</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="ac04"></span>AC04</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Return.</td>
 </tr>
 </table>
 <table class="asm-navigation">
@@ -453,14 +321,14 @@ Prev: <a href="AADC.html">AADC</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#ab70">Map</a></td>
 <td class="next">
-Next: <a href="AC05.html">AC05</a>
+Next: <a href="ABC8.html">ABC8</a>
 </td>
 </tr>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../dec/asm/43888.html">Switch to decimal</a>.</div>
 </footer>

@@ -33,73 +33,109 @@ Next: <a href="37434.html">37434</a>
 </td>
 </tr>
 </table>
-<div class="description">37417: Routine at 9229</div>
+<div class="description">37417: Screen Address One Pixel Below</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="37376.html">37376</a>, <a href="37434.html">37434</a> and <a href="37461.html">Yin_Yang_Copy</a>.
+Used by the routines at <a href="37376.html">DrawBackground</a>, <a href="37434.html">37434</a> and <a href="37461.html">Yin_Yang_Copy</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Current position</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Address for new position</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="37417"></span>
+<div class="comments">
+<div class="paragraph">
+Calculates the new address for writing a sprite pixel, in a downward direction, taking into consideration the screen memory layout.
 </div>
 </div>
 </td>
 </tr>
 <tr>
+<td class="asm-label">ScreenPos1PixelBelow</td>
 <td class="address-2"><span id="37417"></span>37417</td>
 <td class="instruction">INC H</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Increment <span class="register">H</span> by one to move down one pixel on screen.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37418"></span>37418</td>
 <td class="instruction">LD A,H</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash <span class="register">H</span> in <span class="register">A</span> temporarily.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37419"></span>37419</td>
-<td class="instruction">AND 7</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %00000111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37421"></span>37421</td>
-<td class="instruction">JR NZ,<a href="37417.html#37433">37433</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="37417.html#37433">ScreenPos1PixelBelow_Return</a></td>
+<td class="comment-1" rowspan="1">If a character line has not been crossed then jump to <a href="37417.html#37433">ScreenPos1PixelBelow_Return</a> to return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37423"></span>37423</td>
 <td class="instruction">LD A,32</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">L</span>+=32.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37425"></span>37425</td>
 <td class="instruction">ADD A,L</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37426"></span>37426</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37427"></span>37427</td>
-<td class="instruction">JR C,<a href="37417.html#37433">37433</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR C,<a href="37417.html#37433">ScreenPos1PixelBelow_Return</a></td>
+<td class="comment-1" rowspan="1">If a new section of the screen has not been crossed, jump to <a href="37417.html#37433">ScreenPos1PixelBelow_Return</a> to return.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37429"></span>37429</td>
 <td class="instruction">LD A,H</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3"><span class="register">H</span>-=8.</td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37430"></span>37430</td>
 <td class="instruction">SUB 8</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label"></td>
 <td class="address-1"><span id="37432"></span>37432</td>
 <td class="instruction">LD H,A</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="asm-label">ScreenPos1PixelBelow_Return</td>
 <td class="address-2"><span id="37433"></span>37433</td>
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
@@ -118,8 +154,8 @@ Next: <a href="37434.html">37434</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../../asm/9229.html">Switch to hexadecimal</a>.</div>
 </footer>

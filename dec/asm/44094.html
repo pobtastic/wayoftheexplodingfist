@@ -29,11 +29,11 @@ Prev: <a href="44037.html">44037</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#44094">Map</a></td>
 <td class="next">
-Next: <a href="44735.html">44735</a>
+Next: <a href="44444.html">44444</a>
 </td>
 </tr>
 </table>
-<div class="description">44094: Routine at AC3E</div>
+<div class="description">44094: Start 1UP Game</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,22 +45,12 @@ Used by the routine at <a href="44037.html">Main_Game</a>.
 </td>
 </tr>
 <tr>
-<td class="routine-comment" colspan="5">
-<span id="44094"></span>
-<div class="comments">
-<div class="paragraph">
-fff
-</div>
-</div>
-</td>
-</tr>
-<tr>
 <td class="asm-label">Start_1UP_Game</td>
 <td class="address-2"><span id="44094"></span>44094</td>
 <td class="instruction">XOR A</td>
 <td class="comment-1" rowspan="6">Write 0 to; <ul class="">
 <li><a href="43585.html#43648">Also_Rank</a></li>
-<li><a href="45092.html#45151">Current_Rank</a></li>
+<li><a href="45150.html#45151">Current_Rank</a></li>
 <li><a href="43526.html">Is_Demo_Mode</a></li>
 <li><a href="43526.html#43528">P1_Points_Awarded</a></li>
 <li><a href="43585.html#43592">P2_Points_Awarded</a></li>
@@ -96,7 +86,7 @@ fff
 <td class="address-1"><span id="44110"></span>44110</td>
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="3">Write 1 to; <ul class="">
-<li><a href="44839.html#44853">44853</a></li>
+<li><a href="44853.html">44853</a></li>
 <li><a href="43585.html#43590">43590</a></li>
 </ul></td>
 </tr>
@@ -116,7 +106,7 @@ fff
 <td class="instruction">INC A</td>
 <td class="comment-1" rowspan="3">Write 2 to; <ul class="">
 <li><a href="43526.html#43580">43580</a></li>
-<li><a href="44839.html#44852">44852</a></li>
+<li><a href="44852.html">CurrentBackground</a></li>
 </ul></td>
 </tr>
 <tr>
@@ -139,7 +129,7 @@ fff
 <td class="asm-label">Start_1UP_Game_0</td>
 <td class="address-2"><span id="44127"></span>44127</td>
 <td class="instruction">LD A,(44853)</td>
-<td class="comment-1" rowspan="3">If <a href="44839.html#44853">44853</a> is zero, jump to <a href="44094.html#44189">Start_1UP_Game_1</a>.</td>
+<td class="comment-1" rowspan="3">If <a href="44853.html">44853</a> is zero, jump to <a href="44094.html#44189">Start_1UP_Game_1</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -161,7 +151,7 @@ fff
 <td class="asm-label"></td>
 <td class="address-1"><span id="44134"></span>44134</td>
 <td class="instruction">LD (44853),A</td>
-<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="44839.html#44853">44853</a>.</td>
+<td class="comment-1" rowspan="1">Write <span class="register">A</span> to <a href="44853.html">44853</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -173,13 +163,13 @@ fff
 <td class="asm-label"></td>
 <td class="address-1"><span id="44140"></span>44140</td>
 <td class="instruction">LD A,(44852)</td>
-<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="44839.html#44852">44852</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="44852.html">CurrentBackground</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44143"></span>44143</td>
-<td class="instruction">CALL <a href="37376.html">37376</a></td>
-<td class="comment-1" rowspan="1">Call <a href="37376.html">37376</a>.</td>
+<td class="instruction">CALL <a href="37376.html">DrawBackground</a></td>
+<td class="comment-1" rowspan="1">Call <a href="37376.html">DrawBackground</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -479,6 +469,16 @@ fff
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="44264"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44444.html">Start_2UP_Game</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label">Start_1UP_Game_5</td>
 <td class="address-2"><span id="44264"></span>44264</td>
 <td class="instruction">LD A,25</td>
@@ -496,6 +496,16 @@ fff
 <td class="asm-label"></td>
 <td class="address-1"><span id="44269"></span>44269</td>
 <td class="instruction">LD (43596),A</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44272"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44582.html">44582</a>.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label">Start_1UP_Game_6</td>
@@ -598,7 +608,7 @@ fff
 <tr>
 <td class="asm-label">Start_1UP_Game_8</td>
 <td class="address-2"><span id="44312"></span>44312</td>
-<td class="instruction">CALL <a href="44094.html#44582">Start_1UP_Game_24</a></td>
+<td class="instruction">CALL <a href="44582.html">44582</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -788,13 +798,13 @@ This entry point is used by the routine at <a href="45819.html">45819</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="44380"></span>44380</td>
-<td class="instruction">CALL <a href="44094.html#44664">Start_1UP_Game_29</a></td>
+<td class="instruction">CALL <a href="44582.html#44664">44664</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label">Start_1UP_Game_12</td>
 <td class="address-2"><span id="44383"></span>44383</td>
-<td class="instruction">CALL <a href="44094.html#44666">Start_1UP_Game_30</a></td>
+<td class="instruction">CALL <a href="44582.html#44666">44666</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -914,13 +924,13 @@ This entry point is used by the routine at <a href="45819.html">45819</a>.
 <tr>
 <td class="asm-label">Start_1UP_Game_15</td>
 <td class="address-2"><span id="44433"></span>44433</td>
-<td class="instruction">CALL <a href="44094.html#44699">Start_1UP_Game_32</a></td>
+<td class="instruction">CALL <a href="44582.html#44699">44699</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label">Start_1UP_Game_16</td>
 <td class="address-2"><span id="44436"></span>44436</td>
-<td class="instruction">CALL <a href="44094.html#44701">Start_1UP_Game_33</a></td>
+<td class="instruction">CALL <a href="44582.html#44701">44701</a></td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -947,839 +957,6 @@ This entry point is used by the routine at <a href="45819.html">45819</a>.
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44444"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="44037.html">Main_Game</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label">Start_2UP_Game</td>
-<td class="address-2"><span id="44444"></span>44444</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="6">Write 0 to; <ul class="">
-<li><a href="45092.html#45151">Current_Rank</a></li>
-<li><a href="43526.html">Is_Demo_Mode</a></li>
-<li><a href="43585.html#43590">43590</a></li>
-<li><a href="43526.html#43528">P1_Points_Awarded</a></li>
-<li><a href="43585.html#43592">P2_Points_Awarded</a></li>
-</ul></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44445"></span>44445</td>
-<td class="instruction">LD (45151),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44448"></span>44448</td>
-<td class="instruction">LD (43526),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44451"></span>44451</td>
-<td class="instruction">LD (43590),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44454"></span>44454</td>
-<td class="instruction">LD (43528),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44457"></span>44457</td>
-<td class="instruction">LD (43592),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44460"></span>44460</td>
-<td class="instruction">LD A,2</td>
-<td class="comment-1" rowspan="2">Write 2 to; <ul class="">
-<li><a href="44839.html#44852">44852</a></li>
-</ul></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44462"></span>44462</td>
-<td class="instruction">LD (44852),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44465"></span>44465</td>
-<td class="instruction">CALL <a href="37072.html#37073">Intro_Music</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44468"></span>44468</td>
-<td class="instruction">CALL <a href="37022.html">New_Round</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44471"></span>44471</td>
-<td class="instruction">CALL <a href="44811.html">Reset_Score</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_18</td>
-<td class="address-2"><span id="44474"></span>44474</td>
-<td class="instruction">LD A,(44852)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44477"></span>44477</td>
-<td class="instruction">CALL <a href="37376.html">37376</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44480"></span>44480</td>
-<td class="instruction">CALL <a href="38725.html#39103">Game_Over_13</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44483"></span>44483</td>
-<td class="instruction">LD B,0</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44485"></span>44485</td>
-<td class="instruction">CALL <a href="44854.html#44882">44882</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44488"></span>44488</td>
-<td class="instruction">LD B,0</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44490"></span>44490</td>
-<td class="instruction">CALL <a href="44854.html#44951">44951</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44493"></span>44493</td>
-<td class="instruction">LD HL,45112</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44496"></span>44496</td>
-<td class="instruction">CALL <a href="42629.html">Print_HighScore</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44499"></span>44499</td>
-<td class="instruction">CALL <a href="38725.html#39103">Game_Over_13</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44502"></span>44502</td>
-<td class="instruction">CALL <a href="44792.html">Init_Time</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44505"></span>44505</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44506"></span>44506</td>
-<td class="instruction">LD (39979),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44509"></span>44509</td>
-<td class="instruction">CALL <a href="44094.html#44564">Start_1UP_Game_23</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44512"></span>44512</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44513"></span>44513</td>
-<td class="instruction">RET M</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44514"></span>44514</td>
-<td class="instruction">CALL <a href="44839.html">44839</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44517"></span>44517</td>
-<td class="instruction">CALL <a href="37072.html#37073">Intro_Music</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44520"></span>44520</td>
-<td class="instruction">LD HL,45151</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44523"></span>44523</td>
-<td class="instruction">INC (HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44524"></span>44524</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44525"></span>44525</td>
-<td class="instruction">CP 4</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44527"></span>44527</td>
-<td class="instruction">JR Z,<a href="44094.html#44531">Start_1UP_Game_19</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44529"></span>44529</td>
-<td class="instruction">JR <a href="44094.html#44474">Start_1UP_Game_18</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_19</td>
-<td class="address-2"><span id="44531"></span>44531</td>
-<td class="instruction">CALL <a href="42567.html">Check_HighScore</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44534"></span>44534</td>
-<td class="instruction">LD A,(42678)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44537"></span>44537</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44538"></span>44538</td>
-<td class="instruction">JR Z,<a href="44094.html#44551">Start_1UP_Game_20</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44540"></span>44540</td>
-<td class="instruction">DEC A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44541"></span>44541</td>
-<td class="instruction">JR NZ,<a href="44094.html#44556">Start_1UP_Game_21</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44543"></span>44543</td>
-<td class="instruction">CALL <a href="44094.html#44664">Start_1UP_Game_29</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44546"></span>44546</td>
-<td class="instruction">CALL <a href="44094.html#44666">Start_1UP_Game_30</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44549"></span>44549</td>
-<td class="instruction">JR <a href="44094.html#44562">Start_1UP_Game_22</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_20</td>
-<td class="address-2"><span id="44551"></span>44551</td>
-<td class="instruction">CALL <a href="44094.html#44264">Start_1UP_Game_5</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44554"></span>44554</td>
-<td class="instruction">JR <a href="44094.html#44562">Start_1UP_Game_22</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_21</td>
-<td class="address-2"><span id="44556"></span>44556</td>
-<td class="instruction">CALL <a href="44094.html#44699">Start_1UP_Game_32</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44559"></span>44559</td>
-<td class="instruction">CALL <a href="44094.html#44701">Start_1UP_Game_33</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_22</td>
-<td class="address-2"><span id="44562"></span>44562</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44563"></span>44563</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_23</td>
-<td class="address-2"><span id="44564"></span>44564</td>
-<td class="instruction">CALL <a href="44094.html#44582">Start_1UP_Game_24</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44567"></span>44567</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44568"></span>44568</td>
-<td class="instruction">RET M</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44569"></span>44569</td>
-<td class="instruction">CALL <a href="37022.html">New_Round</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44572"></span>44572</td>
-<td class="instruction">CALL <a href="44854.html">44854</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44575"></span>44575</td>
-<td class="instruction">LD A,(39979)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44578"></span>44578</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44579"></span>44579</td>
-<td class="instruction">JR Z,<a href="44094.html#44564">Start_1UP_Game_23</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44581"></span>44581</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44582"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="43888.html">Demo_Mode</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_24</td>
-<td class="address-2"><span id="44582"></span>44582</td>
-<td class="instruction">CALL <a href="40102.html#40104">40104</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_25</td>
-<td class="address-2"><span id="44585"></span>44585</td>
-<td class="instruction">CALL <a href="38725.html">Game_Over</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44588"></span>44588</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44589"></span>44589</td>
-<td class="instruction">RET M</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44590"></span>44590</td>
-<td class="instruction">LD A,(43588)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44593"></span>44593</td>
-<td class="instruction">CP 17</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44595"></span>44595</td>
-<td class="instruction">JR Z,<a href="44094.html#44625">Start_1UP_Game_26</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44597"></span>44597</td>
-<td class="instruction">LD A,(43524)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44600"></span>44600</td>
-<td class="instruction">CP 17</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44602"></span>44602</td>
-<td class="instruction">JR Z,<a href="44094.html#44631">Start_1UP_Game_27</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44604"></span>44604</td>
-<td class="instruction">LD HL,43277</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44607"></span>44607</td>
-<td class="instruction">ADD A,L</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44608"></span>44608</td>
-<td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44609"></span>44609</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44610"></span>44610</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44611"></span>44611</td>
-<td class="instruction">JR NZ,<a href="44094.html#44625">Start_1UP_Game_26</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44613"></span>44613</td>
-<td class="instruction">LD A,(43588)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44616"></span>44616</td>
-<td class="instruction">LD HL,43277</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44619"></span>44619</td>
-<td class="instruction">ADD A,L</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44620"></span>44620</td>
-<td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44621"></span>44621</td>
-<td class="instruction">LD A,(HL)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44622"></span>44622</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44623"></span>44623</td>
-<td class="instruction">JR NZ,<a href="44094.html#44631">Start_1UP_Game_27</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_26</td>
-<td class="address-2"><span id="44625"></span>44625</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="2">Write 0 to; <ul class="">
-<li><a href="50215.html">50215</a></li>
-</ul></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44626"></span>44626</td>
-<td class="instruction">LD (50215),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44629"></span>44629</td>
-<td class="instruction">JR <a href="44094.html#44636">Start_1UP_Game_28</a></td>
-<td class="comment-1" rowspan="1">Jump to <a href="44094.html#44636">Start_1UP_Game_28</a>.</td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_27</td>
-<td class="address-2"><span id="44631"></span>44631</td>
-<td class="instruction">LD A,1</td>
-<td class="comment-1" rowspan="2">Write 1 to; <ul class="">
-<li><a href="50215.html">50215</a></li>
-</ul></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44633"></span>44633</td>
-<td class="instruction">LD (50215),A</td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_28</td>
-<td class="address-2"><span id="44636"></span>44636</td>
-<td class="instruction">LD A,(39976)</td>
-<td class="comment-1" rowspan="3">Return if <a href="39976.html">39976</a> is not zero.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44639"></span>44639</td>
-<td class="instruction">AND A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44640"></span>44640</td>
-<td class="instruction">RET NZ</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44641"></span>44641</td>
-<td class="instruction">LD A,(39979)</td>
-<td class="comment-1" rowspan="3">Jump to <a href="44094.html#44585">Start_1UP_Game_25</a> if <a href="39979.html">39979</a> is not zero.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44644"></span>44644</td>
-<td class="instruction">AND A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44645"></span>44645</td>
-<td class="instruction">JR Z,<a href="44094.html#44585">Start_1UP_Game_25</a></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44647"></span>44647</td>
-<td class="instruction">LD A,28</td>
-<td class="comment-1" rowspan="3">Write 28 to; <ul class="">
-<li><a href="43526.html#43532">43532</a></li>
-<li><a href="43585.html#43596">43596</a></li>
-</ul></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44649"></span>44649</td>
-<td class="instruction">LD (43532),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44652"></span>44652</td>
-<td class="instruction">LD (43596),A</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44655"></span>44655</td>
-<td class="instruction">CALL <a href="44094.html#44272">Start_1UP_Game_6</a></td>
-<td class="comment-1" rowspan="1">Call <a href="44094.html#44272">Start_1UP_Game_6</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44658"></span>44658</td>
-<td class="instruction">CALL <a href="44826.html">44826</a></td>
-<td class="comment-1" rowspan="1">Call <a href="44826.html">44826</a>.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44661"></span>44661</td>
-<td class="instruction">CALL <a href="44826.html">44826</a></td>
-<td class="comment-1" rowspan="1">Call <a href="44826.html">44826</a>.</td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_29</td>
-<td class="address-2"><span id="44664"></span>44664</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1">Return.</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44665"></span>44665</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44666"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="43888.html">Demo_Mode</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_30</td>
-<td class="address-2"><span id="44666"></span>44666</td>
-<td class="instruction">LD A,25</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44668"></span>44668</td>
-<td class="instruction">LD (43532),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44671"></span>44671</td>
-<td class="instruction">LD A,122</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44673"></span>44673</td>
-<td class="instruction">LD (43544),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44676"></span>44676</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44677"></span>44677</td>
-<td class="instruction">LD (43531),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44680"></span>44680</td>
-<td class="instruction">LD (43542),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44683"></span>44683</td>
-<td class="instruction">LD (50215),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_31</td>
-<td class="address-2"><span id="44686"></span>44686</td>
-<td class="instruction">CALL <a href="38356.html">38356</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44689"></span>44689</td>
-<td class="instruction">CALL <a href="48915.html">48915</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44692"></span>44692</td>
-<td class="instruction">LD A,(43533)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44695"></span>44695</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44696"></span>44696</td>
-<td class="instruction">JR Z,<a href="44094.html#44686">Start_1UP_Game_31</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44698"></span>44698</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_32</td>
-<td class="address-2"><span id="44699"></span>44699</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44700"></span>44700</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="44701"></span>
-<div class="comments">
-<div class="paragraph">
-This entry point is used by the routine at <a href="43888.html">Demo_Mode</a>.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_33</td>
-<td class="address-2"><span id="44701"></span>44701</td>
-<td class="instruction">LD A,25</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44703"></span>44703</td>
-<td class="instruction">LD (43596),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44706"></span>44706</td>
-<td class="instruction">LD A,122</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44708"></span>44708</td>
-<td class="instruction">LD (43608),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44711"></span>44711</td>
-<td class="instruction">XOR A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44712"></span>44712</td>
-<td class="instruction">LD (43595),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44715"></span>44715</td>
-<td class="instruction">LD (43606),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44718"></span>44718</td>
-<td class="instruction">INC A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44719"></span>44719</td>
-<td class="instruction">LD (50215),A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label">Start_1UP_Game_34</td>
-<td class="address-2"><span id="44722"></span>44722</td>
-<td class="instruction">CALL <a href="38356.html">38356</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44725"></span>44725</td>
-<td class="instruction">CALL <a href="48915.html">48915</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44728"></span>44728</td>
-<td class="instruction">LD A,(43597)</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44731"></span>44731</td>
-<td class="instruction">AND A</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44732"></span>44732</td>
-<td class="instruction">JR Z,<a href="44094.html#44722">Start_1UP_Game_34</a></td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="44734"></span>44734</td>
-<td class="instruction">RET</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
 </table>
 <table class="asm-navigation">
 <tr>
@@ -1788,14 +965,14 @@ Prev: <a href="44037.html">44037</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#44094">Map</a></td>
 <td class="next">
-Next: <a href="44735.html">44735</a>
+Next: <a href="44444.html">44444</a>
 </td>
 </tr>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../../asm/AC3E.html">Switch to hexadecimal</a>.</div>
 </footer>

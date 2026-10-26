@@ -44,7 +44,7 @@ Next: <a href="9200.html">9200</a>
 <tr>
 <td class="asm-label"></td>
 <td class="address-2"><span id="90d0"></span>90D0</td>
-<td class="instruction">DEFB $1D</td>
+<td class="instruction">DEFB %00011101</td>
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
@@ -52,7 +52,7 @@ Next: <a href="9200.html">9200</a>
 <span id="90d1"></span>
 <div class="comments">
 <div class="paragraph">
-This entry point is used by the routine at <a href="AC3E.html">Start_1UP_Game</a>.
+This entry point is used by the routines at <a href="AC3E.html">Start_1UP_Game</a> and <a href="AD9C.html">Start_2UP_Game</a>.
 </div>
 </div>
 </td>
@@ -83,37 +83,47 @@ This entry point is used by the routine at <a href="AC3E.html">Start_1UP_Game</a
 <td class="asm-label"></td>
 <td class="address-1"><span id="90d7"></span>90D7</td>
 <td class="instruction">LD A,($90D0)</td>
-<td class="comment-1" rowspan="1"><a href="90D0.html">90D0</a>.</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="90D0.html">90D0</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="90da"></span>90DA</td>
-<td class="instruction">AND $1F</td>
-<td class="comment-1" rowspan="1">Check bits 0-4.</td>
+<td class="instruction">AND %00011111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-4.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="90dc"></span>90DC</td>
 <td class="instruction">LD H,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">H</span>=<span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="90dd"></span>90DD</td>
-<td class="instruction">AND $07</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">AND %00000111</td>
+<td class="comment-1" rowspan="1">Keep only bits 0-2.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="90df"></span>90DF</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">L</span>=<span class="register">A</span>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="90e0"></span>90E0</td>
 <td class="instruction">LD IX,$9128</td>
 <td class="comment-1" rowspan="1"><span class="register">IX</span>=<a href="90D0.html#9128">Intro_Music_Data</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="90e4"></span>
+<div class="comments">
+<div class="paragraph">
+The
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label">Intro_Music_Loop</td>
@@ -216,40 +226,58 @@ This entry point is used by the routine at <a href="AC3E.html">Start_1UP_Game</a
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
+<td class="routine-comment" colspan="5">
+<span id="9103"></span>
+<div class="comments">
+<div class="paragraph">
+Introduce a small delay.
+</div>
+</div>
+</td>
+</tr>
+<tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9103"></span>9103</td>
 <td class="instruction">LD BC,$0AF4</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">BC</span>=0AF4.</td>
 </tr>
 <tr>
-<td class="asm-label">Intro_Music_Delay_1</td>
+<td class="asm-label">Intro_Music_Delay</td>
 <td class="address-2"><span id="9106"></span>9106</td>
 <td class="instruction">DEC BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9107"></span>9107</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump back to <a href="90D0.html#9106">Intro_Music_Delay</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9108"></span>9108</td>
 <td class="instruction">OR C</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9109"></span>9109</td>
-<td class="instruction">JR NZ,<a href="90D0.html#9106">Intro_Music_Delay_1</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="90D0.html#9106">Intro_Music_Delay</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="910b"></span>
+<div class="comments">
+<div class="paragraph">
+Jump back to continue playing the music.
+</div>
+</div>
+</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="910b"></span>910B</td>
 <td class="instruction">JR <a href="90D0.html#90e4">Intro_Music_Loop</a></td>
-<td class="comment-1" rowspan="1">Loop back to <a href="90D0.html#90e4">Intro_Music_Loop</a>.</td>
+<td class="comment-1" rowspan="1">Jump to <a href="90D0.html#90e4">Intro_Music_Loop</a>.</td>
 </tr>
 <tr>
 <td class="routine-comment" colspan="5">
@@ -265,7 +293,7 @@ Process the note data and create the sounds.
 <td class="asm-label">Intro_Music_Play</td>
 <td class="address-2"><span id="910d"></span>910D</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Stash <span class="register">BC</span> on the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -280,28 +308,26 @@ Process the note data and create the sounds.
 <td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
-<td class="asm-label">Intro_Music_Delay_2</td>
+<td class="asm-label">Intro_Music_Delay_1</td>
 <td class="address-2"><span id="9111"></span>9111</td>
 <td class="instruction">DEC BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9112"></span>9112</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump back to <a href="90D0.html#9111">Intro_Music_Delay_1</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9113"></span>9113</td>
 <td class="instruction">OR C</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9114"></span>9114</td>
-<td class="instruction">JR NZ,<a href="90D0.html#9111">Intro_Music_Delay_2</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="90D0.html#9111">Intro_Music_Delay_1</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -319,73 +345,69 @@ Process the note data and create the sounds.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9119"></span>9119</td>
 <td class="instruction">POP BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="911a"></span>911A</td>
 <td class="instruction">PUSH BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">But stash a copy of it back on the stack for the next loop.</td>
 </tr>
 <tr>
-<td class="asm-label">Intro_Music_Delay_3</td>
+<td class="asm-label">Intro_Music_Delay_2</td>
 <td class="address-2"><span id="911b"></span>911B</td>
 <td class="instruction">DEC BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">BC</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="911c"></span>911C</td>
 <td class="instruction">LD A,B</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump back to <a href="90D0.html#911b">Intro_Music_Delay_2</a> until <span class="register">BC</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="911d"></span>911D</td>
 <td class="instruction">OR C</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="911e"></span>911E</td>
-<td class="instruction">JR NZ,<a href="90D0.html#911b">Intro_Music_Delay_3</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="instruction">JR NZ,<a href="90D0.html#911b">Intro_Music_Delay_2</a></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9120"></span>9120</td>
 <td class="instruction">POP BC</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Restore <span class="register">BC</span> from the stack again.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9121"></span>9121</td>
 <td class="instruction">DEC DE</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Decrease <span class="register">DE</span> by one.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9122"></span>9122</td>
 <td class="instruction">LD A,D</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="3">Jump back to <a href="90D0.html#910d">Intro_Music_Play</a> until <span class="register">DE</span> is zero.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9123"></span>9123</td>
 <td class="instruction">OR E</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9124"></span>9124</td>
 <td class="instruction">JR NZ,<a href="90D0.html#910d">Intro_Music_Play</a></td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9126"></span>9126</td>
 <td class="instruction">JR <a href="90D0.html#90e4">Intro_Music_Loop</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="90D0.html#90e4">Intro_Music_Loop</a>.</td>
 </tr>
 <tr>
 <td class="asm-label">Intro_Music_Data</td>
@@ -725,8 +747,8 @@ Next: <a href="9200.html">9200</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../dec/asm/37072.html">Switch to decimal</a>.</div>
 </footer>

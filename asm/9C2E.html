@@ -54,7 +54,12 @@ Used by the routine at <a href="8800.html">8800</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c2f"></span>9C2F</td>
 <td class="instruction">LD A,$05</td>
-<td class="comment-1" rowspan="2">Set border colour to cyan. <table class="default">
+<td class="comment-1" rowspan="2">Set border colour to INK:
+CYAN,
+PAPER:
+BLACK
+
+. <table class="default">
 <tr>
 <th colspan="1" rowspan="1">Value</th>
 <th colspan="1" rowspan="1">Ink</th>
@@ -88,8 +93,8 @@ Used by the routine at <a href="8800.html">8800</a>.
 <tr>
 <td class="asm-label"></td>
 <td class="address-1"><span id="9c37"></span>9C37</td>
-<td class="instruction">CALL <a href="B138.html">Game_Init</a></td>
-<td class="comment-1" rowspan="1">Call <a href="B138.html">Game_Init</a>.</td>
+<td class="instruction">CALL <a href="B138.html">Game_Initialisation</a></td>
+<td class="comment-1" rowspan="1">Call <a href="B138.html">Game_Initialisation</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -161,8 +166,8 @@ Next: <a href="9C53.html">9C53</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../dec/asm/39982.html">Switch to decimal</a>.</div>
 </footer>

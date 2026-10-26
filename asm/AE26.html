@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at AE26</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AD9C.html">AD9C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ae26">Map</a></td>
+<td class="next">
+Next: <a href="AEBF.html">AEBF</a>
+</td>
+</tr>
+</table>
+<div class="description">AE26: Routine at AE26</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="ABC8.html">ABC8</a>, <a href="AC3E.html">Start_1UP_Game</a> and <a href="AD9C.html">Start_2UP_Game</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae26"></span>AE26</td>
+<td class="instruction">CALL <a href="9CA6.html#9ca8">$9CA8</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9CA6.html#9ca8">9CA8</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae29"></span>AE29</td>
+<td class="instruction">CALL <a href="9745.html">Game_Over</a></td>
+<td class="comment-1" rowspan="1">Call <a href="9745.html">Game_Over</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae2c"></span>AE2C</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae2d"></span>AE2D</td>
+<td class="instruction">RET M</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae2e"></span>AE2E</td>
+<td class="instruction">LD A,($AA44)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="AA41.html#aa44">AA44</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae31"></span>AE31</td>
+<td class="instruction">CP $11</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae33"></span>AE33</td>
+<td class="instruction">JR Z,<a href="AE26.html#ae51">$AE51</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae35"></span>AE35</td>
+<td class="instruction">LD A,($AA04)</td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="AA01.html#aa04">AA04</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae38"></span>AE38</td>
+<td class="instruction">CP $11</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae3a"></span>AE3A</td>
+<td class="instruction">JR Z,<a href="AE26.html#ae57">$AE57</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae3c"></span>AE3C</td>
+<td class="instruction">LD HL,$A90D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae3f"></span>AE3F</td>
+<td class="instruction">ADD A,L</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae40"></span>AE40</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae41"></span>AE41</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae42"></span>AE42</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae43"></span>AE43</td>
+<td class="instruction">JR NZ,<a href="AE26.html#ae51">$AE51</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae45"></span>AE45</td>
+<td class="instruction">LD A,($AA44)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae48"></span>AE48</td>
+<td class="instruction">LD HL,$A90D</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae4b"></span>AE4B</td>
+<td class="instruction">ADD A,L</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae4c"></span>AE4C</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae4d"></span>AE4D</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae4e"></span>AE4E</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae4f"></span>AE4F</td>
+<td class="instruction">JR NZ,<a href="AE26.html#ae57">$AE57</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae51"></span>AE51</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="2">Write 00 to <a href="C427.html">C427</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae52"></span>AE52</td>
+<td class="instruction">LD ($C427),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae55"></span>AE55</td>
+<td class="instruction">JR <a href="AE26.html#ae5c">$AE5C</a></td>
+<td class="comment-1" rowspan="1">Jump to <a href="AE26.html#ae5c">AE5C</a>.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae57"></span>AE57</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="C427.html">C427</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae59"></span>AE59</td>
+<td class="instruction">LD ($C427),A</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae5c"></span>AE5C</td>
+<td class="instruction">LD A,($9C28)</td>
+<td class="comment-1" rowspan="3">Return if <a href="9C28.html">9C28</a> is not zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae5f"></span>AE5F</td>
+<td class="instruction">AND A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae60"></span>AE60</td>
+<td class="instruction">RET NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae61"></span>AE61</td>
+<td class="instruction">LD A,($9C2B)</td>
+<td class="comment-1" rowspan="3">Jump to <a href="AE26.html#ae29">AE29</a> if <a href="9C2B.html">9C2B</a> is not zero.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae64"></span>AE64</td>
+<td class="instruction">AND A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae65"></span>AE65</td>
+<td class="instruction">JR Z,<a href="AE26.html#ae29">$AE29</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae67"></span>AE67</td>
+<td class="instruction">LD A,$1C</td>
+<td class="comment-1" rowspan="3">Write 1C to; <ul class="">
+<li><a href="AA06.html#aa0c">AA0C</a></li>
+<li><a href="AA41.html#aa4c">AA4C</a></li>
+</ul></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae69"></span>AE69</td>
+<td class="instruction">LD ($AA0C),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae6c"></span>AE6C</td>
+<td class="instruction">LD ($AA4C),A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae6f"></span>AE6F</td>
+<td class="instruction">CALL <a href="AC3E.html#acf0">Start_1UP_Game_6</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AC3E.html#acf0">Start_1UP_Game_6</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae72"></span>AE72</td>
+<td class="instruction">CALL <a href="AF1A.html">$AF1A</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AF1A.html">AF1A</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae75"></span>AE75</td>
+<td class="instruction">CALL <a href="AF1A.html">$AF1A</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AF1A.html">AF1A</a>.</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ae78"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="AC3E.html">Start_1UP_Game</a> and <a href="AD9C.html">Start_2UP_Game</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae78"></span>AE78</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae79"></span>AE79</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ae7a"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="ABC8.html">ABC8</a>, <a href="AC3E.html">Start_1UP_Game</a> and <a href="AD9C.html">Start_2UP_Game</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae7a"></span>AE7A</td>
+<td class="instruction">LD A,$19</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae7c"></span>AE7C</td>
+<td class="instruction">LD ($AA0C),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae7f"></span>AE7F</td>
+<td class="instruction">LD A,$7A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae81"></span>AE81</td>
+<td class="instruction">LD ($AA18),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae84"></span>AE84</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae85"></span>AE85</td>
+<td class="instruction">LD ($AA0B),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae88"></span>AE88</td>
+<td class="instruction">LD ($AA16),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae8b"></span>AE8B</td>
+<td class="instruction">LD ($C427),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae8e"></span>AE8E</td>
+<td class="instruction">CALL <a href="95D4.html">$95D4</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae91"></span>AE91</td>
+<td class="instruction">CALL <a href="BF13.html">$BF13</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae94"></span>AE94</td>
+<td class="instruction">LD A,($AA0D)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae97"></span>AE97</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae98"></span>AE98</td>
+<td class="instruction">JR Z,<a href="AE26.html#ae8e">$AE8E</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae9a"></span>AE9A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ae9b"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="AC3E.html">Start_1UP_Game</a> and <a href="AD9C.html">Start_2UP_Game</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae9b"></span>AE9B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae9c"></span>AE9C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="ae9d"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="ABC8.html">ABC8</a>, <a href="AC3E.html">Start_1UP_Game</a> and <a href="AD9C.html">Start_2UP_Game</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="ae9d"></span>AE9D</td>
+<td class="instruction">LD A,$19</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ae9f"></span>AE9F</td>
+<td class="instruction">LD ($AA4C),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aea2"></span>AEA2</td>
+<td class="instruction">LD A,$7A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aea4"></span>AEA4</td>
+<td class="instruction">LD ($AA58),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aea7"></span>AEA7</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aea8"></span>AEA8</td>
+<td class="instruction">LD ($AA4B),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aeab"></span>AEAB</td>
+<td class="instruction">LD ($AA56),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aeae"></span>AEAE</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aeaf"></span>AEAF</td>
+<td class="instruction">LD ($C427),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="aeb2"></span>AEB2</td>
+<td class="instruction">CALL <a href="95D4.html">$95D4</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aeb5"></span>AEB5</td>
+<td class="instruction">CALL <a href="BF13.html">$BF13</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aeb8"></span>AEB8</td>
+<td class="instruction">LD A,($AA4D)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aebb"></span>AEBB</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aebc"></span>AEBC</td>
+<td class="instruction">JR Z,<a href="AE26.html#aeb2">$AEB2</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="aebe"></span>AEBE</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AD9C.html">AD9C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#ae26">Map</a></td>
+<td class="next">
+Next: <a href="AEBF.html">AEBF</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
+<div><a href="../dec/asm/44582.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

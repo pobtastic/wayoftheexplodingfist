@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Way Of The Exploding Fist: Routine at ABC8</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-dark.css" />
+<link rel="stylesheet" type="text/css" href="../skoolkit-wide.css" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-75RERFCHBG"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-75RERFCHBG');
+</script>
+</head>
+<body class="Asm-c">
+<table class="header">
+<tr>
+<td class="logo"><a href="../index.html"><img alt="logo" src="../images/logo.png" /></a></td>
+<td class="page-header">Routines</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AB70.html">AB70</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#abc8">Map</a></td>
+<td class="next">
+Next: <a href="AC05.html">AC05</a>
+</td>
+</tr>
+</table>
+<div class="description">ABC8: Routine at ABC8</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="AB70.html">Demo_Mode</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="abc8"></span>ABC8</td>
+<td class="instruction">CALL <a href="AE26.html">$AE26</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AE26.html">AE26</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="abcb"></span>ABCB</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abcc"></span>ABCC</td>
+<td class="instruction">RET M</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abcd"></span>ABCD</td>
+<td class="instruction">CALL <a href="AF01.html">$AF01</a></td>
+<td class="comment-1" rowspan="1">Call <a href="AF01.html">AF01</a>.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="abd0"></span>ABD0</td>
+<td class="instruction">JR Z,<a href="ABC8.html#abf1">$ABF1</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abd2"></span>ABD2</td>
+<td class="instruction">CALL <a href="900E.html">Yin_Yang_1UP</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abd5"></span>ABD5</td>
+<td class="instruction">CALL <a href="AF36.html">$AF36</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abd8"></span>ABD8</td>
+<td class="instruction">LD A,($AA03)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abdb"></span>ABDB</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abdc"></span>ABDC</td>
+<td class="instruction">JR Z,<a href="ABC8.html#abea">$ABEA</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abde"></span>ABDE</td>
+<td class="instruction">LD A,($AA41)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abe1"></span>ABE1</td>
+<td class="instruction">CP $04</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abe3"></span>ABE3</td>
+<td class="instruction">JR C,<a href="ABC8.html#abf1">$ABF1</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abe5"></span>ABE5</td>
+<td class="instruction">CALL <a href="AE26.html#ae9d">$AE9D</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abe8"></span>ABE8</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abe9"></span>ABE9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return.</td>
+</tr>
+<tr>
+<td class="address-2"><span id="abea"></span>ABEA</td>
+<td class="instruction">LD A,($AA01)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abed"></span>ABED</td>
+<td class="instruction">CP $04</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abef"></span>ABEF</td>
+<td class="instruction">JR NC,<a href="ABC8.html#ac00">$AC00</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="abf1"></span>ABF1</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abf2"></span>ABF2</td>
+<td class="instruction">LD ($AA08),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abf5"></span>ABF5</td>
+<td class="instruction">LD ($AA48),A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abf8"></span>ABF8</td>
+<td class="instruction">LD A,($9C2B)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abfb"></span>ABFB</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abfc"></span>ABFC</td>
+<td class="instruction">JR Z,<a href="ABC8.html#abc8">$ABC8</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abfe"></span>ABFE</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="abff"></span>ABFF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-2"><span id="ac00"></span>AC00</td>
+<td class="instruction">CALL <a href="AE26.html#ae7a">$AE7A</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac03"></span>AC03</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="ac04"></span>AC04</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="AB70.html">AB70</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#abc8">Map</a></td>
+<td class="next">
+Next: <a href="AC05.html">AC05</a>
+</td>
+</tr>
+</table>
+<footer>
+<div class="release"></div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+<div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
+<div><a href="../dec/asm/43976.html">Switch to decimal</a>.</div>
+</footer>
+</body>
+</html>

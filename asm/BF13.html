@@ -33,13 +33,13 @@ Next: <a href="C101.html">C101</a>
 </td>
 </tr>
 </table>
-<div class="description">BF13: Routine at BF13</div>
+<div class="description">BF13: Draw Sprites?</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
 <div class="details">
 <div class="paragraph">
-Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html">Start_1UP_Game</a>.
+Used by the routines at <a href="9745.html">Game_Over</a>, <a href="AC3E.html">Start_1UP_Game</a> and <a href="AE26.html">AE26</a>.
 </div>
 </div>
 </td>
@@ -47,22 +47,21 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-2"><span id="bf13"></span>BF13</td>
 <td class="instruction">LD A,($AA52)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=AA52.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bf16"></span>BF16</td>
 <td class="instruction">LD L,A</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="2">Create an offset in <span class="register">HL</span>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bf17"></span>BF17</td>
 <td class="instruction">LD H,$00</td>
-<td class="comment-1" rowspan="1"></td>
 </tr>
 <tr>
 <td class="address-1"><span id="bf19"></span>BF19</td>
 <td class="instruction">LD ($C425),HL</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Write <span class="register">HL</span> to <a href="C425.html">C425</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bf1c"></span>BF1C</td>
@@ -277,7 +276,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bf7b"></span>BF7B</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bf7e"></span>BF7E</td>
@@ -327,7 +326,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bf92"></span>BF92</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bf95"></span>BF95</td>
@@ -362,7 +361,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bfa1"></span>BFA1</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bfa4"></span>BFA4</td>
@@ -407,7 +406,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bfb4"></span>BFB4</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bfb7"></span>BFB7</td>
@@ -447,7 +446,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bfc5"></span>BFC5</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bfc8"></span>BFC8</td>
@@ -497,7 +496,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bfdc"></span>BFDC</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bfdf"></span>BFDF</td>
@@ -532,7 +531,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bfeb"></span>BFEB</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="bfee"></span>BFEE</td>
@@ -577,7 +576,7 @@ Used by the routines at <a href="9745.html">Game_Over</a> and <a href="AC3E.html
 <tr>
 <td class="address-1"><span id="bffe"></span>BFFE</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c001"></span>C001</td>
@@ -787,7 +786,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="c05d"></span>C05D</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c060"></span>C060</td>
@@ -822,7 +821,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="c06c"></span>C06C</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c06f"></span>C06F</td>
@@ -857,7 +856,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="c07b"></span>C07B</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c07e"></span>C07E</td>
@@ -892,7 +891,7 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="c08a"></span>C08A</td>
 <td class="instruction">CALL <a href="C1F6.html">$C1F6</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1F6.html">C1F6</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c08d"></span>C08D</td>
@@ -1082,32 +1081,32 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="c0df"></span>C0DF</td>
 <td class="instruction">JP <a href="BF13.html#c0e8">$C0E8</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Jump to <a href="BF13.html#c0e8">C0E8</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="c0e2"></span>C0E2</td>
 <td class="instruction">CALL <a href="C1CC.html">$C1CC</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1CC.html">C1CC</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c0e5"></span>C0E5</td>
 <td class="instruction">CALL <a href="C1A2.html">$C1A2</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C1A2.html">C1A2</a>.</td>
 </tr>
 <tr>
 <td class="address-2"><span id="c0e8"></span>C0E8</td>
 <td class="instruction">LD A,($C436)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="C436.html">C436</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c0eb"></span>C0EB</td>
 <td class="instruction">CALL <a href="C203.html">Screen_Calc</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C203.html">Screen_Calc</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c0ee"></span>C0EE</td>
 <td class="instruction">LD A,($C434)</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">A</span>=<a href="C434.html">C434</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c0f1"></span>C0F1</td>
@@ -1142,12 +1141,12 @@ This entry point is used by the routine at <a href="B2FB.html">B2FB</a>.
 <tr>
 <td class="address-1"><span id="c0fa"></span>C0FA</td>
 <td class="instruction">LD HL,$F730</td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1"><span class="register">HL</span>=<a href="C436.html#f730">F730</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c0fd"></span>C0FD</td>
 <td class="instruction">CALL <a href="C3E4.html">$C3E4</a></td>
-<td class="comment-1" rowspan="1"></td>
+<td class="comment-1" rowspan="1">Call <a href="C3E4.html">C3E4</a>.</td>
 </tr>
 <tr>
 <td class="address-1"><span id="c100"></span>C100</td>
@@ -1168,8 +1167,8 @@ Next: <a href="C101.html">C101</a>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../dec/asm/48915.html">Switch to decimal</a>.</div>
 </footer>

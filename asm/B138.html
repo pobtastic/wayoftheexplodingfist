@@ -29,11 +29,11 @@ Prev: <a href="B06A.html">B06A</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b138">Map</a></td>
 <td class="next">
-Next: <a href="B15A.html">B15A</a>
+Next: <a href="B144.html">B144</a>
 </td>
 </tr>
 </table>
-<div class="description">B138: Routine at B138</div>
+<div class="description">B138: Game Initialisation</div>
 <table class="disassembly">
 <tr>
 <td class="routine-comment" colspan="5">
@@ -45,12 +45,10 @@ Used by the routine at <a href="9C2E.html">Game_Start</a>.
 </td>
 </tr>
 <tr>
-<td class="asm-label">Game_Init</td>
+<td class="asm-label">Game_Initialisation</td>
 <td class="address-2"><span id="b138"></span>B138</td>
 <td class="instruction">LD A,$01</td>
-<td class="comment-1" rowspan="2">Write 01 to; <ul class="">
-<li><a href="B138.html#b153">B153</a></li>
-</ul></td>
+<td class="comment-1" rowspan="2">Write 01 to <a href="B144.html#b153">B153</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -61,9 +59,7 @@ Used by the routine at <a href="9C2E.html">Game_Start</a>.
 <td class="asm-label"></td>
 <td class="address-1"><span id="b13d"></span>B13D</td>
 <td class="instruction">LD HL,$FFFF</td>
-<td class="comment-1" rowspan="2">Write FFFF to; <ul class="">
-<li><a href="B138.html#b151">B151</a></li>
-</ul></td>
+<td class="comment-1" rowspan="2">Write FFFF to <a href="B144.html#b151">B151</a>.</td>
 </tr>
 <tr>
 <td class="asm-label"></td>
@@ -76,46 +72,6 @@ Used by the routine at <a href="9C2E.html">Game_Start</a>.
 <td class="instruction">RET</td>
 <td class="comment-1" rowspan="1">Return.</td>
 </tr>
-<tr>
-<td class="routine-comment" colspan="5">
-<span id="b144"></span>
-<div class="comments">
-<div class="paragraph">
-TODO.
-</div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="b144"></span>B144</td>
-<td class="instruction">DEFB $79,$B1,$85,$B1,$91,$B1,$9D,$B1</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="b14c"></span>B14C</td>
-<td class="instruction">DEFB $FB,$B1,$21,$B2,$00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="b151"></span>B151</td>
-<td class="instruction">DEFW $0000</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="b153"></span>B153</td>
-<td class="instruction">DEFB $00</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
-<tr>
-<td class="asm-label"></td>
-<td class="address-1"><span id="b154"></span>B154</td>
-<td class="instruction">DEFB $00,$00,$00,$00,$00,$1D</td>
-<td class="comment-1" rowspan="1"></td>
-</tr>
 </table>
 <table class="asm-navigation">
 <tr>
@@ -124,14 +80,14 @@ Prev: <a href="B06A.html">B06A</a>
 </td>
 <td class="up">Up: <a href="../maps/all.html#b138">Map</a></td>
 <td class="next">
-Next: <a href="B15A.html">B15A</a>
+Next: <a href="B144.html">B144</a>
 </td>
 </tr>
 </table>
 <footer>
 <div class="release"></div>
-<div class="copyright">&copy; 1985 Melbourne House &copy; 2023 ArcadeGeek LTD.</div>
-<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 8.10.</div>
+<div class="copyright">&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.</div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
 <div class="repository">Link to <a href="https://github.com/pobtastic/wayoftheexplodingfist/">Source code</a>.</div>
 <div><a href="../dec/asm/45368.html">Switch to decimal</a>.</div>
 </footer>
