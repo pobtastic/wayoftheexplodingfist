@@ -6,7 +6,7 @@
 ; To build the HTML disassembly, run these commands:
 ;   tap2sna.py @wayoftheexplodingfist.t2s
 ;   sna2skool.py -H -c sources/wotef.ctl WayOfTheExplodingFistThe.z80 > sources/wotef.skool
-;   skool2html.py -H sources/wotef.skool -T dark
+;   skool2html.py -H sources/wotef.skool -T dark -T wide -toOa
 
 [Config]
 Expand=#INCLUDE(Expand)
@@ -16,9 +16,12 @@ GameDir=wayoftheexplodingfist
 
 [Game]
 Game=The Way Of The Exploding Fist
-Logo=#SCR1,1,11,22,13,$4000,$5800(/images/logo)
+Logo=#SCR$01,$01,$0B,$16,$0D,$4000,$5800(/images/logo)
 Copyright=&copy; 1985 Melbourne House<br />&copy; 2026 ArcadeGeek LTD.
 Repository=https://github.com/pobtastic/wayoftheexplodingfist/
+Canonical=https://skoolkit.arcadegeek.co.uk/wayoftheexplodingfist/
+GameIndexUrl=https://skoolkit.arcadegeek.co.uk/wayoftheexplodingfist/
+OgImage=https://skoolkit.arcadegeek.co.uk/wayoftheexplodingfist/images/logo.png
 LinkInternalOperands=1
 AddressAnchor={address#IF({base}==16)(:04x)}
 

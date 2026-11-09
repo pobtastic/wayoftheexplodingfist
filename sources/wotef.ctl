@@ -7,7 +7,7 @@
 > $4000 @expand=#DEF(#FACT()(anchor,text) #LINK(Facts#$anchor)($text))
 > $4000 @expand=#DEF(#POKE()(anchor,text) #LINK(Pokes#$anchor)($text))
 b $4000 Loading screen
-D $4000 #UDGTABLE { #SCR2(loading) | The Way Of The Exploding Fist Loading Screen. } UDGTABLE#
+D $4000 #UDGTABLE { #SCR$02(loading) | The Way Of The Exploding Fist Loading Screen. } UDGTABLE#
 @ $4000 label=Loading
   $4000,$1800,$20 Pixels
   $5800,$0300,$20 Attributes
@@ -1446,15 +1446,15 @@ B $AA80,$01
 @ $AA80 label=Also_Rank
 B $AA8B,$01
 
-t $AA9C
-T $AA9D,$04 "DEMO" text.
-T $AAA1,$06 "PLAYER" text.
-T $AAA7,$06 "NOVICE" text.
-T $AAAE,$08,$02 numeric suffixes.
-T $AAB7,$03 "DAN" text.
-T $AABA,$08 "JOYSTICK" text.
-T $AAC2,$08 "KEYBOARD" text.
-T $AACC,$0C Whitespace?
+t $AA9C Messaging: Display Text
+  $AA9D,$04 "DEMO" text.
+  $AAA1,$06 "PLAYER" text.
+  $AAA7,$06 "NOVICE" text.
+  $AAAE,$08,$02 numeric suffixes.
+  $AAB7,$03 "DAN" text.
+  $AABA,$08 "JOYSTICK" text.
+  $AAC2,$08 "KEYBOARD" text.
+  $AACC,$0C Whitespace?
 
 c $AADC
   $AADC,$0B Copies #N$1A bytes of data from #R$AA00 to #R$A5F1.
@@ -1739,8 +1739,8 @@ N $B004 Convert a single number into ASCII ready for printing to the screen.
 
 b $B00B
 
-t $B024
-T $B024,$08 Score text buffer.
+t $B024 Messaging: Score Buffer
+  $B024,$08 Score text buffer.
 @ $B024 label=Score_Buffer
 
 B $B02C,$03 XXXXX
